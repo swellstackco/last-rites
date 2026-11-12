@@ -9,14 +9,14 @@ This plan implements the Death_Score_Engine in `/skeleton` per the death-score d
 ### Phase 1: Types and configuration
 
 - [x] 1.1 Create `skeleton/src/death-score/types.ts` with `SignalValue<T>`, `SignalName`, `PackageSignals`, `WeightConfig`, `SignalPart`, `GradeBand`, and `DeathScoreResult` exactly as specified in the design Data Models.
-- [ ] 1.2 Create `skeleton/src/death-score/weights.ts` with the default `WeightConfig` (raw weights summing to 100, default thresholds, `unknownFactor = 0.5`) and a pure `normalizeWeights(config)` that scales weights so they sum to 100.
-- [ ] 1.3 Create `skeleton/src/death-score/grade.ts` with `toGrade(score): GradeBand` mapping 0-24 alive, 25-49 ailing, 50-74 dying, 75-100 dead.
+- [x] 1.2 Create `skeleton/src/death-score/weights.ts` with the default `WeightConfig` (raw weights summing to 100, default thresholds, `unknownFactor = 0.5`) and a pure `normalizeWeights(config)` that scales weights so they sum to 100.
+- [x] 1.3 Create `skeleton/src/death-score/grade.ts` with `toGrade(score): GradeBand` mapping 0-24 alive, 25-49 ailing, 50-74 dying, 75-100 dead.
 - [ ] 1.4 Write `weights.test.ts`: defaults load, `normalizeWeights` sums to 100, a zero-weight signal yields 0 points and still appears in the breakdown.
 - [ ] 1.5 Write `grade.test.ts` over boundary integers 0, 24, 25, 49, 50, 74, 75, 100 and a few interior values.
 
 ### Phase 2: Scoring engine
 
-- [ ] 2.1 Create `skeleton/src/death-score/severity.ts` with a pure `severityFactor(signal, value, config): number` returning a value in `[0,1]` per the design table, where unknown maps to `config.unknownFactor` and the most-alive known value maps to 0.
+- [x] 2.1 Create `skeleton/src/death-score/severity.ts` with a pure `severityFactor(signal, value, config): number` returning a value in `[0,1]` per the design table, where unknown maps to `config.unknownFactor` and the most-alive known value maps to 0.
 - [ ] 2.2 Implement `skeleton/src/death-score/score.ts` `scoreDeath(signals, config?): DeathScoreResult`: normalize weights, compute float points per signal, round the score to an integer, assign rounding drift to the largest-remainder part so `sum(parts.points) === score`, attach `sourceUrls`, and call `toGrade`.
 - [ ] 2.3 Clamp negative numeric signals to 0 and clamp non-positive `unknownFactor` to a small positive value per the Error Handling section.
 - [ ] 2.4 Create `skeleton/src/death-score/__fixtures__/` with recorded fixtures: all-alive, all-dead, all-unknown, mixed, and cases with and without source URLs.
