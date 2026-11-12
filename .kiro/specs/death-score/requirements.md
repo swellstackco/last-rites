@@ -25,9 +25,10 @@ The Death_Score_Engine is a pure TypeScript module in the `/skeleton` package of
 
 #### Acceptance Criteria
 
-1. THE Death_Score_Engine SHALL compute a Death_Score from Package_Signals.
-2. FOR ALL Package_Signals, THE Death_Score_Engine SHALL produce a Death_Score greater than or equal to 0 and less than or equal to 100.
-3. FOR ALL Weight_Config values, THE Death_Score_Engine SHALL produce a Death_Score in the range 0 to 100.
+1. WHEN Package_Signals are provided, THE Death_Score_Engine SHALL compute a Death_Score.
+2. WHEN Package_Signals are provided, THE Death_Score_Engine SHALL produce a Death_Score greater than or equal to 0 and less than or equal to 100.
+3. WHILE Package_Signals are present, WHEN a Weight_Config is provided, THE Death_Score_Engine SHALL produce a Death_Score greater than or equal to 0 and less than or equal to 100.
+4. IF Package_Signals are missing or empty, THEN THE Death_Score_Engine SHALL produce an error indicating that Package_Signals are required.
 
 ### Requirement 2: Transparent score breakdown
 
@@ -35,9 +36,9 @@ The Death_Score_Engine is a pure TypeScript module in the `/skeleton` package of
 
 #### Acceptance Criteria
 
-1. THE Death_Score_Engine SHALL return one Signal_Part for each Signal.
-2. THE Death_Score_Engine SHALL include in each Signal_Part the signal name, the raw value, the weight, the points contributed, the status of known or unknown, and the source URL.
-3. FOR ALL Package_Signals, THE Death_Score_Engine SHALL ensure the sum of all Signal_Part points equals the Death_Score.
+1. WHEN the Death_Score is computed for a Package, THE Death_Score_Engine SHALL return one Signal_Part for each Signal evaluated for that Package.
+2. THE Death_Score_Engine SHALL include in each Signal_Part the signal name, the raw value, the weight, the points contributed, a status of "known" when the signal's source data is retrievable and "unknown" when the signal's source data is not retrievable, and the source URL when the status is "known" or an indication that no source URL is available when the status is "unknown".
+3. WHEN the Death_Score is computed for a Package, THE Death_Score_Engine SHALL ensure the sum of all Signal_Part points for all Package_Signals equals the Death_Score within a tolerance of 0.01.
 
 ### Requirement 3: Configurable weights with defaults
 
@@ -47,7 +48,8 @@ The Death_Score_Engine is a pure TypeScript module in the `/skeleton` package of
 
 1. THE Death_Score_Engine SHALL load default weights from a single Weight_Config file.
 2. WHERE a Weight_Config is supplied, THE Death_Score_Engine SHALL use that Weight_Config instead of the defaults.
-3. FOR ALL Weight_Config values, THE Death_Score_Engine SHALL apply the Weight_Config such that the Death_Score remains in the range 0 to 100.
+3. WHILE Package_Signals are present, WHEN a Weight_Config is provided, THE Death_Score_Engine SHALL produce a Death_Score greater than or equal to 0 and less than or equal to 100.
+4. IF a Weight_Config contains a negative weight value, THEN THE Death_Score_Engine SHALL treat that weight as 0 before normalization.
 
 ### Requirement 4: Missing Signals are unknown, not alive
 
@@ -55,9 +57,9 @@ The Death_Score_Engine is a pure TypeScript module in the `/skeleton` package of
 
 #### Acceptance Criteria
 
-1. IF a Signal is missing, THEN THE Death_Score_Engine SHALL mark that Signal as unknown.
-2. IF a Signal is unknown, THEN THE Death_Score_Engine SHALL mark the status of the corresponding Signal_Part as unknown.
-3. FOR ALL Package_Signals and for each Signal, THE Death_Score_Engine SHALL ensure that setting that Signal to unknown yields a Death_Score greater than or equal to setting the same Signal to its most-alive value, with all other Signals held equal.
+1. IF no data is available for a Signal, THEN THE Death_Score_Engine SHALL mark that Signal as unknown.
+2. IF a Signal is unknown, THEN THE Death_Score_Engine SHALL mark the status of the Signal_Part associated with that Signal as unknown.
+3. THE Death_Score_Engine SHALL ensure that setting a Signal to unknown yields a Death_Score greater than or equal to setting the same Signal to the Signal value that indicates maximum liveness, with all other Signals held equal.
 
 ### Requirement 5: Grade bands
 
@@ -65,10 +67,10 @@ The Death_Score_Engine is a pure TypeScript module in the `/skeleton` package of
 
 #### Acceptance Criteria
 
-1. THE Death_Score_Engine SHALL map a Death_Score from 0 to 24 to the alive Grade_Band.
-2. THE Death_Score_Engine SHALL map a Death_Score from 25 to 49 to the ailing Grade_Band.
-3. THE Death_Score_Engine SHALL map a Death_Score from 50 to 74 to the dying Grade_Band.
-4. THE Death_Score_Engine SHALL map a Death_Score from 75 to 100 to the dead Grade_Band.
+1. THE Death_Score_Engine SHALL map a Death_Score greater than or equal to 0 and less than or equal to 24 to the alive Grade_Band.
+2. THE Death_Score_Engine SHALL map a Death_Score greater than or equal to 25 and less than or equal to 49 to the ailing Grade_Band.
+3. THE Death_Score_Engine SHALL map a Death_Score greater than or equal to 50 and less than or equal to 74 to the dying Grade_Band.
+4. THE Death_Score_Engine SHALL map a Death_Score greater than or equal to 75 and less than or equal to 100 to the dead Grade_Band.
 
 ### Requirement 6: Deterministic, pure, no network
 
@@ -76,8 +78,9 @@ The Death_Score_Engine is a pure TypeScript module in the `/skeleton` package of
 
 #### Acceptance Criteria
 
-1. THE Death_Score_Engine SHALL be a pure function that performs no network access.
-2. FOR ALL Package_Signals, THE Death_Score_Engine SHALL return the same Death_Score for the same Package_Signals and the same Weight_Config.
+1. THE Death_Score_Engine SHALL perform no network access.
+2. WHEN the Death_Score_Engine is invoked more than once with the same Package_Signals and the same Weight_Config, THE Death_Score_Engine SHALL return an identical Death_Score on each invocation.
+3. THE Death_Score_Engine SHALL produce a Death_Score that is independent of external mutable state, including system time and random values.
 
 ### Requirement 7: Monotonic in the death direction
 
@@ -85,7 +88,7 @@ The Death_Score_Engine is a pure TypeScript module in the `/skeleton` package of
 
 #### Acceptance Criteria
 
-1. FOR ALL pairs of Package_Signals where one is at least as dead as the other on every Signal in the Death_Direction, THE Death_Score_Engine SHALL produce a Death_Score for the deader Package_Signals that is greater than or equal to the Death_Score for the less-dead Package_Signals.
+1. FOR ALL pairs of Package_Signals where all Signals are known and one is at least as dead as the other on every Signal in the Death_Direction, and FOR ALL Weight_Config values, THE Death_Score_Engine SHALL produce a Death_Score for the deader Package_Signals that is greater than or equal to the Death_Score for the less-dead Package_Signals.
 
 ### Requirement 8: Evidence source links
 
@@ -93,8 +96,8 @@ The Death_Score_Engine is a pure TypeScript module in the `/skeleton` package of
 
 #### Acceptance Criteria
 
-1. WHERE a source URL is supplied for a Signal, THE Death_Score_Engine SHALL include that source URL in the corresponding Signal_Part.
-2. IF no source URL is supplied for a Signal, THEN THE Death_Score_Engine SHALL omit the source URL from that Signal_Part.
+1. WHERE a source URL is supplied for a Signal, THE Death_Score_Engine SHALL include that source URL unchanged in the corresponding Signal_Part.
+2. IF no source URL is supplied for a Signal or the supplied source URL is an empty string or not a valid URL format, THEN THE Death_Score_Engine SHALL omit the source URL from that Signal_Part.
 
 ### Requirement 9: Property-based test coverage
 
@@ -102,5 +105,6 @@ The Death_Score_Engine is a pure TypeScript module in the `/skeleton` package of
 
 #### Acceptance Criteria
 
-1. THE Death_Score_Engine SHALL be covered by property-based tests for the bounded, transparent, deterministic, unknown-not-alive, and monotonic correctness properties.
-2. THE Death_Score_Engine test suite SHALL include a sabotage check that confirms each property can fail against a deliberately wrong implementation.
+1. THE Death_Score_Engine SHALL be covered by property-based tests for the bounded, transparent, deterministic, unknown-not-alive, and monotonic correctness properties, with each property-based test running at least 100 generated cases.
+2. THE Death_Score_Engine test suite SHALL include a sabotage check for each of the bounded, transparent, deterministic, unknown-not-alive, and monotonic correctness properties.
+3. IF a sabotage check runs the property-based test for a property against an implementation that violates that property, THEN THE Death_Score_Engine test suite SHALL report a test failure.
