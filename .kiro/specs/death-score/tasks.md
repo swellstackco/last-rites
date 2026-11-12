@@ -8,7 +8,7 @@ This plan implements the Death_Score_Engine in `/skeleton` per the death-score d
 
 ### Phase 1: Types and configuration
 
-- [ ] 1.1 Create `skeleton/src/death-score/types.ts` with `SignalValue<T>`, `SignalName`, `PackageSignals`, `WeightConfig`, `SignalPart`, `GradeBand`, and `DeathScoreResult` exactly as specified in the design Data Models.
+- [x] 1.1 Create `skeleton/src/death-score/types.ts` with `SignalValue<T>`, `SignalName`, `PackageSignals`, `WeightConfig`, `SignalPart`, `GradeBand`, and `DeathScoreResult` exactly as specified in the design Data Models.
 - [ ] 1.2 Create `skeleton/src/death-score/weights.ts` with the default `WeightConfig` (raw weights summing to 100, default thresholds, `unknownFactor = 0.5`) and a pure `normalizeWeights(config)` that scales weights so they sum to 100.
 - [ ] 1.3 Create `skeleton/src/death-score/grade.ts` with `toGrade(score): GradeBand` mapping 0-24 alive, 25-49 ailing, 50-74 dying, 75-100 dead.
 - [ ] 1.4 Write `weights.test.ts`: defaults load, `normalizeWeights` sums to 100, a zero-weight signal yields 0 points and still appears in the breakdown.
