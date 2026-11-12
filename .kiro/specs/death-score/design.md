@@ -193,7 +193,8 @@ For any pair `(A, B)` of fully-specified `Package_Signals` (no unknowns) where `
 For any fully-known `Package_Signals` and any single signal index `i`:
 
 - Arbitrary: known signals; a signal index chosen from the seven.
-- Assert: `scoreDeath(signals with signal i set to unknown).score >= scoreDeath(signals with signal i set to its most-alive value).score`, all other signals equal.
+- Assert: `scoreDeath(signals with signal i set to unknown, DEFAULT_WEIGHT_CONFIG).score > scoreDeath(signals with signal i set to its most-alive value, DEFAULT_WEIGHT_CONFIG).score` (strictly greater), all other signals equal. The precondition is the default weight config, where every weight is at least 3, so every signal's normalized weight is positive and unknown adds at least 1.5 float points, enough to survive rounding.
+- Why strict: the earlier `>=` version let the "unknown treated as alive" sabotage pass (equal scores satisfy `>=`); the sabotage suite found this.
 - Sabotage: an implementation that treats unknown as the most-alive value (`unknownFactor = 0`) fails because the left side no longer exceeds the right.
 
 ### Sabotage harness
