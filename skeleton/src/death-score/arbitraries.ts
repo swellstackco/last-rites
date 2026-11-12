@@ -149,3 +149,125 @@ export const weightConfigArb: fc.Arbitrary<WeightConfig> = fc.record({
   openVulnsFullDead: fc.integer({ min: 1, max: 10 }),
   unknownFactor: fc.double({ min: 0.001, max: 1, noNaN: true }),
 });
+
+// ---------------------------------------------------------------------------
+// Fully-known PackageSignals generator (for Property 5)
+// ---------------------------------------------------------------------------
+
+/** Generate a known signal value from an arbitrary (no unknown variant). */
+function knownSignal<T>(arb: fc.Arbitrary<T>): fc.Arbitrary<SignalValue<T>> {
+  return arb.map((v): SignalValue<T> => ({ kind: "known", value: v }));
+}
+
+/**
+ * PackageSignals where every signal is known (no unknowns).
+ * Used by Property 5 (Unknown is not alive).
+ */
+export const fullyKnownPackageSignalsArb: fc.Arbitrary<PackageSignals> =
+  fc.record({
+    deprecated: knownSignal(fc.boolean()),
+    repoArchived: knownSignal(fc.boolean()),
+    monthsSinceLastPublish: knownSignal(monthsArb),
+    monthsSinceLastCommit: knownSignal(monthsArb),
+    maintainerCount: knownSignal(maintainerArb),
+    openVulnsNoFix: knownSignal(vulnsArb),
+    knownReplacementExists: knownSignal(fc.boolean()),
+  });
+
+// ---------------------------------------------------------------------------
+// Death-dominance generator (for Property 4: Monotonic)
+// ---------------------------------------------------------------------------
+
+/**
+ * Generate a pair (A, B) of fully-known PackageSignals where B is at least
+ * as dead as A on every signal:
+ * - Booleans (deprecated, repoArchived, knownReplacementExists): B is true if A is true.
+ * - Months (monthsSinceLastPublish, monthsSinceLastCommit): B >= A.
+ * - Maintainer count: B <= A (fewer maintainers = deader).
+ * - Open vulns: B >= A (more vulns = deader).
+ *
+ * Includes edge cases: all-alive -> all-dead, and A = B (equal pair).
+ */
+export const deathDominatingPairArb: fc.Arbitrary<
+  [PackageSignals, PackageSignals]
+> = fc.oneof(
+  // Random dominance pair: generate A, then worsen-or-equal each signal for B.
+  fc
+    .record({
+      deprecatedA: fc.boolean(),
+      repoArchivedA: fc.boolean(),
+      monthsSinceLastPublishA: monthsArb,
+      monthsSinceLastCommitA: monthsArb,
+      maintainerCountA: maintainerArb,
+      openVulnsNoFixA: vulnsArb,
+      knownReplacementExistsA: fc.boolean(),
+    })
+    .chain((a) =>
+      fc
+        .record({
+          deprecatedB: a.deprecatedA ? fc.constant(true) : fc.boolean(),
+          repoArchivedB: a.repoArchivedA ? fc.constant(true) : fc.boolean(),
+          monthsSinceLastPublishB: fc.integer({
+            min: a.monthsSinceLastPublishA,
+            max: 120,
+          }),
+          monthsSinceLastCommitB: fc.integer({
+            min: a.monthsSinceLastCommitA,
+            max: 120,
+          }),
+          maintainerCountB: fc.integer({ min: 0, max: a.maintainerCountA }),
+          openVulnsNoFixB: fc.integer({ min: a.openVulnsNoFixA, max: 10 }),
+          knownReplacementExistsB: a.knownReplacementExistsA
+            ? fc.constant(true)
+            : fc.boolean(),
+        })
+        .map((b): [PackageSignals, PackageSignals] => {
+          const A: PackageSignals = {
+            deprecated: { kind: "known", value: a.deprecatedA },
+            repoArchived: { kind: "known", value: a.repoArchivedA },
+            monthsSinceLastPublish: {
+              kind: "known",
+              value: a.monthsSinceLastPublishA,
+            },
+            monthsSinceLastCommit: {
+              kind: "known",
+              value: a.monthsSinceLastCommitA,
+            },
+            maintainerCount: { kind: "known", value: a.maintainerCountA },
+            openVulnsNoFix: { kind: "known", value: a.openVulnsNoFixA },
+            knownReplacementExists: {
+              kind: "known",
+              value: a.knownReplacementExistsA,
+            },
+          };
+          const B: PackageSignals = {
+            deprecated: { kind: "known", value: b.deprecatedB },
+            repoArchived: { kind: "known", value: b.repoArchivedB },
+            monthsSinceLastPublish: {
+              kind: "known",
+              value: b.monthsSinceLastPublishB,
+            },
+            monthsSinceLastCommit: {
+              kind: "known",
+              value: b.monthsSinceLastCommitB,
+            },
+            maintainerCount: { kind: "known", value: b.maintainerCountB },
+            openVulnsNoFix: { kind: "known", value: b.openVulnsNoFixB },
+            knownReplacementExists: {
+              kind: "known",
+              value: b.knownReplacementExistsB,
+            },
+          };
+          return [A, B];
+        }),
+    ),
+  // Edge case: all-alive -> all-dead (maximal dominance)
+  fc.constant([
+    allAliveSignals,
+    allDeadSignals,
+  ] as [PackageSignals, PackageSignals]),
+  // Edge case: A = B (equal pair, dominance holds trivially)
+  fullyKnownPackageSignalsArb.map(
+    (s): [PackageSignals, PackageSignals] => [s, s],
+  ),
+);

@@ -20,24 +20,24 @@ This plan implements the Death_Score_Engine in `/skeleton` per the death-score d
 - [x] 2.2 Implement `skeleton/src/death-score/score.ts` `scoreDeath(signals, config?): DeathScoreResult`: normalize weights, compute float points per signal, round the score to an integer, assign rounding drift to the largest-remainder part so `sum(parts.points) === score`, attach `sourceUrls`, and call `toGrade`.
 - [x] 2.3 Clamp negative numeric signals to 0 and clamp non-positive `unknownFactor` to a small positive value per the Error Handling section.
 - [x] 2.4 Create `skeleton/src/death-score/__fixtures__/` with recorded fixtures: all-alive, all-dead, all-unknown, mixed, and cases with and without source URLs.
-- [ ] 2.5 Write `score.test.ts` using the fixtures: assert score range, one part per signal, part fields, parts summing to the score, and source URL presence/absence.
+- [x] 2.5 Write `score.test.ts` using the fixtures: assert score range, one part per signal, part fields, parts summing to the score, and source URL presence/absence.
 
 ### Phase 3: Property-based tests
 
 - [x] 3.1 Create `skeleton/src/death-score/arbitraries.ts` with fast-check generators for `PackageSignals` (each signal known-with-realistic-domain or unknown, plus edge cases: all-alive, all-dead, all-unknown, zero maintainers, boundary months) and `WeightConfig` (positive weights).
-- [ ] 3.2 Add a death-dominance generator producing pairs `(A, B)` of fully-known `PackageSignals` where `B` is at least as dead as `A` on every signal.
-- [ ] 3.3 Implement Property 1 (Bounded): for arbitrary signals and config, assert `0 <= score <= 100`. `numRuns: 100`.
-- [ ] 3.4 Implement Property 2 (Transparent): for arbitrary signals, assert `sum(parts.points) === score` and one part per signal. `numRuns: 100`.
-- [ ] 3.5 Implement Property 3 (Deterministic): assert `scoreDeath(x, c)` deep-equals a second call and equal inputs give equal results. `numRuns: 100`.
+- [x] 3.2 Add a death-dominance generator producing pairs `(A, B)` of fully-known `PackageSignals` where `B` is at least as dead as `A` on every signal.
+- [x] 3.3 Implement Property 1 (Bounded): for arbitrary signals and config, assert `0 <= score <= 100`. `numRuns: 100`.
+- [x] 3.4 Implement Property 2 (Transparent): for arbitrary signals, assert `sum(parts.points) === score` and one part per signal. `numRuns: 100`.
+- [x] 3.5 Implement Property 3 (Deterministic): assert `scoreDeath(x, c)` deep-equals a second call and equal inputs give equal results. `numRuns: 100`.
 - [ ] 3.6 Implement Property 4 (Monotonic): for death-dominating pairs `(A, B)`, assert `scoreDeath(B).score >= scoreDeath(A).score`. `numRuns: 100`.
-- [ ] 3.7 Implement Property 5 (Unknown is not alive): for arbitrary known signals and each signal index, assert unknown-score >= most-alive-score. `numRuns: 100`.
+- [x] 3.7 Implement Property 5 (Unknown is not alive): for arbitrary known signals and each signal index, assert unknown-score >= most-alive-score. `numRuns: 100`.
 - [ ] 3.8 Create `skeleton/src/death-score/sabotage.ts` running each property against deliberately wrong implementations (no normalization, independent rounding, inverted signal, nondeterminism, unknown-as-alive) and assert at least one property fails for each.
 - [ ] 3.9 Configure a fixed fast-check seed in CI and record-on-failure; add the seed/counterexample capture to the suite.
 
 ### Phase 4: Integration and documentation
 
 - [x] 4.1 Create `skeleton/src/death-score/index.ts` re-exporting `scoreDeath`, `toGrade`, `normalizeWeights`, the default `WeightConfig`, and the public types.
-- [ ] 4.2 Wire the `death-score` module into the `skeleton` package exports in `package.json` (ESM only).
+- [x] 4.2 Wire the `death-score` module into the `skeleton` package exports in `package.json` (ESM only).
 - [ ] 4.3 Run `npm run typecheck` across workspaces and fix any strict-mode errors.
 - [ ] 4.4 Run `npm test` for the death-score module and confirm all properties and sabotage checks pass with `numRuns: 100`.
 - [ ] 4.5 Append a dated entry to `docs/kiro-log.md` noting the death-score build, the property suite, and any shrunk counterexamples the sabotage checks or properties surfaced.
