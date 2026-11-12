@@ -11,20 +11,20 @@ This plan implements the Death_Score_Engine in `/skeleton` per the death-score d
 - [x] 1.1 Create `skeleton/src/death-score/types.ts` with `SignalValue<T>`, `SignalName`, `PackageSignals`, `WeightConfig`, `SignalPart`, `GradeBand`, and `DeathScoreResult` exactly as specified in the design Data Models.
 - [x] 1.2 Create `skeleton/src/death-score/weights.ts` with the default `WeightConfig` (raw weights summing to 100, default thresholds, `unknownFactor = 0.5`) and a pure `normalizeWeights(config)` that scales weights so they sum to 100.
 - [x] 1.3 Create `skeleton/src/death-score/grade.ts` with `toGrade(score): GradeBand` mapping 0-24 alive, 25-49 ailing, 50-74 dying, 75-100 dead.
-- [ ] 1.4 Write `weights.test.ts`: defaults load, `normalizeWeights` sums to 100, a zero-weight signal yields 0 points and still appears in the breakdown.
-- [ ] 1.5 Write `grade.test.ts` over boundary integers 0, 24, 25, 49, 50, 74, 75, 100 and a few interior values.
+- [x] 1.4 Write `weights.test.ts`: defaults load, `normalizeWeights` sums to 100, a zero-weight signal yields 0 points and still appears in the breakdown.
+- [x] 1.5 Write `grade.test.ts` over boundary integers 0, 24, 25, 49, 50, 74, 75, 100 and a few interior values.
 
 ### Phase 2: Scoring engine
 
 - [x] 2.1 Create `skeleton/src/death-score/severity.ts` with a pure `severityFactor(signal, value, config): number` returning a value in `[0,1]` per the design table, where unknown maps to `config.unknownFactor` and the most-alive known value maps to 0.
-- [ ] 2.2 Implement `skeleton/src/death-score/score.ts` `scoreDeath(signals, config?): DeathScoreResult`: normalize weights, compute float points per signal, round the score to an integer, assign rounding drift to the largest-remainder part so `sum(parts.points) === score`, attach `sourceUrls`, and call `toGrade`.
-- [ ] 2.3 Clamp negative numeric signals to 0 and clamp non-positive `unknownFactor` to a small positive value per the Error Handling section.
-- [ ] 2.4 Create `skeleton/src/death-score/__fixtures__/` with recorded fixtures: all-alive, all-dead, all-unknown, mixed, and cases with and without source URLs.
+- [x] 2.2 Implement `skeleton/src/death-score/score.ts` `scoreDeath(signals, config?): DeathScoreResult`: normalize weights, compute float points per signal, round the score to an integer, assign rounding drift to the largest-remainder part so `sum(parts.points) === score`, attach `sourceUrls`, and call `toGrade`.
+- [x] 2.3 Clamp negative numeric signals to 0 and clamp non-positive `unknownFactor` to a small positive value per the Error Handling section.
+- [x] 2.4 Create `skeleton/src/death-score/__fixtures__/` with recorded fixtures: all-alive, all-dead, all-unknown, mixed, and cases with and without source URLs.
 - [ ] 2.5 Write `score.test.ts` using the fixtures: assert score range, one part per signal, part fields, parts summing to the score, and source URL presence/absence.
 
 ### Phase 3: Property-based tests
 
-- [ ] 3.1 Create `skeleton/src/death-score/arbitraries.ts` with fast-check generators for `PackageSignals` (each signal known-with-realistic-domain or unknown, plus edge cases: all-alive, all-dead, all-unknown, zero maintainers, boundary months) and `WeightConfig` (positive weights).
+- [x] 3.1 Create `skeleton/src/death-score/arbitraries.ts` with fast-check generators for `PackageSignals` (each signal known-with-realistic-domain or unknown, plus edge cases: all-alive, all-dead, all-unknown, zero maintainers, boundary months) and `WeightConfig` (positive weights).
 - [ ] 3.2 Add a death-dominance generator producing pairs `(A, B)` of fully-known `PackageSignals` where `B` is at least as dead as `A` on every signal.
 - [ ] 3.3 Implement Property 1 (Bounded): for arbitrary signals and config, assert `0 <= score <= 100`. `numRuns: 100`.
 - [ ] 3.4 Implement Property 2 (Transparent): for arbitrary signals, assert `sum(parts.points) === score` and one part per signal. `numRuns: 100`.
@@ -36,7 +36,7 @@ This plan implements the Death_Score_Engine in `/skeleton` per the death-score d
 
 ### Phase 4: Integration and documentation
 
-- [ ] 4.1 Create `skeleton/src/death-score/index.ts` re-exporting `scoreDeath`, `toGrade`, `normalizeWeights`, the default `WeightConfig`, and the public types.
+- [x] 4.1 Create `skeleton/src/death-score/index.ts` re-exporting `scoreDeath`, `toGrade`, `normalizeWeights`, the default `WeightConfig`, and the public types.
 - [ ] 4.2 Wire the `death-score` module into the `skeleton` package exports in `package.json` (ESM only).
 - [ ] 4.3 Run `npm run typecheck` across workspaces and fix any strict-mode errors.
 - [ ] 4.4 Run `npm test` for the death-score module and confirm all properties and sabotage checks pass with `numRuns: 100`.
