@@ -27,9 +27,10 @@ export type ClassName =
   | "group" | "group-title" | "grid" | "grid-dead" | "grid-dying" | "grid-ailing" | "grid-alive"
   | "disclosure" | "skipped"
   | "tombstone" | "tombstone-dead" | "tombstone-dying" | "tombstone-ailing" | "tombstone-alive"
-  | "tomb-name" | "tomb-score" | "tomb-grade" | "tomb-summary" | "tomb-badge" | "tomb-label"
+  | "tomb-name" | "tomb-score" | "tomb-grade" | "tomb-summary" | "tomb-badge"
   | "backdrop" | "sheet" | "sheet-head" | "facts" | "score-big" | "grade-chip"
   | "breakdown" | "bar" | "bar-fill" | "calibration" | "calibration-label" | "total" | "unknown" | "mismatch"
+  | "col-signal" | "col-value" | "col-status" | "col-points" | "col-source" | "total-label"
   | "proof" | "num" | "muted";
 
 type DataKey = `data-${string}`;

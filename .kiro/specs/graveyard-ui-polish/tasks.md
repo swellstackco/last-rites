@@ -8,25 +8,25 @@ Fixes the seven presentation defects D1-D7 of the Graveyard_Page found in `docs/
 
 ### Phase 1: Explore the bug on unfixed code
 
-- [ ] 1.1 Exploratory DOM test (expected to FAIL on unfixed code)
+- [x] 1.1 Exploratory DOM test (expected to FAIL on unfixed code)
   - Add `scanReportArb` and `openPackageArb` to `test-support/arbitraries.ts` (see design.md) and `test-support/rendered-facts.ts` (`renderedFacts(root)`).
   - Write the DOM half of Property 9 in `test-support/properties/p9.ts` and `polish.dom.test.ts` (`numRuns: 100`, `fc-runner` seed policy): one Grade_Label per Tombstone, calibration Source text, one Total_Row without empty cells, heading focus kept.
   - Run against the UNFIXED code. Confirm it FAILS for D3 (two labels), D5, D6 and passes the focus assertion. _Requirements: 1.3, 1.6, 1.7, 2.3, 2.6, 2.7_
-- [ ] 1.2 Exploratory Stylesheet test (expected to FAIL on unfixed code)
+- [x] 1.2 Exploratory Stylesheet test (expected to FAIL on unfixed code)
   - Move the declaration parser out of `theme/theme.test.ts` into `theme/css-parse.ts` (same behavior; `theme.test.ts` imports it) and add `test-support/css-checks.ts` with `checkStylesheet(css)` implementing S1-S7 from design.md. `theme.test.ts` keeps its existing checks unchanged.
   - Run `checkStylesheet` on the unfixed Stylesheet. Confirm it reports violations for S1 (container on `.app`, 90rem, picker/status have none), S2 (`.counts`), S3 (gradient line, border-top only), S4 (`td, th` anywhere), S5 (every tfoot cell has a border), S6 (no `:focus:not(:focus-visible)`), and none for S7. _Requirements: 1.1, 1.2, 1.4, 1.5, 1.7, 1.8, 2.1, 2.2, 2.4, 2.5, 2.7, 2.8_
-- [ ] 1.3 Record the violation lists and the seed in `docs/kiro-log.md` (dated entry) and compare with the hypothesized root causes in design.md. Add what the tests cannot explain: why D1 showed no gutter on the graveyard page although `.app` has padding, and what clips the arch (look at the built `dist` CSS and, if a browser is available, at the page). If the evidence points elsewhere, revise design.md "Hypothesized Root Cause" before continuing.
+- [x] 1.3 Record the violation lists and the seed in `docs/kiro-log.md` (dated entry) and compare with the hypothesized root causes in design.md. Add what the tests cannot explain: why D1 showed no gutter on the graveyard page although `.app` has padding, and what clips the arch (look at the built `dist` CSS and, if a browser is available, at the page). If the evidence points elsewhere, revise design.md "Hypothesized Root Cause" before continuing.
 
 ### Phase 2: Preservation baseline on unfixed code
 
-- [ ] 2.1 Freeze the original views as `apps/exorcist-web/src/__reference__/views-v1/{tombstone,breakdown,header}.ts` (byte copies, imports adjusted to `../../`, header "FROZEN, test-only, never import from production code or main.ts"). Add a harness option so `mountPage` can render with the reference views (an injected view set in test code only; production `controller.ts` is not changed). _Requirements: 3.1, 3.2, 3.3_
-- [ ] 2.2 Write Property 10 in `test-support/properties/p10.ts` and `polish.preserve.dom.test.ts`: `renderedFacts(fixed)` deep-equals `renderedFacts(reference)` and the facts expected from the report; keys per group and header counts; unsafe URLs withheld; names written as text. Add the S7 checks as an explicit group in `checkStylesheet` (the existing `theme.test.ts` checks stay too).
-- [ ] 2.3 Run Property 10 and S7 against the UNFIXED code. Confirm they PASS (baseline) and note the seed in `docs/kiro-log.md`. _Requirements: 3.1-3.8_
+- [x] 2.1 Freeze the original views as `apps/exorcist-web/src/__reference__/views-v1/{tombstone,breakdown,header}.ts` (byte copies, imports adjusted to `../../`, header "FROZEN, test-only, never import from production code or main.ts"). Add a harness option so `mountPage` can render with the reference views (an injected view set in test code only; production `controller.ts` is not changed). _Requirements: 3.1, 3.2, 3.3_
+- [x] 2.2 Write Property 10 in `test-support/properties/p10.ts` and `polish.preserve.dom.test.ts`: `renderedFacts(fixed)` deep-equals `renderedFacts(reference)` and the facts expected from the report; keys per group and header counts; unsafe URLs withheld; names written as text. Add the S7 checks as an explicit group in `checkStylesheet` (the existing `theme.test.ts` checks stay too).
+- [x] 2.3 Run Property 10 and S7 against the UNFIXED code. Confirm they PASS (baseline) and note the seed in `docs/kiro-log.md`. _Requirements: 3.1-3.8_
 
 ### Phase 3: Implement the fix
 
-- [ ] 3.1 `dom/h.ts`: add `col-signal`, `col-value`, `col-status`, `col-points`, `col-source`, `total-label` to `ClassName`; remove `tomb-label` after 3.2 (do not leave unused names); add `wbr` to the tag vocabulary if it is closed. Update `dom/h.test.ts` if it lists the vocabulary.
-- [ ] 3.2 `views/tombstone.ts` (D3a): remove the `span.tomb-label.chip` child; keep `span.tomb-grade`. Do not change ids, aria, `data-*`, score spans, summary or badge. _Requirements: 2.3, 3.2_
+- [x] 3.1 `dom/h.ts`: add `col-signal`, `col-value`, `col-status`, `col-points`, `col-source`, `total-label` to `ClassName`; remove `tomb-label` after 3.2 (do not leave unused names); add `wbr` to the tag vocabulary if it is closed. Update `dom/h.test.ts` if it lists the vocabulary.
+- [x] 3.2 `views/tombstone.ts` (D3a): remove the `span.tomb-label.chip` child; keep `span.tomb-grade`. Do not change ids, aria, `data-*`, score spans, summary or badge. _Requirements: 2.3, 3.2_
 - [ ] 3.3 `views/breakdown.ts` (D4, D5, D6):
   - add the `col-*` classes to the header `th` and to every signal and calibration cell;
   - hostname in the Source_Cell with `<wbr>` after each dot (text unchanged, `aria-label` unchanged);

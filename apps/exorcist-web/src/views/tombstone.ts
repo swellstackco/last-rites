@@ -50,7 +50,6 @@ export function renderTombstone(grave: Grave<ScannedDependency>): HTMLButtonElem
       "data-key": grave.key,
       "data-grade": grade,
     },
-    h("span", { class: ["tomb-label", "chip"], "aria-hidden": "true" }, GRADE_INFO[grade].label.toUpperCase()),
     h("span", { class: "tomb-name" }, cutText(name)),
     h(
       "span",
