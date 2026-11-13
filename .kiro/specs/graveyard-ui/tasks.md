@@ -81,21 +81,21 @@ Scope is the Graveyard only. No change to the scan API, scanner, evidence stage 
 
 ### Phase 4: Page models, Api_Client and fixtures
 
-- [ ] 4.1 Create `apps/exorcist-web/src/constants.ts` (`PRODUCT_NAME`, `SCREEN_NAME`, `LIVE_SCAN_LIMIT`, timeouts, `DEFAULT_RETRY_AFTER_S`, `MAX_SERVER_MESSAGE`, `WITHHELD_URL_CUT`, copy strings used by more than one view) and `model/demo-repos.ts` (`DEMO_REPOS` with name, `owner/repo`, count-free blurb).
+- [x] 4.1 Create `apps/exorcist-web/src/constants.ts` (`PRODUCT_NAME`, `SCREEN_NAME`, `LIVE_SCAN_LIMIT`, timeouts, `DEFAULT_RETRY_AFTER_S`, `MAX_SERVER_MESSAGE`, `WITHHELD_URL_CUT`, copy strings used by more than one view) and `model/demo-repos.ts` (`DEMO_REPOS` with name, `owner/repo`, count-free blurb).
   - _Requirements: 1.5, 2.1, 2.3, 3.6_
-- [ ] 4.2 Write `demo-repos.test.ts`: the names equal the set of `demo/*.json` file names (read with `node:fs`), each matches `^[a-z0-9][a-z0-9-]{0,63}$`, order is parse-server, prettier, jest, pump; and `LIVE_SCAN_LIMIT` equals `DEFAULT_SCAN_API_CONFIG.scanRateLimit` imported by a relative path in the test only.
+- [x] 4.2 Write `demo-repos.test.ts`: the names equal the set of `demo/*.json` file names (read with `node:fs`), each matches `^[a-z0-9][a-z0-9-]{0,63}$`, order is parse-server, prettier, jest, pump; and `LIVE_SCAN_LIMIT` equals `DEFAULT_SCAN_API_CONFIG.scanRateLimit` imported by a relative path in the test only.
   - _Requirements: 2.1, 2.3, 3.6_
-- [ ] 4.3 Create `model/repo-input.ts` with `parseRepoInput(repoText, refText?)` per the design: trim, length 1..300, optional scheme, only the `github.com/` host prefix, one trailing `/` then one trailing `.git`, exact `owner/name` patterns of the scanner, ref rule, case preserved, field-tagged error messages.
+- [x] 4.3 Create `model/repo-input.ts` with `parseRepoInput(repoText, refText?)` per the design: trim, length 1..300, optional scheme, only the `github.com/` host prefix, one trailing `/` then one trailing `.git`, exact `owner/name` patterns of the scanner, ref rule, case preserved, field-tagged error messages.
   - _Requirements: 3.2, 3.3, 3.4_
-- [ ] 4.4 Write `repo-input.test.ts` examples: each accepted spelling, whitespace, `www.github.com` rejected, other hosts rejected, extra path segment rejected, `owner/..` rejected, owner of 40 characters rejected, repo with `_` and `.` accepted, bad ref (`a..b`, `a b`, 201 characters) rejected with `ref`, empty ref accepted as none.
+- [x] 4.4 Write `repo-input.test.ts` examples: each accepted spelling, whitespace, `www.github.com` rejected, other hosts rejected, extra path segment rejected, `owner/..` rejected, owner of 40 characters rejected, repo with `_` and `.` accepted, bad ref (`a..b`, `a b`, 201 characters) rejected with `ref`, empty ref accepted as none.
   - _Requirements: 3.2, 3.3, 3.4_
-- [ ] 4.5 Create `app/router.ts` with the `Route` type, `parseRoute` and `formatRoute` per the design (`encodeURIComponent` for every value, manual split, try/catch around decoding, demo name and live repo validation, empty `pkg` means absent).
+- [x] 4.5 Create `app/router.ts` with the `Route` type, `parseRoute` and `formatRoute` per the design (`encodeURIComponent` for every value, manual split, try/catch around decoding, demo name and live repo validation, empty `pkg` means absent).
   - _Requirements: 17.1, 17.2, 17.3_
-- [ ] 4.6 Write `router.test.ts` examples: each route shape, `pkg` with `/`, `@scope/name`, `#`, `%`, `&`, `?`, spaces and emoji, bad percent-escape gives picker, empty string and `#` give picker, upper-case demo name gives picker.
+- [x] 4.6 Write `router.test.ts` examples: each route shape, `pkg` with `/`, `@scope/name`, `#`, `%`, `&`, `?`, spaces and emoji, bad percent-escape gives picker, empty string and `#` give picker, upper-case demo name gives picker.
   - _Requirements: 17.1, 17.2, 17.3_
-- [ ] 4.7 Create `api/errors.ts` with `UiError`, `KNOWN_ERROR_CODES`, and the total `describeError` that implements the table in the design (titles, details, `retryable`, `retryAfterSeconds` clamped 1..3600 with default 60, `serverMessage` cut to 300, `parseDetail`).
+- [x] 4.7 Create `api/errors.ts` with `UiError`, `KNOWN_ERROR_CODES`, and the total `describeError` that implements the table in the design (titles, details, `retryable`, `retryAfterSeconds` clamped 1..3600 with default 60, `serverMessage` cut to 300, `parseDetail`).
   - _Requirements: 4.2, 4.3, 4.5, 4.6, 4.7, 4.8, 4.11_
-- [ ] 4.8 Write `errors.test.ts`: a table-driven test over every documented code (status, title present, `retryable` as documented), 429 with `retry-after: 42`, `"0"`, `"-5"`, `"abc"`, `"99999"` and missing, a body that is `null`, an array and a 1 MB string, `network`, `timeout` and `parse` kinds.
+- [x] 4.8 Write `errors.test.ts`: a table-driven test over every documented code (status, title present, `retryable` as documented), 429 with `retry-after: 42`, `"0"`, `"-5"`, `"abc"`, `"99999"` and missing, a body that is `null`, an array and a 1 MB string, `network`, `timeout` and `parse` kinds.
   - _Requirements: 4.2, 4.3, 4.5, 4.6, 4.7, 4.11_
 - [ ] 4.9 Create `test-support/fake-fetch.ts` (records calls with method, URL, headers, body; serves a route table of static responses or functions; throws a test-failing error with method and URL for anything unmatched; supports delayed responses released by the test and honours `AbortSignal`), `test-support/fake-timers.ts` (a manual `setTimeout`/`clearTimeout` and a clock with `advance(ms)`), and `test-support/build-report.ts` (builds a `ScanReport` from a list of `{ name, signals, config?, unknownReasons?, versionSource? }` using the real `scoreDeath`, with correct `summary`, plus tamper helpers for URLs, sums and grades).
   - _Requirements: 22.1, 22.5_
