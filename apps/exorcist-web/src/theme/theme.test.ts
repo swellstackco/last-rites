@@ -24,7 +24,10 @@ const color = (name: string): Rgb => {
 };
 
 const GROUNDS = ["--night", "--soil", "--stone"];
-const TEXT = ["--moon", "--mist", "--ember", "--amber", "--lichen", "--moss", "--link", "--focus"];
+// Task 1.6: --amber and --focus now hold their Toe Tag values (light page); they leave the legacy night lists and
+// are checked against the Toe Tag grounds below. Task 8.5 rewrites this file for the new tokens.
+const TEXT = ["--moon", "--mist", "--ember", "--lichen", "--moss", "--link"];
+const TOE_TAG_GROUNDS = ["--wall", "--tag", "--paper"];
 
 describe("contrast math", () => {
   it("black on white is 21, symmetric, at least 1", () => {
@@ -65,10 +68,19 @@ describe("tokens.css", () => {
   });
 
   it("focus ring and edge reach 3:1 on every ground", () => {
-    for (const t of ["--focus", "--edge"]) {
+    for (const t of ["--edge"]) {
       for (const g of GROUNDS) {
         expect(contrastRatio(color(t), color(g)), `${t} on ${g}`).toBeGreaterThanOrEqual(3);
       }
+    }
+    for (const g of TOE_TAG_GROUNDS) {
+      expect(contrastRatio(color("--focus"), color(g)), `--focus on ${g}`).toBeGreaterThanOrEqual(3);
+    }
+  });
+
+  it("Toe Tag band pairs reach 4.5:1 (rust included)", () => {
+    for (const [fg, bg] of [["--on-band", "--red"], ["--on-band", "--rust"], ["--on-band", "--steel"], ["--ink", "--amber"]] as const) {
+      expect(contrastRatio(color(fg), color(bg)), `${fg} on ${bg}`).toBeGreaterThanOrEqual(4.5);
     }
   });
 

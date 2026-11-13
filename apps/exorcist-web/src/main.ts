@@ -1,4 +1,5 @@
 // Entry point: build the real dependencies and mount the controller.
+import "./styles/fonts.css";
 import "./styles/tokens.css";
 import "./styles/base.css";
 import "./styles/graveyard.css";

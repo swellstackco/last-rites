@@ -286,3 +286,13 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
   - intersect panel: NO Proof section is shown. Cause: `controller.ts` line 219 only requests a proof for packages graded `dead` or `dying`, and intersect scores 35 (ailing) in the parse-server demo. So the intersect report (attempt 1 counterexample, attempt 2 proved) is on disk but not reachable from the page. This matches the tested controller behavior ("none for ailing/alive") but means the best demo story (the shrunk counterexample) is invisible. Not changed in this run; needs a decision (show proofs for any package that has a report, or change the demo selection).
   - node-abort-controller panel not opened (not required by the task text beyond the two named panels).
 - Counterexamples found by fast-check this run: none (no new properties).
+
+## 2026-11-13: toe-tag-redesign 1.1 to 1.8 (steering, fonts, tokens)
+
+- 1.1: `.kiro/steering/graveyard-ui.md` added (fileMatch `apps/exorcist-web/**`); no other steering file touched.
+- 1.2/1.3: fonts from `@fontsource/{barlow-condensed,ibm-plex-sans,ibm-plex-mono,special-elite}` all at 5.3.0 (`npm pack` in a temp dir, deleted afterwards). Seven Latin woff2 files copied unchanged into `apps/exorcist-web/public/fonts/` (184 KB total, limit 300 KB). License texts copied from each package's own `LICENSE` (all four packages ship one; the Special Elite file contains the AOETI copyright line, the OFL files name The Barlow Project Authors and IBM Corp.).
+- 1.4/1.5: `public/fonts/README.md` (with SHA-256) and `src/fonts.test.ts` (files, signatures, hashes, licenses, size, `fonts.css` rules, import order); `src/styles/fonts.css` imported first in `main.ts`.
+- 1.6: `--rust` is `#9A3F12` (6.79:1 with `--on-band`, no change from the candidate needed). Tokens are additive, but `--amber`, `--focus`, `--radius`, `--size-h1/h2/name/small`, `--target`, ring and space tokens share names with legacy ones, so the Toe Tag values replace the legacy values for those names (they cannot coexist). Consequence: two `theme.test.ts` contrast tests failed because `--amber` and `--focus` are now light-page colors checked against the dark legacy grounds. I moved those two out of the legacy night lists, checked `--focus` against `--wall/--tag/--paper` instead, and added a band-pair check. Task 8.5 rewrites this file anyway.
+- 1.7: `vite build` ok; `dist/fonts/` holds the seven woff2 files; CSP meta unchanged; `dist/` is git-ignored.
+- Counterexamples from fast-check this run: none (no new properties).
+- Counts (repo root): 140 files, 1268 tests pass, 1 todo. Typecheck clean.

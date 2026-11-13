@@ -1,4 +1,4 @@
-/* Theme_Tokens for The Graveyard. Night palette; no purple, no cream, no serif. */
+/* Theme_Tokens for The Graveyard. Toe Tag tokens are added below; the legacy night tokens stay until task 8.5 so unmigrated stylesheets keep working. */
 :root {
   color-scheme: dark;
 
@@ -13,13 +13,11 @@
 
   /* grade accents */
   --ember: #ff6a3d;
-  --amber: #f5b83d;
   --lichen: #c9dc6a;
   --moss: #5fd6a4;
 
   /* interactive */
   --link: #8ad7ff;
-  --focus: #7fd8ff;
   --edge: #5c7780;
 
   /* fonts */
@@ -28,27 +26,87 @@
 
   /* sizes */
   --size-base: 1rem;
-  --size-small: 0.875rem;
-  --size-name: 1.5rem;
   --size-score: 3.5rem;
-  --size-h1: clamp(2rem, 5vw, 3.25rem);
-  --size-h2: clamp(1.375rem, 3vw, 1.75rem);
-  --target: 44px;
 
   /* spacing */
+
+  /* radii */
+  --radius-sm: 0.25rem;
+  --radius-arch: 999px;
+
+  /* focus ring */
+
+  /* ===== Toe Tag tokens (toe-tag-redesign task 1.6). The single place for colors, fonts and sizes. ===== */
+
+  /* ground and surfaces */
+  --wall: #C9CFCB;
+  --wall-rule: #BCC3BF; /* decorative ruled lines */
+  --tag: #E9D4A3; /* Manila: Toe_Tag, Sheet_Tag, demo cards only */
+  --paper: #F1F2EE;
+  --paper-grid: #E3E6E1;
+  --paper-hot: #F6DEDA;
+
+  /* ink */
+  --ink: #1B2328;
+  --ink-soft: #3B474D;
+
+  /* status and accents */
+  --red: #C4271D;
+  --red-ink: #A81F16; /* DEAD band, Stamp border and red text */
+  --rust: #9A3F12; /* DYING band only (status shade, never brand); on-band 6.79:1 */
+  --amber: #B8860B; /* AILING band, WEAK stamp border */
+  --steel: #2F5D7C;
+  --steel-ink: #264A66; /* ALIVE band, links */
+  --on-band: #FFFFFF;
+  --scrim: rgba(27, 35, 40, 0.6); /* decorative, flat, no blur */
+  --focus: #1B2328;
+
+  /* fonts */
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+  --font-label: "Special Elite", "Courier New", monospace;
+
+  /* type scale (rem; root is 16px at every width) */
+  --size-wordmark: clamp(2.5rem, 7vw, 3.5rem);
+  --size-h1: 1.25rem;
+  --size-h2: 1.5rem;
+  --size-h3: 1.125rem;
+  --size-body: 1rem;
+  --size-small: 0.875rem;
+  --size-label: 0.75rem;
+  --size-name: 1.0625rem;
+  --size-band: 1.25rem;
+  --size-value: 0.9375rem;
+  --size-score-dead: 3.5rem;
+  --size-score-dying: 2.75rem;
+  --size-score-compact: 2rem;
+  --track-label: 0.08em;
+  --track-display: 0.06em;
+  --track-band: 0.14em;
+
+  /* space */
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
   --space-4: 1rem;
   --space-5: 1.5rem;
   --space-6: 2.5rem;
+  --target: 44px;
 
-  /* radii */
-  --radius-sm: 0.25rem;
-  --radius: 0.5rem;
-  --radius-arch: 999px;
-
-  /* focus ring */
+  /* rules and shape */
+  --rule: 2px;
+  --rule-thin: 1px;
+  --rule-heavy: 3px;
+  --radius: 2px;
   --ring-width: 3px;
   --ring-offset: 2px;
+  --tag-chamfer: 1.25rem;
+  --tag-hole: 0.875rem;
+  --tag-hole-y: 1.125rem;
+  --string-height: 1.75rem;
+
+  /* motion */
+  --swing-duration: 700ms;
+  --stamp-duration: 220ms;
 }
