@@ -141,3 +141,11 @@ Headless Chromium at 1352x761 and 375x812 (2x), demo parse-server, package ldapj
 - 2.1 pure types, 2.2 `compareSites`/`sortSites` written in `skeleton/src/proof/`.
 - Side effect: `apps/exorcist-web/src/smoke.test.ts` pinned the old graveyard-ui manifests (exact skeleton export list; web fast-check range equal to skeleton's). Updated it to allow the three proof exports and to compare fast-check ignoring a `^` prefix. Assertions were relaxed only for what 1.1 deliberately changed.
 - 1.6 checkpoint: suite 100 files, 909 tests pass, 1 todo. No fast-check counterexamples yet (no properties written so far).
+
+## 2026-11-13 proof-harness 2.3-2.10 (Kiro CLI)
+
+- 2.3-2.5: `usage-surface.test.ts` (examples + sortSites property), `names.ts` and `names.test.ts`.
+- 2.6-2.8: `report.ts` (serialize, strict parse, `checkConsistency`, `appendAttempt`). Judgement calls: the consistency check also enforces the design's rule that a `no-call-sites` recommendation is `remove-dependency` exactly when there are no import sites. `coverage` is built with `defineProperty` so a `__proto__` key survives. JS orders integer-like object keys numerically, so the coverage arbitrary prefixes keys with a letter; sorting by code unit is guaranteed only for non-index keys.
+- 2.9/2.10: report arbitrary and Property 9 (`report.p9.test.ts`, exports `build(codec)`; the Sabotage_List is task 2.11, not yet written, so the property has not yet been shown to fail against a wrong codec).
+- fast-check counterexamples while writing the property, both bugs in my test/arbitrary, not in the codec: (1) seed 1023149898, shrunk to a report with 2 call sites, input `[report, 0, ""]`: "round trip changed the report", because I compared with `JSON.stringify` and the generated objects had a different key order than the parsed ones (fixed: deep equality). (2) seed 1975377224, shrunk to attempts `[{status: counterexample}, {status: no-call-sites}]` with no `counterexample` record: the arbitrary left optional keys out; old output = own text rejected as `inconsistent`, new = accepted after making the record required in the generator.
+- Counts (repo root): `npm run typecheck` clean; `npm test` 103 files, 921 tests pass, 1 todo. Property 9 also green under FC_SEED 1, 2, 3.

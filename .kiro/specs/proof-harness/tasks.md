@@ -30,21 +30,21 @@ Terminology used in the tasks: a *Mutator* is part of the product (a deliberatel
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 9.2, 9.3_
 - [x] 2.2 Create `skeleton/src/proof/usage-surface.ts` with `compareSites` (file by UTF-16 code unit, then line, then column) and `sortSites` (returns a new array, stable).
   - _Requirements: 1.5_
-- [ ] 2.3 Write `skeleton/src/proof/usage-surface.test.ts`: examples for `compareSites` (code-unit order of `B` before `a`, line before column) plus one fast-check property (`numRuns` 100 through `fc-runner.ts`) that `sortSites` is a permutation, is sorted, and is idempotent.
+- [x] 2.3 Write `skeleton/src/proof/usage-surface.test.ts`: examples for `compareSites` (code-unit order of `B` before `a`, line before column) plus one fast-check property (`numRuns` 100 through `fc-runner.ts`) that `sortSites` is a permutation, is sorted, and is idempotent.
   - _Requirements: 1.5_
-- [ ] 2.4 Create `skeleton/src/proof/names.ts` with `PROOF_NAME_PATTERN`, `isProofName`, `proofReportPath` and `parseProofReportPath`.
+- [x] 2.4 Create `skeleton/src/proof/names.ts` with `PROOF_NAME_PATTERN`, `isProofName`, `proofReportPath` and `parseProofReportPath`.
   - _Requirements: 9.8, 13.1, 13.6_
-- [ ] 2.5 Write `skeleton/src/proof/names.test.ts` examples: `parse-server`, `intersect`, 64 and 65 characters, upper case, `.`, `..`, `a/b`, empty, `-x`, `%2e`; `proofReportPath` shape and `parseProofReportPath` inverse. (The numbered Property 11 is written in Phase 6 over names and CLI arguments together.)
+- [x] 2.5 Write `skeleton/src/proof/names.test.ts` examples: `parse-server`, `intersect`, 64 and 65 characters, upper case, `.`, `..`, `a/b`, empty, `-x`, `%2e`; `proofReportPath` shape and `parseProofReportPath` inverse. (The numbered Property 11 is written in Phase 6 over names and CLI arguments together.)
   - _Requirements: 9.8, 13.1_
-- [ ] 2.6 Create `skeleton/src/proof/report.ts` part 1: `serializeProofReport` with the key order table of the design, field-by-field rebuilding (never relying on input key order), sorted `coverage` keys, two-space indent, one trailing newline, absent optionals omitted.
+- [x] 2.6 Create `skeleton/src/proof/report.ts` part 1: `serializeProofReport` with the key order table of the design, field-by-field rebuilding (never relying on input key order), sorted `coverage` keys, two-space indent, one trailing newline, absent optionals omitted.
   - _Requirements: 9.1, 9.2, 9.3, 9.4_
-- [ ] 2.7 Extend `report.ts` part 2: `parseProofReport` structural walk copying the `Fail`, `field`, `describe` and `Object.hasOwn` pattern of `apps/exorcist-npm/src/scan/report.ts` (categories `empty`, `invalid_json`, `missing_field`, `wrong_type`, unknown keys rejected as `wrong_type`, integers only, `-0` rejected, path messages, never throws).
+- [x] 2.7 Extend `report.ts` part 2: `parseProofReport` structural walk copying the `Fail`, `field`, `describe` and `Object.hasOwn` pattern of `apps/exorcist-npm/src/scan/report.ts` (categories `empty`, `invalid_json`, `missing_field`, `wrong_type`, unknown keys rejected as `wrong_type`, integers only, `-0` rejected, path messages, never throws).
   - _Requirements: 9.5_
-- [ ] 2.8 Extend `report.ts` part 3: `checkConsistency` (every rule of Requirement 9.7, first violation with a path message), the `inconsistent` category, the `not_canonical` re-serialization check in the order structural, consistent, canonical, and `appendAttempt` (returns a new report, numbers the attempt).
+- [x] 2.8 Extend `report.ts` part 3: `checkConsistency` (every rule of Requirement 9.7, first violation with a path message), the `inconsistent` category, the `not_canonical` re-serialization check in the order structural, consistent, canonical, and `appendAttempt` (returns a new report, numbers the attempt).
   - _Requirements: 9.5, 9.6, 9.7_
-- [ ] 2.9 Create `skeleton/src/proof/test-support/arbitraries/report.ts`: a valid, consistent `ProofReport` arbitrary built field by field (0 to 8 call sites and import sites; 1 to 4 attempts built per status so that every rule of Requirement 9.7 holds; Unicode and escaped strings in `source`, `input` and outputs; empty and non-empty arrays; integers only).
+- [x] 2.9 Create `skeleton/src/proof/test-support/arbitraries/report.ts`: a valid, consistent `ProofReport` arbitrary built field by field (0 to 8 call sites and import sites; 1 to 4 attempts built per status so that every rule of Requirement 9.7 holds; Unicode and escaped strings in `source`, `input` and outputs; empty and non-empty arrays; integers only).
   - _Requirements: 9.1, 9.7_
-- [ ] 2.10 Write the Property 9 test in `skeleton/src/proof/report.p9.test.ts` (exporting `build(codec)`): round trip, canonical re-serialization, single-edit rejection (whitespace, key order, extra key, missing newline, `1.0`), `missing_field` and `wrong_type` with path, each consistency rule broken alone gives `inconsistent`, no throw on arbitrary strings.
+- [x] 2.10 Write the Property 9 test in `skeleton/src/proof/report.p9.test.ts` (exporting `build(codec)`): round trip, canonical re-serialization, single-edit rejection (whitespace, key order, extra key, missing newline, `1.0`), `missing_field` and `wrong_type` with path, each consistency rule broken alone gives `inconsistent`, no throw on arbitrary strings.
   - **Property 9: Proof_Report codec**
   - **Validates: Requirements 9.1, 9.2, 9.3, 9.5, 9.6, 9.7**
 - [ ] 2.11 Create the Sabotage_List `skeleton/src/proof/test-support/sabotage/proof-p9.ts` (four-space indent; no trailing newline; key order from input; absent optional as `null`; lenient parse without the canonical comparison; skip the consistency check; parse throws on empty text; parse fills a missing field; accept an unknown key), with the required-name constants.
