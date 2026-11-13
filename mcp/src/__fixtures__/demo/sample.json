@@ -1,0 +1,460 @@
+{
+  "repo": " \"򋯝",
+  "ref": "~`N||",
+  "scannedAt": "墱򍐄",
+  "dependencies": [
+    {
+      "name": "󧠊򮛛👃򣓏򪦊",
+      "kinds": [
+        "peerDependencies",
+        "dependencies"
+      ],
+      "declaredRange": "",
+      "resolvedVersion": "򆋚𦱲",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "unknown"
+        },
+        "repoArchived": {
+          "kind": "unknown"
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 358
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 481
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 190
+        },
+        "openVulnsNoFix": {
+          "kind": "unknown"
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "򊷩𳀘𔔰",
+          "monthsSinceLastPublish": "é☃😀",
+          "knownReplacementExists": "Cb$\\S5"
+        }
+      },
+      "unknownReasons": {
+        "deprecated": {
+          "source": "npm",
+          "category": "rate_limited",
+          "message": "򭲕"
+        },
+        "repoArchived": {
+          "source": "github",
+          "category": "incomplete",
+          "message": "Xy\"/PSm-"
+        },
+        "monthsSinceLastPublish": {
+          "source": "depsdev",
+          "category": "network_error",
+          "message": "񷨉"
+        },
+        "monthsSinceLastCommit": {
+          "source": "e18e",
+          "category": "network_error",
+          "message": "7"
+        },
+        "maintainerCount": {
+          "source": "e18e",
+          "category": "malformed_response",
+          "message": "pd^\"i"
+        },
+        "openVulnsNoFix": {
+          "source": "e18e",
+          "category": "not_found",
+          "message": "򭐹󗪱󙓶"
+        }
+      },
+      "replacement": {
+        "type": "🌥",
+        "replacement": "OF=4h)73[q",
+        "replacements": [
+          "OF=4h)73[q",
+          "󙛻񀭦񹘇򙑍𖖉ະ"
+        ]
+      },
+      "evidenceWarnings": [
+        "򕽹𺏎􊼼𲌠󰬽"
+      ],
+      "death": {
+        "score": 24,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "maintainerCount",
+            "rawValue": "𐥰󻄵",
+            "weight": 92,
+            "points": 20,
+            "status": "known",
+            "sourceUrl": ""
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "򔕉񡸘Ľ",
+            "weight": 53,
+            "points": 40,
+            "status": "unknown",
+            "sourceUrl": "󺏱𖓯񑰍𨿜"
+          },
+          {
+            "signal": "deprecated",
+            "rawValue": "3>xJ %h",
+            "weight": 78.5,
+            "points": 61,
+            "status": "unknown"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "qa&'x>g\\I",
+            "weight": 71.4,
+            "points": 57,
+            "status": "unknown",
+            "sourceUrl": "rVm{.\"k"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "򋢾𱨖򅥯񊫰􈹺󄟆򹆿",
+            "weight": 42,
+            "points": 88,
+            "status": "known",
+            "sourceUrl": "é☃😀"
+          }
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "򅪞񆤨򬕤󆷟𴋱릭􅡱󑹋",
+          "points": 27
+        }
+      }
+    },
+    {
+      "name": "",
+      "kinds": [
+        "devDependencies",
+        "optionalDependencies",
+        "dependencies",
+        "peerDependencies"
+      ],
+      "declaredRange": "_tIOz1i/mL",
+      "resolvedVersion": " ",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": true
+        },
+        "repoArchived": {
+          "kind": "unknown"
+        },
+        "monthsSinceLastPublish": {
+          "kind": "unknown"
+        },
+        "monthsSinceLastCommit": {
+          "kind": "unknown"
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 73
+        },
+        "openVulnsNoFix": {
+          "kind": "unknown"
+        },
+        "knownReplacementExists": {
+          "kind": "unknown"
+        },
+        "sourceUrls": {
+          "repoArchived": "񗀄􈦇񋷨􂗷򇃽󃇽󭼒񲽷",
+          "monthsSinceLastPublish": "tab\t",
+          "monthsSinceLastCommit": "a\"b",
+          "openVulnsNoFix": "|)\"",
+          "knownReplacementExists": "U.'f2hM,\"]"
+        }
+      },
+      "unknownReasons": {
+        "deprecated": {
+          "source": "depsdev",
+          "category": "timeout",
+          "message": "line\nbreak"
+        },
+        "repoArchived": {
+          "source": "depsdev",
+          "category": "incomplete",
+          "message": "󥜏񽾵򩵾"
+        },
+        "monthsSinceLastPublish": {
+          "source": "github",
+          "category": "timeout",
+          "message": "􅔅"
+        },
+        "monthsSinceLastCommit": {
+          "source": "depsdev",
+          "category": "rate_limited",
+          "message": "5Vr_VUT"
+        },
+        "maintainerCount": {
+          "source": "e18e",
+          "category": "not_found",
+          "message": "e(dmP"
+        },
+        "openVulnsNoFix": {
+          "source": "github",
+          "category": "rate_limited",
+          "message": "ꋿ𖚩񒊮𖞴𑠞"
+        },
+        "knownReplacementExists": {
+          "source": "npm",
+          "category": "network_error",
+          "message": "]U{Gs'ZQM]"
+        }
+      },
+      "replacement": {
+        "type": "`L",
+        "replacements": []
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 19,
+        "grade": "dead",
+        "parts": [
+          {
+            "signal": "maintainerCount",
+            "rawValue": "\\-R}lJK:0)",
+            "weight": 27,
+            "points": 98,
+            "status": "unknown",
+            "sourceUrl": ""
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "%Ndt40f",
+            "weight": 56,
+            "points": 100,
+            "status": "known",
+            "sourceUrl": "􋙒󡥳"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "",
+            "weight": 96.2,
+            "points": 54,
+            "status": "known",
+            "sourceUrl": "2-"
+          },
+          {
+            "signal": "deprecated",
+            "rawValue": "a\"b",
+            "weight": 59,
+            "points": 37,
+            "status": "known",
+            "sourceUrl": "r"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "v^Q]-+[",
+            "weight": 56,
+            "points": 87,
+            "status": "known",
+            "sourceUrl": "-"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "/",
+            "weight": 86.5,
+            "points": 87,
+            "status": "unknown",
+            "sourceUrl": "5I+l<!F^RH"
+          }
+        ]
+      }
+    },
+    {
+      "name": "line\nbreak",
+      "kinds": [
+        "dependencies",
+        "peerDependencies",
+        "optionalDependencies",
+        "devDependencies"
+      ],
+      "declaredRange": "\"o^j",
+      "resolvedVersion": "򞸮򃶓𭢫񀴈򗒕",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "unknown"
+        },
+        "repoArchived": {
+          "kind": "unknown"
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 408
+        },
+        "monthsSinceLastCommit": {
+          "kind": "unknown"
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "unknown"
+        },
+        "knownReplacementExists": {
+          "kind": "unknown"
+        },
+        "sourceUrls": {
+          "repoArchived": "",
+          "knownReplacementExists": "𴂵񎹖򷴧򧞀𔩜"
+        }
+      },
+      "unknownReasons": {
+        "deprecated": {
+          "source": "osv",
+          "category": "timeout",
+          "message": "a\"b"
+        },
+        "repoArchived": {
+          "source": "osv",
+          "category": "not_applicable",
+          "message": "8%[AY\\"
+        },
+        "monthsSinceLastPublish": {
+          "source": "osv",
+          "category": "not_applicable",
+          "message": "*Q7qEUV{'"
+        },
+        "monthsSinceLastCommit": {
+          "source": "npm",
+          "category": "timeout",
+          "message": "&-b_dC"
+        },
+        "maintainerCount": {
+          "source": "npm",
+          "category": "network_error",
+          "message": "򎡻򝶄𩯂䀴󣹜󤑺"
+        },
+        "openVulnsNoFix": {
+          "source": "github",
+          "category": "rate_limited",
+          "message": "Gs"
+        },
+        "knownReplacementExists": {
+          "source": "e18e",
+          "category": "rate_limited",
+          "message": "%X Q?"
+        }
+      },
+      "replacement": {
+        "type": "L{/^/",
+        "replacement": "𥄊򚸆񻌛򁂐񡲫𝛄",
+        "replacements": [
+          "𥄊򚸆񻌛򁂐񡲫𝛄",
+          "|[$shg"
+        ]
+      },
+      "evidenceWarnings": [
+        "ZgKp@`[+L",
+        "${v",
+        "é☃😀"
+      ],
+      "death": {
+        "score": 23,
+        "grade": "dead",
+        "parts": [
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "",
+            "weight": 45.5,
+            "points": 80,
+            "status": "unknown",
+            "sourceUrl": "𘶉𳚨㘮򭛭􎟶񹒪"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "񺅗񏑯􃨌򮂶󸯺𭮾",
+            "weight": 60.8,
+            "points": 85,
+            "status": "known",
+            "sourceUrl": " "
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": ".4,`A]?",
+            "weight": 8,
+            "points": 12,
+            "status": "unknown",
+            "sourceUrl": " Iw=!<7"
+          },
+          {
+            "signal": "deprecated",
+            "rawValue": "󩭉򯰲󂐢񸇹𓮣󤧢򀔯􇓵",
+            "weight": 13,
+            "points": 75,
+            "status": "known"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "back\\slash",
+            "weight": 52,
+            "points": 20,
+            "status": "unknown",
+            "sourceUrl": "񗳁"
+          }
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "",
+          "points": 57
+        }
+      }
+    }
+  ],
+  "skipped": [
+    {
+      "name": "line\nbreak",
+      "kind": "peerDependencies",
+      "specifier": "T{v@l!",
+      "reason": "git"
+    },
+    {
+      "name": "l~8|*9N<j",
+      "kind": "peerDependencies",
+      "specifier": "X'dXW}x=l]",
+      "reason": "other"
+    },
+    {
+      "name": "񨇗񵄄󣠾򟭃󷿄񪜝𯆊𦿾",
+      "kind": "devDependencies",
+      "specifier": "jfD$$",
+      "reason": "http"
+    },
+    {
+      "name": "back\\slash",
+      "kind": "peerDependencies",
+      "specifier": "򚳭𲍒",
+      "reason": "link"
+    }
+  ],
+  "warnings": [
+    "o",
+    "</script>"
+  ],
+  "summary": {
+    "total": 7,
+    "skipped": 5,
+    "alive": 0,
+    "ailing": 59,
+    "dying": 3,
+    "dead": 36
+  }
+}

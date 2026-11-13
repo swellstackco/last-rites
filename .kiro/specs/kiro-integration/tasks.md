@@ -127,22 +127,22 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - _Requirements: 3.1 to 3.7_
 - [x] 4.6 Create `mcp/src/test-support/fakes.ts`: an in-memory `FsProbe` over a generated map, a recording `ReportFs`, a fake `DemoStore`, counting wrappers for every Dep (call counter and argument log), and `makeDeps(overrides)` with defaults built from the app's fake clock, `FakeHttp` and `memoryFiles`.
   - _Requirements: 18.1_
-- [ ] 4.7 Write the Property 1 test in `mcp/src/guards.p1.test.ts` (exporting `build(impl)` over the guard functions and a tool-call harness stub that records Dep calls for rejected inputs).
+- [x] 4.7 Write the Property 1 test in `mcp/src/guards.p1.test.ts` (exporting `build(impl)` over the guard functions and a tool-call harness stub that records Dep calls for rejected inputs).
   - **Property 1: Argument guards and routing**
   - **Validates: Requirements 3.1 to 3.8, 2.5**
-- [ ] 4.8 Create the Sabotage_List `kiro-p1.ts` (leading `./` as `github`; demo before local; upper case Npm_Name; `runs` 99; skip `parseRepoTarget`; pipeline before path guard; `ref` with a local path).
+- [x] 4.8 Create the Sabotage_List `kiro-p1.ts` (leading `./` as `github`; demo before local; upper case Npm_Name; `runs` 99; skip `parseRepoTarget`; pipeline before path guard; `ref` with a local path).
   - _Requirements: 18.3_
-- [ ] 4.9 Create `mcp/src/deps.ts`: `ExorcistDeps` and the supporting types exactly as in the design.
+- [x] 4.9 Create `mcp/src/deps.ts`: `ExorcistDeps` and the supporting types exactly as in the design.
   - _Requirements: 2.4_
-- [ ] 4.10 Create `mcp/src/local-files.ts` (`createLocalRepoFiles(probe, dir)`) and `local-files.test.ts`: both files present, lockfile absent, manifest absent (`not_found`), the `target` argument ignored.
+- [x] 4.10 Create `mcp/src/local-files.ts` (`createLocalRepoFiles(probe, dir)`) and `local-files.test.ts`: both files present, lockfile absent, manifest absent (`not_found`), the `target` argument ignored.
   - _Requirements: 4.5_
-- [ ] 4.11 Create `mcp/src/oracles-static.ts`: `loadOracle(pkg)` with static imports of `intersect`, `deep-diff` and their `package.json` versions; `undefined` for any other name. Write `oracles-static.test.ts`: versions are `1.0.1` and `1.0.2`; for both packages and 50 fixed sample inputs each, the static module and the app's `loadOracle` module return structurally equal results.
+- [x] 4.11 Create `mcp/src/oracles-static.ts`: `loadOracle(pkg)` with static imports of `intersect`, `deep-diff` and their `package.json` versions; `undefined` for any other name. Write `oracles-static.test.ts`: versions are `1.0.1` and `1.0.2`; for both packages and 50 fixed sample inputs each, the static module and the app's `loadOracle` module return structurally equal results.
   - _Requirements: 8.2, 19.1_
-- [ ] 4.12 Create `mcp/src/scan-source.ts`: `obtainScanReport(deps, input)` per the design flow (classification, demo store with `parseReport`, GitHub pipeline, local pipeline, deadline and watchdog race exactly as `handler.ts`, `ref` rules, error mapping to `scan_failed`).
+- [x] 4.12 Create `mcp/src/scan-source.ts`: `obtainScanReport(deps, input)` per the design flow (classification, demo store with `parseReport`, GitHub pipeline, local pipeline, deadline and watchdog race exactly as `handler.ts`, `ref` rules, error mapping to `scan_failed`).
   - _Requirements: 4.2 to 4.7, 3.3_
-- [ ] 4.13 Create the fixtures `mcp/src/__fixtures__/demo/sample.json` (a small valid snapshot produced by `serializeReport` of a `reportArb` sample with fixed content), `__fixtures__/checkout/package.json` and `package-lock.json` (three dependencies), written for this repository.
+- [x] 4.13 Create the fixtures `mcp/src/__fixtures__/demo/sample.json` (a small valid snapshot produced by `serializeReport` of a `reportArb` sample with fixed content), `__fixtures__/checkout/package.json` and `package-lock.json` (three dependencies), written for this repository.
   - _Requirements: 18.1_
-- [ ] 4.14 Write `mcp/src/scan-source.test.ts` examples: demo name, demo `owner/repo`, demo with `ref` goes live, invalid and missing snapshot, GitHub success and each pipeline error code, local success over the fixture checkout, local missing `package.json`, timeout, `ref` rules, zero HTTP requests for demos and rejected inputs.
+- [x] 4.14 Write `mcp/src/scan-source.test.ts` examples: demo name, demo `owner/repo`, demo with `ref` goes live, invalid and missing snapshot, GitHub success and each pipeline error code, local success over the fixture checkout, local missing `package.json`, timeout, `ref` rules, zero HTTP requests for demos and rejected inputs.
   - _Requirements: 4.2 to 4.7_
 - [ ] 4.15 Write the Property 7 test in `mcp/src/scan-source.p7.test.ts` (exporting `build(impl)` over `obtainScanReport`), plus an example that every committed `demo/*.json` is accepted by `parseReport`.
   - **Property 7: Demo routing**

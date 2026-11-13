@@ -138,3 +138,48 @@ export function checkOut(raw: unknown): { ok: true; out: string } | ToolErrorVal
   if (typeof raw === "string" && isProofOutPath(raw)) return { ok: true, out: raw };
   return toolError("invalid_out", "out must end in proofs/<repo-name>/<file> where <repo-name> matches ^[a-z0-9][a-z0-9-]{0,63}$");
 }
+
+export type ValidRepoArgument = Exclude<RepoArgument, { kind: "invalid" }>;
+
+/**
+ * A `ref` is accepted only for a `github` argument and only if `parseRepoTarget` accepts it (Requirement 3.3).
+ * Anything else with a `ref` is `invalid_ref`.
+ */
+export function checkRef(arg: ValidRepoArgument, ref: unknown): { ok: true; ref: string | undefined } | ToolErrorValue {
+  if (ref === undefined) return { ok: true, ref: undefined };
+  if (arg.kind !== "github") return toolError("invalid_ref", "ref is only allowed with an owner/name repository");
+  const parsed = parseRepoTarget({ owner: arg.owner, repo: arg.repo, ref: ref as string });
+  if (!parsed.ok) return toolError("invalid_ref", parsed.error.message);
+  return { ok: true, ref: parsed.target.ref };
+}
+
+export interface GuardedScan {
+  arg: ValidRepoArgument;
+  /** Only for `github`: the validated ref as given (undefined when absent). */
+  ref: string | undefined;
+  /** Only for `local`: the resolved absolute directory. */
+  abs: string | undefined;
+}
+
+/**
+ * The guard sequence shared by `scan_repo` and `death_report` (Requirement 3.8): classify, ref, path.
+ * `call` runs only when every guard has accepted the input; a rejection is returned and `call` is not invoked.
+ */
+export async function guardedScan<T>(
+  probe: FsProbe,
+  cwd: string,
+  input: { repo: unknown; ref?: unknown },
+  call: (g: GuardedScan) => Promise<T>,
+): Promise<{ ok: true; value: T } | ToolErrorValue> {
+  const arg = classifyRepoArgument(input.repo as string);
+  if (arg.kind === "invalid") return toolError(arg.code, arg.message);
+  const ref = checkRef(arg, input.ref);
+  if (!ref.ok) return ref;
+  let abs: string | undefined;
+  if (arg.kind === "local") {
+    const p = await checkPath(probe, cwd, arg.path);
+    if (!p.ok) return p;
+    abs = p.abs;
+  }
+  return { ok: true, value: await call({ arg, ref: ref.ref, abs }) };
+}

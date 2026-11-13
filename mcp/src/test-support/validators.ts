@@ -14,6 +14,7 @@ import { formatFiredLine, parseFiredLine } from "../hooks/fired-line.js";
 import { formatStopSummary } from "../hooks/stop-summary.js";
 import { deadNames, newDeadPackages } from "../hooks/new-dead.js";
 import { candidateTarget } from "../hooks/candidate-target.js";
+import { checkOut, checkRuns, classifyRepoArgument, guardedScan, isNpmName } from "../guards.js";
 
 /** The seam of Property 8: the six Config_Validators. */
 export interface Validators {
@@ -65,3 +66,14 @@ export interface CandidateMap {
 }
 
 export const REAL_CANDIDATE_MAP: CandidateMap = { candidateTarget };
+
+/** The seam of Property 1: the argument guards and the scan guard sequence. */
+export interface Guards {
+  classifyRepoArgument: typeof classifyRepoArgument;
+  isNpmName: typeof isNpmName;
+  checkRuns: typeof checkRuns;
+  checkOut: typeof checkOut;
+  guardedScan: typeof guardedScan;
+}
+
+export const REAL_GUARDS: Guards = { classifyRepoArgument, isNpmName, checkRuns, checkOut, guardedScan };

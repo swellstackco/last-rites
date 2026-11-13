@@ -1,4 +1,6 @@
-import type { DemoStore, ReportFs } from "@graveyard-kit/exorcist-npm/programmatic";
+import type { DemoStore, ReportFs, ScanPipeline, Watchdog } from "@graveyard-kit/exorcist-npm/programmatic";
+import { createFakeClock } from "@graveyard-kit/exorcist-npm/programmatic/testing";
+import type { ExorcistDeps } from "../deps.js";
 import type { FsProbe } from "../guards.js";
 
 // Fakes for the tool tests: no disk, no network.
@@ -77,4 +79,68 @@ export function counting<A extends unknown[], R>(fn: (...args: A) => R): Counted
   }) as Counted<A, R>;
   wrapped.calls = [];
   return wrapped;
+}
+
+const never: Watchdog = () => ({ fired: new Promise<void>(() => {}), dispose() {} });
+
+/** Every Dep a tool can call, as counting wrappers; the defaults fail loudly-but-safely and touch nothing. */
+export interface CountedDeps extends ExorcistDeps {
+  counts: {
+    github: ReturnType<typeof counting<Parameters<ScanPipeline>, ReturnType<ScanPipeline>>>;
+    local: ReturnType<typeof counting<[string], ScanPipeline>>;
+    e18e: ReturnType<typeof counting<[string], ReturnType<ExorcistDeps["e18e"]>>>;
+    usageSurface: ReturnType<typeof counting<Parameters<ExorcistDeps["usageSurface"]>, ReturnType<ExorcistDeps["usageSurface"]>>>;
+    loadCandidate: ReturnType<typeof counting<[string], ReturnType<ExorcistDeps["proof"]["loadCandidate"]>>>;
+  };
+  /** Total number of calls to any counted Dep (the demo store counts through `demoStore.asked`). */
+  totalCalls(): number;
+}
+
+/**
+ * Deps with a fake clock, an empty in-memory file system, no demo snapshots, and counting wrappers around the
+ * pipelines, e18e, the usage surface and the candidate loader. `overrides` replaces whole top-level fields.
+ */
+export function makeDeps(overrides: Partial<ExorcistDeps> = {}): CountedDeps {
+  const clock = createFakeClock().clock;
+  const github = counting<Parameters<ScanPipeline>, ReturnType<ScanPipeline>>(
+    async () => ({ ok: false, error: { code: "repo_fetch_failed", message: "fake pipeline not configured", failureCategory: "network_error" } }),
+  );
+  const unconfigured: ScanPipeline = async () => ({
+    ok: false,
+    error: { code: "repo_fetch_failed", message: "fake local pipeline not configured", failureCategory: "network_error" },
+  });
+  const local = counting<[string], ScanPipeline>(() => unconfigured);
+  const e18e = counting<[string], ReturnType<ExorcistDeps["e18e"]>>(async () => ({
+    ok: false,
+    reason: { source: "e18e", category: "network_error" },
+  }));
+  const usageSurface = counting<Parameters<ExorcistDeps["usageSurface"]>, ReturnType<ExorcistDeps["usageSurface"]>>(
+    async (input) => ({ package: input.package, filesScanned: 0, callSites: [], importSites: [], warnings: [] }),
+  );
+  const loadCandidate = counting<[string], ReturnType<ExorcistDeps["proof"]["loadCandidate"]>>(async (file) => ({
+    module: {},
+    name: file,
+    source: "",
+  }));
+  const demoStore = fakeDemoStore();
+  const deps: ExorcistDeps = {
+    cwd: "/work",
+    probe: memoryProbe({}),
+    demoStore,
+    scan: { github, local, clock, timeoutSeconds: 60, watchdog: never },
+    e18e,
+    usageSurface,
+    proof: {
+      recipes: new Map(),
+      loadOracle: () => undefined,
+      loadCandidate,
+      nodeReportFs: recordingReportFs(),
+      repoRoot: "/work",
+    },
+    ...overrides,
+  };
+  return Object.assign(deps, {
+    counts: { github, local, e18e, usageSurface, loadCandidate },
+    totalCalls: () => github.calls.length + local.calls.length + e18e.calls.length + usageSurface.calls.length + loadCandidate.calls.length,
+  }) as CountedDeps;
 }

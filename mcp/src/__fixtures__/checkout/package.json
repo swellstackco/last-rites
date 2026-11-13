@@ -1,0 +1,11 @@
+{
+  "name": "fixture-checkout",
+  "version": "1.0.0",
+  "dependencies": {
+    "alpha-lib": "^1.0.0",
+    "beta-lib": "~2.1.0"
+  },
+  "devDependencies": {
+    "gamma-lib": "3.0.0"
+  }
+}
