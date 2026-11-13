@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "death-score-monotonic-on-save",
+      "trigger": "PostFileSave",
+      "description": "Re-run the death-score monotonicity property when weights, severity or grade change.",
+      "matcher": "skeleton/src/death-score/(weights|severity|grade)\\.ts$",
+      "action": {
+        "type": "command",
+        "command": "npm run hook:monotonic -w @graveyard-kit/exorcist-mcp --silent"
+      },
+      "timeout": 120
+    }
+  ]
+}
