@@ -630,3 +630,12 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - Verification: `npm run typecheck` clean; `npm test` 202 files, 1782 passed, 1 todo.
 - Counterexamples from fast-check: none (no new property tests).
 - 8.1: `.kiro/agents/prompts/coroner.md` written (read only; the report outline from the task). Run stopped here at the 8-task limit; 8.2 onward remain.
+
+## 2026-11-13: kiro-integration tasks 8.2 to 9.3
+
+- 8.2 to 8.4: `.kiro/agents/coroner.json`, `exorcist.json` and `prompts/exorcist.md` as in the design. Both inline `mcpServers.exorcist` entries equal the workspace settings entry (including `disabled` and `autoApprove`), so the deep-equal check in 8.5 holds. Exorcist deny rules for `git push*`, `git remote*`, `git config*` come first.
+- 8.5: `kiro-files.test.ts` part 2 (validator with a real `exists`, `writeCapabilities`/`pushCapabilities` on the real files, write roots, deny-before-allow, no legacy fields, prompt checks with a fixed negative-phrase list). The test first failed the existing smoke rule "no test file contains the sibling checkout name"; the string is now built from parts.
+- 9.1 to 9.3: `skillFromSteering` (LF output, only the first closing `---` ends the frontmatter, an unclosed block counts as no frontmatter, one blank line dropped only after a removed block), Property 13 test with the `SkillGen` seam in `test-support/validators.ts`, and `kiro-p13.ts` (five sabotages, all caught).
+- Not yet in `sabotage.test.ts` (that is 9.9). Property 13 runs its own sabotage check meanwhile.
+- Verification: `npm run typecheck` clean; `npm test` 203 files, 1793 passed, 1 todo.
+- Counterexamples from fast-check: none.

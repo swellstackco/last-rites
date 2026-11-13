@@ -1,0 +1,26 @@
+{
+  "name": "coroner",
+  "description": "Read-only: gathers death evidence and call sites for a dead package. Never edits.",
+  "prompt": "file://./prompts/coroner.md",
+  "tools": ["read", "@exorcist/scan_repo", "@exorcist/death_report", "@exorcist/usage_surface", "@exorcist/find_replacement"],
+  "includeMcpJson": false,
+  "mcpServers": {
+    "exorcist": {
+      "command": "node",
+      "args": ["mcp/dist/server.mjs"],
+      "env": { "GITHUB_TOKEN": "${GITHUB_TOKEN}" },
+      "disabled": false,
+      "autoApprove": ["scan_repo", "death_report", "usage_surface", "find_replacement"]
+    }
+  },
+  "permissions": {
+    "rules": [
+      { "capability": "fs_read", "effect": "allow" },
+      { "capability": "mcp", "match": ["exorcist/scan_repo", "exorcist/death_report", "exorcist/usage_surface", "exorcist/find_replacement"], "effect": "allow" },
+      { "capability": "mcp", "match": ["exorcist/generate_pin_tests"], "effect": "deny" },
+      { "capability": "fs_write", "effect": "deny" },
+      { "capability": "shell", "effect": "deny" },
+      { "capability": "web_fetch", "effect": "deny" }
+    ]
+  }
+}

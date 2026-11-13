@@ -254,24 +254,24 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
 
 - [x] 8.1 Create `.kiro/agents/prompts/coroner.md`: plain text, no secrets; read only; gather the death report (`death_report`, `scan_repo`), the call sites (`usage_surface`) and the replacement (`find_replacement`); cite the source URLs the tools return; say plainly when a tool failed or a signal is unknown; end with a short report (score, parts, call sites by `src`/`test`, replacement or none, what is not known); never edit, never run commands.
   - _Requirements: 14.3_
-- [ ] 8.2 Create `.kiro/agents/coroner.json` as in the design (keep `.gitkeep`).
+- [x] 8.2 Create `.kiro/agents/coroner.json` as in the design (keep `.gitkeep`).
   - _Requirements: 14.1, 14.2, 14.8_
-- [ ] 8.3 Create `.kiro/agents/prompts/exorcist.md`: follows `migration-rules.md` and `proof-rules.md`; works on the new local branch it is told to use; never pushes, never changes git config or remotes; the order: `usage_surface`, write the candidate to `demo/proofs/candidates/<repo>/<package>.agent.js`, `generate_pin_tests` with the `out` it is given BEFORE editing the target, apply the migration only when the status is `proved`, report the status, the `weak` flag, the seed and the sabotage line exactly as returned; a counterexample or error means not done; never weaken a test, a recipe or a Projection; say what it could not verify (for example, that the target's own tests were not run).
+- [x] 8.3 Create `.kiro/agents/prompts/exorcist.md`: follows `migration-rules.md` and `proof-rules.md`; works on the new local branch it is told to use; never pushes, never changes git config or remotes; the order: `usage_surface`, write the candidate to `demo/proofs/candidates/<repo>/<package>.agent.js`, `generate_pin_tests` with the `out` it is given BEFORE editing the target, apply the migration only when the status is `proved`, report the status, the `weak` flag, the seed and the sabotage line exactly as returned; a counterexample or error means not done; never weaken a test, a recipe or a Projection; say what it could not verify (for example, that the target's own tests were not run).
   - _Requirements: 14.6_
-- [ ] 8.4 Create `.kiro/agents/exorcist.json` as in the design (tools, inline server entry, resources, deny rules before allow rules).
+- [x] 8.4 Create `.kiro/agents/exorcist.json` as in the design (tools, inline server entry, resources, deny rules before allow rules).
   - _Requirements: 14.1, 14.5, 14.8_
-- [ ] 8.5 Extend `kiro-files.test.ts` part 2: both agent files pass `validateAgentFile` with a real `exists`; the `coroner` has `writeCapabilities` `[]` and exactly the tools of Requirement 14.2; the `exorcist` has `pushCapabilities` false, `fs_write` match exactly the two roots, `generate_pin_tests` reachable through `@exorcist`; both inline `mcpServers.exorcist` entries deep-equal the Workspace_Settings entry; no legacy field; both prompt files exist, are non-empty, and the coroner prompt contains no word granting edits (`edit`, `write` only in a negative sentence checked by a fixed phrase list).
+- [x] 8.5 Extend `kiro-files.test.ts` part 2: both agent files pass `validateAgentFile` with a real `exists`; the `coroner` has `writeCapabilities` `[]` and exactly the tools of Requirement 14.2; the `exorcist` has `pushCapabilities` false, `fs_write` match exactly the two roots, `generate_pin_tests` reachable through `@exorcist`; both inline `mcpServers.exorcist` entries deep-equal the Workspace_Settings entry; no legacy field; both prompt files exist, are non-empty, and the coroner prompt contains no word granting edits (`edit`, `write` only in a negative sentence checked by a fixed phrase list).
   - _Requirements: 14.2, 14.4, 14.5, 14.7, 14.8_
-- [ ] 8.6 Checkpoint after Phase 8 - Ensure all tests pass, ask the user if questions arise.
+- [x] 8.6 Checkpoint after Phase 8 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 9: The Power
 
-- [ ] 9.1 Create `mcp/src/power/skill-from-steering.ts`: `skillFromSteering(steering, meta)` per the design (steering frontmatter removed, LF or CRLF, a leading blank line normalized once, body otherwise unchanged).
+- [x] 9.1 Create `mcp/src/power/skill-from-steering.ts`: `skillFromSteering(steering, meta)` per the design (steering frontmatter removed, LF or CRLF, a leading blank line normalized once, body otherwise unchanged).
   - _Requirements: 15.5_
-- [ ] 9.2 Write the Property 13 test in `mcp/src/power/skill.p13.test.ts` (exporting `build(impl)`).
+- [x] 9.2 Write the Property 13 test in `mcp/src/power/skill.p13.test.ts` (exporting `build(impl)`).
   - **Property 13: Skill generation**
   - **Validates: Requirements 15.4, 15.5**
-- [ ] 9.3 Create the Sabotage_List `kiro-p13.ts` (keep the steering frontmatter; drop a body line equal to `---`; `description` before `name`; CRLF output; truncate at 4000 characters).
+- [x] 9.3 Create the Sabotage_List `kiro-p13.ts` (keep the steering frontmatter; drop a body line equal to `---`; `description` before `name`; CRLF output; truncate at 4000 characters).
   - _Requirements: 18.3_
 - [ ] 9.4 Create `mcp/src/power/sync.ts` and wire `power:sync`: reads `.kiro/steering/migration-rules.md` and `proof-rules.md`, writes `power/skills/migration-rules/SKILL.md` and `power/skills/proof-rules/SKILL.md` with the descriptions of the design. Run `npm run power:sync -w @graveyard-kit/exorcist-mcp` and check the two files.
   - _Requirements: 15.4, 15.5_

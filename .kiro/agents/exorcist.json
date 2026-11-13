@@ -1,0 +1,26 @@
+{
+  "name": "exorcist",
+  "description": "Replaces a dead npm package and must prove with property tests that behavior did not change.",
+  "prompt": "file://./prompts/exorcist.md",
+  "tools": ["read", "write", "shell", "@exorcist"],
+  "includeMcpJson": false,
+  "mcpServers": {
+    "exorcist": {
+      "command": "node",
+      "args": ["mcp/dist/server.mjs"],
+      "env": { "GITHUB_TOKEN": "${GITHUB_TOKEN}" },
+      "disabled": false,
+      "autoApprove": ["scan_repo", "death_report", "usage_surface", "find_replacement"]
+    }
+  },
+  "resources": ["file://.kiro/steering/migration-rules.md", "file://.kiro/steering/proof-rules.md"],
+  "permissions": {
+    "rules": [
+      { "capability": "shell", "match": ["git push*", "git remote*", "git config*"], "effect": "deny" },
+      { "capability": "fs_read", "effect": "allow" },
+      { "capability": "fs_write", "match": ["demo/proofs/candidates/**", "../lastrites-work/**"], "effect": "allow" },
+      { "capability": "shell", "match": ["npm *", "npx *", "node *", "git *", "ls *"], "effect": "allow" },
+      { "capability": "mcp", "match": ["exorcist/*"], "effect": "allow" }
+    ]
+  }
+}

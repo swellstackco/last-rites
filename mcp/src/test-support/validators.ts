@@ -10,6 +10,7 @@ import {
   type AgentContext,
   type Check,
 } from "../kiro-config/index.js";
+import { skillFromSteering } from "../power/skill-from-steering.js";
 import { formatFiredLine, parseFiredLine } from "../hooks/fired-line.js";
 import { formatStopSummary } from "../hooks/stop-summary.js";
 import { deadNames, newDeadPackages } from "../hooks/new-dead.js";
@@ -116,3 +117,10 @@ export interface TotalTools {
 }
 
 export const REAL_TOTAL: TotalTools = { safely, tools: REAL_TOOLS };
+
+/** The seam of Property 13: skill generation from a steering file. */
+export interface SkillGen {
+  skillFromSteering: typeof skillFromSteering;
+}
+
+export const REAL_SKILL_GEN: SkillGen = { skillFromSteering };
