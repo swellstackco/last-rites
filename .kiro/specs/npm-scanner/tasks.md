@@ -138,23 +138,23 @@ This plan implements the Npm_Scanner in `/apps/exorcist-npm/src/scan/` per the n
 
 ### Phase 6: Pipeline-level properties and the central sabotage test
 
-- [ ] 6.1 Create `src/scan/test-support/arbitraries/lockfile.ts`: a lockfile arbitrary built from a generated manifest with per-name variants (usable version, `link: true`, mismatched `name`, invalid semver, missing entry, nested path, extra non-direct packages), `lockfileVersion` drawn from 1, 2, 3, 4 and missing, always with a `packages` map.
+- [x] 6.1 Create `src/scan/test-support/arbitraries/lockfile.ts`: a lockfile arbitrary built from a generated manifest with per-name variants (usable version, `link: true`, mismatched `name`, invalid semver, missing entry, nested path, extra non-direct packages), `lockfileVersion` drawn from 1, 2, 3, 4 and missing, always with a `packages` map.
   - _Requirements: 14.4_
-- [ ] 6.2 Write the Property 1 test in `pipeline.p1.test.ts` (exporting `build(parts)`), with the sabotage list in `test-support/sabotage/scan-p1.ts` (report ordered by completion order with an unsorted assemble; random tiebreak; elapsed-time warning; per-call `new Date()` as `now`; pool that ignores the limit).
+- [x] 6.2 Write the Property 1 test in `pipeline.p1.test.ts` (exporting `build(parts)`), with the sabotage list in `test-support/sabotage/scan-p1.ts` (report ordered by completion order with an unsorted assemble; random tiebreak; elapsed-time warning; per-call `new Date()` as `now`; pool that ignores the limit).
   - **Property 1: Determinism and completion-order independence**
   - **Validates: Requirements 5.2, 5.6, 7.1, 7.2, 7.3, 14.2, 14.10**
-- [ ] 6.3 Write the Property 3 test in `pipeline.p3.test.ts` (exporting `build(parts)`), with the sabotage list in `test-support/sabotage/scan-p3.ts` (prefer the declared range; evidence gets the declared range; honor `link: true`; ignore a mismatched `name`; include transitive packages; accept lockfileVersion 1 or 4; evidence call for skipped names; mismatch warning twice).
+- [x] 6.3 Write the Property 3 test in `pipeline.p3.test.ts` (exporting `build(parts)`), with the sabotage list in `test-support/sabotage/scan-p3.ts` (prefer the declared range; evidence gets the declared range; honor `link: true`; ignore a mismatched `name`; include transitive packages; accept lockfileVersion 1 or 4; evidence call for skipped names; mismatch warning twice).
   - **Property 3: Lockfile precedence and what the evidence stage receives**
   - **Validates: Requirements 2.6, 3.1, 3.2, 3.3, 3.4, 3.6, 3.8, 5.1, 12.9, 14.4, 14.10**
-- [ ] 6.4 Write the Property 4 test in `assemble.p4.test.ts` (exporting `build(parts)`), with the sabotage list in `test-support/sabotage/scan-p4.ts` (score ascending; no name tiebreak; name descending; `localeCompare` tiebreak; dying counted as dead; summary total includes skipped; `scanOne` drops `replacement`; `scanOne` scores a constant).
+- [x] 6.4 Write the Property 4 test in `assemble.p4.test.ts` (exporting `build(parts)`), with the sabotage list in `test-support/sabotage/scan-p4.ts` (score ascending; no name tiebreak; name descending; `localeCompare` tiebreak; dying counted as dead; summary total includes skipped; `scanOne` drops `replacement`; `scanOne` scores a constant).
   - **Property 4: Sort order, summary counts and scoring**
   - **Validates: Requirements 5.3, 5.4, 5.5, 14.5, 14.10**
-- [ ] 6.5 Write the Property 5 test in `pipeline.p5.test.ts` (exporting `build(parts)`), with the sabotage list in `test-support/sabotage/scan-p5.ts` (one failure fails the whole scan; failed dependency dropped; failed as alive; failure poisons later entries; no warning for a failed entry; failed entry with empty `unknownReasons`).
+- [x] 6.5 Write the Property 5 test in `pipeline.p5.test.ts` (exporting `build(parts)`), with the sabotage list in `test-support/sabotage/scan-p5.ts` (one failure fails the whole scan; failed dependency dropped; failed as alive; failure poisons later entries; no warning for a failed entry; failed entry with empty `unknownReasons`).
   - **Property 5: Failure isolation**
   - **Validates: Requirements 5.7, 5.10, 6.1, 6.2, 6.3, 6.4, 6.6, 14.6, 14.10**
-- [ ] 6.6 Create `src/scan/sabotage.test.ts`: import `SCAN_P1_SABOTAGES` to `SCAN_P8_SABOTAGES` and the eight `build` functions, run each property against every entry of its list with the fixed seed through `assertAllSabotagesCaught` and `assertAllSabotagesCaughtAsync`, fail with `Sabotage "<name>" stayed green for "<property>"`, assert every list is non-empty, assert the sabotages named in Requirement 14.10 exist in the right lists, and assert the real implementations pass every property under the same seed.
+- [x] 6.6 Create `src/scan/sabotage.test.ts`: import `SCAN_P1_SABOTAGES` to `SCAN_P8_SABOTAGES` and the eight `build` functions, run each property against every entry of its list with the fixed seed through `assertAllSabotagesCaught` and `assertAllSabotagesCaughtAsync`, fail with `Sabotage "<name>" stayed green for "<property>"`, assert every list is non-empty, assert the sabotages named in Requirement 14.10 exist in the right lists, and assert the real implementations pass every property under the same seed.
   - _Requirements: 14.1, 14.8, 14.9, 14.10, 14.11, 14.12, 14.13, 14.14_
-- [ ] 6.7 Checkpoint after Phase 6 - Ensure all tests pass, ask the user if questions arise.
+- [x] 6.7 Checkpoint after Phase 6 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 7: Demo snapshot script
 

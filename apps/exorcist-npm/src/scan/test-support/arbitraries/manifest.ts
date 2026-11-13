@@ -54,7 +54,11 @@ const taggedSpec: fc.Arbitrary<TaggedSpec> = fc.oneof(
 
 const NAME_POOL = ["a", "b", "c", "d", "left-pad", "@scope/pkg", "@scope/other", "Upper", "lodash.get", "__proto__", "constructor"];
 
-const manifestNames = fc.uniqueArray(fc.constantFrom(...NAME_POOL), { minLength: 0, maxLength: 8 });
+/** Extra generated names so wide manifests (up to 50 names) are possible. */
+const WIDE_POOL = [...NAME_POOL, ...Array.from({ length: 50 }, (_, i) => `pkg-${i}`)];
+
+const namesOf = (maxNames: number) =>
+  fc.uniqueArray(fc.constantFrom(...(maxNames > NAME_POOL.length ? WIDE_POOL : NAME_POOL)), { minLength: 0, maxLength: maxNames });
 
 /** Kinds subset (at least one), as a mask over the four kinds. */
 const kindSubset: fc.Arbitrary<DependencyKind[]> = fc
@@ -69,9 +73,10 @@ function setOwn(target: object, key: string, value: unknown): void {
 /** Insertion-order shuffle selector: kinds are written to the manifest in this order. */
 const kindOrder = fc.shuffledSubarray([...KIND_PRECEDENCE], { minLength: 4, maxLength: 4 });
 
-export const manifestArb: fc.Arbitrary<GeneratedManifest> = fc
+/** A manifest arbitrary with 0 to `maxNames` distinct names. */
+export const manifestArbUpTo = (maxNames: number): fc.Arbitrary<GeneratedManifest> => fc
   .tuple(
-    manifestNames.chain((names) =>
+    namesOf(maxNames).chain((names) =>
       fc.tuple(
         fc.constant(names),
         fc.array(fc.tuple(kindSubset, fc.array(taggedSpec, { minLength: 4, maxLength: 4 })), {
@@ -111,3 +116,5 @@ export const manifestArb: fc.Arbitrary<GeneratedManifest> = fc
     if (workspaces !== undefined) manifest["workspaces"] = workspaces;
     return { text: JSON.stringify(manifest, null, 2), declared, hasWorkspaces: workspaces !== undefined };
   });
+
+export const manifestArb: fc.Arbitrary<GeneratedManifest> = manifestArbUpTo(8);

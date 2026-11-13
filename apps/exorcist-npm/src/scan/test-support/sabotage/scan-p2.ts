@@ -29,6 +29,9 @@ function wrap(edit: (inv: InventoryResult, text: string) => InventoryResult): In
   };
 }
 
+/** Names required by Requirement 14.10 for this list. */
+export const SCAN_P2_REQUIRED: readonly string[] = ["drop a name that appears in two kinds"];
+
 const bySlashless = (a: string, b: string) => a.localeCompare(b);
 
 export const SCAN_P2_SABOTAGES: ReadonlyArray<Sabotage<InventoryStage>> = [
