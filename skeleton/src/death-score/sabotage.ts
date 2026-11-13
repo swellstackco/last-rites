@@ -1,7 +1,13 @@
 import { scoreDeath } from "./score.js";
 import { severityFactor } from "./severity.js";
 import { toGrade } from "./grade.js";
-import { DEFAULT_WEIGHT_CONFIG, SIGNAL_NAMES, normalizeWeights } from "./weights.js";
+import {
+  DEFAULT_WEIGHT_CONFIG,
+  SIGNAL_NAMES,
+  effectiveAbandonedFloor,
+  normalizeWeights,
+} from "./weights.js";
+import { scoreDeathV1 } from "./__reference__/score-v1.js";
 import { ALL_PROPERTIES, mostAliveValue, type ScoreFn } from "./properties.js";
 import { FIXED_SEED, checkProperty, type CounterexampleReport } from "./fc-runner.js";
 import type { DeathScoreResult, PackageSignals, SignalName, WeightConfig } from "./types.js";
@@ -80,12 +86,86 @@ export const unknownAsAlive: ScoreFn = (signals, config = DEFAULT_WEIGHT_CONFIG)
   };
 };
 
+// ---------------------------------------------------------------------------
+// death-score-calibration sabotages (wrong floor implementations)
+// ---------------------------------------------------------------------------
+
+interface FloorOptions {
+  /** Treat Unknown flags as true. */
+  unknownAsTrue?: boolean;
+  /** Fire the floor on a single flag even when the publish is fresh. */
+  singleFlagEnough?: boolean;
+  /** Use strict `>` against the publish threshold. */
+  strictThreshold?: boolean;
+  /** Omit the calibration entry (keep parts). */
+  omitCalibration?: boolean;
+  /** Bump the first part instead of adding a calibration entry. */
+  overwriteParts?: boolean;
+}
+
+/** A floor implementation on top of the frozen v1 engine, with one deliberate defect. */
+function floorWith(opts: FloorOptions): ScoreFn {
+  return (signals, config = DEFAULT_WEIGHT_CONFIG) => {
+    const base = scoreDeathV1(signals, config);
+    const floor = effectiveAbandonedFloor(config);
+    const flag = (v: { kind: string; value?: unknown }): boolean =>
+      v.kind === "known" ? v.value === true : opts.unknownAsTrue === true;
+    const dep = flag(signals.deprecated);
+    const arc = flag(signals.repoArchived);
+    const pub = signals.monthsSinceLastPublish;
+    const threshold = config.monthsSinceLastPublishFullDead;
+    const stale =
+      pub.kind === "known" &&
+      (opts.strictThreshold
+        ? Math.max(0, pub.value) > threshold
+        : Math.max(0, pub.value) >= threshold);
+    const held = opts.singleFlagEnough
+      ? dep || arc
+      : (dep && arc) || ((dep || arc) && stale);
+    if (!(floor > 0 && held && base.score < floor)) return base;
+    const points = floor - base.score;
+    if (opts.overwriteParts) {
+      const parts = base.parts.map((p, i) => (i === 0 ? { ...p, points: p.points + points } : p));
+      return { score: floor, grade: toGrade(floor), parts };
+    }
+    if (opts.omitCalibration) return { score: floor, grade: toGrade(floor), parts: base.parts };
+    return {
+      score: floor,
+      grade: toGrade(floor),
+      parts: base.parts,
+      calibration: {
+        rule: "declared_abandoned",
+        reason: [dep ? "deprecated" : "", arc ? "archived" : "", stale ? "publish" : ""]
+          .filter(Boolean)
+          .join(" + "),
+        points,
+      },
+    };
+  };
+}
+
+/** (a) Floor fires with one flag true and a fresh publish. */
+export const floorOnSingleFlag: ScoreFn = floorWith({ singleFlagEnough: true });
+/** (b) Unknown flags count as true. */
+export const floorUnknownAsTrue: ScoreFn = floorWith({ unknownAsTrue: true });
+/** (c) Floor applied but the calibration entry is omitted. */
+export const floorWithoutCalibration: ScoreFn = floorWith({ omitCalibration: true });
+/** (d) Floor overwrites a part instead of adding calibration. */
+export const floorOverwritesParts: ScoreFn = floorWith({ overwriteParts: true });
+/** (e) Strict `>` against monthsSinceLastPublishFullDead. */
+export const floorStrictThreshold: ScoreFn = floorWith({ strictThreshold: true });
+
 export const SABOTAGES: ReadonlyArray<{ name: string; impl: ScoreFn }> = [
   { name: "no normalization", impl: noNormalization },
   { name: "independent rounding", impl: independentRounding },
   { name: "inverted signal (maintainerCount)", impl: invertedSignal },
   { name: "nondeterminism (Math.random)", impl: nondeterministic },
   { name: "unknown treated as alive", impl: unknownAsAlive },
+  { name: "floor with one flag and fresh publish", impl: floorOnSingleFlag },
+  { name: "floor treats unknown as true", impl: floorUnknownAsTrue },
+  { name: "floor without calibration entry", impl: floorWithoutCalibration },
+  { name: "floor overwrites parts", impl: floorOverwritesParts },
+  { name: "floor strict > on publish threshold", impl: floorStrictThreshold },
 ];
 
 // ---------------------------------------------------------------------------

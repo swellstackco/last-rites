@@ -6,7 +6,7 @@ import {
   SIGNAL_NAMES,
 } from "./weights.js";
 import { allAlive, allDead, allUnknown, mixed } from "./__fixtures__/index.js";
-import type { DeathScoreResult, SignalName, SignalPart } from "./types.js";
+import type { DeathScoreResult, PackageSignals, SignalName, SignalPart } from "./types.js";
 
 // ---------------------------------------------------------------------------
 // Helpers
@@ -236,5 +236,134 @@ describe("scoreDeath — mixed fixture", () => {
     // Unknown signals: no source URL in fixture
     expect(partFor(result, "monthsSinceLastPublish").sourceUrl).toBeUndefined();
     expect(partFor(result, "knownReplacementExists").sourceUrl).toBeUndefined();
+  });
+});
+
+// ---------------------------------------------------------------------------
+// death-score-calibration: regression table (tasks 6.1, 6.2)
+// Signals hardcoded from demo/parse-server.json and demo/prettier.json
+// (read once by hand; no network and no file reads at test time).
+// ---------------------------------------------------------------------------
+
+type Sig = [
+  deprecated: boolean,
+  repoArchived: boolean,
+  publish: number,
+  commit: number,
+  maintainers: number,
+  vulns: number,
+  replacement: boolean,
+];
+
+function signalsOf(s: Sig): PackageSignals {
+  const known = <T,>(value: T) => ({ kind: "known" as const, value });
+  return {
+    deprecated: known(s[0]),
+    repoArchived: known(s[1]),
+    monthsSinceLastPublish: known(s[2]),
+    monthsSinceLastCommit: known(s[3]),
+    maintainerCount: known(s[4]),
+    openVulnsNoFix: known(s[5]),
+    knownReplacementExists: known(s[6]),
+  };
+}
+
+const REGRESSION_ROWS: ReadonlyArray<{
+  name: string;
+  signals: Sig;
+  weightedSum: number;
+  score: number;
+  grade: DeathScoreResult["grade"];
+  calibration?: { points: number; reason: string };
+}> = [
+  { name: "ldapjs", signals: [true, true, 35, 29, 4, 0, false], weightedSum: 72, score: 75, grade: "dead", calibration: { points: 3, reason: "deprecated + repo archived" } },
+  { name: "@saithodev/semantic-release-backmerge", signals: [false, true, 35, 35, 1, 0, false], weightedSum: 61, score: 75, grade: "dead", calibration: { points: 14, reason: "repo archived + no publish for 35 months (threshold 24)" } },
+  { name: "remark-footnotes", signals: [false, true, 25, 25, 1, 0, false], weightedSum: 58, score: 75, grade: "dead", calibration: { points: 17, reason: "repo archived + no publish for 25 months (threshold 24)" } },
+  { name: "deep-diff", signals: [true, false, 98, 10, 1, 0, false], weightedSum: 48, score: 75, grade: "dead", calibration: { points: 27, reason: "deprecated + no publish for 98 months (threshold 24)" } },
+  { name: "node-abort-controller", signals: [true, false, 45, 9, 2, 0, false], weightedSum: 45, score: 75, grade: "dead", calibration: { points: 30, reason: "deprecated + no publish for 45 months (threshold 24)" } },
+  { name: "@babel/plugin-proposal-object-rest-spread", signals: [true, false, 43, 0, 4, 0, true], weightedSum: 40, score: 75, grade: "dead", calibration: { points: 35, reason: "deprecated + no publish for 43 months (threshold 24)" } },
+  { name: "eslint", signals: [true, false, 0, 0, 2, 0, false], weightedSum: 27, score: 27, grade: "ailing" },
+  { name: "mongodb-runner", signals: [true, false, 2, 0, 22, 0, false], weightedSum: 21, score: 21, grade: "alive" },
+  { name: "cross-env", signals: [false, true, 13, 11, 1, 0, false], weightedSum: 46, score: 46, grade: "ailing" },
+];
+
+describe("scoreDeath — calibration regression table (default config)", () => {
+  it.each(REGRESSION_ROWS)("$name", (row) => {
+    const result = scoreDeath(signalsOf(row.signals), DEFAULT_WEIGHT_CONFIG);
+    const partsSum = result.parts.reduce((s, p) => s + p.points, 0);
+    expect(partsSum).toBe(row.weightedSum);
+    expect(result.score).toBe(row.score);
+    expect(result.grade).toBe(row.grade);
+    if (row.calibration) {
+      expect(result.calibration).toEqual({ rule: "declared_abandoned", ...row.calibration });
+    } else {
+      expect("calibration" in result).toBe(false);
+    }
+  });
+});
+
+describe("scoreDeath — calibration edge examples", () => {
+  const T = DEFAULT_WEIGHT_CONFIG.monthsSinceLastPublishFullDead;
+  // deprecated only, healthy otherwise: Weighted_Sum is well under 75.
+  const withPublish = (months: number): PackageSignals =>
+    signalsOf([true, false, months, 0, 10, 0, false]);
+
+  it("publish exactly T is stale (floor applies)", () => {
+    const r = scoreDeath(withPublish(T));
+    expect(r.score).toBe(75);
+    expect(r.calibration?.reason).toBe(`deprecated + no publish for ${T} months (threshold ${T})`);
+  });
+
+  it("publish T-1 is not stale (no floor, no calibration key)", () => {
+    const r = scoreDeath(withPublish(T - 1));
+    expect(r.score).toBeLessThan(75);
+    expect("calibration" in r).toBe(false);
+  });
+
+  it.each([
+    { floor: 0, expected: undefined },
+    { floor: 100, expected: 100 },
+    { floor: -5, expected: undefined },
+    { floor: 150, expected: 100 },
+    { floor: Number.NaN, expected: undefined },
+  ])("abandonedFloor $floor", ({ floor, expected }) => {
+    const signals = withPublish(T);
+    const config = { ...DEFAULT_WEIGHT_CONFIG, abandonedFloor: floor };
+    const base = scoreDeath(signals, { ...DEFAULT_WEIGHT_CONFIG, abandonedFloor: 0 });
+    const r = scoreDeath(signals, config);
+    if (expected === undefined) {
+      expect(r.score).toBe(base.score);
+      expect("calibration" in r).toBe(false);
+    } else {
+      expect(r.score).toBe(expected);
+      expect(r.grade).toBe("dead");
+      expect(r.calibration?.points).toBe(expected - base.score);
+    }
+  });
+
+  it("Weighted_Sum already >= 75: no calibration", () => {
+    const r = scoreDeath(signalsOf([true, true, 98, 90, 0, 3, true]));
+    expect(r.score).toBeGreaterThanOrEqual(75);
+    expect("calibration" in r).toBe(false);
+    expect(r.parts.reduce((s, p) => s + p.points, 0)).toBe(r.score);
+  });
+
+  it("both flags with Unknown publish still fire (reason: both flags)", () => {
+    const signals: PackageSignals = {
+      ...signalsOf([true, true, 0, 0, 10, 0, false]),
+      monthsSinceLastPublish: { kind: "unknown" },
+    };
+    const r = scoreDeath(signals);
+    expect(r.score).toBeGreaterThanOrEqual(75);
+    expect(r.grade).toBe("dead");
+    expect(r.calibration?.reason).toBe("deprecated + repo archived");
+  });
+
+  it("one flag with Unknown publish does not fire", () => {
+    const signals: PackageSignals = {
+      ...signalsOf([true, false, 0, 0, 10, 0, false]),
+      monthsSinceLastPublish: { kind: "unknown" },
+    };
+    expect("calibration" in scoreDeath(signals)).toBe(false);
   });
 });
