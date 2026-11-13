@@ -124,7 +124,7 @@ New generators:
   1. floor applied when only one of deprecated/archived is true and publish is fresh (caught by Property 7 and by the NOT C branch of Property 6 generators);
   2. unknown treated as true (caught by Property 7);
   3. floor applied but `calibration` omitted (caught by Property 6 and Property 2);
-  4. floor overwrites parts instead of adding calibration (caught by Property 6 parts equality and Property 2);
+  4. floor overwrites parts instead of adding calibration (caught by Property 6 parts equality only: bumping a part keeps sum(parts) = score, so Property 2 cannot see it; found in build, see docs/kiro-log.md);
   5. strict `>` used against the threshold (publish exactly `T` not caught by the sabotage; caught by Property 6 because `declaredAbandonedArb` biases to `T`).
 
 ### Property 7: Preservation checking

@@ -1,7 +1,7 @@
 {
   "repo": "mafintosh/pump",
   "ref": "HEAD",
-  "scannedAt": "2026-11-13T03:47:41.639Z",
+  "scannedAt": "2026-11-13T04:09:39.734Z",
   "dependencies": [
     {
       "name": "once",

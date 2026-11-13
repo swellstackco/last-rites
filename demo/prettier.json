@@ -1,7 +1,7 @@
 {
   "repo": "prettier/prettier",
   "ref": "HEAD",
-  "scannedAt": "2026-11-13T03:46:20.779Z",
+  "scannedAt": "2026-11-13T04:09:36.862Z",
   "dependencies": [
     {
       "name": "remark-footnotes",
@@ -52,8 +52,8 @@
       "unknownReasons": {},
       "evidenceWarnings": [],
       "death": {
-        "score": 58,
-        "grade": "dying",
+        "score": 75,
+        "grade": "dead",
         "parts": [
           {
             "signal": "deprecated",
@@ -111,7 +111,12 @@
             "status": "known",
             "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
           }
-        ]
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "repo archived + no publish for 25 months (threshold 24)",
+          "points": 17
+        }
       }
     },
     {
@@ -16400,7 +16405,7 @@
     "skipped": 0,
     "alive": 113,
     "ailing": 33,
-    "dying": 1,
-    "dead": 0
+    "dying": 0,
+    "dead": 1
   }
 }

@@ -1,15 +1,15 @@
 {
   "repo": "parse-community/parse-server",
   "ref": "HEAD",
-  "scannedAt": "2026-11-13T03:47:11.387Z",
+  "scannedAt": "2026-11-13T04:09:38.860Z",
   "dependencies": [
     {
-      "name": "ldapjs",
+      "name": "@babel/plugin-proposal-object-rest-spread",
       "kinds": [
-        "dependencies"
+        "devDependencies"
       ],
-      "declaredRange": "3.0.7",
-      "resolvedVersion": "3.0.7",
+      "declaredRange": "7.20.7",
+      "resolvedVersion": "7.20.7",
       "versionSource": "lockfile",
       "signals": {
         "deprecated": {
@@ -18,15 +18,15 @@
         },
         "repoArchived": {
           "kind": "known",
-          "value": true
+          "value": false
         },
         "monthsSinceLastPublish": {
           "kind": "known",
-          "value": 35
+          "value": 43
         },
         "monthsSinceLastCommit": {
           "kind": "known",
-          "value": 29
+          "value": 0
         },
         "maintainerCount": {
           "kind": "known",
@@ -38,23 +38,30 @@
         },
         "knownReplacementExists": {
           "kind": "known",
-          "value": false
+          "value": true
         },
         "sourceUrls": {
-          "deprecated": "https://registry.npmjs.org/ldapjs",
-          "repoArchived": "https://github.com/ldapjs/node-ldapjs",
-          "monthsSinceLastPublish": "https://registry.npmjs.org/ldapjs",
-          "monthsSinceLastCommit": "https://github.com/ldapjs/node-ldapjs",
-          "maintainerCount": "https://registry.npmjs.org/ldapjs",
-          "openVulnsNoFix": "https://osv.dev/list?q=ldapjs",
-          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          "deprecated": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread",
+          "repoArchived": "https://github.com/babel/babel",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread",
+          "monthsSinceLastCommit": "https://github.com/babel/babel",
+          "maintainerCount": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread",
+          "openVulnsNoFix": "https://osv.dev/list?q=@babel/plugin-proposal-object-rest-spread",
+          "knownReplacementExists": "https://raw.githubusercontent.com/e18e/module-replacements/main/manifests/native.json"
         }
       },
       "unknownReasons": {},
+      "replacement": {
+        "type": "module",
+        "replacement": "spread_syntax",
+        "replacements": [
+          "spread_syntax"
+        ]
+      },
       "evidenceWarnings": [],
       "death": {
-        "score": 72,
-        "grade": "dying",
+        "score": 75,
+        "grade": "dead",
         "parts": [
           {
             "signal": "deprecated",
@@ -62,31 +69,31 @@
             "weight": 20,
             "points": 20,
             "status": "known",
-            "sourceUrl": "https://registry.npmjs.org/ldapjs"
+            "sourceUrl": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread"
           },
           {
             "signal": "repoArchived",
-            "rawValue": "true",
+            "rawValue": "false",
             "weight": 25,
-            "points": 25,
+            "points": 0,
             "status": "known",
-            "sourceUrl": "https://github.com/ldapjs/node-ldapjs"
+            "sourceUrl": "https://github.com/babel/babel"
           },
           {
             "signal": "monthsSinceLastPublish",
-            "rawValue": "35",
+            "rawValue": "43",
             "weight": 15,
             "points": 15,
             "status": "known",
-            "sourceUrl": "https://registry.npmjs.org/ldapjs"
+            "sourceUrl": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread"
           },
           {
             "signal": "monthsSinceLastCommit",
-            "rawValue": "29",
+            "rawValue": "0",
             "weight": 12,
-            "points": 10,
+            "points": 0,
             "status": "known",
-            "sourceUrl": "https://github.com/ldapjs/node-ldapjs"
+            "sourceUrl": "https://github.com/babel/babel"
           },
           {
             "signal": "maintainerCount",
@@ -94,7 +101,7 @@
             "weight": 12,
             "points": 2,
             "status": "known",
-            "sourceUrl": "https://registry.npmjs.org/ldapjs"
+            "sourceUrl": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread"
           },
           {
             "signal": "openVulnsNoFix",
@@ -102,17 +109,22 @@
             "weight": 13,
             "points": 0,
             "status": "known",
-            "sourceUrl": "https://osv.dev/list?q=ldapjs"
+            "sourceUrl": "https://osv.dev/list?q=@babel/plugin-proposal-object-rest-spread"
           },
           {
             "signal": "knownReplacementExists",
-            "rawValue": "false",
+            "rawValue": "true",
             "weight": 3,
-            "points": 0,
+            "points": 3,
             "status": "known",
-            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+            "sourceUrl": "https://raw.githubusercontent.com/e18e/module-replacements/main/manifests/native.json"
           }
-        ]
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "deprecated + no publish for 43 months (threshold 24)",
+          "points": 35
+        }
       }
     },
     {
@@ -165,8 +177,8 @@
       "unknownReasons": {},
       "evidenceWarnings": [],
       "death": {
-        "score": 61,
-        "grade": "dying",
+        "score": 75,
+        "grade": "dead",
         "parts": [
           {
             "signal": "deprecated",
@@ -224,7 +236,12 @@
             "status": "known",
             "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
           }
-        ]
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "repo archived + no publish for 35 months (threshold 24)",
+          "points": 14
+        }
       }
     },
     {
@@ -277,8 +294,8 @@
       "unknownReasons": {},
       "evidenceWarnings": [],
       "death": {
-        "score": 48,
-        "grade": "ailing",
+        "score": 75,
+        "grade": "dead",
         "parts": [
           {
             "signal": "deprecated",
@@ -336,7 +353,246 @@
             "status": "known",
             "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
           }
-        ]
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "deprecated + no publish for 98 months (threshold 24)",
+          "points": 27
+        }
+      }
+    },
+    {
+      "name": "ldapjs",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "3.0.7",
+      "resolvedVersion": "3.0.7",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": true
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": true
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 35
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 29
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 4
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/ldapjs",
+          "repoArchived": "https://github.com/ldapjs/node-ldapjs",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/ldapjs",
+          "monthsSinceLastCommit": "https://github.com/ldapjs/node-ldapjs",
+          "maintainerCount": "https://registry.npmjs.org/ldapjs",
+          "openVulnsNoFix": "https://osv.dev/list?q=ldapjs",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 75,
+        "grade": "dead",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "true",
+            "weight": 20,
+            "points": 20,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/ldapjs"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "true",
+            "weight": 25,
+            "points": 25,
+            "status": "known",
+            "sourceUrl": "https://github.com/ldapjs/node-ldapjs"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "35",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/ldapjs"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "29",
+            "weight": 12,
+            "points": 10,
+            "status": "known",
+            "sourceUrl": "https://github.com/ldapjs/node-ldapjs"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "4",
+            "weight": 12,
+            "points": 2,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/ldapjs"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=ldapjs"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "deprecated + repo archived",
+          "points": 3
+        }
+      }
+    },
+    {
+      "name": "node-abort-controller",
+      "kinds": [
+        "devDependencies"
+      ],
+      "declaredRange": "3.1.1",
+      "resolvedVersion": "3.1.1",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": true
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 45
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 9
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 2
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/node-abort-controller",
+          "repoArchived": "https://github.com/southpolesteve/node-abort-controller",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/node-abort-controller",
+          "monthsSinceLastCommit": "https://github.com/southpolesteve/node-abort-controller",
+          "maintainerCount": "https://registry.npmjs.org/node-abort-controller",
+          "openVulnsNoFix": "https://osv.dev/list?q=node-abort-controller",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 75,
+        "grade": "dead",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "true",
+            "weight": 20,
+            "points": 20,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/node-abort-controller"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/southpolesteve/node-abort-controller"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "45",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/node-abort-controller"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "9",
+            "weight": 12,
+            "points": 3,
+            "status": "known",
+            "sourceUrl": "https://github.com/southpolesteve/node-abort-controller"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "2",
+            "weight": 12,
+            "points": 7,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/node-abort-controller"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=node-abort-controller"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "deprecated + no publish for 45 months (threshold 24)",
+          "points": 30
+        }
       }
     },
     {
@@ -447,237 +703,6 @@
             "points": 0,
             "status": "known",
             "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
-          }
-        ]
-      }
-    },
-    {
-      "name": "node-abort-controller",
-      "kinds": [
-        "devDependencies"
-      ],
-      "declaredRange": "3.1.1",
-      "resolvedVersion": "3.1.1",
-      "versionSource": "lockfile",
-      "signals": {
-        "deprecated": {
-          "kind": "known",
-          "value": true
-        },
-        "repoArchived": {
-          "kind": "known",
-          "value": false
-        },
-        "monthsSinceLastPublish": {
-          "kind": "known",
-          "value": 45
-        },
-        "monthsSinceLastCommit": {
-          "kind": "known",
-          "value": 9
-        },
-        "maintainerCount": {
-          "kind": "known",
-          "value": 2
-        },
-        "openVulnsNoFix": {
-          "kind": "known",
-          "value": 0
-        },
-        "knownReplacementExists": {
-          "kind": "known",
-          "value": false
-        },
-        "sourceUrls": {
-          "deprecated": "https://registry.npmjs.org/node-abort-controller",
-          "repoArchived": "https://github.com/southpolesteve/node-abort-controller",
-          "monthsSinceLastPublish": "https://registry.npmjs.org/node-abort-controller",
-          "monthsSinceLastCommit": "https://github.com/southpolesteve/node-abort-controller",
-          "maintainerCount": "https://registry.npmjs.org/node-abort-controller",
-          "openVulnsNoFix": "https://osv.dev/list?q=node-abort-controller",
-          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
-        }
-      },
-      "unknownReasons": {},
-      "evidenceWarnings": [],
-      "death": {
-        "score": 45,
-        "grade": "ailing",
-        "parts": [
-          {
-            "signal": "deprecated",
-            "rawValue": "true",
-            "weight": 20,
-            "points": 20,
-            "status": "known",
-            "sourceUrl": "https://registry.npmjs.org/node-abort-controller"
-          },
-          {
-            "signal": "repoArchived",
-            "rawValue": "false",
-            "weight": 25,
-            "points": 0,
-            "status": "known",
-            "sourceUrl": "https://github.com/southpolesteve/node-abort-controller"
-          },
-          {
-            "signal": "monthsSinceLastPublish",
-            "rawValue": "45",
-            "weight": 15,
-            "points": 15,
-            "status": "known",
-            "sourceUrl": "https://registry.npmjs.org/node-abort-controller"
-          },
-          {
-            "signal": "monthsSinceLastCommit",
-            "rawValue": "9",
-            "weight": 12,
-            "points": 3,
-            "status": "known",
-            "sourceUrl": "https://github.com/southpolesteve/node-abort-controller"
-          },
-          {
-            "signal": "maintainerCount",
-            "rawValue": "2",
-            "weight": 12,
-            "points": 7,
-            "status": "known",
-            "sourceUrl": "https://registry.npmjs.org/node-abort-controller"
-          },
-          {
-            "signal": "openVulnsNoFix",
-            "rawValue": "0",
-            "weight": 13,
-            "points": 0,
-            "status": "known",
-            "sourceUrl": "https://osv.dev/list?q=node-abort-controller"
-          },
-          {
-            "signal": "knownReplacementExists",
-            "rawValue": "false",
-            "weight": 3,
-            "points": 0,
-            "status": "known",
-            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
-          }
-        ]
-      }
-    },
-    {
-      "name": "@babel/plugin-proposal-object-rest-spread",
-      "kinds": [
-        "devDependencies"
-      ],
-      "declaredRange": "7.20.7",
-      "resolvedVersion": "7.20.7",
-      "versionSource": "lockfile",
-      "signals": {
-        "deprecated": {
-          "kind": "known",
-          "value": true
-        },
-        "repoArchived": {
-          "kind": "known",
-          "value": false
-        },
-        "monthsSinceLastPublish": {
-          "kind": "known",
-          "value": 43
-        },
-        "monthsSinceLastCommit": {
-          "kind": "known",
-          "value": 0
-        },
-        "maintainerCount": {
-          "kind": "known",
-          "value": 4
-        },
-        "openVulnsNoFix": {
-          "kind": "known",
-          "value": 0
-        },
-        "knownReplacementExists": {
-          "kind": "known",
-          "value": true
-        },
-        "sourceUrls": {
-          "deprecated": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread",
-          "repoArchived": "https://github.com/babel/babel",
-          "monthsSinceLastPublish": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread",
-          "monthsSinceLastCommit": "https://github.com/babel/babel",
-          "maintainerCount": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread",
-          "openVulnsNoFix": "https://osv.dev/list?q=@babel/plugin-proposal-object-rest-spread",
-          "knownReplacementExists": "https://raw.githubusercontent.com/e18e/module-replacements/main/manifests/native.json"
-        }
-      },
-      "unknownReasons": {},
-      "replacement": {
-        "type": "module",
-        "replacement": "spread_syntax",
-        "replacements": [
-          "spread_syntax"
-        ]
-      },
-      "evidenceWarnings": [],
-      "death": {
-        "score": 40,
-        "grade": "ailing",
-        "parts": [
-          {
-            "signal": "deprecated",
-            "rawValue": "true",
-            "weight": 20,
-            "points": 20,
-            "status": "known",
-            "sourceUrl": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread"
-          },
-          {
-            "signal": "repoArchived",
-            "rawValue": "false",
-            "weight": 25,
-            "points": 0,
-            "status": "known",
-            "sourceUrl": "https://github.com/babel/babel"
-          },
-          {
-            "signal": "monthsSinceLastPublish",
-            "rawValue": "43",
-            "weight": 15,
-            "points": 15,
-            "status": "known",
-            "sourceUrl": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread"
-          },
-          {
-            "signal": "monthsSinceLastCommit",
-            "rawValue": "0",
-            "weight": 12,
-            "points": 0,
-            "status": "known",
-            "sourceUrl": "https://github.com/babel/babel"
-          },
-          {
-            "signal": "maintainerCount",
-            "rawValue": "4",
-            "weight": 12,
-            "points": 2,
-            "status": "known",
-            "sourceUrl": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread"
-          },
-          {
-            "signal": "openVulnsNoFix",
-            "rawValue": "0",
-            "weight": 13,
-            "points": 0,
-            "status": "known",
-            "sourceUrl": "https://osv.dev/list?q=@babel/plugin-proposal-object-rest-spread"
-          },
-          {
-            "signal": "knownReplacementExists",
-            "rawValue": "true",
-            "weight": 3,
-            "points": 3,
-            "status": "known",
-            "sourceUrl": "https://raw.githubusercontent.com/e18e/module-replacements/main/manifests/native.json"
           }
         ]
       }
@@ -9502,8 +9527,8 @@
     "total": 84,
     "skipped": 2,
     "alive": 65,
-    "ailing": 17,
-    "dying": 2,
-    "dead": 0
+    "ailing": 14,
+    "dying": 0,
+    "dead": 5
   }
 }
