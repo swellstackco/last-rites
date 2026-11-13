@@ -158,25 +158,25 @@ This plan implements the Npm_Scanner in `/apps/exorcist-npm/src/scan/` per the n
 
 ### Phase 7: Demo snapshot script
 
-- [ ] 7.1 Create `src/scan/demo-snapshot.ts`: `DemoRepo`, `DemoFs`, `DemoSnapshotDeps`, `runDemoSnapshots` (sequential; invalid name skipped and counted as failed; failed scan leaves the existing file; write to `.<name>.json.<n>.tmp` then rename; on write or rename failure remove the temp file, keep the old file, count as failed, continue) and `main()` wiring the real fetch client, runtime and `node:fs/promises`, exiting 1 when any repository failed and 0 otherwise. Runs with no GitHub token set. Started only by `npm run demo-snapshot`.
+- [x] 7.1 Create `src/scan/demo-snapshot.ts`: `DemoRepo`, `DemoFs`, `DemoSnapshotDeps`, `runDemoSnapshots` (sequential; invalid name skipped and counted as failed; failed scan leaves the existing file; write to `.<name>.json.<n>.tmp` then rename; on write or rename failure remove the temp file, keep the old file, count as failed, continue) and `main()` wiring the real fetch client, runtime and `node:fs/promises`, exiting 1 when any repository failed and 0 otherwise. Runs with no GitHub token set. Started only by `npm run demo-snapshot`.
   - _Requirements: 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 11.8, 11.9_
-- [ ] 7.2 Create `src/scan/demo-list.ts` with `DEMO_REPOS`: a short named list of public repositories (names matching `DEMO_NAME_PATTERN`), including the fixture repository.
+- [x] 7.2 Create `src/scan/demo-list.ts` with `DEMO_REPOS`: a short named list of public repositories (names matching `DEMO_NAME_PATTERN`), including the fixture repository.
   - _Requirements: 11.1, 11.8_
-- [ ] 7.3 Write demo-snapshot tests in `demo-snapshot.test.ts` with `FakeHttp` or a fake pipeline, a fake `DemoFs` and a newly created temp directory removed in `finally`: success writes canonical text through a temp file then a rename, failed scan leaves the old file and continues, write failure removes the temp file, invalid name skipped, summary decides the exit status, and the two default demo directories (`api/config.ts` and `demo-snapshot.ts`) resolve to the same path.
+- [x] 7.3 Write demo-snapshot tests in `demo-snapshot.test.ts` with `FakeHttp` or a fake pipeline, a fake `DemoFs` and a newly created temp directory removed in `finally`: success writes canonical text through a temp file then a rename, failed scan leaves the old file and continues, write failure removes the temp file, invalid name skipped, summary decides the exit status, and the two default demo directories (`api/config.ts` and `demo-snapshot.ts`) resolve to the same path.
   - _Requirements: 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.8, 13.10_
-- [ ] 7.4 Checkpoint after Phase 7 - Ensure all tests pass, ask the user if questions arise.
+- [x] 7.4 Checkpoint after Phase 7 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 8: Integration, smoke tests and documentation
 
-- [ ] 8.1 Create `src/scan/index.ts` exporting `inventory`, `createScanPipeline`, `serializeReport`, `parseReport` and the public types. Export no `replacement` or `proof` stage.
+- [x] 8.1 Create `src/scan/index.ts` exporting `inventory`, `createScanPipeline`, `serializeReport`, `parseReport` and the public types. Export no `replacement` or `proof` stage.
   - _Requirements: 12.3_
-- [ ] 8.2 Write static smoke tests in `smoke.test.ts`: the scanner imports `/skeleton` only through `@graveyard-kit/skeleton`, no file under `/skeleton` resolves an import under `apps/exorcist-npm`, no scan module imports evidence internals other than `http/cache`, `http/resilient-client` and `http/fetch-json`, `evidence/index.ts` exports are unchanged, no `package.json` declares an LLM client dependency, any added runtime dependency is exact-pinned (none expected), `scan/index.ts` exports `inventory` and no `replacement` or `proof`, `process.env` is read only in the two `main()` functions and `PORT` only through `parsePortEnv`, the three npm scripts exist and no test imports `demo-snapshot` or `server` as an entry point.
+- [x] 8.2 Write static smoke tests in `smoke.test.ts`: the scanner imports `/skeleton` only through `@graveyard-kit/skeleton`, no file under `/skeleton` resolves an import under `apps/exorcist-npm`, no scan module imports evidence internals other than `http/cache`, `http/resilient-client` and `http/fetch-json`, `evidence/index.ts` exports are unchanged, no `package.json` declares an LLM client dependency, any added runtime dependency is exact-pinned (none expected), `scan/index.ts` exports `inventory` and no `replacement` or `proof`, `process.env` is read only in the two `main()` functions and `PORT` only through `parsePortEnv`, the three npm scripts exist and no test imports `demo-snapshot` or `server` as an entry point.
   - _Requirements: 10.2, 11.7, 12.1, 12.2, 12.3, 12.4, 12.5, 12.6_
-- [ ] 8.3 Run `npm run typecheck` across workspaces and `npm test`; fix strict-mode errors and confirm every property runs with `numRuns: 100`, the fixed seed applies when `CI` is set, `FC_SEED` replays, and every sabotage check fails its property as intended.
+- [x] 8.3 Run `npm run typecheck` across workspaces and `npm test`; fix strict-mode errors and confirm every property runs with `numRuns: 100`, the fixed seed applies when `CI` is set, `FC_SEED` replays, and every sabotage check fails its property as intended.
   - _Requirements: 13.1, 13.2, 14.1, 14.9, 14.12, 14.13, 14.14, 14.15_
-- [ ] 8.4 Append a dated entry to `docs/kiro-log.md` noting the npm-scanner build, the eight properties (six required plus scan-p7 and scan-p8), the sabotage results, any shrunk counterexamples surfaced, the chosen fixture repository and commit SHA, and the design decisions worth recording (raw.githubusercontent.com as the file source, plain handler instead of Hono, `internal_error`, the requirement amendments from 1.1).
+- [x] 8.4 Append a dated entry to `docs/kiro-log.md` noting the npm-scanner build, the eight properties (six required plus scan-p7 and scan-p8), the sabotage results, any shrunk counterexamples surfaced, the chosen fixture repository and commit SHA, and the design decisions worth recording (raw.githubusercontent.com as the file source, plain handler instead of Hono, `internal_error`, the requirement amendments from 1.1).
   - _Requirements: 14.1_
-- [ ] 8.5 Final checkpoint - Ensure all tests pass, ask the user if questions arise.
+- [x] 8.5 Final checkpoint - Ensure all tests pass, ask the user if questions arise.
 
 ## Task Dependency Graph
 
