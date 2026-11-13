@@ -636,3 +636,13 @@
   }
 }
 
+
+/* Forced colors: Form_Grid cells, the Stamp and the Compare_Box keep a visible edge. */
+@media (forced-colors: active) {
+  table.breakdown th,
+  table.breakdown td,
+  .proof-badge,
+  .proof-compare {
+    border: var(--rule) solid CanvasText;
+  }
+}

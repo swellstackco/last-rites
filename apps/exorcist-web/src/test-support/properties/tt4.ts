@@ -95,7 +95,15 @@ export function sheetViolations({ tokens: tokensCss, rest }: Sheets): string[] {
       out.push(`${d.preludes.join(" ")}: named color in ${d.prop}`);
     }
   }
-  for (const r of rulesOf(rest)) out.push(...ruleViolations(r));
+  for (const r of rulesOf(rest)) {
+    out.push(...ruleViolations(r));
+    // Band colors travel through custom properties; the pair is (--band-text on --band-color).
+    const text = r.decls.find((d) => d.prop === "--band-text");
+    const color = r.decls.find((d) => d.prop === "--band-color");
+    const fg = text ? plainVar(text.value) : null;
+    const bg = color ? plainVar(color.value) : null;
+    if (fg && bg && !hasPair(fg, bg)) out.push(`${r.selector}: Band text ${fg} on ${bg} is not in the Pair_Registry`);
+  }
   return out;
 }
 
