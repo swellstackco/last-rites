@@ -27,22 +27,22 @@ This plan implements the Npm_Evidence_Stage in `/apps/exorcist-npm/src/evidence/
 - [x] 2.3 Write the Property 7 test (Months_Since counts whole calendar months) in `months-since.p7.test.ts`, with the sabotage list in `test-support/sabotage/p7.ts` (ignores the day-of-month tuple; `floor(days / 30)`; rounds up).
   - **Property 7: Months_Since counts whole calendar months**
   - **Validates: Requirements 11.2, 13.7**
-- [ ] 2.4 Create `src/evidence/repo-url.ts` with `parseRepoUrl(field: unknown): RepoRef | undefined` per the design (no `URL` class, nine accepted forms, fragment/query/monorepo-path/`.git`/trailing-slash stripping, case-insensitive host, trim, name validation, reject `.` and `..`, never throws).
+- [x] 2.4 Create `src/evidence/repo-url.ts` with `parseRepoUrl(field: unknown): RepoRef | undefined` per the design (no `URL` class, nine accepted forms, fragment/query/monorepo-path/`.git`/trailing-slash stripping, case-insensitive host, trim, name validation, reject `.` and `..`, never throws).
   - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9_
-- [ ] 2.5 Write the Property 1 test (every GitHub URL form maps to the same Repo_Ref) in `repo-url.p1.test.ts`, with the sabotage list in `test-support/sabotage/p1.ts` (does not strip `.git`; case-sensitive host; no trim; whole path as repo).
+- [x] 2.5 Write the Property 1 test (every GitHub URL form maps to the same Repo_Ref) in `repo-url.p1.test.ts`, with the sabotage list in `test-support/sabotage/p1.ts` (does not strip `.git`; case-sensitive host; no trim; whole path as repo).
   - **Property 1: Every GitHub URL form maps to the same Repo_Ref**
   - **Validates: Requirements 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.10, 13.2, 13.7**
-- [ ] 2.6 Write the Property 2 test (non-GitHub and invalid values map to no Repo_Ref and never throw) in `repo-url.p2.test.ts`, with the sabotage list in `test-support/sabotage/p2.ts` (accepts any host; accepts a repo over 100 characters; throws on non-string input).
+- [x] 2.6 Write the Property 2 test (non-GitHub and invalid values map to no Repo_Ref and never throw) in `repo-url.p2.test.ts`, with the sabotage list in `test-support/sabotage/p2.ts` (accepts any host; accepts a repo over 100 characters; throws on non-string input).
   - **Property 2: Non-GitHub and invalid values map to no Repo_Ref and never throw**
   - **Validates: Requirements 3.7, 3.8, 3.9, 13.2, 13.7**
-- [ ] 2.7 Create `src/evidence/version.ts` with `resolveVersion(doc, range?)` returning `resolved`, `none` or `no_match` (whitespace-only range treated as none; `semver.maxSatisfying`; dist-tag fallback). Write example tests for pre-release ranges, dist-tag ranges, no-match ranges and a `latest` that is missing from `versions`.
+- [x] 2.7 Create `src/evidence/version.ts` with `resolveVersion(doc, range?)` returning `resolved`, `none` or `no_match` (whitespace-only range treated as none; `semver.maxSatisfying`; dist-tag fallback). Write example tests for pre-release ranges, dist-tag ranges, no-match ranges and a `latest` that is missing from `versions`.
   - _Requirements: 1.3, 1.4, 1.5, 2.8_
-- [ ] 2.8 Create `src/evidence/osv-count.ts` with `countOpenVulnsNoFix(vulns, name)`: distinct ids, npm ecosystem and name match, `fixed` events only, `last_affected` is not a fix, unmatched vulnerabilities count as unfixed.
+- [x] 2.8 Create `src/evidence/osv-count.ts` with `countOpenVulnsNoFix(vulns, name)`: distinct ids, npm ecosystem and name match, `fixed` events only, `last_affected` is not a fix, unmatched vulnerabilities count as unfixed.
   - _Requirements: 5.2, 5.3_
-- [ ] 2.9 Write the Property 8 test (open-vulnerability count matches the unfixed-id model) in `osv-count.p8.test.ts`, with the sabotage list in `test-support/sabotage/p8.ts` (counts objects not ids; `last_affected` as a fix; ignores ecosystem; examines only the first affected entry).
+- [x] 2.9 Write the Property 8 test (open-vulnerability count matches the unfixed-id model) in `osv-count.p8.test.ts`, with the sabotage list in `test-support/sabotage/p8.ts` (counts objects not ids; `last_affected` as a fix; ignores ecosystem; examines only the first affected entry).
   - **Property 8: Open-vulnerability count matches the unfixed-id model**
   - **Validates: Requirements 5.2, 5.3, 13.7**
-- [ ] 2.10 Checkpoint after Phase 2 - Ensure all tests pass, ask the user if questions arise.
+- [x] 2.10 Checkpoint after Phase 2 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 3: Cache and resilient HTTP layer
 
