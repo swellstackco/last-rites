@@ -38,5 +38,6 @@ export const CSS_SABOTAGES: readonly CssSabotage[] = [
   },
   { name: "(t) :focus:not(:focus-visible) deleted", check: "S6", mutate: (c) => replaceOnce(c, ":focus:not(:focus-visible) {\n  outline: none;\n}", "") },
   { name: "(u) blanket :focus { outline: none }", check: "S6", mutate: (c) => replaceOnce(c, ":focus:not(:focus-visible) {", ":focus {") },
+  { name: "(w) h1 focus contingency made blanket", check: "S6", mutate: (c) => replaceOnce(c, 'h1[tabindex="-1"]:focus {', "h2:focus {") },
   { name: "(v) :focus-visible outline removed", check: "S6", mutate: (c) => replaceOnce(c, "outline: var(--ring-width) solid var(--focus);", "outline: none;") },
 ];

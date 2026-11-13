@@ -9,8 +9,8 @@ import { CSS_SABOTAGES } from "./test-support/sabotage/css.js";
 const stylesheet = STYLE_FILES.map((f) => readFileSync(fileURLToPath(new URL(`./styles/${f}`, import.meta.url)), "utf8")).join("\n");
 
 describe("CSS sabotage checks (graveyard-ui-polish)", () => {
-  it("has all twelve mutations (k)-(v)", () => {
-    expect(CSS_SABOTAGES.map((s) => s.name.slice(0, 3))).toEqual(["(k)", "(l)", "(m)", "(n)", "(o)", "(p)", "(q)", "(r)", "(s)", "(t)", "(u)", "(v)"]);
+  it("has all thirteen mutations (k)-(w)", () => {
+    expect(CSS_SABOTAGES.map((s) => s.name.slice(0, 3))).toEqual(["(k)", "(l)", "(m)", "(n)", "(o)", "(p)", "(q)", "(r)", "(s)", "(t)", "(u)", "(w)", "(v)"]);
   });
 
   it("the real Stylesheet passes", () => {

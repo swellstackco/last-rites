@@ -175,6 +175,12 @@ summary {
   outline: none;
 }
 
+/* Contingency (graveyard-ui-polish 6.4): Chrome matches :focus-visible for script focus on load, so the
+   page heading (never reached by Tab) is also excluded explicitly. */
+h1[tabindex="-1"]:focus {
+  outline: none;
+}
+
 /* Layout safety: grid and flex children may shrink, names may wrap anywhere. */
 .grid > *,
 .row > *,

@@ -175,10 +175,10 @@ export function checkStylesheet(css: string): Violation[] {
 
   // ---- S6 focus (2.8) ----
   const removals = decls.filter((d) => d.prop === "outline" && /^(none|0)\b/.test(d.value));
-  if (removals.length !== 1) {
-    bad("S6", `expected exactly one outline removal, found ${removals.length}`);
-  } else if (selectorsOf(removals[0] as Decl).join(",") !== ":focus:not(:focus-visible)") {
-    bad("S6", `the outline removal must be on :focus:not(:focus-visible), found ${selectorsOf(removals[0] as Decl).join(", ")}`);
+  const removalSelectors = removals.flatMap((d) => selectorsOf(d)).sort();
+  const allowed = [':focus:not(:focus-visible)', 'h1[tabindex="-1"]:focus'].sort();
+  if (removals.length !== 2 || removalSelectors.join("|") !== allowed.join("|")) {
+    bad("S6", `outline removals must be exactly ${allowed.join(" and ")}, found ${removals.length}: ${removalSelectors.join(", ")}`);
   }
   const ring = decls.find((d) => d.prop === "outline" && d.preludes.some((p) => p.includes(":focus-visible")) && !d.preludes.some((p) => p.includes(":not(")));
   if (!ring || !ring.value.includes("var(--ring-width)") || !ring.value.includes("var(--focus)")) {

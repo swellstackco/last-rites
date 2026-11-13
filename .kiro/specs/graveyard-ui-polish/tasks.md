@@ -56,19 +56,19 @@ Fixes the seven presentation defects D1-D7 of the Graveyard_Page found in `docs/
 - [x] 6.1 Extend the existing class-vocabulary test (every `ClassName` is used by a view or the Stylesheet, every class used by a view is in `ClassName`) to the new names and the removed `tomb-label`.
 - [x] 6.2 Update the assertions that pinned a defect, nothing else: any test that expects `.tomb-label`, empty footer cells, or "No source recorded" on the Calibration_Row (`grep` in `apps/exorcist-web/src/*.test.ts`). Do not weaken the other assertions. Add the ldapjs example (calibration `+3`, Total `75 / 100`, "Engine rule: declared_abandoned") and the long-name, duplicate-name, hostile-name and no-calibration examples.
 - [x] 6.3 Rebuild: `npm run build -w @graveyard-kit/exorcist-web`; confirm one JS and one CSS asset in `dist/`, and that the built CSS contains `.screen`, `:focus:not(:focus-visible)` and no `.tomb-label`.
-- [ ] 6.4 Manual browser check (by Claude or the user; no browser is available to the test run): Chrome 1352x761 and 375x812 on the demo parse-server, package ldapjs: centered column with gutter (D1), no bullets (D2), one grade label, full arch, no line (D3), no mid-word breaks (D4), "Engine rule: declared_abandoned" (D5), one Total line at 375px (D6), no focus box on the `h1` after load and navigation, with Tab still showing the ring elsewhere (D7). If the focus box still appears, apply the contingency `h1[tabindex="-1"]:focus { outline: none }`, extend S6 to allow exactly that selector, add a sabotage for it, and record the judgement call. Record in `docs/kiro-log.md` each item as checked or NOT RUN.
+- [x] 6.4 Manual browser check (by Claude or the user; no browser is available to the test run): Chrome 1352x761 and 375x812 on the demo parse-server, package ldapjs: centered column with gutter (D1), no bullets (D2), one grade label, full arch, no line (D3), no mid-word breaks (D4), "Engine rule: declared_abandoned" (D5), one Total line at 375px (D6), no focus box on the `h1` after load and navigation, with Tab still showing the ring elsewhere (D7). If the focus box still appears, apply the contingency `h1[tabindex="-1"]:focus { outline: none }`, extend S6 to allow exactly that selector, add a sabotage for it, and record the judgement call. Record in `docs/kiro-log.md` each item as checked or NOT RUN.
 
 ### Phase 7: Documentation
 
-- [ ] 7.1 `apps/exorcist-web/src/__fixtures__/README.md` or the app README: add one sentence if they describe the Tombstone or Breakdown markup. Skip if they do not.
-- [ ] 7.2 `.kiro/specs/graveyard-ui/design.md`: add a pointer section "Polish (bugfix)" linking to `.kiro/specs/graveyard-ui-polish/`, noting that the Tombstone has one grade label, the Content_Column lives on `.screen`, the Total_Row has no empty cells and the calibration Source reads "Engine rule: <rule>". Do not rewrite the rest.
-- [ ] 7.3 Append the final dated entry to `docs/kiro-log.md`: defects, root causes confirmed or revised (D1 graveyard page and the arch clip especially), fix, properties, sabotage results, manual check status, judgement calls.
+- [x] 7.1 `apps/exorcist-web/src/__fixtures__/README.md` or the app README: add one sentence if they describe the Tombstone or Breakdown markup. Skip if they do not.
+- [x] 7.2 `.kiro/specs/graveyard-ui/design.md`: add a pointer section "Polish (bugfix)" linking to `.kiro/specs/graveyard-ui-polish/`, noting that the Tombstone has one grade label, the Content_Column lives on `.screen`, the Total_Row has no empty cells and the calibration Source reads "Engine rule: <rule>". Do not rewrite the rest.
+- [x] 7.3 Append the final dated entry to `docs/kiro-log.md`: defects, root causes confirmed or revised (D1 graveyard page and the arch clip especially), fix, properties, sabotage results, manual check status, judgement calls.
 
 ### Phase 8: Checkpoint
 
-- [ ] 8.1 Run `npm run typecheck` across the repo: green.
-- [ ] 8.2 Run `npm test` across the repo: green (all workspaces, `numRuns: 100`, no network), with and without `CI=1`.
-- [ ] 8.3 Final check against bugfix.md: each clause 2.1-2.8 and 3.1-3.9 maps to a passing test or to a manual-check line in the log; list every clause that is only manually checked or unverified in `docs/kiro-log.md`.
+- [x] 8.1 Run `npm run typecheck` across the repo: green.
+- [x] 8.2 Run `npm test` across the repo: green (all workspaces, `numRuns: 100`, no network), with and without `CI=1`.
+- [x] 8.3 Final check against bugfix.md: each clause 2.1-2.8 and 3.1-3.9 maps to a passing test or to a manual-check line in the log; list every clause that is only manually checked or unverified in `docs/kiro-log.md`.
 
 ## Task Dependency Graph
 
