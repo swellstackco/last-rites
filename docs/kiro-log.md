@@ -201,3 +201,9 @@ Headless Chromium at 1352x761 and 375x812 (2x), demo parse-server, package ldapj
 - Sabotage checks (temporary test with the fixed seed, since removed; the central test is 6.11): first run left two entries green. "classifies enclosing by directory only": the generator named files `Thing.spec0.js`, which does not contain `.spec.`, so the defect could not show; fixed by a separate `infix` field (`a0.spec.js`). "returns files in listing order": the real walk sorts entries, so a spy on `readText` order saw sorted order; the entry now records the raw `readDir` listings and ranks files by a depth-first walk of them. After the fixes all eleven were caught and the real surface passed under eight further seeds.
 - Counterexamples found by fast-check against the real code: none. Property 6 held on the first run.
 - Counts (repo root): `npm run typecheck` clean; `npm test` 120 files, 1108 tests pass, 1 todo.
+
+## 2026-11-13 proof-harness 4.20, 5.1-5.7 (Kiro CLI)
+
+- 5.1/5.2: `oracles.ts` (`loadOracle` via `createRequire`, only `intersect` 1.0.1 and `deep-diff` 1.0.2) with tests.
+- 5.3-5.7: `recipes/types.ts`, `recipes/intersect.ts` (two shapes; ids drawn from independent lists or a small shared pool so overlaps and last-list duplicates are common), `recipes/deep-diff.ts` (one `isUndefined` shape; families: reordered clone, one-change clone, independent pair) with tests. A one-change clone replaces a value with `[old]` when the random replacement happens to equal it, so the pair is never equal. 500-sample label coverage holds for all required labels.
+- Counterexamples found by fast-check: none (no differential property over these recipes yet; that is 5.12).

@@ -153,23 +153,23 @@ Terminology used in the tasks: a *Mutator* is part of the product (a deliberatel
   - **Validates: Requirements 1.5, 1.6, 1.7, 2.1, 2.2, 2.3, 2.4, 2.7, 3.1 to 3.9, 4.1 to 4.3**
 - [x] 4.19 Create the Sabotage_List `apps/exorcist-npm/src/exorcise/test-support/sabotage/proof-p6.ts` (skip `.js` files with a type annotation; count a nested call once; count the `expect(...)` call as a call of the bound name; ignore `new`; read `node_modules`; ignore optional chaining; ignore string-literal element access; treat `== undefined` as an undefined check; classify `enclosing` by directory only; sort with `localeCompare`; return files in listing order), each a small wrapper over the real implementation or a `SourceFs` filter.
   - _Requirements: 18.2, 18.5_
-- [ ] 4.20 Checkpoint after Phase 4 - Ensure all tests pass, ask the user if questions arise.
+- [x] 4.20 Checkpoint after Phase 4 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 5: Oracles, candidates and recipes
 
-- [ ] 5.1 Create `apps/exorcist-npm/src/exorcise/oracles.ts`: `loadOracle(pkg)` through `createRequire(import.meta.url)` for the pinned oracles `intersect` and `deep-diff` only, returning `{ module, version }` (version from the package's `package.json`), `undefined` for any other name, no network.
+- [x] 5.1 Create `apps/exorcist-npm/src/exorcise/oracles.ts`: `loadOracle(pkg)` through `createRequire(import.meta.url)` for the pinned oracles `intersect` and `deep-diff` only, returning `{ module, version }` (version from the package's `package.json`), `undefined` for any other name, no network.
   - _Requirements: 11.5, 17.5_
-- [ ] 5.2 Write `oracles.test.ts`: versions are exactly `1.0.1` and `1.0.2`, `intersect([["a","b"],["b"]])` is `["b"]`, `intersect.big` exists, `dd({a:1},{a:1})` is `undefined` and `dd({a:1},{a:2})` is an array, `loadOracle("left-pad")` is `undefined`.
+- [x] 5.2 Write `oracles.test.ts`: versions are exactly `1.0.1` and `1.0.2`, `intersect([["a","b"],["b"]])` is `["b"]`, `intersect.big` exists, `dd({a:1},{a:1})` is `undefined` and `dd({a:1},{a:2})` is an array, `loadOracle("left-pad")` is `undefined`.
   - _Requirements: 11.1, 11.5_
-- [ ] 5.3 Create `apps/exorcist-npm/src/exorcise/recipes/types.ts`: `AppRecipe = Recipe & { loadOracle?(): { module: unknown; version: string } | undefined }`.
+- [x] 5.3 Create `apps/exorcist-npm/src/exorcise/recipes/types.ts`: `AppRecipe = Recipe & { loadOracle?(): { module: unknown; version: string } | undefined }`.
   - _Requirements: 5.2_
-- [ ] 5.4 Create `recipes/intersect.ts`: the two shapes (`intersect`, `intersect.big`), `accepts` per Requirement 5.3, the objectId-like arbitrary (pooled and independent lists, 0 to 6 lists of 0 to 8 ids of 10 to 24 characters, duplicates and a non-ASCII character in the alphabet), `guard`, `classify` and the five required labels, `expectedVersion` `1.0.1`.
+- [x] 5.4 Create `recipes/intersect.ts`: the two shapes (`intersect`, `intersect.big`), `accepts` per Requirement 5.3, the objectId-like arbitrary (pooled and independent lists, 0 to 6 lists of 0 to 8 ids of 10 to 24 characters, duplicates and a non-ASCII character in the alphabet), `guard`, `classify` and the five required labels, `expectedVersion` `1.0.1`.
   - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 15.1, 15.2_
-- [ ] 5.5 Write `recipes/intersect.test.ts`: `accepts` true and false cases, `fc.sample` of 500 values shows every required label and all values pass `guard`, an example where a native `Set` de-duplicating function differs from the oracle on a last list with a repeated shared element, and an example where an order-preserving corrected function agrees.
+- [x] 5.5 Write `recipes/intersect.test.ts`: `accepts` true and false cases, `fc.sample` of 500 values shows every required label and all values pass `guard`, an example where a native `Set` de-duplicating function differs from the oracle on a last list with a repeated shared element, and an example where an order-preserving corrected function agrees.
   - _Requirements: 15.1, 15.2_
-- [ ] 5.6 Create `recipes/deep-diff.ts`: one shape (member `""`, two arguments, accepted only with `consumedAs` `undefined-check`), the `isUndefined` Projection that observes `definedness`, the pair arbitrary (reordered clone, clone with one change, independent), `guard`, `classify` (`equal-pair`, `unequal-pair`), `expectedVersion` `1.0.2`.
+- [x] 5.6 Create `recipes/deep-diff.ts`: one shape (member `""`, two arguments, accepted only with `consumedAs` `undefined-check`), the `isUndefined` Projection that observes `definedness`, the pair arbitrary (reordered clone, clone with one change, independent), `guard`, `classify` (`equal-pair`, `unequal-pair`), `expectedVersion` `1.0.2`.
   - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 15.3, 15.4_
-- [ ] 5.7 Write `recipes/deep-diff.test.ts`: `accepts` requires `consumedAs`, 500 samples show both labels and pass `guard`, key order is shuffled in the equal family, a one-change clone is never deep equal to its source, the arbitrary uses keys `*` and `_id`.
+- [x] 5.7 Write `recipes/deep-diff.test.ts`: `accepts` requires `consumedAs`, 500 samples show both labels and pass `guard`, key order is shuffled in the equal family, a one-change clone is never deep equal to its source, the arbitrary uses keys `*` and `_id`.
   - _Requirements: 15.3, 15.4_
 - [ ] 5.8 Create `recipes/node-abort-controller.ts` (`shapes: []`, no `loadOracle`) and `recipes/index.ts` exporting `RECIPES`.
   - _Requirements: 5.1, 15.5_
