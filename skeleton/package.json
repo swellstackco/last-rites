@@ -1,1 +1,19 @@
-{"name": "@graveyard-kit/skeleton", "version": "0.0.0", "private": true, "type": "module", "exports": {".": "./src/death-score/index.ts", "./death-score": "./src/death-score/index.ts"}, "scripts": {"typecheck": "tsc --noEmit"}, "devDependencies": {"vitest": "^2.1.8", "fast-check": "^3.23.2"}}
+{
+  "name": "@graveyard-kit/skeleton",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/death-score/index.ts",
+    "./death-score": "./src/death-score/index.ts",
+    "./graveyard": "./src/graveyard/index.ts",
+    "./graveyard/testing": "./src/graveyard/testing.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "vitest": "^2.1.8",
+    "fast-check": "^3.23.2"
+  }
+}

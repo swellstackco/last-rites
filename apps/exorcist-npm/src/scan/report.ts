@@ -4,6 +4,9 @@ import type { ReplacementInfo, UnknownReason } from "../evidence/index.js";
 import { KIND_PRECEDENCE } from "./types.js";
 import type { DependencyEntry, ScanReport, ScanSummary, ScannedDependency, SkippedEntry, SkipReason } from "./types.js";
 
+// Type-only re-export so browser code can import the report types from the `./report` subpath.
+export type { ScanReport, ScanSummary, ScannedDependency, SkippedEntry, SkipReason } from "./types.js";
+
 export type ReportParseError = {
   category: "empty" | "invalid_json" | "missing_field" | "wrong_type" | "not_canonical";
   /** Names the path of the offending field when there is one. */

@@ -1,0 +1,21 @@
+{
+  "name": "@graveyard-kit/exorcist-web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@graveyard-kit/skeleton": "*",
+    "@graveyard-kit/exorcist-npm": "*"
+  },
+  "devDependencies": {
+    "fast-check": "^3.23.2",
+    "jsdom": "25.0.1",
+    "vite": "5.4.21",
+    "vitest": "^2.1.8"
+  }
+}

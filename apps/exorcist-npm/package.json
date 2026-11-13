@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "exports": {
+    "./report": "./src/scan/report.ts"
+  },
   "scripts": {
     "typecheck": "tsc --noEmit",
     "record-fixtures": "vite-node src/evidence/test-support/record-fixtures.ts --",
