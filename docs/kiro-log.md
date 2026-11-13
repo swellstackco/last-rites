@@ -342,3 +342,13 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - Not done (cap of 8 tasks): 6.4 (nothing needed changing, only to be confirmed and checked off) and 6.5 checkpoint. The rest of `detail.css` (sheet, Proof) still uses legacy tokens until Phase 7.
 - Counterexamples from fast-check this run: none (Properties 1 to 3 green, sabotage test green).
 - Counts (repo root): 148 files, 1327 tests pass, 1 todo. Typecheck clean.
+
+## 2026-11-13: toe-tag-redesign 6.4, 6.5, 7.1 to 7.6 (Sheet_Tag, Proof Stamp and Compare_Box)
+
+- 6.4: S4 and S5 already matched the new Form_Grid selectors, so only the sabotage mutations were re-pointed off legacy tokens ((o) uses `--ink`, (s) uses `var(--rule-heavy) solid var(--ink)`); the (r) name gained the selectors it targets. Mutations (q), (r), (s) still caught.
+- 7.1/7.4: `ClassName` gained `sheet-tag`, `proof-compare`, `proof-cell`, `proof-cell-new`. `detail.ts` wraps hole, `h2#detail-title` and an empty band in `div.sheet-tag[data-grade]`; Close stays outside. `proof-slot.ts` wraps the Old and New blocks in `div.proof-compare`; "Shrunk input" stays first, outside it. New tests: `toetag.sheet.dom.test.ts` (3), `toetag.proofdom.test.ts` (2).
+- 7.2/7.3/7.5/7.6: `detail.css` sheet, Sheet_Tag (same two-layer chamfer as the Toe_Tag; string drawn on `.tag-hole::before`), Proof frame with Ink caption bar, Stamp (tilt -2.5deg, untilted 14px in attempts), Compare_Box (one column, two from 40rem, New cell on `--paper-hot`). All legacy tokens are gone from `detail.css`.
+- Deviation to note: requirement 11.4 asks for the "/ 100" in mono inside the big score. The DOM is one text node ("75 / 100") and task 7.1 does not change it (facts must stay byte-identical), so `.score-big` is entirely display font. Not done; revisit only if a spec task adds a span.
+- Not done (cap of 8): 7.7 (Proof states), 7.8 checkpoint. The `sheet-in` slide animation in `detail.css` is still there and gated by no-preference; task 9.1 decides about motion.
+- Counterexamples from fast-check this run: none (Properties 1 to 3 and the sabotage test green).
+- Counts (repo root): 150 files, 1332 tests pass, 1 todo. Typecheck clean.

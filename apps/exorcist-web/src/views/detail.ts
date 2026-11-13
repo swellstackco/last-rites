@@ -69,7 +69,18 @@ function renderContent(grave: Grave<ScannedDependency>, onClose: () => void, pro
     h("div", null, h("p", { class: "muted" }, label), h("p", null, value));
 
   const nodes: Array<HTMLElement | null> = [
-    h("div", { class: "sheet-head" }, h("h2", { id: "detail-title", tabindex: -1 }, dep.name), closeButton),
+    h(
+      "div",
+      { class: "sheet-head" },
+      h(
+        "div",
+        { class: "sheet-tag", "data-grade": death.grade },
+        h("span", { class: "tag-hole", "aria-hidden": "true" }),
+        h("h2", { id: "detail-title", tabindex: -1 }, dep.name),
+        h("span", { class: "tag-band", "aria-hidden": "true" }),
+      ),
+      closeButton,
+    ),
     h(
       "div",
       { class: "facts" },

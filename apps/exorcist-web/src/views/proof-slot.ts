@@ -3,6 +3,7 @@
 import type { AttemptView, ProofSlot, ProofState, ProofView } from "@graveyard-kit/skeleton/graveyard";
 import { COPY } from "../constants.js";
 import { h } from "../dom/h.js";
+import type { ClassName } from "../dom/h.js";
 
 function assertNever(value: never): never {
   throw new Error(`Unhandled proof state: ${JSON.stringify(value)}`);
@@ -10,8 +11,9 @@ function assertNever(value: never): never {
 
 const badgeClass = (badge: ProofView["badge"]) => ["proof-badge", `proof-badge-${badge}`] as const;
 
-function preBlock(label: string, text: string): HTMLElement {
-  return h("div", { class: "stack" }, h("p", { class: "muted" }, label), h("pre", { class: "proof-pre", tabindex: 0 }, text));
+function preBlock(label: string, text: string, cell = false, hot = false): HTMLElement {
+  const cls: ClassName[] = cell ? (hot ? ["stack", "proof-cell", "proof-cell-new"] : ["stack", "proof-cell"]) : ["stack"];
+  return h("div", { class: cls }, h("p", { class: "muted" }, label), h("pre", { class: "proof-pre", tabindex: 0 }, text));
 }
 
 function renderAttempt(a: AttemptView): HTMLElement {
@@ -31,8 +33,12 @@ function renderAttempt(a: AttemptView): HTMLElement {
           { class: "stack" },
           h("h4", null, COPY.proofCounterexampleHeading),
           preBlock("Shrunk input", c.input),
-          preBlock("Old output", c.oldOutput),
-          preBlock("New output", c.newOutput),
+          h(
+            "div",
+            { class: "proof-compare" },
+            preBlock("Old output", c.oldOutput, true),
+            preBlock("New output", c.newOutput, true, true),
+          ),
         )
       : null,
   );

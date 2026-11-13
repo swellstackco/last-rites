@@ -29,13 +29,14 @@ export type ClassName =
   | "tombstone" | "tombstone-dead" | "tombstone-dying" | "tombstone-ailing" | "tombstone-alive"
   | "tomb-name" | "tomb-score" | "tomb-grade" | "tomb-summary" | "tomb-badge"
   | "tag-hole" | "tag-field" | "tag-package" | "tag-score" | "tag-cause" | "tag-label" | "tag-band" | "tag-range"
-  | "backdrop" | "sheet" | "sheet-head" | "facts" | "score-big" | "grade-chip"
+  | "backdrop" | "sheet" | "sheet-head" | "sheet-tag" | "facts" | "score-big" | "grade-chip"
   | "breakdown" | "bar" | "bar-fill" | "calibration" | "calibration-label" | "total" | "unknown" | "mismatch"
   | "col-signal" | "col-value" | "col-status" | "col-points" | "col-source" | "total-label"
   | "proof" | "num" | "muted"
   | "proof-badge" | "proof-badge-proved" | "proof-badge-weak" | "proof-badge-counterexample"
   | "proof-badge-no_call_sites" | "proof-badge-error"
-  | "proof-sites" | "proof-attempts" | "proof-pre";
+  | "proof-sites" | "proof-attempts" | "proof-pre"
+  | "proof-compare" | "proof-cell" | "proof-cell-new";
 
 type DataKey = `data-${string}`;
 type AriaKey = `aria-${string}`;

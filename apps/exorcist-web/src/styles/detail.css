@@ -1,9 +1,11 @@
-/* Detail_Panel: sheet, backdrop, Breakdown table. */
+/* Detail_Panel: Paper sheet over a flat scrim, with a Sheet_Tag head. */
 .backdrop {
   position: fixed;
   inset: 0;
   z-index: 50;
-  background: rgba(5, 9, 11, 0.72);
+  background: var(--scrim);
+  border: 0;
+  border-radius: 0;
 }
 
 .sheet {
@@ -16,9 +18,9 @@
   height: 100dvh;
   overflow-y: auto;
   padding: var(--space-5);
-  background: var(--stone);
-  color: var(--moon);
-  border-left: 1px solid var(--edge);
+  background: var(--paper);
+  color: var(--ink);
+  border-left: var(--rule) solid var(--ink);
   display: grid;
   gap: var(--space-5);
   align-content: start;
@@ -42,11 +44,97 @@
   justify-content: space-between;
   gap: var(--space-3);
   align-items: start;
+  padding-top: var(--string-height);
 }
 
-.sheet h2 {
-  font-size: 28px;
+/* Sheet_Tag: the same two-layer chamfer as the Toe_Tag; narrower than the sheet so a swing cannot add a scrollbar. */
+.sheet-tag {
+  isolation: isolate;
+  position: relative;
+  flex: 0 1 auto;
+  min-width: 0;
+  max-width: calc(100% - 2rem);
+  padding: calc(var(--tag-hole-y) + var(--tag-hole) / 2 + var(--space-1)) var(--rule) var(--rule);
+  color: var(--ink);
+}
+
+.sheet-tag::before,
+.sheet-tag::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+}
+
+.sheet-tag::before {
+  inset: 0;
+  background: var(--ink);
+  clip-path: polygon(
+    var(--tag-chamfer) 0,
+    calc(100% - var(--tag-chamfer)) 0,
+    100% var(--tag-chamfer),
+    100% 100%,
+    0 100%,
+    0 var(--tag-chamfer)
+  );
+}
+
+.sheet-tag::after {
+  inset: var(--rule);
+  background: var(--tag);
+  clip-path: polygon(
+    calc(var(--tag-chamfer) - var(--rule) * 0.586) 0,
+    calc(100% - var(--tag-chamfer) + var(--rule) * 0.586) 0,
+    100% calc(var(--tag-chamfer) - var(--rule) * 0.586),
+    100% 100%,
+    0 100%,
+    0 calc(var(--tag-chamfer) - var(--rule) * 0.586)
+  );
+}
+
+/* The string: a 2px Ink line from above the tag down to the hole center. */
+.sheet-tag .tag-hole::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 50%;
+  width: var(--rule);
+  height: calc(var(--string-height) + var(--tag-hole-y));
+  margin-left: calc(var(--rule) / -2);
+  background: var(--ink);
+}
+
+.sheet-tag h2 {
+  margin: 0;
+  padding: var(--space-1) var(--space-4) var(--space-2);
+  font-family: var(--font-display);
+  font-size: var(--size-h2);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: var(--track-display);
   overflow-wrap: anywhere;
+}
+
+.sheet-tag .tag-band {
+  display: block;
+  min-height: var(--space-3);
+  padding: 0;
+  margin: 0;
+}
+
+.sheet-tag[data-grade="dead"] {
+  --band-color: var(--red);
+}
+
+.sheet-tag[data-grade="dying"] {
+  --band-color: var(--rust);
+}
+
+.sheet-tag[data-grade="ailing"] {
+  --band-color: var(--amber);
+}
+
+.sheet-tag[data-grade="alive"] {
+  --band-color: var(--steel);
 }
 
 .facts {
@@ -56,13 +144,22 @@
 }
 
 .score-big {
-  font-family: var(--font-num);
-  font-size: 3rem;
+  font-family: var(--font-display);
+  font-size: var(--size-score-dead);
   font-weight: 700;
+  line-height: 1;
 }
 
 .grade-chip {
-  color: var(--mist);
+  display: inline-block;
+  width: fit-content;
+  padding: var(--space-1) var(--space-2);
+  border: var(--rule) solid var(--ink);
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: var(--track-band);
+  text-transform: uppercase;
 }
 
 /* Breakdown: a Form_Grid. Ink outer rule, 1px grid lines, black caption bar, typewriter labels, mono values. */
@@ -212,44 +309,77 @@
   letter-spacing: var(--track-display);
 }
 
+/* Proof: an examiner's finding. Ink caption bar, Paper body, a Stamp, a boxed Compare_Box. */
 .proof {
   display: grid;
   gap: var(--space-2);
-  padding: var(--space-4);
-  border: 1px dashed var(--edge);
-  border-radius: var(--radius);
+  padding: 0 0 var(--space-4);
+  border: var(--rule) solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
 }
 
-.proof-badge {
-  display: inline-block;
-  padding: 0 var(--space-2);
-  border: 2px solid currentColor;
-  border-radius: var(--radius-sm);
-  font-size: var(--size-small);
-  letter-spacing: 0.08em;
+.proof > h3 {
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  font-weight: 600;
+  letter-spacing: var(--track-display);
   text-transform: uppercase;
 }
 
+.proof > :not(h3) {
+  margin-inline: var(--space-4);
+}
+
+/* Stamp: tilted, bordered in its text color, never clipped. */
+.proof-badge {
+  display: inline-block;
+  max-width: 100%;
+  margin: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  border: var(--rule) solid currentColor;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--size-band);
+  font-weight: 700;
+  letter-spacing: var(--track-band);
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+  transform: rotate(-2.5deg);
+}
+
 .proof-badge-proved {
-  color: var(--moss);
+  color: var(--steel-ink);
 }
 
 .proof-badge-weak {
-  color: var(--amber);
+  color: var(--ink);
+  border-color: var(--amber);
 }
 
 .proof-badge-counterexample,
 .proof-badge-error {
-  color: var(--ember);
+  color: var(--red-ink);
 }
 
 .proof-badge-no_call_sites {
-  color: var(--mist);
+  color: var(--ink-soft);
 }
 
 .proof-sites > summary {
   min-height: var(--target);
   cursor: pointer;
+}
+
+.proof-sites li {
+  font-family: var(--font-mono);
+  font-size: var(--size-value);
+  text-decoration: none;
+  overflow-wrap: anywhere;
 }
 
 .proof-attempts {
@@ -258,18 +388,73 @@
   padding-left: var(--space-5);
 }
 
+.proof-attempts > li + li {
+  padding-top: var(--space-3);
+  border-top: var(--rule-thin) solid var(--ink);
+}
+
+.proof-attempts .proof-badge {
+  margin: 0;
+  font-size: var(--size-small);
+  transform: none;
+}
+
+.proof-attempts .stack > .muted:first-child {
+  font-family: var(--font-label);
+  font-size: var(--size-label);
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
 .proof-pre {
   margin: 0;
   padding: var(--space-2);
   overflow: auto;
   max-height: 12rem;
-  background: var(--night);
-  border: 1px solid var(--edge);
-  border-radius: var(--radius-sm);
-  font-family: var(--font-num);
+  background: var(--paper-grid);
+  color: var(--ink);
+  border: var(--rule-thin) solid var(--ink);
+  border-radius: 0;
+  font-family: var(--font-mono);
   font-size: var(--size-small);
   white-space: pre-wrap;
   overflow-wrap: anywhere;
+}
+
+/* Compare_Box: OLD | NEW in one ruled box; one column narrow, two from 40rem. */
+.proof-compare {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  border: var(--rule) solid var(--ink);
+}
+
+.proof-cell {
+  min-width: 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--paper);
+}
+
+.proof-cell + .proof-cell {
+  border-top: var(--rule) solid var(--ink);
+}
+
+.proof-cell-new {
+  background: var(--paper-hot);
+}
+
+.proof-cell .proof-pre {
+  background: transparent;
+}
+
+@media (min-width: 40rem) {
+  .proof-compare {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .proof-cell + .proof-cell {
+    border-top: 0;
+    border-left: var(--rule) solid var(--ink);
+  }
 }
 
 /* Narrow: each row is a boxed record; every cell is captioned by its data-label. */

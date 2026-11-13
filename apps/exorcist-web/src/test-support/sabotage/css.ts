@@ -26,15 +26,15 @@ export const CSS_SABOTAGES: readonly CssSabotage[] = [
   {
     name: "(o) gradient back on .tombstone-dead",
     check: "S3",
-    mutate: append(".tombstone-dead { background-image: linear-gradient(to bottom, transparent 2.25rem, var(--edge) 2.25rem, transparent 2.3rem); }"),
+    mutate: append(".tombstone-dead { background-image: linear-gradient(to bottom, transparent 2.25rem, var(--ink) 2.25rem, transparent 2.3rem); }"),
   },
   { name: "(p) .grid clips overflow", check: "S3", mutate: append(".grid { overflow: hidden; }") },
   { name: "(q) td, th break anywhere again", check: "S4", mutate: append("td, th { overflow-wrap: anywhere; }") },
-  { name: "(r) .col-status may wrap", check: "S4", mutate: (c) => replaceOnce(c, "  white-space: nowrap;\n  width: 1%;", "  width: 1%;") },
+  { name: "(r) .col-status may wrap (.breakdown .col-status, .col-points)", check: "S4", mutate: (c) => replaceOnce(c, "  white-space: nowrap;\n  width: 1%;", "  width: 1%;") },
   {
     name: "(s) stacked tfoot td keeps its border",
     check: "S5",
-    mutate: (c) => replaceOnce(c, "  .breakdown tfoot td {\n    border-top: 0;", "  .breakdown tfoot td {\n    border-top: 3px solid var(--moon);"),
+    mutate: (c) => replaceOnce(c, "  .breakdown tfoot td {\n    border-top: 0;", "  .breakdown tfoot td {\n    border-top: var(--rule-heavy) solid var(--ink);"),
   },
   { name: "(t) :focus:not(:focus-visible) deleted", check: "S6", mutate: (c) => replaceOnce(c, ":focus:not(:focus-visible) {\n  outline: none;\n}", "") },
   { name: "(u) blanket :focus { outline: none }", check: "S6", mutate: (c) => replaceOnce(c, ":focus:not(:focus-visible) {", ":focus {") },
