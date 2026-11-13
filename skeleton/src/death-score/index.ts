@@ -7,6 +7,8 @@ export {
   DEFAULT_WEIGHT_CONFIG,
   DEFAULT_WEIGHTS,
   SIGNAL_NAMES,
+  DEFAULT_ABANDONED_FLOOR,
+  effectiveAbandonedFloor,
 } from "./weights.js";
 export { severityFactor } from "./severity.js";
 
@@ -18,4 +20,5 @@ export type {
   SignalPart,
   GradeBand,
   DeathScoreResult,
+  DeathScoreCalibration,
 } from "./types.js";

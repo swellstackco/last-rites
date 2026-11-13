@@ -29,9 +29,12 @@ export const DEFAULT_WEIGHTS: Record<SignalName, number> = {
   knownReplacementExists: 3,
 };
 
+/** Default calibration floor: the bottom of the dead band. */
+export const DEFAULT_ABANDONED_FLOOR = 75;
+
 /**
  * Default WeightConfig with raw weights summing to 100, default thresholds,
- * and unknownFactor = 0.5.
+ * unknownFactor = 0.5 and abandonedFloor = 75.
  */
 export const DEFAULT_WEIGHT_CONFIG: WeightConfig = {
   weights: { ...DEFAULT_WEIGHTS },
@@ -40,7 +43,19 @@ export const DEFAULT_WEIGHT_CONFIG: WeightConfig = {
   maintainerCountFullAlive: 5,
   openVulnsFullDead: 1,
   unknownFactor: 0.5,
+  abandonedFloor: DEFAULT_ABANDONED_FLOOR,
 };
+
+/**
+ * Effective calibration floor: absent -> 75; non-finite -> 0 (rule disabled);
+ * otherwise clamped to [0, 100] and rounded to an integer.
+ */
+export function effectiveAbandonedFloor(config: WeightConfig): number {
+  const v = config.abandonedFloor;
+  if (v === undefined) return DEFAULT_ABANDONED_FLOOR;
+  if (!Number.isFinite(v)) return 0;
+  return Math.round(Math.min(100, Math.max(0, v)));
+}
 
 /**
  * Normalize weights so they sum to 100, preserving relative ratios.

@@ -1,12 +1,48 @@
 import { describe, it, expect } from "vitest";
 import {
+  DEFAULT_ABANDONED_FLOOR,
   DEFAULT_WEIGHTS,
   DEFAULT_WEIGHT_CONFIG,
   SIGNAL_NAMES,
+  effectiveAbandonedFloor,
   normalizeWeights,
 } from "./weights.js";
 import { scoreDeath } from "./score.js";
 import type { PackageSignals, WeightConfig } from "./types.js";
+
+describe("effectiveAbandonedFloor", () => {
+  const withFloor = (abandonedFloor?: number): WeightConfig => {
+    const { abandonedFloor: _drop, ...rest } = DEFAULT_WEIGHT_CONFIG;
+    return abandonedFloor === undefined ? rest : { ...rest, abandonedFloor };
+  };
+
+  it("default config carries 75", () => {
+    expect(DEFAULT_ABANDONED_FLOOR).toBe(75);
+    expect(DEFAULT_WEIGHT_CONFIG.abandonedFloor).toBe(75);
+  });
+
+  it("absent means the default", () => {
+    expect(effectiveAbandonedFloor(withFloor())).toBe(75);
+  });
+
+  it("clamps to [0, 100]", () => {
+    expect(effectiveAbandonedFloor(withFloor(-5))).toBe(0);
+    expect(effectiveAbandonedFloor(withFloor(150))).toBe(100);
+    expect(effectiveAbandonedFloor(withFloor(0))).toBe(0);
+    expect(effectiveAbandonedFloor(withFloor(100))).toBe(100);
+  });
+
+  it("rounds non-integers to nearest", () => {
+    expect(effectiveAbandonedFloor(withFloor(74.6))).toBe(75);
+    expect(effectiveAbandonedFloor(withFloor(74.4))).toBe(74);
+  });
+
+  it("non-finite disables the rule", () => {
+    expect(effectiveAbandonedFloor(withFloor(NaN))).toBe(0);
+    expect(effectiveAbandonedFloor(withFloor(Infinity))).toBe(0);
+    expect(effectiveAbandonedFloor(withFloor(-Infinity))).toBe(0);
+  });
+});
 
 describe("DEFAULT_WEIGHTS", () => {
   it("loads with seven signals", () => {

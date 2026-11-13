@@ -10,7 +10,7 @@ import { assertProperty } from "./fc-runner.js";
 import { declaredAbandonedProperty, preservationProperty } from "./properties.js";
 
 // death-score-calibration: Property 6 (fix checking) and Property 7
-// (preservation). Both are kept out of ALL_PROPERTIES until task 3.5.
+// (preservation). Both are part of ALL_PROPERTIES since task 3.5.
 
 describe("calibration generators", () => {
   it("declaredAbandonedArb always satisfies C(X)", () => {
@@ -51,10 +51,8 @@ describe("calibration generators", () => {
 });
 
 describe("Property 6: Declared abandoned is dead", () => {
-  // Task 1.1: on the UNFIXED engine this property FAILS (confirmed, see
-  // docs/kiro-log.md). Registered as an expected failure so the suite stays
-  // green until the fix; flips to a normal test in 4.1.
-  it.fails("declared-abandoned packages floor to the dead band with a calibration entry", () => {
+  // Task 1.1 showed this FAILS on the unfixed engine; after the fix (3.3) it passes.
+  it("declared-abandoned packages floor to the dead band with a calibration entry", () => {
     assertProperty(
       declaredAbandonedProperty.name,
       declaredAbandonedProperty.build(scoreDeath),

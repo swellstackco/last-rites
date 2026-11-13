@@ -22,17 +22,17 @@ Fixes the Death_Score so that declared-abandoned packages (author deprecated or 
 
 ### Phase 3: Implement the fix
 
-- [ ] 3.1 `types.ts`: add `WeightConfig.abandonedFloor?: number`, `DeathScoreCalibration`, and `DeathScoreResult.calibration?`.
-- [ ] 3.2 `weights.ts`: add `DEFAULT_ABANDONED_FLOOR = 75`, set it in `DEFAULT_WEIGHT_CONFIG`, add `effectiveAbandonedFloor(config)` (absent -> 75; non-finite -> 0; clamp to [0,100]; round). Extend `weights.test.ts`.
-- [ ] 3.3 `score.ts`: extract the current body into `weightedSum`; add `declaredAbandoned(signals, config)` (C(X), `>=` against `monthsSinceLastPublishFullDead`, unknown never fires, reason text per design); apply `max(S, F)` only when C holds and `S < F`; add `calibration` only then; leave `parts` untouched; omit the key otherwise. _Requirements: 2.1-2.7_
-- [ ] 3.4 `index.ts`: export `DeathScoreCalibration`, `DEFAULT_ABANDONED_FLOOR`, `effectiveAbandonedFloor`.
-- [ ] 3.5 Update existing properties: restate Property 2 (Transparent) with `+ (calibration?.points ?? 0)`; extend Properties 1 and 3 with `configWithFloorArb` (Property 3 also compares `calibration`); add C(X)-crossing pairs to `deathDominatingPairArb` for Property 4; restate Property 5 (`u >= a` always, strict `u > a` when NOT C). Update `ALL_PROPERTIES` to seven. _Requirements: 2.4, 3.6_
+- [x] 3.1 `types.ts`: add `WeightConfig.abandonedFloor?: number`, `DeathScoreCalibration`, and `DeathScoreResult.calibration?`.
+- [x] 3.2 `weights.ts`: add `DEFAULT_ABANDONED_FLOOR = 75`, set it in `DEFAULT_WEIGHT_CONFIG`, add `effectiveAbandonedFloor(config)` (absent -> 75; non-finite -> 0; clamp to [0,100]; round). Extend `weights.test.ts`.
+- [x] 3.3 `score.ts`: extract the current body into `weightedSum`; add `declaredAbandoned(signals, config)` (C(X), `>=` against `monthsSinceLastPublishFullDead`, unknown never fires, reason text per design); apply `max(S, F)` only when C holds and `S < F`; add `calibration` only then; leave `parts` untouched; omit the key otherwise. _Requirements: 2.1-2.7_
+- [x] 3.4 `index.ts`: export `DeathScoreCalibration`, `DEFAULT_ABANDONED_FLOOR`, `effectiveAbandonedFloor`.
+- [x] 3.5 Update existing properties: restate Property 2 (Transparent) with `+ (calibration?.points ?? 0)`; extend Properties 1 and 3 with `configWithFloorArb` (Property 3 also compares `calibration`); add C(X)-crossing pairs to `deathDominatingPairArb` for Property 4; restate Property 5 (`u >= a` always, strict `u > a` when NOT C). Update `ALL_PROPERTIES` to seven. _Requirements: 2.4, 3.6_
 
 ### Phase 4: Re-verify
 
-- [ ] 4.1 Re-run Property 6 against the fixed code: PASS. Record the result in `docs/kiro-log.md`.
-- [ ] 4.2 Re-run Property 7 against the fixed code: PASS (same seed as 2.3). Run Properties 1-5 (updated): PASS.
-- [ ] 4.3 Run the full death-score suite with `CI=1` (seed 20261113) and with two random seeds; confirm green.
+- [x] 4.1 Re-run Property 6 against the fixed code: PASS. Record the result in `docs/kiro-log.md`.
+- [x] 4.2 Re-run Property 7 against the fixed code: PASS (same seed as 2.3). Run Properties 1-5 (updated): PASS.
+- [x] 4.3 Run the full death-score suite with `CI=1` (seed 20261113) and with two random seeds; confirm green.
 
 ### Phase 5: Sabotage
 

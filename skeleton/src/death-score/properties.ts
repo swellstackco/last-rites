@@ -3,14 +3,15 @@ import { DEFAULT_WEIGHT_CONFIG, SIGNAL_NAMES } from "./weights.js";
 import { scoreDeathV1 } from "./__reference__/score-v1.js";
 import { toGrade } from "./grade.js";
 import {
+  configWithFloorArb,
   declaredAbandonedArb,
   disabledFloorConfigArb,
+  isDeclaredAbandoned,
   notDeclaredAbandonedArb,
   packageSignalsArb as anySignalsArb,
   deathDominatingPairArb,
   fullyKnownPackageSignalsArb,
   packageSignalsArb,
-  weightConfigArb,
 } from "./arbitraries.js";
 import type {
   DeathScoreResult,
@@ -60,20 +61,23 @@ function sameResult(a: DeathScoreResult, b: DeathScoreResult): boolean {
 export const boundedProperty: NamedProperty = {
   name: "Property 1: Bounded",
   build: (score) =>
-    fc.property(packageSignalsArb, weightConfigArb, (signals, config) => {
+    fc.property(packageSignalsArb, configWithFloorArb, (signals, config) => {
       const { score: s } = score(signals, config);
       return s >= 0 && s <= 100;
     }),
 };
 
-// Property 2: Transparent. Validates: Requirements 2.3
+// Property 2: Transparent (restated: score = sum(parts) + calibration points). Validates: Requirements 2.3, 2.4
 export const transparentProperty: NamedProperty = {
   name: "Property 2: Transparent",
   build: (score) =>
-    fc.property(packageSignalsArb, (signals) => {
-      const result = score(signals, DEFAULT_WEIGHT_CONFIG);
+    fc.property(packageSignalsArb, configWithFloorArb, (signals, config) => {
+      const result = score(signals, config);
       const sum = result.parts.reduce((acc, p) => acc + p.points, 0);
-      return sum === result.score && result.parts.length === SIGNAL_NAMES.length;
+      return (
+        sum + (result.calibration?.points ?? 0) === result.score &&
+        result.parts.length === SIGNAL_NAMES.length
+      );
     }),
 };
 
@@ -81,7 +85,7 @@ export const transparentProperty: NamedProperty = {
 export const deterministicProperty: NamedProperty = {
   name: "Property 3: Deterministic",
   build: (score) =>
-    fc.property(packageSignalsArb, weightConfigArb, (signals, config) => {
+    fc.property(packageSignalsArb, configWithFloorArb, (signals, config) => {
       const first = score(signals, config);
       const second = score(signals, config);
       const signalsCopy = JSON.parse(JSON.stringify(signals)) as PackageSignals;
@@ -106,7 +110,8 @@ export const monotonicProperty: NamedProperty = {
 /**
  * Property 5: Unknown is not alive. Validates: Requirements 4.3
  *
- * Asserts `unknown > most-alive` (strict, as in the design). Under the default config
+ * Asserts `unknown >= most-alive` always, and strict `unknown > most-alive`
+ * when NOT C(X) (design.md: calibration floor may equalize both sides). Under the default config
  * every weight is >= 3, so an unknown signal adds >= 1.5 float points over the
  * most-alive value and the rounded score must be strictly greater. We assert
  * that strict form too: a bare `>=` is satisfied by an engine that treats
@@ -127,7 +132,12 @@ export const unknownNotAliveProperty: NamedProperty = {
         } as PackageSignals;
         const u = score(withUnknown, DEFAULT_WEIGHT_CONFIG).score;
         const a = score(withAlive, DEFAULT_WEIGHT_CONFIG).score;
-        return u > a; // implies u >= a
+        if (u < a) return false;
+        // When C(X) holds both sides may be floored to the same value, so
+        // strict `>` is only required when the declaration does not hold.
+        // C(withUnknown) === C(withAlive) for fully-known inputs.
+        if (isDeclaredAbandoned(withAlive, DEFAULT_WEIGHT_CONFIG)) return true;
+        return u > a;
       },
     ),
 };
@@ -156,7 +166,6 @@ function firedTerms(signals: PackageSignals): string[] {
  * Validates: Requirements 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7
  *
  * Oracle: `scoreDeathV1` (frozen Reference_Implementation) gives S and parts.
- * NOT in ALL_PROPERTIES until task 3.5 (it fails on the unfixed engine).
  */
 export const declaredAbandonedProperty: NamedProperty = {
   name: "Property 6: Declared abandoned is dead",
@@ -167,10 +176,7 @@ export const declaredAbandonedProperty: NamedProperty = {
       const F = expectedFloor(config);
       const result = score(signals, config);
       const sum = result.parts.reduce((acc, p) => acc + p.points, 0);
-      // `calibration` is not on DeathScoreResult until task 3.1; read it structurally.
-      const cal = (
-        result as { calibration?: { rule: string; reason: string; points: number } }
-      ).calibration;
+      const cal = result.calibration;
       if (result.score !== Math.max(S, F)) return false;
       if (JSON.stringify(result.parts) !== JSON.stringify(ref.parts)) return false;
       if (result.score !== sum + (cal?.points ?? 0)) return false;
@@ -194,7 +200,7 @@ export const declaredAbandonedProperty: NamedProperty = {
  *
  * (a) NOT C(X) with any floor config, (b) any signals with abandonedFloor 0:
  * the result is identical to the Reference_Implementation and has no
- * `calibration` key. NOT in ALL_PROPERTIES until task 3.5.
+ * `calibration` key.
  */
 export const preservationProperty: NamedProperty = {
   name: "Property 7: Preservation",
@@ -222,4 +228,6 @@ export const ALL_PROPERTIES: readonly NamedProperty[] = [
   deterministicProperty,
   monotonicProperty,
   unknownNotAliveProperty,
+  declaredAbandonedProperty,
+  preservationProperty,
 ];

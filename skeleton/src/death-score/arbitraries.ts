@@ -271,6 +271,31 @@ export const deathDominatingPairArb: fc.Arbitrary<
   fullyKnownPackageSignalsArb.map(
     (s): [PackageSignals, PackageSignals] => [s, s],
   ),
+  // death-score-calibration: pairs that cross the C(X) boundary (A not C, B C)
+  // under the default config (publish threshold 24). B only worsens signals.
+  fc
+    .tuple(
+      fullyKnownPackageSignalsArb,
+      fc.constantFrom("dep", "arc"),
+      fc.constantFrom("stale", "both"),
+      fc.integer({ min: 0, max: 23 }),
+      fc.integer({ min: 24, max: 120 }),
+    )
+    .map(([base, flag, how, freshMonths, staleMonths]): [PackageSignals, PackageSignals] => {
+      const t: SignalValue<boolean> = { kind: "known", value: true };
+      const f: SignalValue<boolean> = { kind: "known", value: false };
+      const A: PackageSignals = {
+        ...base,
+        deprecated: flag === "dep" ? t : f,
+        repoArchived: flag === "arc" ? t : f,
+        monthsSinceLastPublish: { kind: "known", value: freshMonths },
+      };
+      const B: PackageSignals =
+        how === "stale"
+          ? { ...A, monthsSinceLastPublish: { kind: "known", value: staleMonths } }
+          : { ...A, deprecated: t, repoArchived: t };
+      return [A, B];
+    }),
 );
 
 // ---------------------------------------------------------------------------

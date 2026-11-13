@@ -34,6 +34,9 @@ export interface WeightConfig {
   openVulnsFullDead: number;               // vuln count at/above which fully dead (default 1)
   // Factor applied to unknown signals, in (0, 1]. Strictly greater than 0 so unknown is never alive.
   unknownFactor: number; // default 0.5
+  // Calibration floor for declared-abandoned packages. Absent means 75; 0 disables;
+  // clamped to [0, 100], rounded; non-finite disables.
+  abandonedFloor?: number;
 }
 
 export interface SignalPart {
@@ -47,8 +50,16 @@ export interface SignalPart {
 
 export type GradeBand = "alive" | "ailing" | "dying" | "dead";
 
+// Present only when the abandoned floor actually raised the score.
+export interface DeathScoreCalibration {
+  rule: "declared_abandoned";
+  reason: string;
+  points: number; // score - sum(parts[].points), > 0
+}
+
 export interface DeathScoreResult {
-  score: number;   // integer 0..100, equal to sum(parts[].points)
+  score: number;   // integer 0..100, equal to sum(parts[].points) + (calibration?.points ?? 0)
   grade: GradeBand;
   parts: SignalPart[]; // one per Signal, in a stable order
+  calibration?: DeathScoreCalibration; // omitted (never undefined-valued) when not applied
 }
