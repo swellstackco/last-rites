@@ -125,6 +125,7 @@ describe("tokens.css", () => {
 // ---- CSS text checks (task 6.7) ----
 
 const decls = declarations(allCss);
+const inReduceOff = (d: Decl): boolean => d.value === "none" && d.preludes.some((p) => /prefers-reduced-motion:\s*reduce/.test(p));
 const inNoPreference = (d: Decl): boolean => d.preludes.some((p) => /prefers-reduced-motion:\s*no-preference/.test(p));
 
 describe("CSS text checks", () => {
@@ -137,7 +138,7 @@ describe("CSS text checks", () => {
       (d) => /^(animation|transition)(-[a-z-]+)?$/.test(d.prop) || (d.prop === "scroll-behavior" && /smooth/.test(d.value)),
     );
     expect(motion.length).toBeGreaterThan(0);
-    for (const d of motion) expect(inNoPreference(d), `${d.prop}: ${d.value}`).toBe(true);
+    for (const d of motion) expect(inNoPreference(d) || inReduceOff(d), `${d.prop}: ${d.value}`).toBe(true);
   });
 
   it("never removes an outline without a :focus-visible replacement", () => {

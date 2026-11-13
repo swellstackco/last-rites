@@ -204,6 +204,7 @@ export function checkStylesheet(css: string): Violation[] {
   );
   if (motion.length === 0) bad("S7", "no motion declarations found");
   for (const d of motion) {
+    if (d.value === "none" && d.preludes.some((p) => /prefers-reduced-motion:\s*reduce/.test(p))) continue;
     if (!d.preludes.some((p) => /prefers-reduced-motion:\s*no-preference/.test(p))) bad("S7", `motion outside no-preference: ${d.prop}`);
   }
   if (/url\(\s*["']?\s*(https?:)?\/\//i.test(css) || /@import/i.test(css)) bad("S7", "the Stylesheet loads something remote");
