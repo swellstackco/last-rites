@@ -5,6 +5,7 @@ import { GRADE_INFO } from "@graveyard-kit/skeleton/graveyard";
 import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
 import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
 import { mountPage } from "../dom-harness.js";
+import type { Mutate } from "../sabotage/dom.js";
 import { openPackageArb, scanReportArb } from "../arbitraries.js";
 
 export class P9Failure extends Error {}
@@ -28,7 +29,7 @@ export function gradeLabels(tombstone: Element, label: string): Element[] {
 export type Part = "labels" | "calibration" | "total" | "focus";
 export const PARTS: readonly Part[] = ["labels", "calibration", "total", "focus"];
 
-export async function checkPage(report: ScanReport, openIndex: number, parts: readonly Part[] = PARTS): Promise<void> {
+export async function checkPage(report: ScanReport, openIndex: number, parts: readonly Part[] = PARTS, mutate?: Mutate): Promise<void> {
   const on = (part: Part): boolean => parts.includes(part);
   const dep = report.dependencies[openIndex % report.dependencies.length]!;
   const page = mountPage({
@@ -41,6 +42,7 @@ export async function checkPage(report: ScanReport, openIndex: number, parts: re
 
     // Alive tombstones exist only after the disclosure is expanded.
     page.document.querySelector<HTMLElement>("button.disclosure[aria-controls='alive-list']")?.click();
+    mutate?.(page.document, "tombstones");
     const tombstones = Array.from(page.document.querySelectorAll<HTMLElement>("button.tombstone"));
     if (tombstones.length !== report.dependencies.length) fail(`expected ${report.dependencies.length} tombstones, got ${tombstones.length}`);
     for (const t of on("labels") ? tombstones : []) {
@@ -53,6 +55,7 @@ export async function checkPage(report: ScanReport, openIndex: number, parts: re
     const opener = tombstones.find((t) => t.getAttribute("data-key") === dep.name);
     if (!opener) fail(`no tombstone for ${dep.name}`);
     page.click(opener);
+    mutate?.(page.document, "opened");
     const panel = page.dialogRoot.querySelector<HTMLElement>('[role="dialog"]');
     if (!panel || panel.hidden) fail("the detail panel did not open");
     if (on("focus") && page.document.activeElement?.id !== "detail-title") fail("#detail-title lost programmatic focus");
@@ -90,8 +93,8 @@ function checkTotal(panel: HTMLElement, score: number): void {
     const span = cells.reduce((n, c) => n + Number(c.getAttribute("colspan") ?? 1), 0);
     if (span !== 5) fail(`the Total_Row spans ${span} columns, expected 5`);
 }
-export function build(parts: readonly Part[] = PARTS): fc.IAsyncProperty<[ScanReport, number]> {
+export function build(parts: readonly Part[] = PARTS, mutate?: Mutate): fc.IAsyncProperty<[ScanReport, number]> {
   return fc.asyncProperty(scanReportArb, openPackageArb, async (report, index) => {
-    await checkPage(report, index, parts);
+    await checkPage(report, index, parts, mutate);
   });
 }

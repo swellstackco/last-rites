@@ -43,19 +43,19 @@ Fixes the seven presentation defects D1-D7 of the Graveyard_Page found in `docs/
 
 - [x] 4.1 Re-run Property 9 (DOM) and `checkStylesheet` against the fixed code: PASS, no violations. Record the result in `docs/kiro-log.md`.
 - [x] 4.2 Re-run Property 10 and S7 against the fixed code: PASS (same seed as 2.3). Run the existing `apps/exorcist-web` suite (`theme.test.ts` included).
-- [ ] 4.3 Run the `apps/exorcist-web` suite with `CI=1` (seed 20261113) and with two random seeds; confirm green.
+- [x] 4.3 Run the `apps/exorcist-web` suite with `CI=1` (seed 20261113) and with two random seeds; confirm green.
 
 ### Phase 5: Sabotage
 
-- [ ] 5.1 Add the DOM sabotages (a)-(j) from design.md to `test-support/sabotage/p9.ts` and `p10.ts` as wrong view implementations, and the CSS sabotages (k)-(v) as string mutations in `test-support/sabotage/css.ts`. Add all to the suites in `sabotage.test.ts` with their `required` names.
-- [ ] 5.2 Extend `sabotage.test.ts` so every sabotage is caught by at least one property or by `checkStylesheet` at seed 20261113 (message `Sabotage "<name>" stayed green for "<property>"`), every CSS mutation really changed the text (assert the mutated string differs from the original), and the real implementation passes under the same seed. If one stays green, fix the generator or the check, not the sabotage, and record it.
-- [ ] 5.3 Record the shrunk counterexamples (DOM sabotages) and the violation names (CSS mutations) in `docs/kiro-log.md`.
+- [x] 5.1 Add the DOM sabotages (a)-(j) from design.md to `test-support/sabotage/p9.ts` and `p10.ts` as wrong view implementations, and the CSS sabotages (k)-(v) as string mutations in `test-support/sabotage/css.ts`. Add all to the suites in `sabotage.test.ts` with their `required` names.
+- [x] 5.2 Extend `sabotage.test.ts` so every sabotage is caught by at least one property or by `checkStylesheet` at seed 20261113 (message `Sabotage "<name>" stayed green for "<property>"`), every CSS mutation really changed the text (assert the mutated string differs from the original), and the real implementation passes under the same seed. If one stays green, fix the generator or the check, not the sabotage, and record it.
+- [x] 5.3 Record the shrunk counterexamples (DOM sabotages) and the violation names (CSS mutations) in `docs/kiro-log.md`.
 
 ### Phase 6: Fallout and manual check
 
-- [ ] 6.1 Extend the existing class-vocabulary test (every `ClassName` is used by a view or the Stylesheet, every class used by a view is in `ClassName`) to the new names and the removed `tomb-label`.
-- [ ] 6.2 Update the assertions that pinned a defect, nothing else: any test that expects `.tomb-label`, empty footer cells, or "No source recorded" on the Calibration_Row (`grep` in `apps/exorcist-web/src/*.test.ts`). Do not weaken the other assertions. Add the ldapjs example (calibration `+3`, Total `75 / 100`, "Engine rule: declared_abandoned") and the long-name, duplicate-name, hostile-name and no-calibration examples.
-- [ ] 6.3 Rebuild: `npm run build -w @graveyard-kit/exorcist-web`; confirm one JS and one CSS asset in `dist/`, and that the built CSS contains `.screen`, `:focus:not(:focus-visible)` and no `.tomb-label`.
+- [x] 6.1 Extend the existing class-vocabulary test (every `ClassName` is used by a view or the Stylesheet, every class used by a view is in `ClassName`) to the new names and the removed `tomb-label`.
+- [x] 6.2 Update the assertions that pinned a defect, nothing else: any test that expects `.tomb-label`, empty footer cells, or "No source recorded" on the Calibration_Row (`grep` in `apps/exorcist-web/src/*.test.ts`). Do not weaken the other assertions. Add the ldapjs example (calibration `+3`, Total `75 / 100`, "Engine rule: declared_abandoned") and the long-name, duplicate-name, hostile-name and no-calibration examples.
+- [x] 6.3 Rebuild: `npm run build -w @graveyard-kit/exorcist-web`; confirm one JS and one CSS asset in `dist/`, and that the built CSS contains `.screen`, `:focus:not(:focus-visible)` and no `.tomb-label`.
 - [ ] 6.4 Manual browser check (by Claude or the user; no browser is available to the test run): Chrome 1352x761 and 375x812 on the demo parse-server, package ldapjs: centered column with gutter (D1), no bullets (D2), one grade label, full arch, no line (D3), no mid-word breaks (D4), "Engine rule: declared_abandoned" (D5), one Total line at 375px (D6), no focus box on the `h1` after load and navigation, with Tab still showing the ring elsewhere (D7). If the focus box still appears, apply the contingency `h1[tabindex="-1"]:focus { outline: none }`, extend S6 to allow exactly that selector, add a sabotage for it, and record the judgement call. Record in `docs/kiro-log.md` each item as checked or NOT RUN.
 
 ### Phase 7: Documentation

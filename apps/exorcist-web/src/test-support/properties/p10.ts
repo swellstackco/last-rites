@@ -4,6 +4,7 @@ import fc from "fast-check";
 import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
 import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
 import { mountPage } from "../dom-harness.js";
+import type { Mutate } from "../sabotage/dom.js";
 import { openPackageArb, scanReportArb } from "../arbitraries.js";
 import { renderReferenceFacts } from "../reference-render.js";
 import { renderedFacts } from "../rendered-facts.js";
@@ -38,7 +39,7 @@ function fail(message: string): never {
   throw new P10Failure(message);
 }
 
-export async function checkPreservation(report: ScanReport, openIndex: number): Promise<void> {
+export async function checkPreservation(report: ScanReport, openIndex: number, mutate?: Mutate): Promise<void> {
   const dep = report.dependencies[openIndex % report.dependencies.length]!;
   const page = mountPage({
     route: "#/demo/x",
@@ -52,6 +53,7 @@ export async function checkPreservation(report: ScanReport, openIndex: number): 
     );
     if (!opener) fail(`no tombstone for ${dep.name}`);
     page.click(opener);
+    mutate?.(page.document, "opened");
 
     const fixed = renderedFacts(page.document.body);
     const reference = renderReferenceFacts(report, dep.name);
@@ -81,8 +83,8 @@ export async function checkPreservation(report: ScanReport, openIndex: number): 
   }
 }
 
-export function build(): fc.IAsyncProperty<[ScanReport, number]> {
+export function build(mutate?: Mutate): fc.IAsyncProperty<[ScanReport, number]> {
   return fc.asyncProperty(scanReportArb, openPackageArb, async (report, index) => {
-    await checkPreservation(report, index);
+    await checkPreservation(report, index, mutate);
   });
 }
