@@ -30,6 +30,9 @@ export const COPY = {
   liveFilesRead: "Only package.json and package-lock.json are read.",
   skipToDead: "Skip to the dead packages",
   exorcismComing: "Exorcism coming",
+  proofLoading: "Loading proof…",
+  proofUnreadable: "The proof report could not be read.",
+  proofCounterexampleHeading: "Shrunk counterexample",
 } as const;
 
 /** A report string shown in a Tombstone is cut to this many characters (with an ellipsis). */

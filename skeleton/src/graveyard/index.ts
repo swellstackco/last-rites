@@ -6,7 +6,9 @@ export { buildGraveyard, compareGraves } from "./build-graveyard.js";
 export { buildBreakdown, formatCalibration, topSignals, summaryLine } from "./breakdown.js";
 export { safeHttpUrl, hostOf } from "./safe-url.js";
 export { proofSlotFor } from "./proof-slot.js";
-export type { ProofLeg, Counterexample, SabotageResult, ProofState, ProofSlot } from "./proof-slot.js";
+export type { ProofState, ProofSlot } from "./proof-slot.js";
+export { buildProofView, MAX_CALL_SITES_SHOWN, BADGE_LABELS, RECOMMENDATION_TEXT } from "./proof-view.js";
+export type { ProofBadge, AttemptView, ProofView } from "./proof-view.js";
 export type {
   UnknownReasonView,
   GraveRecord,

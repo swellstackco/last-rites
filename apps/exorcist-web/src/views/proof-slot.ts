@@ -1,4 +1,4 @@
-// Proof section. Only `coming_soon` is produced in this version; the switch is exhaustive
+// Proof section. The switch is exhaustive
 // so a new ProofState is a compile error until it is rendered.
 import type { ProofSlot, ProofState } from "@graveyard-kit/skeleton/graveyard";
 import { COPY } from "../constants.js";
@@ -30,11 +30,19 @@ export function renderProofState(state: ProofState, idBase: string): HTMLElement
         ),
       );
     }
-    case "no_call_sites":
-    case "running":
-    case "failed":
-    case "verified":
-      return h("p", { class: "muted" }, "This proof state is not available in this version.");
+    case "loading":
+      return h("p", { class: "muted" }, "Loading proof…");
+    case "report": {
+      // Minimal text rendering; task 8.7 replaces it with the full Proof_Section.
+      const v = state.view;
+      return h(
+        "div",
+        { class: "stack" },
+        h("p", null, h("strong", null, v.badgeLabel)),
+        h("p", { class: "muted" }, `${v.runsText}, ${v.seedText}`),
+        h("p", { class: "muted" }, v.sabotageLine),
+      );
+    }
     default:
       return assertNever(state);
   }

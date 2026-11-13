@@ -234,3 +234,10 @@ Headless Chromium at 1352x761 and 375x812 (2x), demo parse-server, package ldapj
 - 7.1-7.3: `proof-view.ts` (`buildProofView`; a report with no attempts is shown as a proof error, which a valid report never is), `proof-view.test.ts`, Property 10 (`proof-view.p10.test.ts`, `build(impl)`; it repeats the call sites up to 12 times so the 50 cap is exercised, since the report arbitrary has at most 8).
 - Not done on purpose (run capped at 8 tasks): 7.4-7.8. I had started 7.4-7.7 (sabotage list, `ProofState` change, web view) and reverted them; nothing from them remains.
 - Counterexamples found by fast-check against the real code: none. (The `run.test.ts` de-duplicating candidate counterexample is an intended one, not a bug.)
+
+## 2026-11-13 proof-harness 7.4-7.8, 8.1-8.3 (Kiro CLI)
+
+- 7.4/7.7: `graveyard/test-support/sabotage/proof-p10.ts` (eight entries plus `P10_REQUIRED`) added to the central `skeleton/src/proof/sabotage.test.ts`. All eight caught under the fixed seed on the first run; the real `buildProofView` passes.
+- 7.5/7.6: `ProofState` is now `coming_soon | loading | report`; old helper types removed. The grep showed one more consumer than the task lists (`graveyard/index.ts` re-exports, which I updated, and now also exports `buildProofView`, `ProofView` and friends). `apps/exorcist-web/src/views/proof-slot.ts` got a minimal `loading` and plain-text `report` branch so typecheck stays green; task 8.7 replaces it with the full Proof_Section.
+- 8.1-8.3: proof copy in `constants.ts`; `vite.config.ts` gets `PROOF_NAME_PATTERN`, `isProofName`, `proofNamesFromPath`, `demoProofs()` (registered after `demoSnapshots()`); tests in `vite-config.test.ts`. Note: `/demo/proofs/candidates/<x>.json` is a syntactically valid guarded pair (repo name `candidates`); the real candidates sit one level deeper (`candidates/parse-server/*.js`) so nothing matches. My first test assertion claimed otherwise and was wrong; fixed the test, not the guard.
+- Counterexamples found by fast-check against the real code: none.

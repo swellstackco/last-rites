@@ -227,23 +227,23 @@ Terminology used in the tasks: a *Mutator* is part of the product (a deliberatel
 - [x] 7.3 Write the Property 10 test in `proof-view.p10.test.ts` (exporting `build(impl)`) over the Property 9 report arbitrary, deep-frozen before the call.
   - **Property 10: Proof_View faithfulness**
   - **Validates: Requirements 12.2 to 12.7**
-- [ ] 7.4 Create the Sabotage_List `skeleton/src/graveyard/test-support/sabotage/proof-p10.ts` (show `proved` for a weak attempt; headline from the first attempt; survivors counted as caught; call sites sorted; HTML-escaped strings; trimmed counterexample input; ignore the cap; mutate the input report).
+- [x] 7.4 Create the Sabotage_List `skeleton/src/graveyard/test-support/sabotage/proof-p10.ts` (show `proved` for a weak attempt; headline from the first attempt; survivors counted as caught; call sites sorted; HTML-escaped strings; trimmed counterexample input; ignore the cap; mutate the input report).
   - _Requirements: 18.2_
-- [ ] 7.5 Edit `skeleton/src/graveyard/proof-slot.ts`: `ProofState` becomes `coming_soon | loading | report`, remove `ProofLeg`, `Counterexample`, `SabotageResult` and the old variants after a `grep` shows their only users are `proof-slot.test.ts` and `apps/exorcist-web/src/views/proof-slot.ts`; keep `proofSlotFor` unchanged.
+- [x] 7.5 Edit `skeleton/src/graveyard/proof-slot.ts`: `ProofState` becomes `coming_soon | loading | report`, remove `ProofLeg`, `Counterexample`, `SabotageResult` and the old variants after a `grep` shows their only users are `proof-slot.test.ts` and `apps/exorcist-web/src/views/proof-slot.ts`; keep `proofSlotFor` unchanged.
   - _Requirements: 12.1, 12.8_
-- [ ] 7.6 Edit `skeleton/src/graveyard/proof-slot.test.ts` for the three states (exhaustive switch kept) and add `proofSlotFor` unchanged-behavior checks; export `buildProofView` and its types from `skeleton/src/graveyard/index.ts`.
+- [x] 7.6 Edit `skeleton/src/graveyard/proof-slot.test.ts` for the three states (exhaustive switch kept) and add `proofSlotFor` unchanged-behavior checks; export `buildProofView` and its types from `skeleton/src/graveyard/index.ts`.
   - _Requirements: 12.1, 12.8_
-- [ ] 7.7 Extend `skeleton/src/proof/sabotage.test.ts` with Property 10 and its list.
+- [x] 7.7 Extend `skeleton/src/proof/sabotage.test.ts` with Property 10 and its list.
   - _Requirements: 18.2, 18.3_
-- [ ] 7.8 Checkpoint after Phase 7 - Ensure all tests pass, ask the user if questions arise.
+- [x] 7.8 Checkpoint after Phase 7 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 8: The page (apps/exorcist-web)
 
-- [ ] 8.1 Edit `apps/exorcist-web/src/constants.ts`: add the proof copy (badge labels are taken from `buildProofView`; add the loading line, the unreadable-report line and the heading of the three counterexample blocks), keeping `COPY.exorcismComing`.
+- [x] 8.1 Edit `apps/exorcist-web/src/constants.ts`: add the proof copy (badge labels are taken from `buildProofView`; add the loading line, the unreadable-report line and the heading of the three counterexample blocks), keeping `COPY.exorcismComing`.
   - _Requirements: 14.1, 14.3_
-- [ ] 8.2 Edit `apps/exorcist-web/vite.config.ts`: add `PROOF_NAME_PATTERN` (same source as the skeleton), `isProofName`, `proofNamesFromPath`, and the plugin `demoProofs()` (middleware serving or 404 for guarded names and `next()` otherwise; `generateBundle` emitting `demo/proofs/<repo>/<package>.json` for guarded pairs only), registered after `demoSnapshots()`.
+- [x] 8.2 Edit `apps/exorcist-web/vite.config.ts`: add `PROOF_NAME_PATTERN` (same source as the skeleton), `isProofName`, `proofNamesFromPath`, and the plugin `demoProofs()` (middleware serving or 404 for guarded names and `next()` otherwise; `generateBundle` emitting `demo/proofs/<repo>/<package>.json` for guarded pairs only), registered after `demoSnapshots()`.
   - _Requirements: 13.4, 13.5, 13.6_
-- [ ] 8.3 Extend `vite-config.test.ts`: the pattern equals the skeleton's, `proofNamesFromPath` accepts and rejects the listed forms (`..`, `a/b`, upper case, empty, 65 characters, extra segments), the plugin exposes both hooks, `demo/proofs/candidates/...` is never served or emitted, and the existing demo tests still pass.
+- [x] 8.3 Extend `vite-config.test.ts`: the pattern equals the skeleton's, `proofNamesFromPath` accepts and rejects the listed forms (`..`, `a/b`, upper case, empty, 65 characters, extra segments), the plugin exposes both hooks, `demo/proofs/candidates/...` is never served or emitted, and the existing demo tests still pass.
   - _Requirements: 13.4, 13.5, 13.6_
 - [ ] 8.4 Edit `apps/exorcist-web/src/api/client.ts`: add `getProof(demo, pkg, signal)` and the `ProofLoad` type using the existing private `request` helper, the name guard, `parseProofReport` from `@graveyard-kit/skeleton/proof`, and the `absent`/`invalid`/`failed` mapping of Requirement 13.2.
   - _Requirements: 13.1, 13.2, 13.7_

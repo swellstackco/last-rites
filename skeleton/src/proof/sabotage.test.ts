@@ -2,6 +2,8 @@
 import { describe, expect, it } from "vitest";
 import { FIXED_SEED, checkProperty, log } from "../death-score/fc-runner.js";
 import { assertAllSabotagesCaught, type Sabotage } from "../graveyard/test-support/sabotage-runner.js";
+import { build as p10, REAL_BUILD_PROOF_VIEW } from "../graveyard/proof-view.p10.test.js";
+import { P10_REQUIRED, P10_SABOTAGES } from "../graveyard/test-support/sabotage/proof-p10.js";
 import { build as p2, REAL_RUN_SHAPE_IMPL } from "./runner/differential.p2.test.js";
 import { build as p3, REAL_RUN_PROOF_IMPL } from "./runner/run-proof.p3.test.js";
 import { build as p5, REAL_REPORT_IMPL } from "./runner/report-determinism.p5.test.js";
@@ -30,6 +32,7 @@ const suites: Suite<any>[] = [ // eslint-disable-line @typescript-eslint/no-expl
   { property: "Property 7: sabotage accounting", list: P7_SABOTAGES, required: P7_REQUIRED, real: REAL_SABOTAGE_IMPL, build: p7 },
   { property: "Property 8: outcome equivalence", list: P8_SABOTAGES, required: P8_REQUIRED, real: REAL_OUTCOME_IMPL, build: p8 },
   { property: "Property 9: proof report codec", list: P9_SABOTAGES, required: P9_REQUIRED, real: REAL_PROOF_CODEC, build: p9 },
+  { property: "Property 10: proof view faithfulness", list: P10_SABOTAGES, required: P10_REQUIRED, real: REAL_BUILD_PROOF_VIEW, build: p10 },
 ];
 
 describe("proof sabotage checks (proof-rules.md)", () => {
