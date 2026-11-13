@@ -8,17 +8,17 @@ Fixes the Death_Score so that declared-abandoned packages (author deprecated or 
 
 ### Phase 1: Explore the bug on unfixed code
 
-- [ ] 1.1 Exploratory bug-condition test (expected to FAIL on unfixed code)
+- [x] 1.1 Exploratory bug-condition test (expected to FAIL on unfixed code)
   - Add `isDeclaredAbandoned(signals, config)` as a test-only helper (it mirrors C(X) from design.md; production code comes in 3.3) and `declaredAbandonedArb` in `arbitraries.ts`.
   - Write Property 6 (fix checking) in `properties.ts` / `calibration.test.ts` with `numRuns: 100` and the `fc-runner.ts` seed policy.
   - Run it against the UNFIXED `scoreDeath`. Confirm it FAILS. _Requirements: 1.1, 1.2, 1.3, 2.1_
-- [ ] 1.2 Record the shrunk counterexample and seed in `docs/kiro-log.md` (dated entry) and compare with the hypothesized root cause; if it points elsewhere, revise design.md "Hypothesized Root Cause" before continuing.
+- [x] 1.2 Record the shrunk counterexample and seed in `docs/kiro-log.md` (dated entry) and compare with the hypothesized root cause; if it points elsewhere, revise design.md "Hypothesized Root Cause" before continuing.
 
 ### Phase 2: Preservation baseline on unfixed code
 
-- [ ] 2.1 Freeze the original implementation as `skeleton/src/death-score/__reference__/score-v1.ts` (`scoreDeathV1`, header "FROZEN, test-only"). Exclude it from `index.ts`. _Requirements: 3.1, 3.2_
-- [ ] 2.2 Add `notDeclaredAbandonedArb` (near-miss biased) and `configWithFloorArb` to `arbitraries.ts`. `configWithFloorArb` may only add the field in test code at this stage; the type change lands in 3.1.
-- [ ] 2.3 Write Property 7 (preservation): for NOT C(X), and for any config with `abandonedFloor: 0`, `scoreDeath` deep-equals `scoreDeathV1` and has no `calibration` key. Run against the UNFIXED code. Confirm it PASSES (baseline) and note the seed in `docs/kiro-log.md`. _Requirements: 3.1-3.5, 3.8_
+- [x] 2.1 Freeze the original implementation as `skeleton/src/death-score/__reference__/score-v1.ts` (`scoreDeathV1`, header "FROZEN, test-only"). Exclude it from `index.ts`. _Requirements: 3.1, 3.2_
+- [x] 2.2 Add `notDeclaredAbandonedArb` (near-miss biased) and `configWithFloorArb` to `arbitraries.ts`. `configWithFloorArb` may only add the field in test code at this stage; the type change lands in 3.1.
+- [x] 2.3 Write Property 7 (preservation): for NOT C(X), and for any config with `abandonedFloor: 0`, `scoreDeath` deep-equals `scoreDeathV1` and has no `calibration` key. Run against the UNFIXED code. Confirm it PASSES (baseline) and note the seed in `docs/kiro-log.md`. _Requirements: 3.1-3.5, 3.8_
 
 ### Phase 3: Implement the fix
 

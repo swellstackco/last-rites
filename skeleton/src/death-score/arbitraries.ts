@@ -1,4 +1,5 @@
 import fc from "fast-check";
+import { DEFAULT_WEIGHT_CONFIG } from "./weights.js";
 import type {
   PackageSignals,
   SignalName,
@@ -270,4 +271,177 @@ export const deathDominatingPairArb: fc.Arbitrary<
   fullyKnownPackageSignalsArb.map(
     (s): [PackageSignals, PackageSignals] => [s, s],
   ),
+);
+
+// ---------------------------------------------------------------------------
+// death-score-calibration generators (Declared_Abandoned, C(X))
+// ---------------------------------------------------------------------------
+
+/**
+ * TEST-ONLY mirror of the bug condition C(X) from the death-score-calibration
+ * design. Production code (`declaredAbandoned` in score.ts) comes in task 3.3.
+ * Unknown never satisfies any part; the publish comparison is non-strict.
+ */
+export function isDeclaredAbandoned(
+  signals: PackageSignals,
+  config: WeightConfig,
+): boolean {
+  const dep = signals.deprecated;
+  const arc = signals.repoArchived;
+  const pub = signals.monthsSinceLastPublish;
+  const depT = dep.kind === "known" && dep.value === true;
+  const arcT = arc.kind === "known" && arc.value === true;
+  const stale =
+    pub.kind === "known" &&
+    Math.max(0, pub.value) >= config.monthsSinceLastPublishFullDead;
+  return (depT && arcT) || ((depT || arcT) && stale);
+}
+
+/** Floor values exercised by `configWithFloorArb`; `undefined` = field absent. */
+const FLOOR_CHOICES: readonly (number | undefined)[] = [
+  undefined, 0, 1, 50, 75, 100, -5, 150, 74.6,
+];
+
+/**
+ * `weightConfigArb` extended with `abandonedFloor` drawn from
+ * {absent, 0, 1, 50, 75, 100, -5, 150, 74.6}. The field is added in test code
+ * only (cast) until the type change lands in task 3.1.
+ */
+export const configWithFloorArb: fc.Arbitrary<WeightConfig> = fc
+  .tuple(weightConfigArb, fc.constantFrom(...FLOOR_CHOICES))
+  .map(([config, floor]): WeightConfig =>
+    floor === undefined
+      ? config
+      : ({ ...config, abandonedFloor: floor } as WeightConfig),
+  );
+
+const knownBool = (value: boolean): SignalValue<boolean> => ({ kind: "known", value });
+const unknownBool: SignalValue<boolean> = { kind: "unknown" };
+const knownMonths = (value: number): SignalValue<number> => ({ kind: "known", value });
+const unknownMonths: SignalValue<number> = { kind: "unknown" };
+
+/** Flag value that is NOT known-true: known false or unknown. */
+const notTrueFlagArb: fc.Arbitrary<SignalValue<boolean>> = fc.constantFrom(
+  knownBool(false),
+  unknownBool,
+);
+
+/** Publish age >= T, biased to T, T+1 and large values. */
+function staleMonthsArb(t: number): fc.Arbitrary<SignalValue<number>> {
+  return fc
+    .oneof(
+      fc.constant(t),
+      fc.constant(t + 1),
+      fc.constant(t + 200),
+      fc.integer({ min: t, max: t + 120 }),
+    )
+    .map(knownMonths);
+}
+
+/** Publish age strictly below T, biased to T-1, or unknown. */
+function freshOrUnknownMonthsArb(t: number): fc.Arbitrary<SignalValue<number>> {
+  return fc.oneof(
+    fc.constant(knownMonths(Math.max(0, t - 1))),
+    fc.constant(knownMonths(0)),
+    fc.integer({ min: 0, max: Math.max(0, t - 1) }).map(knownMonths),
+    fc.constant(unknownMonths),
+  );
+}
+
+/** Config for the calibration generators: default half the time, else random with floor. */
+const calibrationConfigArb: fc.Arbitrary<WeightConfig> = fc.oneof(
+  fc.constant(DEFAULT_WEIGHT_CONFIG),
+  configWithFloorArb,
+);
+
+/**
+ * `[signals, config]` where C(X) holds, from the three branches
+ * (dep + arc; dep + stale; arc + stale). The other signals are arbitrary
+ * (known or unknown), so S may already be >= the floor.
+ */
+export const declaredAbandonedArb: fc.Arbitrary<[PackageSignals, WeightConfig]> =
+  calibrationConfigArb.chain((config) => {
+    const t = config.monthsSinceLastPublishFullDead;
+    const overridesArb: fc.Arbitrary<Partial<PackageSignals>> = fc.oneof(
+      // dep + arc, any publish
+      signalValueArb(monthsArb).map((p) => ({
+        deprecated: knownBool(true),
+        repoArchived: knownBool(true),
+        monthsSinceLastPublish: p,
+      })),
+      // dep + stale, arc not known true
+      fc.tuple(notTrueFlagArb, staleMonthsArb(t)).map(([arc, p]) => ({
+        deprecated: knownBool(true),
+        repoArchived: arc,
+        monthsSinceLastPublish: p,
+      })),
+      // arc + stale, dep not known true
+      fc.tuple(notTrueFlagArb, staleMonthsArb(t)).map(([dep, p]) => ({
+        deprecated: dep,
+        repoArchived: knownBool(true),
+        monthsSinceLastPublish: p,
+      })),
+    );
+    return fc
+      .tuple(packageSignalsArb, overridesArb)
+      .map(([base, o]): [PackageSignals, WeightConfig] => [
+        { ...base, ...o },
+        config,
+      ]);
+  });
+
+/**
+ * `[signals, config]` where C(X) is false by construction, with near-miss
+ * bias: dep true + publish T-1; arc true + publish unknown; dep true + arc
+ * unknown + publish unknown; both flags not true with ancient publish.
+ */
+export const notDeclaredAbandonedArb: fc.Arbitrary<[PackageSignals, WeightConfig]> =
+  configWithFloorArb.chain((config) => {
+    const t = config.monthsSinceLastPublishFullDead;
+    const overridesArb: fc.Arbitrary<Partial<PackageSignals>> = fc.oneof(
+      // dep true, arc not true, publish fresh or unknown (incl. T-1)
+      fc.tuple(notTrueFlagArb, freshOrUnknownMonthsArb(t)).map(([arc, p]) => ({
+        deprecated: knownBool(true),
+        repoArchived: arc,
+        monthsSinceLastPublish: p,
+      })),
+      // arc true, dep not true, publish fresh or unknown
+      fc.tuple(notTrueFlagArb, freshOrUnknownMonthsArb(t)).map(([dep, p]) => ({
+        deprecated: dep,
+        repoArchived: knownBool(true),
+        monthsSinceLastPublish: p,
+      })),
+      // dep true, arc unknown, publish unknown
+      fc.constant({
+        deprecated: knownBool(true),
+        repoArchived: unknownBool,
+        monthsSinceLastPublish: unknownMonths,
+      }),
+      // arc true, dep unknown, publish unknown
+      fc.constant({
+        deprecated: unknownBool,
+        repoArchived: knownBool(true),
+        monthsSinceLastPublish: unknownMonths,
+      }),
+      // neither flag known true, ancient or any publish
+      fc.tuple(notTrueFlagArb, notTrueFlagArb, signalValueArb(monthsArb), staleMonthsArb(t))
+        .chain(([dep, arc, anyPub, oldPub]) =>
+          fc.constantFrom(anyPub, oldPub).map((p) => ({
+            deprecated: dep,
+            repoArchived: arc,
+            monthsSinceLastPublish: p,
+          })),
+        ),
+    );
+    return fc
+      .tuple(packageSignalsArb, overridesArb)
+      .map(([base, o]): [PackageSignals, WeightConfig] => [
+        { ...base, ...o },
+        config,
+      ]);
+  });
+
+/** Config pool for preservation (b): any config with the rule disabled. */
+export const disabledFloorConfigArb: fc.Arbitrary<WeightConfig> = weightConfigArb.map(
+  (c): WeightConfig => ({ ...c, abandonedFloor: 0 }) as WeightConfig,
 );

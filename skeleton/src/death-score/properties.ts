@@ -1,6 +1,12 @@
 import fc from "fast-check";
 import { DEFAULT_WEIGHT_CONFIG, SIGNAL_NAMES } from "./weights.js";
+import { scoreDeathV1 } from "./__reference__/score-v1.js";
+import { toGrade } from "./grade.js";
 import {
+  declaredAbandonedArb,
+  disabledFloorConfigArb,
+  notDeclaredAbandonedArb,
+  packageSignalsArb as anySignalsArb,
   deathDominatingPairArb,
   fullyKnownPackageSignalsArb,
   packageSignalsArb,
@@ -122,6 +128,90 @@ export const unknownNotAliveProperty: NamedProperty = {
         const u = score(withUnknown, DEFAULT_WEIGHT_CONFIG).score;
         const a = score(withAlive, DEFAULT_WEIGHT_CONFIG).score;
         return u > a; // implies u >= a
+      },
+    ),
+};
+
+/**
+ * TEST-ONLY mirror of `effectiveAbandonedFloor` (weights.ts, task 3.2):
+ * absent -> 75; non-finite -> 0; otherwise round(clamp(v, 0, 100)).
+ */
+function expectedFloor(config: WeightConfig): number {
+  const v = (config as { abandonedFloor?: number }).abandonedFloor;
+  if (v === undefined) return 75;
+  if (!Number.isFinite(v)) return 0;
+  return Math.round(Math.min(100, Math.max(0, v)));
+}
+
+/** Which signals fired for C(X), mirroring the reason-text rule in design.md. */
+function firedTerms(signals: PackageSignals): string[] {
+  const dep = signals.deprecated.kind === "known" && signals.deprecated.value;
+  const arc = signals.repoArchived.kind === "known" && signals.repoArchived.value;
+  if (dep && arc) return ["deprecated", "archived"];
+  return [dep ? "deprecated" : "archived", "publish"];
+}
+
+/**
+ * Property 6: Fix checking (Declared_Abandoned is dead).
+ * Validates: Requirements 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7
+ *
+ * Oracle: `scoreDeathV1` (frozen Reference_Implementation) gives S and parts.
+ * NOT in ALL_PROPERTIES until task 3.5 (it fails on the unfixed engine).
+ */
+export const declaredAbandonedProperty: NamedProperty = {
+  name: "Property 6: Declared abandoned is dead",
+  build: (score) =>
+    fc.property(declaredAbandonedArb, ([signals, config]) => {
+      const ref = scoreDeathV1(signals, config);
+      const S = ref.score;
+      const F = expectedFloor(config);
+      const result = score(signals, config);
+      const sum = result.parts.reduce((acc, p) => acc + p.points, 0);
+      // `calibration` is not on DeathScoreResult until task 3.1; read it structurally.
+      const cal = (
+        result as { calibration?: { rule: string; reason: string; points: number } }
+      ).calibration;
+      if (result.score !== Math.max(S, F)) return false;
+      if (JSON.stringify(result.parts) !== JSON.stringify(ref.parts)) return false;
+      if (result.score !== sum + (cal?.points ?? 0)) return false;
+      if ((cal !== undefined) !== (F > 0 && S < F)) return false;
+      if (cal !== undefined) {
+        if (cal.rule !== "declared_abandoned") return false;
+        if (cal.points !== result.score - S || cal.points <= 0) return false;
+        if (cal.reason.length === 0) return false;
+        const reason = cal.reason.toLowerCase();
+        if (!firedTerms(signals).every((t) => reason.includes(t))) return false;
+      }
+      if (config === DEFAULT_WEIGHT_CONFIG) {
+        if (result.grade !== "dead" || result.score < 75) return false;
+      }
+      return result.grade === toGrade(result.score);
+    }),
+};
+
+/**
+ * Property 7: Preservation. Validates: Requirements 3.1, 3.2, 3.3, 3.4, 3.5, 3.8
+ *
+ * (a) NOT C(X) with any floor config, (b) any signals with abandonedFloor 0:
+ * the result is identical to the Reference_Implementation and has no
+ * `calibration` key. NOT in ALL_PROPERTIES until task 3.5.
+ */
+export const preservationProperty: NamedProperty = {
+  name: "Property 7: Preservation",
+  build: (score) =>
+    fc.property(
+      fc.oneof(
+        notDeclaredAbandonedArb,
+        fc
+          .tuple(anySignalsArb, disabledFloorConfigArb)
+          .map(([s, c]): [PackageSignals, WeightConfig] => [s, c]),
+      ),
+      ([signals, config]) => {
+        const result = score(signals, config);
+        return (
+          JSON.stringify(result) === JSON.stringify(scoreDeathV1(signals, config)) &&
+          !("calibration" in result)
+        );
       },
     ),
 };
