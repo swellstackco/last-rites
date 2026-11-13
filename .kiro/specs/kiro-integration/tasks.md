@@ -218,23 +218,23 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - _Requirements: 10.1_
 - [x] 6.8 Write `mcp/src/stdio.test.ts` part 1: build the bundle into a temporary directory (outside the repository) with the demo snapshots, spawn `node <tmp>/server.mjs` with an empty environment, send `initialize` and `tools/list`, call `scan_repo` for a demo name and `usage_surface` over the `intersect-like` fixture, assert the five tools, valid results, and that every stdout line is JSON-RPC. Remove the temporary directory in `finally`. Timeout 60 s.
   - _Requirements: 10.2, 18.6_
-- [ ] 6.9 Extend `stdio.test.ts` part 2: `generate_pin_tests` over the bundle with an oracle-equivalent candidate (`proved`, sabotage line present) and a de-duplicating candidate (`counterexample`), proving the static oracles, `typescript` and `fast-check` work from a bundle outside the repository.
+- [x] 6.9 Extend `stdio.test.ts` part 2: `generate_pin_tests` over the bundle with an oracle-equivalent candidate (`proved`, sabotage line present) and a de-duplicating candidate (`counterexample`), proving the static oracles, `typescript` and `fast-check` work from a bundle outside the repository.
   - _Requirements: 10.2, 8.2_
-- [ ] 6.10 Extend `stdio.test.ts` part 3: a candidate that calls `console.log("noise")` while being exercised; every stdout line remains a JSON-RPC message and the noise appears on stderr; the server exits 0 when stdin is closed.
+- [x] 6.10 Extend `stdio.test.ts` part 3: a candidate that calls `console.log("noise")` while being exercised; every stdout line remains a JSON-RPC message and the noise appears on stderr; the server exits 0 when stdin is closed.
   - _Requirements: 2.3, 10.5, 18.6_
-- [ ] 6.11 If 6.8 or 6.9 fails because the bundle cannot start or cannot run `typescript` or the oracles, STOP and decide per the Risks section (mark `typescript` external and document the install step, or fix the shim). Record what failed and what was decided in the task notes and in the README task (9.7). Do not weaken the stdio test.
+- [x] 6.11 If 6.8 or 6.9 fails because the bundle cannot start or cannot run `typescript` or the oracles, STOP and decide per the Risks section (mark `typescript` external and document the install step, or fix the shim). Record what failed and what was decided in the task notes and in the README task (9.7). Do not weaken the stdio test.
   - _Requirements: 10.2_
-- [ ] 6.12 Create `mcp/src/sabotage.test.ts`: import Properties 1 to 12 and their Sabotage_Lists, run each property against every entry with the fixed seed 20261113 through the repository's `assertAllSabotagesCaught`-style runner, fail with `Sabotage "<name>" stayed green for "<property>"`, assert every list is non-empty, the required names of Requirement 18.5 exist, and the real implementations pass under the same seed. (Property 13 is added in 9.9.)
+- [x] 6.12 Create `mcp/src/sabotage.test.ts`: import Properties 1 to 12 and their Sabotage_Lists, run each property against every entry with the fixed seed 20261113 through the repository's `assertAllSabotagesCaught`-style runner, fail with `Sabotage "<name>" stayed green for "<property>"`, assert every list is non-empty, the required names of Requirement 18.5 exist, and the real implementations pass under the same seed. (Property 13 is added in 9.9.)
   - _Requirements: 18.3, 18.4, 18.5_
-- [ ] 6.13 Write `mcp/src/smoke.test.ts` static checks: `process.env`, `process.argv` and `process.stdin` are read only in `server.ts`, `wire.ts` (env passed in, not read), and the four hook entry files; `skeleton/` imports nothing from `mcp`, `power` or `apps`; `mcp/package.json` pins exact versions and declares no LLM client; no test file contains `lastrites-work`; `createExorcistServer` has no import of `node:fs`.
+- [x] 6.13 Write `mcp/src/smoke.test.ts` static checks: `process.env`, `process.argv` and `process.stdin` are read only in `server.ts`, `wire.ts` (env passed in, not read), and the four hook entry files; `skeleton/` imports nothing from `mcp`, `power` or `apps`; `mcp/package.json` pins exact versions and declares no LLM client; no test file contains `lastrites-work`; `createExorcistServer` has no import of `node:fs`.
   - _Requirements: 1.8, 1.3, 2.4, 13.7, 18.1_
-- [ ] 6.14 Checkpoint after Phase 6 - Ensure all tests pass, ask the user if questions arise.
+- [x] 6.14 Checkpoint after Phase 6 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 7: Workspace settings and the remaining hooks
 
-- [ ] 7.1 Create `.kiro/settings/mcp.json` exactly as in the design (server `exorcist`, `command` `node`, `args` `["mcp/dist/server.mjs"]`, `env` `GITHUB_TOKEN` reference, `disabled` false, `autoApprove` the four read tools).
+- [x] 7.1 Create `.kiro/settings/mcp.json` exactly as in the design (server `exorcist`, `command` `node`, `args` `["mcp/dist/server.mjs"]`, `env` `GITHUB_TOKEN` reference, `disabled` false, `autoApprove` the four read tools).
   - _Requirements: 11.1, 11.2_
-- [ ] 7.2 Write `mcp/src/kiro-files.test.ts` part 1: the real settings file passes `validateMcpSettings`; `args[0]` equals `BUNDLE_REL`; `autoApprove` is exactly the four read tools and does not contain `generate_pin_tests`; no secret-looking value (a long token-like string) appears in the file.
+- [x] 7.2 Write `mcp/src/kiro-files.test.ts` part 1: the real settings file passes `validateMcpSettings`; `args[0]` equals `BUNDLE_REL`; `autoApprove` is exactly the four read tools and does not contain `generate_pin_tests`; no secret-looking value (a long token-like string) appears in the file.
   - _Requirements: 11.1, 11.2, 11.3_
 - [ ] 7.3 Create `mcp/src/hooks/run-scan-deps.ts` (`runScanDeps(deps)`: `obtainScanReport` for the repository root as a Local_Path, `deadNames`/`newDeadPackages`, baseline read and write through the injected file system, the output lines of Requirement 13.2, outcome `warn` when there is a new dead package, `ok` when none, `fail` when the scan fails) and the entry file `scan-deps.ts` using `entry.ts`.
   - _Requirements: 12.2, 13.2_

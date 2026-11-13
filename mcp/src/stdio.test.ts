@@ -1,5 +1,5 @@
 import { spawn, type ChildProcessWithoutNullStreams } from "node:child_process";
-import { mkdtempSync, rmSync } from "node:fs";
+import { mkdtempSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -10,6 +10,8 @@ import { TOOL_NAMES } from "./tools/index.js";
 // Builds the real bundle into a temporary directory outside the repository and talks to it over stdio.
 const ROOT = fileURLToPath(new URL("../../", import.meta.url));
 const TREES = fileURLToPath(new URL("./__fixtures__/trees/", import.meta.url));
+
+const DEDUP = `const f = (l) => l.length === 0 ? [] : [...l.map((x) => new Set(x)).reduce((a, b) => new Set([...a].filter((x) => b.has(x))))];\nf.big = f;\nexport default f;\n`;
 
 let tmp = "";
 let bundle = "";
@@ -134,4 +136,49 @@ describe("the bundled server over stdio", () => {
       await s.close();
     }
   }, 60_000);
+
+  it("proves an oracle-equivalent candidate and finds a counterexample for a de-duplicating one, from a bundle outside the repository", async () => {
+    const equivalent = join(tmp, "equivalent.mjs");
+    writeFileSync(equivalent, `export { default } from ${JSON.stringify(join(ROOT, "node_modules/intersect/index.js"))};\n`);
+    const dedup = join(tmp, "dedup.mjs");
+    writeFileSync(dedup, DEDUP);
+    const s = await started();
+    try {
+      const args = { path: join(TREES, "intersect-like"), package: "intersect", runs: 100 };
+      const ok = await s.call("tools/call", { name: "generate_pin_tests", arguments: { ...args, candidate: equivalent } });
+      expect(ok.result.isError).not.toBe(true);
+      const okReport = JSON.parse(textOf(ok));
+      expect(okReport.attempts[0].status).toBe("proved");
+      expect(JSON.stringify(okReport)).toMatch(/sabotage/i);
+
+      const bad = await s.call("tools/call", { name: "generate_pin_tests", arguments: { ...args, candidate: dedup } });
+      expect(bad.result.isError).not.toBe(true);
+      expect(JSON.parse(textOf(bad)).attempts[0].status).toBe("counterexample");
+    } finally {
+      await s.close();
+    }
+  }, 120_000);
+
+  it("keeps stdout clean when a candidate logs, and exits 0 when stdin closes", async () => {
+    const noisy = join(tmp, "noisy.mjs");
+    writeFileSync(
+      noisy,
+      `import orig from ${JSON.stringify(join(ROOT, "node_modules/intersect/index.js"))};\n` +
+        `export default function f(...a) { console.log("noise"); return orig(...a); }\nObject.assign(f, orig);\n`,
+    );
+    const s = await started();
+    let code: number | null = null;
+    try {
+      const r = await s.call("tools/call", {
+        name: "generate_pin_tests",
+        arguments: { path: join(TREES, "intersect-like"), package: "intersect", candidate: noisy, runs: 100 },
+      });
+      expect(r.result.content[0].text).toBeTypeOf("string");
+      for (const line of s.stdoutLines) expect(JSON.parse(line).jsonrpc).toBe("2.0");
+      expect(s.stderr()).toContain("noise");
+    } finally {
+      code = await s.close();
+    }
+    expect(code).toBe(0);
+  }, 120_000);
 });

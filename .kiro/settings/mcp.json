@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "exorcist": {
+      "command": "node",
+      "args": ["mcp/dist/server.mjs"],
+      "env": { "GITHUB_TOKEN": "${GITHUB_TOKEN}" },
+      "disabled": false,
+      "autoApprove": ["scan_repo", "death_report", "usage_surface", "find_replacement"]
+    }
+  }
+}

@@ -608,3 +608,13 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - 6.6/6.7: `build/build.ts` and `build/run-build.ts`. The bundle (`mcp/dist/server.mjs`) is 11.4 MB with `typescript` included; it also copies to `power/server/` (ignored by git). 6.11 is not triggered by this: the bundle starts and runs `usage_surface` from outside the repository.
 - 6.8: `stdio.test.ts` part 1: builds into a temp dir, spawns with an empty environment, `tools/list`, demo `scan_repo`, `usage_surface` over `intersect-like`, `invalid_input`; every stdout line is JSON-RPC.
 - Counterexamples from fast-check: none (no new property tests in this group).
+
+## 2026-11-13: kiro-integration tasks 6.9 to 6.14 and 7.1, 7.2
+
+- 6.9/6.10: `stdio.test.ts` parts 2 and 3. From a bundle built into a temp dir outside the repository: an oracle-equivalent candidate (re-exporting `node_modules/intersect` by absolute path) gives `proved` with a sabotage line; a de-duplicating candidate gives `counterexample`; a candidate that calls `console.log("noise")` leaves stdout pure JSON-RPC, the noise reaches stderr, and the server exits 0 when stdin closes.
+- 6.11: not triggered. The bundle starts and runs `typescript`, the static oracles and `fast-check` outside the repository, so no decision was needed (`typescript` stays bundled).
+- 6.12: `mcp/src/sabotage.test.ts` runs Properties 1 to 12 against all their Sabotage_Lists at seed 20261113, checks non-empty lists, the Requirement 18.5 names (2, 3, 5, 9, 11) and that the real implementations pass. All sabotages were caught on the first run. Property 13 joins in 9.9.
+- 6.13: `smoke.test.ts` static checks (process readers limited to `server.ts` and `hooks/entry.ts`, `wire.ts` takes env as an argument, skeleton imports nothing from mcp/power/apps, exact pins and no LLM client in `mcp/package.json`, no `lastrites-work` in tests, no `node:fs` in `create-server.ts`).
+- 7.1/7.2: `.kiro/settings/mcp.json` as in the design; `kiro-files.test.ts` part 1 (validator, `args[0]` equals `BUNDLE_REL`, `autoApprove` is the four read tools, no secret-looking value).
+- Verification: `npm run typecheck` clean; `CI=1 npm test` green (see the final run below).
+- Counterexamples: none found by fast-check. Only slip: a Python-escaping mistake in my first stdio test edit (a literal `\n` in the source); fixed.
