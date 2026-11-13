@@ -661,3 +661,9 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - 11.1: preflight on `../lastrites-work/parse-server` (read only): HEAD `3402ee6`, branch `alpha` tracking `origin/alpha`, `git status --short` empty, remote `origin` https://github.com/parse-community/parse-server.git.
 - 11.2: `kiro-cli` 3.3.0 is installed, the bundle is built, but `KIRO_API_KEY` is not set in this environment. Phase 11.3 to 11.14 are NOT RUN. No transcript was faked.
 - Counterexamples from fast-check this run: none.
+
+## 2026-11-13: kiro-integration run stopped at 11.3
+
+- Checked the next unchecked task (11.3). It needs `kiro-cli` to run the agents headless, which needs `KIRO_API_KEY`. The variable is still not set here, so per 11.2 the real-use group (11.3 to 11.14) is NOT RUN. No transcript was faked and no code changed.
+- Verification: `npm run typecheck` clean; `CI=1 npm test` 204 files, 1809 passed, 1 todo.
+- Counterexamples from fast-check: none.
