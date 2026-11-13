@@ -13,6 +13,6 @@ export const TT8_SABOTAGES: readonly SheetSabotage[] = [
   { name: "forced-colors block removed", target: "forced", mutate: inRest("@media (forced-colors: active) {\n  button,", "@media (forced-colors: none) {\n  button,") },
   { name: "Highlight ring removed under forced colors", target: "forced", mutate: inRest("outline-color: Highlight;", "") },
   { name: "outline-offset -8px", target: "ring", mutate: inRest("outline-offset: var(--ring-offset);", "outline-offset: -8px;") },
-  { name: "tag grid gap below --space-4", target: "gap", mutate: inRest("  display: grid;\n  gap: var(--space-4);\n  padding: 0;\n  margin: 0;\n  list-style: none;\n  grid-template-columns: repeat(2", "  display: grid;\n  gap: var(--space-1);\n  padding: 0;\n  margin: 0;\n  list-style: none;\n  grid-template-columns: repeat(2") },
+  { name: "tag grid gap below --space-4", target: "gap", mutate: inRest("  display: grid;\n  gap: var(--space-4);\n  padding: 0;\n  margin: 0;\n  list-style: none;\n  grid-template-columns: minmax(0, 1fr)", "  display: grid;\n  gap: var(--space-1);\n  padding: 0;\n  margin: 0;\n  list-style: none;\n  grid-template-columns: minmax(0, 1fr)") },
   { name: "mask on a button", target: "clip", mutate: addRest("button { mask: linear-gradient(#000, #000); }") },
 ];

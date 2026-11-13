@@ -24,9 +24,9 @@ describe("Property 6: layout rules", () => {
 
   it("detects broken layouts (the checks are not vacuous)", () => {
     const v = (s: typeof sheets): string => layoutViolations(s).join("\n");
-    expect(v(mutate(/\.tomb-name,\s*\.tomb-summary,\s*dd \{\s*overflow-wrap: anywhere;/, ".tomb-name, .tomb-summary, dd {"))).toContain("[wrap] dd");
+    expect(v(mutate(/\.tomb-summary,\s*dd \{\s*overflow-wrap: anywhere;/, ".tomb-summary, dd {"))).toContain("[wrap] dd");
     expect(v(mutate(".tombstone {", ".tombstone { min-width: 400px;"))).toContain("[width]");
-    expect(v(mutate(/\.grid \{\s*([^}]*?)grid-template-columns: repeat\(2, minmax\(0, 1fr\)\)/, ".grid { $1grid-template-columns: repeat(4, 1fr)"))).toContain("[grid]");
+    expect(v(mutate(/\.grid \{\s*([^}]*?)grid-template-columns: minmax\(0, 1fr\)/, ".grid { $1grid-template-columns: repeat(4, 1fr)"))).toContain("[grid]");
     expect(v(mutate(".proof-pre {", ".proof-pre { white-space: pre;"))).toContain("[wrap]");
     expect(v(mutate("max-width: calc(100% - 2rem)", "max-width: 100%"))).toContain("[sheet-tag]");
   });

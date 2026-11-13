@@ -473,3 +473,31 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - 5.6: `npm run typecheck` clean; `npm test` plain and `CI=1`: 164 files, 1484 tests pass, 1 todo. TP6 PASS with the allowed differences ("proof-any-grade", "home-masthead"). Note: running `vitest` inside `apps/exorcist-web` alone shows `setup.test.ts` failing (that file needs the root vitest config); from the repo root it passes, also before this change.
 - Counterexamples from fast-check: the fail-first shrink recorded above (old: `h1 is not the wordmark`; new: passes). None after the fix.
 - Not done (cap and the green-at-the-end rule): 6.1 onward. 6.1 and 6.2 would leave the S-T6 test red until 6.3.
+
+## 2026-11-13: toe-tag-polish T6 fail-first (tasks 6.1, 6.2)
+
+- 6.1: S-T6 in `checkToePolish` (summary resets the global box: `border: 0`, `background: none`; Field_Label font `--font-label`, uppercase, `--ink-soft`; `min-height: var(--target)`; CSS `content` markers for closed and open; no clip on a summary or `.live-form`), `toetag.polish.form.dom.test.ts` (native `summary` in `details`, text unchanged, `details` open when `ref` has a value, form facts equal the v3 picker). TP7's selector lists (`tt8.ts` `FOCUSABLE` has `summary`, `ANCESTORS` has `.live-form`) already contained both, so no change there.
+- 6.2: run against the UNCHANGED code, before any CSS edit. Failing as predicted: `T6 summary` reports no `border: 0` reset, no `background` reset, no `--font-label`, not uppercase, not `--ink-soft`, no `::before` marker for either state (`.live-form details > summary` only sets `min-height`). The three DOM tests pass (no DOM change is needed).
+
+## 2026-11-13: toe-tag-polish T6 fix (tasks 6.3 to 6.5)
+
+- 6.3: `graveyard.css` `.live-form details > summary` resets the box (`padding: 0; background: none; border: 0; border-radius: 0`), takes the Field_Label font (`--font-label`, `--size-label`, `--track-label`, uppercase, 400, `--ink-soft`), keeps `min-height: var(--target)` and `cursor: pointer`; CSS markers `+` (closed) and U+2212 (open) via `::before`. No DOM change.
+- 6.4: sabotages (af) x3 and (ag) in `sabotage/tp5.ts`, all caught by S-T6. Pinned guard updated: Property 5's label-font allowlist (`tt5.ts` `LABEL_FONT_ALLOWLIST`) gained `.live-form details > summary` (it flagged `label font used on .live-form details > summary`; an intended change: a tiny field label). No new color pair (`--ink-soft` on Paper already exists).
+- 6.5: `npm run typecheck` clean; `npm test` plain and `CI=1`: 165 files, 1492 tests pass, 1 todo.
+- Counterexamples from fast-check: only the Property 5 hit above (old: allowlist miss; new: allowed). None else.
+
+## 2026-11-13: toe-tag-polish T7 fail-first (tasks 7.1, 7.2)
+
+- 7.1: TP4 (`properties/tp4.ts`, `toetag.polish.names.dom.test.ts`): `.tomb-name` children are text plus `<wbr>` exactly after each "/" and "-" that has a character after it (expected pieces written independently of `withSplitPoints`), `textContent` equals the cut name, hostile names stay text, `aria-label`/`title`/`data-key` unchanged, `withSplitPoints` round-trips any string. Examples: `@saithodev/semantic-release-backmerge`, `plainname`, `-lead`/`trail-`, a hostile name. S-T7 in `checkToePolish`. Decision: the test imports `views/wrap-points.ts`, so the pure helper `withSplitPoints` was created in 7.1 (not wired into `renderTombstone`), otherwise the file would not compile; the fail-first run below is unaffected because the tag does not use it yet.
+- 7.2: run against the UNCHANGED tag and stylesheet, before any source edit. Failing as predicted:
+  - `TP4: split points` (seed 741962230, 1 shrink). Shrunk counterexample: `"left-pad"`. Old output: children `["left-pad"]` (one text node); expected `["left-","<wbr>","pad"]`. The examples fail the same way (`@saithodev/semantic-release-backmerge` is one text node).
+  - `T7 grid and names` (S-T7): `.grid` defaults to `repeat(2, ...)` with no media; a `max-width: 22.4375rem` rule on `.grid`; no `overflow-wrap: break-word` on `.tomb-name`; `.tomb-name, .tomb-summary, dd` and `.tomb-name` set `overflow-wrap: anywhere`.
+  - Round-trip property and the no-separator and hostile-text assertions on `textContent` pass (text is unchanged either way).
+
+## 2026-11-13: toe-tag-polish T7 fix (tasks 7.3 to 7.5)
+
+- 7.3: `views/wrap-points.ts` `withSplitPoints` is used by `renderTombstone` for `.tomb-name` (text unchanged, `<wbr>` after "/" and "-" that have a character after them). `base.css`: `.tomb-name` leaves the `anywhere` group and gets `overflow-wrap: break-word`; `graveyard.css`: `.tomb-name` `break-word`, `.grid` is one `minmax(0, 1fr)` column by default, `repeat(2, ...)` from `32.5rem`, 3 from 48rem, 4 from 64rem, the `max-width: 22.4375rem` rule on `.grid` is removed. `.demo-cards` keeps its own 22.4375rem rule (not a tag grid). `.demo-card .tomb-name` has no overflow-wrap rule of its own.
+- 7.4: sabotages (aj) x2, (ah), (ai) in `sabotage/tp5.ts` (all caught by S-T7; (q)-(t) are listed in the gap note below). Pinned assertions updated, nothing else: `tt6.ts` Property 6 now expects a one-column base grid, 2 columns from 32.5rem, and `break-word` (not `anywhere`) on `.tomb-name`; `sabotage/tt6.ts` entries for the grid and `.tomb-name` follow the new text; `sabotage/tt8.ts` "tag grid gap" mutation anchor follows the new base column; `toetag.layout.test.ts` non-vacuous mutations follow. Property 5's label allowlist is from 6.4.
+- 7.5: `npm run typecheck` clean; `npm test` plain and `CI=1`: 166 files, 1503 tests pass, 1 todo. Judgment call recorded: 1-up below 32.5rem and `break-word` as last resort replace the redesign's 2-up at 375 and `anywhere` on names (steering is updated in 8.1).
+- Counterexamples from fast-check: the fail-first shrink in the entry above (`"left-pad"`: old one text node, new `["left-", <wbr>, "pad"]`). None after the fix.
+- Gap closed afterwards: TP4 sabotages (q) to (t) are in `sabotage/tp4.ts` and run from `toetag.polish.names.dom.test.ts` (each makes `checkName` throw for the 47-character scoped name; the real markup passes). They are not in `toetag.sabotage.test.ts`, whose registry is built around mounted pages.

@@ -62,10 +62,10 @@ export function layoutViolations({ rest }: Sheets): string[] {
     if (/\d*\.?\d+fr\b/.test(stripMinmax(d.value))) out.push(`[grid] ${last(d)}: bare fr track in "${d.value}"`);
   }
   const base = tagGrid(decls, (d) => media(d).length === 0);
-  const narrow = tagGrid(decls, (d) => media(d).some((m) => /max-width:\s*22\.(4375|5)rem/.test(m)));
+  const two = tagGrid(decls, (d) => media(d).some((m) => /min-width:\s*32\.5rem/.test(m)));
   const three = tagGrid(decls, (d) => media(d).some((m) => /min-width:\s*48rem/.test(m)));
   const four = tagGrid(decls, (d) => media(d).some((m) => /min-width:\s*64rem/.test(m)));
-  const want: [string, Decl | undefined, number][] = [["base", base, 2], ["under 22.5rem", narrow, 1], ["from 48rem", three, 3], ["from 64rem", four, 4]];
+  const want: [string, Decl | undefined, number][] = [["base (one column)", base, 1], ["from 32.5rem", two, 2], ["from 48rem", three, 3], ["from 64rem", four, 4]];
   for (const [name, d, n] of want) {
     if (!d) out.push(`[grid] no ${name} tag grid rule`);
     else if (columns(d.value) !== n) out.push(`[grid] ${name} tag grid has ${columns(d.value)} columns, wants ${n}`);
@@ -84,7 +84,9 @@ export function layoutViolations({ rest }: Sheets): string[] {
 
   // wrapping
   for (const cls of TEXT_BEARING) {
-    if (!decls.some((d) => d.prop === "overflow-wrap" && d.value === "anywhere" && matches(last(d), cls))) out.push(`[wrap] ${cls} lacks overflow-wrap: anywhere`);
+    // Package names break at Split_Points first; break-word is their last resort (toe-tag-polish T7).
+    const wanted = cls === ".tomb-name" ? "break-word" : "anywhere";
+    if (!decls.some((d) => d.prop === "overflow-wrap" && d.value === wanted && matches(last(d), cls))) out.push(`[wrap] ${cls} lacks overflow-wrap: ${wanted}`);
   }
   if (!decls.some((d) => d.prop === "white-space" && d.value === "pre-wrap" && matches(last(d), ".proof-pre"))) out.push("[wrap] .proof-pre lacks white-space: pre-wrap");
   for (const d of decls.filter((x) => x.prop === "white-space" && x.value === "nowrap")) {

@@ -1,5 +1,5 @@
 // toe-tag-polish: static Stylesheet checks (checkToePolish) on the real Stylesheet, one named group per defect.
-// Node environment (reads the Stylesheet files). Groups are added by later tasks (S-T6, S-T7).
+// Node environment (reads the Stylesheet files). One group per defect.
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
@@ -23,6 +23,12 @@ describe("toe-tag-polish Stylesheet", () => {
   });
   it("T5 hang: Demo_Cards hang from a string with a two-sided chamfer and a Dead_Count rule", () => {
     expect(of("S-T5")).toBe("");
+  });
+  it("T6 summary: the Optional_Ref_Summary is a Field_Label with a CSS marker and a 44px target", () => {
+    expect(of("S-T6")).toBe("");
+  });
+  it("T7 grid and names: one column below 32.5rem, names break only after / or - (break-word last resort)", () => {
+    expect(of("S-T7")).toBe("");
   });
 });
 

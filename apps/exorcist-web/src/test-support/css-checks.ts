@@ -213,8 +213,8 @@ export function checkStylesheet(css: string): Violation[] {
 }
 
 /**
- * toe-tag-polish static checks (design.md TP5). Groups: "S-T2" (full-width Band), "S-T3" (left-aligned, ruled Tag_Fields), "S-T4" (subtitle), "S-T5" (hanging cards).
- * Later groups (S-T6, S-T7) are added to this function by their own tasks.
+ * toe-tag-polish static checks (design.md TP5). Groups: "S-T2" (full-width Band), "S-T3" (left-aligned, ruled Tag_Fields), "S-T4" (subtitle), "S-T5" (hanging cards), "S-T6" (scan-form label), "S-T7" (grid and name breaks).
+ * This is the last group; later tasks only add sabotage entries.
  * jsdom computes no layout: these prove the cause is gone and the intended rules are present, not how a browser draws them.
  */
 export function checkToePolish(css: string): Violation[] {
@@ -335,5 +335,57 @@ export function checkToePolish(css: string): Violation[] {
   if (!anyBase(".masthead h1.wordmark", "text-align", (v) => v === "left" || v === "start")) {
     bad("S-T5", ".masthead h1.wordmark must be left-aligned (it must not inherit the right-aligned graveyard h1)");
   }
+
+  // ---- S-T6 Optional_Ref_Summary reads as a Field_Label (2.6) ----
+  const SUMMARY = ".live-form details > summary";
+  const zero = (v: string): boolean => v === "0" || v === "none";
+  if (!anyBase(SUMMARY, "border", zero)) bad("S-T6", `${SUMMARY} must reset the global summary box (border: 0)`);
+  if (!anyBase(SUMMARY, "background", (v) => v === "none" || v === "transparent")) bad("S-T6", `${SUMMARY} must reset background (none)`);
+  if (!anyBase(SUMMARY, "font-family", (v) => v === "var(--font-label)")) bad("S-T6", `${SUMMARY} must use var(--font-label) like a Field_Label`);
+  if (!anyBase(SUMMARY, "text-transform", (v) => v === "uppercase")) bad("S-T6", `${SUMMARY} must be uppercase`);
+  if (!anyBase(SUMMARY, "color", (v) => v === "var(--ink-soft)")) bad("S-T6", `${SUMMARY} must be var(--ink-soft)`);
+  if (!anyBase(SUMMARY, "min-height", (v) => v === "var(--target)")) bad("S-T6", `${SUMMARY} must keep min-height: var(--target)`);
+  for (const [selector, glyph] of [
+    [`${SUMMARY}::before`, '"+"'],
+    ["details[open] > summary::before", '"\u2212"'],
+  ] as const) {
+    const ok = rules.some((r) => r.media.length === 0 && (hasSelector(r, selector) || hasSelector(r, `.live-form ${selector}`)) && r.decls.some((d) => d.prop === "content" && d.value.length > 2 && (glyph === '"+"' ? d.value === glyph : d.value !== '"+"')));
+    if (!ok) bad("S-T6", `${selector} must draw the ${glyph === '"+"' ? "closed" : "open"} marker with CSS content`);
+  }
+  for (const r of rules.filter((x) => x.selectors.some((sel) => /(^|\s)summary(?![\w-])|\.live-form/.test(sel) && !sel.includes("::")))) {
+    for (const d of r.decls) {
+      if (d.prop === "clip-path" || /^mask/.test(d.prop) || (/^overflow(-x|-y)?$/.test(d.prop) && /^(hidden|clip)$/.test(d.value))) {
+        bad("S-T6", `${r.selectors.join(", ")} clips a focusable control (${d.prop}: ${d.value})`);
+      }
+    }
+  }
+
+  // ---- S-T7 one-up tag grid and name breaks (2.7) ----
+  const gridRules = rules.filter((r) => r.selectors.length === 1 && r.selectors[0] === ".grid");
+  const baseCols = gridRules.filter((r) => r.media.length === 0).flatMap((r) => r.decls.filter((d) => d.prop === "grid-template-columns").map((d) => d.value));
+  if (baseCols.length === 0 || baseCols.some((v) => v !== "minmax(0, 1fr)")) {
+    bad("S-T7", `.grid must default to one minmax(0, 1fr) column, found ${baseCols.join(" | ") || "none"}`);
+  }
+  for (const [count, width] of [[2, "32.5rem"], [3, "48rem"], [4, "64rem"]] as const) {
+    const where = gridRules.filter((r) => r.decls.some((d) => d.prop === "grid-template-columns" && d.value.startsWith(`repeat(${count},`)));
+    if (where.length === 0) bad("S-T7", `.grid has no repeat(${count}, ...) rule`);
+    for (const r of where) {
+      if (!r.media.some((m) => new RegExp(`min-width:\\s*${width.replace(".", "\\.")}`).test(m))) {
+        bad("S-T7", `.grid repeat(${count}, ...) must sit inside (min-width: ${width}), found ${r.media.join(" ") || "no media"}`);
+      }
+    }
+  }
+  if (gridRules.some((r) => r.media.some((m) => /max-width:\s*22\.4375rem/.test(m)))) bad("S-T7", "a max-width: 22.4375rem rule on .grid is left over");
+  if (!rules.some((r) => r.media.length === 0 && hasSelector(r, ".tomb-name") && r.decls.some((d) => d.prop === "overflow-wrap" && d.value === "break-word"))) {
+    bad("S-T7", ".tomb-name must declare overflow-wrap: break-word (last resort)");
+  }
+  for (const r of rules.filter((x) => x.selectors.some((sel) => /(^|\s)\.tomb-name$/.test(sel)))) {
+    for (const d of r.decls) {
+      if ((d.prop === "overflow-wrap" && d.value === "anywhere") || (d.prop === "word-break" && d.value === "break-all")) {
+        bad("S-T7", `${r.selectors.join(", ")} sets ${d.prop}: ${d.value} (breaks inside words)`);
+      }
+    }
+  }
+
   return out;
 }

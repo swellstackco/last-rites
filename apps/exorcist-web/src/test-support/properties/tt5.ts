@@ -15,6 +15,7 @@ export const LABEL_FONT_ALLOWLIST: readonly RegExp[] = [
   /^\.tag-label$/,
   /^\.field > label$/,
   /^\.skipped > summary$/,
+  /^\.live-form details > summary$/,
   /^\.breakdown thead th$/,
   /^\.calibration-label$/,
   /^\.breakdown td\[data-label\]::before$/,

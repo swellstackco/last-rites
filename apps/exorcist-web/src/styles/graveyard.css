@@ -246,12 +246,12 @@
   padding: 0;
   margin: 0;
   list-style: none;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
 }
 
-@media (max-width: 22.4375rem) {
+@media (min-width: 32.5rem) {
   .grid {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -371,7 +371,7 @@
   font-family: var(--font-mono);
   font-size: 1rem;
   font-weight: 600;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 
 .tomb-score {
@@ -619,8 +619,29 @@
   font-weight: 600;
 }
 
+/* The optional ref reads as a Field_Label (typewriter caption), not as a boxed input. */
 .live-form details > summary {
   min-height: var(--target);
+  gap: var(--space-2);
+  padding: 0;
+  background: none;
+  border: 0;
+  border-radius: 0;
+  font-family: var(--font-label);
+  font-size: var(--size-label);
+  font-weight: 400;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.live-form details > summary::before {
+  content: "+";
+}
+
+.live-form details[open] > summary::before {
+  content: "\2212";
 }
 
 /* Loading and error screens: Paper boxes with a black caption bar or a red left rule; no spinner. */

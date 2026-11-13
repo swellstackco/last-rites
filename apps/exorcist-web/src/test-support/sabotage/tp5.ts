@@ -50,4 +50,28 @@ export const TP5_SABOTAGES: readonly PolishCssSabotage[] = [
     check: "S-T5",
     mutate: (c) => replaceOnce(c, "    calc(100% - var(--tag-chamfer)) 0,\n    100% var(--tag-chamfer),\n    100% 100%,\n    0 100%,\n    0 var(--tag-chamfer)\n  );\n}\n\n.demo-card::after", "    100% 0,\n    100% 100%,\n    0 100%,\n    0 var(--tag-chamfer)\n  );\n}\n\n.demo-card::after"),
   },
+  {
+    name: "(af) the Optional_Ref_Summary loses its border reset",
+    check: "S-T6",
+    mutate: (c) => replaceOnce(c, "  background: none;\n  border: 0;\n  border-radius: 0;\n  font-family: var(--font-label);", "  background: none;\n  border-radius: 0;\n  font-family: var(--font-label);"),
+  },
+  {
+    name: "(ag) the Optional_Ref_Summary uses the body font",
+    check: "S-T6",
+    mutate: (c) => replaceOnce(c, "  border-radius: 0;\n  font-family: var(--font-label);", "  border-radius: 0;\n  font-family: var(--font-body);"),
+  },
+  { name: "(af) the open marker is gone", check: "S-T6", mutate: (c) => replaceOnce(c, '.live-form details[open] > summary::before {\n  content: "\\2212";\n}', "") },
+  { name: "(af) the summary gets overflow: hidden", check: "S-T6", mutate: append(".live-form details > summary { overflow: hidden; }") },
+  {
+    name: "(ah) .grid defaults to two columns again",
+    check: "S-T7",
+    mutate: (c) => replaceOnce(c, "  list-style: none;\n  grid-template-columns: minmax(0, 1fr);\n}\n\n@media (min-width: 32.5rem)", "  list-style: none;\n  grid-template-columns: repeat(2, minmax(0, 1fr));\n}\n\n@media (min-width: 32.5rem)"),
+  },
+  { name: "(ai) the two-column rule moves to 22.5rem", check: "S-T7", mutate: (c) => replaceOnce(c, "@media (min-width: 32.5rem) {\n  .grid {", "@media (min-width: 22.5rem) {\n  .grid {") },
+  {
+    name: "(aj) overflow-wrap: anywhere is back on .tomb-name",
+    check: "S-T7",
+    mutate: (c) => replaceOnce(c, "  font-weight: 600;\n  overflow-wrap: break-word;\n}\n\n.tomb-score", "  font-weight: 600;\n  overflow-wrap: anywhere;\n}\n\n.tomb-score"),
+  },
+  { name: "(aj) a leftover 22.4375rem rule on .grid", check: "S-T7", mutate: append("@media (max-width: 22.4375rem) { .grid { grid-template-columns: minmax(0, 1fr); } }") },
 ];

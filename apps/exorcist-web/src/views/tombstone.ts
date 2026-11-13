@@ -6,6 +6,7 @@ import type { ScannedDependency } from "@graveyard-kit/exorcist-npm/report";
 import { MAX_TOMBSTONE_TEXT, TAG_LABELS } from "../constants.js";
 import { h } from "../dom/h.js";
 import type { ClassName } from "../dom/h.js";
+import { withSplitPoints } from "./wrap-points.js";
 
 export const TOMBSTONE_DESCRIPTION = "Opens the score breakdown";
 
@@ -55,7 +56,7 @@ export function renderTombstone(grave: Grave<ScannedDependency>): HTMLButtonElem
       "span",
       { class: ["tag-field", "tag-package"] },
       h("span", { class: "tag-label", "aria-hidden": "true" }, TAG_LABELS.package),
-      h("span", { class: "tomb-name" }, cutText(name)),
+      h("span", { class: "tomb-name" }, withSplitPoints(cutText(name))),
     ),
     h(
       "span",

@@ -208,7 +208,7 @@ h1[tabindex="-1"]:focus {
   outline: none;
 }
 
-/* Layout safety: grid and flex children may shrink, names may wrap anywhere. */
+/* Layout safety: grid and flex children may shrink, long text may wrap. */
 .grid > *,
 .row > *,
 .stack > *,
@@ -217,10 +217,14 @@ h1[tabindex="-1"]:focus {
   min-width: 0;
 }
 
-.tomb-name,
 .tomb-summary,
 dd {
   overflow-wrap: anywhere;
+}
+
+/* A package name breaks after "/" or "-" (<wbr>); inside a word only when one segment is wider than the tag. */
+.tomb-name {
+  overflow-wrap: break-word;
 }
 
 .breakdown .col-signal {
