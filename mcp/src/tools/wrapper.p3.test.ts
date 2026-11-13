@@ -20,6 +20,7 @@ import { createLocalRepoFiles } from "../local-files.js";
 import { assertPropertyAsync } from "../test-support/fc-runner.js";
 import { assertAllSabotagesCaughtAsync, type NamedAsyncProperty } from "../test-support/sabotage-runner.js";
 import { REAL_TOOLS, type Tools } from "../test-support/validators.js";
+import { KIRO_P3_SABOTAGES } from "../test-support/sabotage/kiro-p3.js";
 import { counting, makeDeps, memoryProbe, recordingReportFs, type CountedDeps } from "../test-support/fakes.js";
 import { e18eOutcomeArb, npmNameArb, proofPartsFor, proofScenarioArb, scanOutcomeArb } from "../test-support/arbitraries/tool-outcomes.js";
 
@@ -214,23 +215,7 @@ describe(name, () => {
     await assertPropertyAsync(name, build(REAL_TOOLS));
   });
 
-  it("a sabotaged tool is caught (smoke; the full list is task 5.14)", async () => {
-    const R = REAL_TOOLS;
-    await expect(
-      assertAllSabotagesCaughtAsync(name, [property3], [
-        {
-          name: "extra field",
-          impl: {
-            ...R,
-            findReplacement: async (d, a) => {
-              const r = await R.findReplacement(d, a);
-              if (r.isError === true) return r;
-              const j = JSON.parse((r.content[0] as { text: string }).text) as object;
-              return { content: [{ type: "text", text: JSON.stringify({ ...j, source: "mcp" }) }] };
-            },
-          },
-        },
-      ]),
-    ).resolves.toBeUndefined();
+  it("every sabotage is caught", async () => {
+    await expect(assertAllSabotagesCaughtAsync(name, [property3], KIRO_P3_SABOTAGES)).resolves.toBeUndefined();
   });
 });

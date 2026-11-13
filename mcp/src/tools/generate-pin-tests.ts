@@ -4,6 +4,7 @@ import { z } from "zod";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import type { ExorcistDeps } from "../deps.js";
 import { checkCandidate, checkOut, checkPath, checkProofPackage, checkRuns } from "../guards.js";
+import { UNEXPECTED_MESSAGE } from "../errors.js";
 import { errorResult, textResult } from "../result.js";
 
 export const GENERATE_PIN_TESTS_NAME = "generate_pin_tests";
@@ -98,10 +99,22 @@ export async function generatePinTestsImpl(deps: ExorcistDeps, args: GeneratePin
   if (candidate !== undefined) cli.candidate = candidate;
   const outcome = await exorcise(
     {
-      usageSurface: deps.usageSurface,
+      usageSurface: async (input) => {
+        try {
+          return await deps.usageSurface(input);
+        } catch {
+          throw new Error(UNEXPECTED_MESSAGE); // the harness would forward the thrown text (Requirement 9.3)
+        }
+      },
       fs,
       recipes: deps.proof.recipes,
-      loadOracle: deps.proof.loadOracle,
+      loadOracle: (pkg) => {
+        try {
+          return deps.proof.loadOracle(pkg);
+        } catch {
+          throw new Error(UNEXPECTED_MESSAGE);
+        }
+      },
       loadCandidate: deps.proof.loadCandidate,
       repoRoot: deps.proof.repoRoot,
       print: (line) => lines.push(line),

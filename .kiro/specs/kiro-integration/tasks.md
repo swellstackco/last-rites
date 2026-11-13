@@ -181,24 +181,24 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
 - [x] 5.13 Write the Property 3 test in `mcp/src/tools/wrapper.p3.test.ts` (exporting `build(impl)`): each tool against the direct call of the wrapped function with counting Deps.
   - **Property 3: Thin-wrapper equivalence**
   - **Validates: Requirements 4.4, 4.5, 5.2, 5.3, 6.2, 7.2, 8.2, 8.3, 8.4**
-- [ ] 5.14 Create the Sabotage_List `kiro-p3.ts` (extra field `source: "mcp"`; different dependency order; pipeline called twice; different default seed; `ref` ignored; `importSites` dropped; evidence stage instead of `fetchE18e`).
+- [x] 5.14 Create the Sabotage_List `kiro-p3.ts` (extra field `source: "mcp"`; different dependency order; pipeline called twice; different default seed; `ref` ignored; `importSites` dropped; evidence stage instead of `fetchE18e`).
   - _Requirements: 18.3, 18.5_
-- [ ] 5.15 Write the Property 4 test in `mcp/src/tools/total.p4.test.ts` (exporting `build(impl)`): hostile arguments and misbehaving Deps, including a hung pipeline released by a fake watchdog.
+- [x] 5.15 Write the Property 4 test in `mcp/src/tools/total.p4.test.ts` (exporting `build(impl)`): hostile arguments and misbehaving Deps, including a hung pipeline released by a fake watchdog.
   - **Property 4: Tool totality**
   - **Validates: Requirements 2.5, 2.6, 9.2, 9.3, 9.4**
-- [ ] 5.16 Create the Sabotage_List `kiro-p4.ts` (forward `err.message`; rethrow; stack in message; `undefined` as success; no timeout; empty message).
+- [x] 5.16 Create the Sabotage_List `kiro-p4.ts` (forward `err.message`; rethrow; stack in message; `undefined` as success; no timeout; empty message).
   - _Requirements: 18.3_
-- [ ] 5.17 Write the Property 5 test in `mcp/src/tools/writes.p5.test.ts` (exporting `build(impl)`): sequences of calls against recording file systems.
+- [x] 5.17 Write the Property 5 test in `mcp/src/tools/writes.p5.test.ts` (exporting `build(impl)`): sequences of calls against recording file systems.
   - **Property 5: Write confinement**
   - **Validates: Requirements 3.8, 8.3, 8.4, 8.9, 10.4**
-- [ ] 5.18 Create the Sabotage_List `kiro-p5.ts` (write next to `out`; write without `out`; write into the candidate's directory; cache under the target; accept an `out` outside `proofs/<name>/`; write before the guards).
+- [x] 5.18 Create the Sabotage_List `kiro-p5.ts` (write next to `out`; write without `out`; write into the candidate's directory; cache under the target; accept an `out` outside `proofs/<name>/`; write before the guards).
   - _Requirements: 18.3, 18.5_
-- [ ] 5.19 Write the Property 6 test in `mcp/src/tools/determinism.p6.test.ts` (exporting `build(impl)`): three runs with `Math.random` consumed and `Date.now` changed between them.
+- [x] 5.19 Write the Property 6 test in `mcp/src/tools/determinism.p6.test.ts` (exporting `build(impl)`): three runs with `Math.random` consumed and `Date.now` changed between them.
   - **Property 6: Determinism**
   - **Validates: Requirements 6.5, 9.5**
-- [ ] 5.20 Create the Sabotage_List `kiro-p6.ts` (`Date.now()` in the report; absolute path in the label; random seed; set-order warnings; random request id).
+- [x] 5.20 Create the Sabotage_List `kiro-p6.ts` (`Date.now()` in the report; absolute path in the label; random seed; set-order warnings; random request id).
   - _Requirements: 18.3_
-- [ ] 5.21 Checkpoint after Phase 5 - Ensure all tests pass, ask the user if questions arise.
+- [x] 5.21 Checkpoint after Phase 5 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 6: Server, wiring, build and the stdio test
 

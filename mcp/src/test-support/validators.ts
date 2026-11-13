@@ -19,6 +19,7 @@ import { deathReportImpl } from "../tools/death-report.js";
 import { usageSurfaceImpl } from "../tools/usage-surface.js";
 import { findReplacementImpl } from "../tools/find-replacement.js";
 import { generatePinTestsImpl } from "../tools/generate-pin-tests.js";
+import { safely } from "../result.js";
 import { obtainScanReport } from "../scan-source.js";
 import { checkOut, checkRuns, classifyRepoArgument, guardedScan, isNpmName } from "../guards.js";
 
@@ -107,3 +108,11 @@ export const REAL_TOOLS: Tools = {
   findReplacement: findReplacementImpl,
   generatePinTests: generatePinTestsImpl,
 };
+
+/** The seam of Property 4: the handler wrapper together with the five tool implementations (what `registerTools` composes). */
+export interface TotalTools {
+  safely: typeof safely;
+  tools: Tools;
+}
+
+export const REAL_TOTAL: TotalTools = { safely, tools: REAL_TOOLS };

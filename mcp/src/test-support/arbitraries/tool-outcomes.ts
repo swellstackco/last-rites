@@ -112,7 +112,7 @@ export function proofPartsFor(s: ProofScenario, base: ExorcistDeps["proof"]): Pr
       recipes: new Map([[pkg, c.recipe as never]]),
       loadOracle: (name) => (name === pkg ? { module: moduleFor(c.shape, c.oracle), version: "1.0.0" } : undefined),
       async loadCandidate(file) {
-        return { module: moduleFor(c.shape, candidateFn), name: file, source: "// synthetic\n" };
+        return { module: moduleFor(c.shape, candidateFn), name: file.split("/").pop() ?? file, source: "// synthetic\n" };
       },
     },
   };
