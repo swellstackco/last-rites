@@ -9,8 +9,9 @@ import { createTempCache, type TempCache } from "../test-support/temp-cache.js";
 import { createEvidenceStage } from "../stage.js";
 import { fetchDepsDev } from "./depsdev.js";
 import { E18E_DIRECTORY_URL, e18eManifestUrl, fetchE18e } from "./e18e.js";
-import { fetchGithub } from "./github.js";
+import { createGithubGet, fetchGithub } from "./github.js";
 import { fetchNpm, npmDocUrl } from "./npm.js";
+import { countOpenVulnsNoFix } from "../osv-count.js";
 import { fetchOsv, OSV_QUERY_URL, osvRequestBody } from "./osv.js";
 import type { SourceContext } from "./outcome.js";
 
@@ -165,6 +166,31 @@ describe("github source", () => {
     expect(seen.filter((q) => q.headers?.["authorization"])).toHaveLength(1);
   });
 
+  it("createGithubGet sends the token to api.github.com and retries a 401 once without it", async () => {
+    tmp = createTempCache();
+    const seen: HttpRequest[] = [];
+    http = new FakeHttp({ fixtures: [get(base, meta), get(commitsUrl, commits)] });
+    const inner = http;
+    const client = {
+      async request(req: HttpRequest) {
+        seen.push(req);
+        if (req.headers?.["authorization"]) return resp("bad credentials", 401);
+        return inner.request(req);
+      },
+    };
+    const config = { ...DEFAULT_CONFIG, cacheRoot: tmp.root, githubToken: "sekret" };
+    const ctx = { config, cache: new CacheLayer(tmp.root, client, createFakeClock().clock, DEFAULT_TTL_SECONDS) };
+    const { get: ghGet, warnings } = createGithubGet(ctx);
+    expect((await ghGet(base)).ok).toBe(true);
+    expect((await ghGet(commitsUrl)).ok).toBe(true);
+    const authed = seen.filter((q) => q.headers?.["authorization"]);
+    expect(authed).toHaveLength(1);
+    expect(authed[0]!.url.startsWith("https://api.github.com/")).toBe(true);
+    expect(seen).toHaveLength(3); // one authenticated attempt, then two unauthenticated requests
+    expect(warnings).toHaveLength(1);
+    expect(warnings[0]).not.toContain("sekret");
+  });
+
   it("a followed redirect is invisible: the recorded 200 parses", async () => {
     const ctx = setup([get(base, meta), get(commitsUrl, commits)]);
     expect((await fetchGithub(ctx, ref)).ok).toBe(true);
@@ -187,6 +213,51 @@ describe("osv source", () => {
     const ctx = setup([post(undefined, resp({ vulns: [vuln("A", false), vuln("B", true)] }))]);
     expect(await fetchOsv(ctx, "p", "1.0.0")).toEqual({ ok: true, value: 1 });
     expect(JSON.parse(http.requests[0]!.body!)).toEqual({ package: { name: "p", ecosystem: "npm" }, version: "1.0.0" });
+  });
+
+  it("keeps the npm request body byte-identical", () => {
+    expect(osvRequestBody("p", "1.0.0")).toBe('{"package":{"name":"p","ecosystem":"npm"},"version":"1.0.0"}');
+    expect(osvRequestBody("p", "1.0.0", "t1")).toBe(
+      '{"package":{"name":"p","ecosystem":"npm"},"version":"1.0.0","page_token":"t1"}',
+    );
+  });
+
+  it("builds a GitHub Actions body without a version", () => {
+    expect(osvRequestBody("o/r", undefined, undefined, "GitHub Actions")).toBe(
+      '{"package":{"name":"o/r","ecosystem":"GitHub Actions"}}',
+    );
+    expect(osvRequestBody("o/r", undefined, "t1", "GitHub Actions")).toBe(
+      '{"package":{"name":"o/r","ecosystem":"GitHub Actions"},"page_token":"t1"}',
+    );
+  });
+
+  it("sends the GitHub Actions body through fetchOsv and counts by ecosystem", async () => {
+    const adv = (id: string, ecosystem: string, fixed: boolean) => ({
+      id,
+      affected: [{ package: { ecosystem, name: "o/r" }, ranges: [{ type: "ECOSYSTEM", events: [{ introduced: "0" }, ...(fixed ? [{ fixed: "2" }] : [])] }] }],
+    });
+    const ctx = setup([
+      {
+        method: "POST",
+        url: OSV_QUERY_URL,
+        body: osvRequestBody("o/r", undefined, undefined, "GitHub Actions"),
+        response: resp({ vulns: [adv("A", "GitHub Actions", true), adv("B", "GitHub Actions", false), adv("B", "npm", true)] }),
+      },
+    ]);
+    expect(await fetchOsv(ctx, "o/r", undefined, "GitHub Actions")).toEqual({ ok: true, value: 1 });
+    expect(http.requests[0]!.body).toBe('{"package":{"name":"o/r","ecosystem":"GitHub Actions"}}');
+  });
+
+  it("countOpenVulnsNoFix honors the ecosystem parameter", () => {
+    const adv = (ecosystem: string, fixed: boolean) => ({
+      id: "X",
+      affected: [{ package: { ecosystem, name: "o/r" }, ranges: [{ events: [{ introduced: "0" }, ...(fixed ? [{ fixed: "2" }] : [])] }] }],
+    });
+    expect(countOpenVulnsNoFix([adv("GitHub Actions", true)], "o/r", "GitHub Actions")).toBe(0);
+    expect(countOpenVulnsNoFix([adv("GitHub Actions", false)], "o/r", "GitHub Actions")).toBe(1);
+    // a fix recorded under another ecosystem is ignored
+    expect(countOpenVulnsNoFix([adv("npm", true)], "o/r", "GitHub Actions")).toBe(1);
+    expect(countOpenVulnsNoFix([adv("GitHub Actions", true)], "o/r")).toBe(1);
   });
 
   it("follows three pages", async () => {

@@ -90,6 +90,8 @@ export interface ScanReport {
   repo: string;
   /** The Repo_Target ref. */
   ref: string;
+  /** Absent for npm reports. Serialized only for "github-actions". */
+  ecosystem?: "npm" | "github-actions";
   /** ISO 8601, from the one Clock reading. */
   scannedAt: string;
   dependencies: ScannedDependency[];

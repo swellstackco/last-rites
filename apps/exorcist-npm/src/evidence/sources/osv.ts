@@ -11,15 +11,25 @@ export const OSV_QUERY_URL = "https://api.osv.dev/v1/query";
 export const osvListUrl = (name: string): string => `https://osv.dev/list?q=${urlName(name)}`;
 
 /** Key order matters for exact-match fixtures: package{name,ecosystem}, version, page_token. */
-export function osvRequestBody(name: string, version: string, pageToken?: string): string {
+export function osvRequestBody(
+  name: string,
+  version: string | undefined,
+  pageToken?: string,
+  ecosystem = "npm",
+): string {
   return JSON.stringify({
-    package: { name, ecosystem: "npm" },
-    version,
+    package: { name, ecosystem },
+    ...(version !== undefined ? { version } : {}),
     ...(pageToken !== undefined ? { page_token: pageToken } : {}),
   });
 }
 
-export async function fetchOsv(ctx: SourceContext, name: string, version: string): Promise<Outcome<number>> {
+export async function fetchOsv(
+  ctx: SourceContext,
+  name: string,
+  version: string | undefined,
+  ecosystem = "npm",
+): Promise<Outcome<number>> {
   try {
     const vulns: OsvVuln[] = [];
     let token: string | undefined;
@@ -27,7 +37,7 @@ export async function fetchOsv(ctx: SourceContext, name: string, version: string
       const res = await fetchJson(ctx.cache, "osv", {
         method: "POST",
         url: OSV_QUERY_URL,
-        body: osvRequestBody(name, version, token),
+        body: osvRequestBody(name, version, token, ecosystem),
         headers: { "content-type": "application/json" },
         timeoutMs: ctx.config.requestTimeoutMs,
       });
@@ -40,7 +50,7 @@ export async function fetchOsv(ctx: SourceContext, name: string, version: string
       }
       const next = res.json["next_page_token"];
       token = typeof next === "string" && next !== "" ? next : undefined;
-      if (token === undefined) return ok(countOpenVulnsNoFix(vulns, name));
+      if (token === undefined) return ok(countOpenVulnsNoFix(vulns, name, ecosystem));
     }
     return fail("osv", "incomplete");
   } catch {

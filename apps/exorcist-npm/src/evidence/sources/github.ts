@@ -3,7 +3,7 @@
  * commit on the default branch. The bearer token is sent only to api.github.com and never stored.
  */
 import { parseIsoTimestamp } from "../months-since.js";
-import { fetchJson } from "../http/fetch-json.js";
+import { fetchJson, type FetchJsonResult } from "../http/fetch-json.js";
 import type { HttpRequest } from "../http/types.js";
 import type { RepoRef } from "../repo-url.js";
 import { fail, isRecord, ok, type Outcome, type SourceContext } from "./outcome.js";
@@ -31,30 +31,39 @@ function commitDate(json: unknown): string | undefined {
   return undefined;
 }
 
+/**
+ * A GET helper for api.github.com: sends the bearer token (when configured) only with these requests,
+ * retries once without it on a 401, and records the rejection warning once in `warnings`.
+ */
+export function createGithubGet(ctx: SourceContext): { get(url: string): Promise<FetchJsonResult>; warnings: string[] } {
+  const warnings: string[] = [];
+  let useToken = ctx.config.githubToken !== undefined && ctx.config.githubToken !== "";
+
+  const get = async (url: string): Promise<FetchJsonResult> => {
+    const build = (withToken: boolean): HttpRequest => ({
+      method: "GET",
+      url,
+      headers: {
+        accept: "application/vnd.github+json",
+        ...(withToken ? { authorization: `Bearer ${ctx.config.githubToken}` } : {}),
+      },
+      timeoutMs: ctx.config.requestTimeoutMs,
+    });
+    let res = await fetchJson(ctx.cache, "github", build(useToken));
+    if (!res.ok && res.status === 401 && useToken) {
+      useToken = false;
+      if (!warnings.includes(TOKEN_REJECTED)) warnings.push(TOKEN_REJECTED);
+      res = await fetchJson(ctx.cache, "github", build(false));
+    }
+    return res;
+  };
+  return { get, warnings };
+}
+
 /** Metadata failure yields a failed outcome (both signals unknown); a commit failure keeps `repoArchived`. */
 export async function fetchGithub(ctx: SourceContext, ref: RepoRef): Promise<Outcome<GithubEvidence>> {
   try {
-    const warnings: string[] = [];
-    let useToken = ctx.config.githubToken !== undefined && ctx.config.githubToken !== "";
-
-    const get = async (url: string) => {
-      const build = (withToken: boolean): HttpRequest => ({
-        method: "GET",
-        url,
-        headers: {
-          accept: "application/vnd.github+json",
-          ...(withToken ? { authorization: `Bearer ${ctx.config.githubToken}` } : {}),
-        },
-        timeoutMs: ctx.config.requestTimeoutMs,
-      });
-      let res = await fetchJson(ctx.cache, "github", build(useToken));
-      if (!res.ok && res.status === 401 && useToken) {
-        useToken = false;
-        if (!warnings.includes(TOKEN_REJECTED)) warnings.push(TOKEN_REJECTED);
-        res = await fetchJson(ctx.cache, "github", build(false));
-      }
-      return res;
-    };
+    const { get, warnings } = createGithubGet(ctx);
 
     const base = `https://api.github.com/repos/${ref.owner}/${ref.repo}`;
     const meta = await get(base);

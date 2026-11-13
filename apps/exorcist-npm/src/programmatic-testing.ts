@@ -7,3 +7,5 @@ export { createFakeSleep } from "./evidence/test-support/fake-sleep.js";
 export type { FakeSleep } from "./evidence/test-support/fake-sleep.js";
 export { memoryFiles } from "./scan/test-support/memory-files.js";
 export { createMemoryFs } from "./exorcise/test-support/memory-fs.js";
+export { loadFixtureCase, UnmatchedFixtureRequest } from "./evidence/test-support/fake-http.js";
+export type { FixtureEntry } from "./evidence/test-support/fake-http.js";

@@ -33,14 +33,14 @@ function hasFix(a: OsvAffected): boolean {
   );
 }
 
-export function countOpenVulnsNoFix(vulns: readonly OsvVuln[], name: string): number {
+export function countOpenVulnsNoFix(vulns: readonly OsvVuln[], name: string, ecosystem = "npm"): number {
   const fixedById = new Map<string, boolean>();
   for (const v of vulns) {
     if (typeof v?.id !== "string") continue;
     let fixed = fixedById.get(v.id) ?? false;
     if (Array.isArray(v.affected)) {
       for (const a of v.affected) {
-        if (a?.package?.ecosystem === "npm" && a.package.name === name && hasFix(a)) fixed = true;
+        if (a?.package?.ecosystem === ecosystem && a.package.name === name && hasFix(a)) fixed = true;
       }
     }
     fixedById.set(v.id, fixed);

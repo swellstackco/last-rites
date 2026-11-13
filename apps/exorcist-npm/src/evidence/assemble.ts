@@ -32,7 +32,7 @@ export interface AssembleInput {
 
 type Entry<T> = { value: SignalValue<T>; url?: string; reason?: UnknownReason };
 
-function reasonMessage(source: Source, category: FailureCategory, url: string | undefined): string {
+export function reasonMessage(source: Source, category: FailureCategory, url: string | undefined): string {
   return url === undefined ? `${source}: ${category}` : `${source}: ${category} (${url})`;
 }
 

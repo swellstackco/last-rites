@@ -1,0 +1,25 @@
+{
+  "name": "@graveyard-kit/exorcist-actions",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "scan": "vite-node src/scan/cli.ts --",
+    "exorcise": "vite-node src/exorcise/cli.ts --",
+    "record-fixtures": "vite-node src/test-support/record-fixtures.ts --"
+  },
+  "dependencies": {
+    "@graveyard-kit/exorcist-npm": "*",
+    "@graveyard-kit/skeleton": "*"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "fast-check": "3.23.2",
+    "typescript": "5.9.3",
+    "vitest": "2.1.9"
+  }
+}

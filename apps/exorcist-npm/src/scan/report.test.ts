@@ -1,3 +1,5 @@
+import { readdirSync, readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { describe, it, expect } from "vitest";
 import { parseReport, serializeReport } from "./report.js";
 import type { ScanReport } from "./types.js";
@@ -221,5 +223,46 @@ describe("report codec examples", () => {
     expect(parseReport(EXPECTED.trimEnd())).toMatchObject({ error: { category: "not_canonical" } });
     expect(parseReport(JSON.stringify(JSON.parse(EXPECTED)))).toMatchObject({ error: { category: "not_canonical" } });
     expect(parseReport(mutated((o) => (o.extra = 1)))).toMatchObject({ error: { category: "not_canonical" } });
+  });
+});
+
+describe("report codec ecosystem key", () => {
+  const actions: ScanReport = { ...report, ecosystem: "github-actions" };
+
+  it("round-trips a github-actions report with the key right after ref", () => {
+    const text = serializeReport(actions);
+    const lines = text.split("\n");
+    expect(lines[2]).toBe('  "ref": "HEAD",');
+    expect(lines[3]).toBe('  "ecosystem": "github-actions",');
+    const parsed = parseReport(text);
+    expect(parsed.ok).toBe(true);
+    if (parsed.ok) {
+      expect(parsed.report.ecosystem).toBe("github-actions");
+      expect(serializeReport(parsed.report)).toBe(text);
+    }
+  });
+
+  it("rejects an npm or unknown ecosystem value", () => {
+    const text = serializeReport(actions);
+    const npm = parseReport(text.replace('"github-actions"', '"npm"'));
+    expect(npm.ok).toBe(false);
+    if (!npm.ok) expect(npm.error.category).toBe("not_canonical");
+    const other = parseReport(text.replace('"github-actions"', '"x"'));
+    expect(other.ok).toBe(false);
+    if (!other.ok) expect(other.error.category).toBe("wrong_type");
+  });
+
+  it("does not write the key for npm reports", () => {
+    expect(serializeReport({ ...report, ecosystem: "npm" })).toBe(serializeReport(report));
+  });
+
+  it("keeps every demo Scan_Report canonical", () => {
+    const dir = fileURLToPath(new URL("../../../../demo/", import.meta.url));
+    for (const f of readdirSync(dir).filter((n) => n.endsWith(".json"))) {
+      const text = readFileSync(dir + f, "utf8");
+      const parsed = parseReport(text);
+      if (!parsed.ok) continue; // not a Scan_Report
+      expect(serializeReport(parsed.report), f).toBe(text);
+    }
   });
 });

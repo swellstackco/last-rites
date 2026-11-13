@@ -55,3 +55,11 @@ export { RECIPES } from "./exorcise/recipes/index.js";
 export type { AppRecipe } from "./exorcise/recipes/types.js";
 export { loadCandidate } from "./exorcise/candidate.js";
 export type { LoadedCandidate } from "./exorcise/candidate.js";
+// Evidence building blocks re-exported for the exorcist-actions app: re-exports only, no logic.
+export { fetchJson, classifyStatus } from "./evidence/http/fetch-json.js";
+export { monthsSince, parseIsoTimestamp } from "./evidence/months-since.js";
+export { countOpenVulnsNoFix } from "./evidence/osv-count.js";
+export { fetchOsv, OSV_QUERY_URL, osvListUrl, osvRequestBody } from "./evidence/sources/osv.js";
+export { fetchGithub, createGithubGet, repoPageUrl } from "./evidence/sources/github.js";
+export { reasonMessage } from "./evidence/assemble.js";
+export { isRecord, ok, fail } from "./evidence/sources/outcome.js";

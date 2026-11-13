@@ -101,6 +101,7 @@ export function serializeReport(report: ScanReport): string {
   const obj = {
     repo: report.repo,
     ref: report.ref,
+    ...(report.ecosystem === "github-actions" ? { ecosystem: report.ecosystem } : {}),
     scannedAt: report.scannedAt,
     dependencies: report.dependencies.map(buildDependency),
     skipped: report.skipped.map((s) => ({ name: s.name, kind: s.kind, specifier: s.specifier, reason: s.reason })),
@@ -339,6 +340,9 @@ export function parseReport(text: string): ParseReportOutcome {
       warnings: strings(field(o, "warnings", root), "warnings"),
       summary: parseSummary(field(o, "summary", root), "summary"),
     };
+    if (Object.hasOwn(o, "ecosystem")) {
+      report.ecosystem = asEnum(o["ecosystem"], ["npm", "github-actions"] as const, "ecosystem");
+    }
     if (serializeReport(report) !== text) {
       throw new Fail("not_canonical", "report text is valid but not in canonical form");
     }
