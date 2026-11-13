@@ -182,7 +182,8 @@ async function main(): Promise<void> {
 }
 
 // Never run under Vitest (so importing this module from a test is inert).
-if (!process.env["VITEST"]) {
+// Also inert when imported by another script (e.g. record-scan-fixtures.ts).
+if (!process.env["VITEST"] && /record-fixtures\.[cm]?[jt]s$/.test(process.argv[1] ?? "")) {
   main().catch((e: unknown) => {
     console.error(e);
     process.exit(1);

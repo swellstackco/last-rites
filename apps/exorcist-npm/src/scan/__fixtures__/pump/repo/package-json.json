@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://raw.githubusercontent.com/mafintosh/pump/714c0a70a8199104bf65a57582009d42f81d8d94/package.json",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/plain; charset=utf-8"
+    },
+    "body": "{\n  \"name\": \"pump\",\n  \"version\": \"3.0.4\",\n  \"repository\": \"git://github.com/mafintosh/pump.git\",\n  \"license\": \"MIT\",\n  \"description\": \"pipe streams together and close all of them if one of them closes\",\n  \"browser\": {\n    \"fs\": false\n  },\n  \"imports\": {\n    \"fs\": {\n      \"bare\": \"./empty.js\",\n      \"default\": \"fs\"\n    }\n  },\n  \"keywords\": [\n    \"streams\",\n    \"pipe\",\n    \"destroy\",\n    \"callback\"\n  ],\n  \"author\": \"Mathias Buus Madsen <mathiasbuus@gmail.com>\",\n  \"dependencies\": {\n    \"end-of-stream\": \"^1.1.0\",\n    \"once\": \"^1.3.1\"\n  },\n  \"scripts\": {\n    \"test\": \"node test-browser.js && node test-node.js\"\n  }\n}\n"
+  }
+}

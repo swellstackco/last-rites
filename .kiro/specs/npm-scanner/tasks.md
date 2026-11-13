@@ -70,15 +70,15 @@ This plan implements the Npm_Scanner in `/apps/exorcist-npm/src/scan/` per the n
 
 ### Phase 3: Fixture recording
 
-- [ ] 3.1 Create `src/scan/test-support/record-scan-fixtures.ts`, a manual script (never run by `npm test`; guarded by `!process.env["VITEST"]`) that reuses `createRecorder` and `recordPackageCase`: check the repo is public and MIT through the unrecorded REST call, pin the commit SHA, record `package.json` and `package-lock.json` from `raw.githubusercontent.com` at the SHA, refuse unless `lockfileVersion` is 2 or 3 and `packages` lists at most 25 entries, run the real `inventory`, record each registry dependency with the lockfile version, write `meta.json` and a README entry, and warn when no direct dependency is deprecated or e18e-listed. Unauthenticated, no request headers stored, never reads `GITHUB_TOKEN`.
+- [x] 3.1 Create `src/scan/test-support/record-scan-fixtures.ts`, a manual script (never run by `npm test`; guarded by `!process.env["VITEST"]`) that reuses `createRecorder` and `recordPackageCase`: check the repo is public and MIT through the unrecorded REST call, pin the commit SHA, record `package.json` and `package-lock.json` from `raw.githubusercontent.com` at the SHA, refuse unless `lockfileVersion` is 2 or 3 and `packages` lists at most 25 entries, run the real `inventory`, record each registry dependency with the lockfile version, write `meta.json` and a README entry, and warn when no direct dependency is deprecated or e18e-listed. Unauthenticated, no request headers stored, never reads `GITHUB_TOKEN`.
   - _Requirements: 13.4, 13.5, 4.1_
-- [ ] 3.2 Choose a real public MIT-licensed repository meeting the criteria (lockfile v2 or v3, at most 25 packages, at least one deprecated or e18e-listed direct dependency if one exists) and record its `package.json`, `package-lock.json` and `meta.json` under `src/scan/__fixtures__/<case>/`.
+- [x] 3.2 Choose a real public MIT-licensed repository meeting the criteria (lockfile v2 or v3, at most 25 packages, at least one deprecated or e18e-listed direct dependency if one exists) and record its `package.json`, `package-lock.json` and `meta.json` under `src/scan/__fixtures__/<case>/`.
   - _Requirements: 13.4_
-- [ ] 3.3 Record and commit one evidence fixture directory per registry dependency of the chosen repository under `__fixtures__/<case>/<pkg>/` (scoped names stored as `@scope__pkg`), using the lockfile version for the OSV request.
+- [x] 3.3 Record and commit one evidence fixture directory per registry dependency of the chosen repository under `__fixtures__/<case>/<pkg>/` (scoped names stored as `@scope__pkg`), using the lockfile version for the OSV request.
   - _Requirements: 13.5_
-- [ ] 3.4 Write `src/scan/__fixtures__/README.md` naming the repository and commit SHA, the license, the lockfile version, the package count, and which dependency is deprecated or e18e-listed (or that none was found).
+- [x] 3.4 Write `src/scan/__fixtures__/README.md` naming the repository and commit SHA, the license, the lockfile version, the package count, and which dependency is deprecated or e18e-listed (or that none was found).
   - _Requirements: 13.4_
-- [ ] 3.5 Checkpoint after Phase 3 - Ensure all tests pass, ask the user if questions arise.
+- [x] 3.5 Checkpoint after Phase 3 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 4: Repo fetch, deadline, pool and pipeline
 

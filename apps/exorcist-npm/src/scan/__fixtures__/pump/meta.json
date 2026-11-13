@@ -1,0 +1,13 @@
+{
+  "owner": "mafintosh",
+  "repo": "pump",
+  "sha": "714c0a70a8199104bf65a57582009d42f81d8d94",
+  "license": "MIT",
+  "lockfileVersion": 3,
+  "recordedAt": "2026-11-13T03:01:04.235Z",
+  "packageCount": 3,
+  "dependencies": [
+    "end-of-stream",
+    "once"
+  ]
+}
