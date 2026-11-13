@@ -189,24 +189,24 @@ Terminology used in the tasks: a *Mutator* is part of the product (a deliberatel
   - **Validates: Requirements 8.2, 8.3, 8.4, 8.8**
 - [x] 5.15 Create the Sabotage_List `test-support/sabotage/proof-p4.ts` (a Mutator that returns the original output; an `intersect` arbitrary limited to lists of length 0 or 1; a `deep-diff` arbitrary that never makes equal pairs; a recipe claiming `orderSensitive` for a symmetric function; a recipe declaring `outputKind` `array` for an object output).
   - _Requirements: 18.2, 18.5_
-- [ ] 5.16 Checkpoint after Phase 5 - Ensure all tests pass, ask the user if questions arise.
+- [x] 5.16 Checkpoint after Phase 5 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 6: Proof CLI
 
-- [ ] 6.1 Create `apps/exorcist-npm/src/exorcise/cli-args.ts`: `parseCliArgs(argv)` per Requirements 10.1 to 10.3 (required flags, unknown flags, repeated flags, missing values, `--runs` 100 to 100000 integer digits only, `--seed` non-negative integer digits only, package a Proof_Name, `--out` parent a Proof_Name under `proofs`, defaults 200 and 20261113). Pure and total.
+- [x] 6.1 Create `apps/exorcist-npm/src/exorcise/cli-args.ts`: `parseCliArgs(argv)` per Requirements 10.1 to 10.3 (required flags, unknown flags, repeated flags, missing values, `--runs` 100 to 100000 integer digits only, `--seed` non-negative integer digits only, package a Proof_Name, `--out` parent a Proof_Name under `proofs`, defaults 200 and 20261113). Pure and total.
   - _Requirements: 10.1, 10.2_
-- [ ] 6.2 Write `cli-args.test.ts` examples: a full valid command, defaults, each rejection with its message, `--runs 99`, `--runs 1e3`, `--runs 100001`, `--seed -1`, `--out demo/proofs/parse-server/intersect.json` accepted, `--out x.json` rejected, `@babel/core` rejected.
+- [x] 6.2 Write `cli-args.test.ts` examples: a full valid command, defaults, each rejection with its message, `--runs 99`, `--runs 1e3`, `--runs 100001`, `--seed -1`, `--out demo/proofs/parse-server/intersect.json` accepted, `--out x.json` rejected, `@babel/core` rejected.
   - _Requirements: 10.1, 10.2_
-- [ ] 6.3 Write the Property 11 test in `names-cli.p11.test.ts` (exporting `build(impl)` over `{ isProofName, proofReportPath, parseProofReportPath, parseCliArgs }`): name pattern equality, path form and inverse, `parseCliArgs` totality and the acceptance conditions.
+- [x] 6.3 Write the Property 11 test in `names-cli.p11.test.ts` (exporting `build(impl)` over `{ isProofName, proofReportPath, parseProofReportPath, parseCliArgs }`): name pattern equality, path form and inverse, `parseCliArgs` totality and the acceptance conditions.
   - **Property 11: Proof names, paths and CLI arguments**
   - **Validates: Requirements 9.8, 10.1, 10.2, 13.1, 13.6**
-- [ ] 6.4 Create the Sabotage_List `test-support/sabotage/proof-p11.ts` (pattern allows upper case; pattern allows a dot; length limit 65; path built without validation; accept `--runs 99`; accept `--runs 1e3`; accept a negative seed; accept an unknown flag; `--out` directory not validated).
+- [x] 6.4 Create the Sabotage_List `test-support/sabotage/proof-p11.ts` (pattern allows upper case; pattern allows a dot; length limit 65; path built without validation; accept `--runs 99`; accept `--runs 1e3`; accept a negative seed; accept an unknown flag; `--out` directory not validated).
   - _Requirements: 18.2_
-- [ ] 6.5 Create `apps/exorcist-npm/src/exorcise/report-store.ts`: `ReportFs`, `createNodeReportFs()` (read text or `undefined` for a missing file; `writeAtomic` creating the directory, writing `.<name>.<n>.tmp` in the same directory, renaming, removing the temp file on failure), following `scan/demo-snapshot.ts`.
+- [x] 6.5 Create `apps/exorcist-npm/src/exorcise/report-store.ts`: `ReportFs`, `createNodeReportFs()` (read text or `undefined` for a missing file; `writeAtomic` creating the directory, writing `.<name>.<n>.tmp` in the same directory, renaming, removing the temp file on failure), following `scan/demo-snapshot.ts`.
   - _Requirements: 10.7_
-- [ ] 6.6 Write `report-store.test.ts` against a temporary directory removed in `finally`: write then read the same bytes, the directory is created, an injected rename failure removes the temp file and keeps the old file, a missing file reads as `undefined`.
+- [x] 6.6 Write `report-store.test.ts` against a temporary directory removed in `finally`: write then read the same bytes, the directory is created, an injected rename failure removes the temp file and keeps the old file, a missing file reads as `undefined`.
   - _Requirements: 10.7_
-- [ ] 6.7 Create `apps/exorcist-npm/src/exorcise/run.ts`: `ExorciseDeps`, `ExorciseOutcome` and `exorcise(deps, args)` with the run flow of the design (usage scan, call sites without candidate gives exit 2, recipe and oracle lookup, candidate load, `runProof`, existing report read and validated, `--fresh`, header comparison, append, atomic write, exit codes, the summary lines and the warnings cap of 10), never throws.
+- [x] 6.7 Create `apps/exorcist-npm/src/exorcise/run.ts`: `ExorciseDeps`, `ExorciseOutcome` and `exorcise(deps, args)` with the run flow of the design (usage scan, call sites without candidate gives exit 2, recipe and oracle lookup, candidate load, `runProof`, existing report read and validated, `--fresh`, header comparison, append, atomic write, exit codes, the summary lines and the warnings cap of 10), never throws.
   - _Requirements: 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.9, 10.10_
 - [ ] 6.8 Write `run.test.ts` in-process with an in-memory `ReportFs`, the memory file system over the fixture trees and the real recipes and oracles: no call sites gives `no-call-sites` with `remove-dependency` and needs no candidate, call sites without a candidate exit 2 and write nothing, a proved attempt (candidate is a call-through of the oracle) with a sabotage line, a counterexample attempt (a de-duplicating candidate) printing the shrunk input and both outputs, a second run appends attempt 2, `--fresh` restarts, a mismatching existing report exits 1 and writes nothing, an unparseable existing report exits 1, a load failure exits 1, a write failure exits 1, `unsupported_call_shapes` on the odd deep-diff tree recorded as an attempt with exit 0, and the same inputs give the same bytes.
   - _Requirements: 10.3, 10.4, 10.6, 10.7, 10.8, 10.9, 15.8_

@@ -215,3 +215,12 @@ Headless Chromium at 1352x761 and 375x812 (2x), demo parse-server, package ldapj
 - 5.14/5.15: Property 4 (`recipes.p4.test.ts`, `build(subject)` over `{ cases, mutators }`) drives `runShape` with each Mutator applied to the oracle itself, and checks `applicable()` against an independent reason table. `testing.ts` of the skeleton now also exports `runShape` and `resolveMember`. `proof-p4.ts` has the five required entries. The central sabotage test for Properties 1 and 4 is task 6.11; I checked all ten entries with a temporary test under the fixed seed (all caught, real code green), then deleted it. Properties 1 and 4 also passed under eight other `FC_SEED` values.
 - Counterexamples found by fast-check against the real code: none. Every mutator on every shape was caught on the first run.
 - Counts (repo root): `npm run typecheck` clean; `npm test` 127 files, 1135 tests pass, 1 todo.
+
+## 2026-11-13 proof-harness 5.16, 6.1-6.7 (Kiro CLI)
+
+- 6.1/6.2: `cli-args.ts` (`parseCliArgs`, pure and total). Judgement calls: a value that is empty or starts with `--` counts as a missing value; stray non-flag tokens are rejected; `--seed` must be a safe integer; `--out` needs at least three segments, a non-empty file name, `proofs/<Proof_Name>/` before it.
+- 6.3/6.4: Property 11 (`names-cli.p11.test.ts`, `build(impl)` over the four functions) and `proof-p11.ts` (nine entries plus `P11_REQUIRED`). First version of the property left "accept --runs 99" green: random scenarios rarely have exactly one defect on an otherwise valid command line. Fix: every run also takes a valid base command line and checks every single-defect variant of it (each invalid value, missing value, repeated flag, unknown flag). Then all nine sabotages were caught (temporary test, removed; the central test is 6.11) and the real code passed.
+- 6.5/6.6: `report-store.ts` (`ReportFs`, `createNodeReportFs(ops)`; `ops.rename` is injectable so the failure test can run) with tests.
+- 6.7: `run.ts` (`exorcise`). Order: scan, usage error (exit 2) for call sites without `--candidate`, default path, oracle and candidate load, `runProof`, existing report check, append, atomic write, summary lines. Run.test is task 6.8 (not done this run).
+- Counterexamples found by fast-check against the real code: none.
+- Counts (repo root): `npm run typecheck` clean; `npm test` 130 files, 1148 tests pass, 1 todo.
