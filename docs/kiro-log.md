@@ -248,3 +248,12 @@ Headless Chromium at 1352x761 and 375x812 (2x), demo parse-server, package ldapj
 - Controller starts one proof request per (demo, package), aborts unsettled ones on any route change and forgets them so a later open retries. `invalid` is shown as the placeholder plus a muted unreadable line (`ProofShown.unreadable`).
 - Existing `proof.dom.test.ts` now registers 404 routes for the proof URLs; other DOM tests tolerate the unmatched request.
 - No fast-check counterexamples this run (only example and DOM tests were written).
+
+## 2026-11-13: proof-harness tasks 8.12 to 9.3 (hostile and update DOM tests, smoke checks)
+
+- 8.12-8.14: `proof.hostile.dom.test.ts` (three hostile strings in every free-text field of all five report kinds; only the elements the view creates, no `a`, no `on*` attributes, static check that `views/proof-slot.ts` has no HTML insertion), `proof.update.dom.test.ts` (loading line, in-place update, focus and panel kept, `absent`/`failed`/`invalid` fallbacks, late proof for another package ignored), `proof.controller.dom.test.ts` (one request per dead or dying demo package, none for ailing/alive, live scans or scoped names, no repeat request, abort on route change then retry). The fake fetch does not expose the abort signal (adding a field would break the deep-equal in `client.test.ts`), so the abort test spies on `AbortController.prototype.abort` and checks the retry request instead.
+- 8.15: all existing web guards (class vocabulary, `polish.css`, theme contrast, `safety`, `detail.dom`, `keyboard.dom`) pass unchanged; no guard was weakened.
+- 9.1: `exorcise/smoke.test.ts` (import graph of `skeleton/src/proof/index.ts` is walked transitively: no `fast-check`, no `node:`, no `runner/`; skeleton never imports apps; no test file names the sibling working copy; exact dependency versions; no LLM client in any manifest; `process.argv`/`process.env` only in `cli.ts`; `exorcise` script; scan exports unchanged). 9.2: `demo-proofs.test.ts` (passes with no reports yet).
+- 9.3: typecheck clean; `npm test` green plain, with `CI=1` and with `FC_SEED=42`. Numbered properties run through the shared `fc-runner` at `numRuns` 100.
+- Counterexamples found by fast-check: none (no new property this run).
+- Counts (repo root): 139 files, 1253 tests pass, 1 todo.
