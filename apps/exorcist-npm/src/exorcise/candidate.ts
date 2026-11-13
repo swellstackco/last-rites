@@ -10,8 +10,11 @@ export interface LoadedCandidate {
   source: string;
 }
 
-/** Load a Candidate file: `default ?? namespace`. Rejects with a clear message, never with a stack. */
-export async function loadCandidate(file: string): Promise<LoadedCandidate> {
+/**
+ * Load a Candidate file: `default ?? namespace`. Rejects with a clear message, never with a stack.
+ * A non-empty `cacheBust` adds `?cb=<cacheBust>` (not `?v=`, which Vite and vite-node strip) to the import URL so an edited file is re-evaluated.
+ */
+export async function loadCandidate(file: string, cacheBust?: string): Promise<LoadedCandidate> {
   const abs = resolve(file);
   let source: string;
   try {
@@ -21,7 +24,9 @@ export async function loadCandidate(file: string): Promise<LoadedCandidate> {
   }
   let ns: Record<string, unknown>;
   try {
-    ns = (await import(pathToFileURL(abs).href)) as Record<string, unknown>;
+    ns = (await import(
+      cacheBust ? `${pathToFileURL(abs).href}?cb=${encodeURIComponent(cacheBust)}` : pathToFileURL(abs).href
+    )) as Record<string, unknown>;
   } catch (e) {
     throw new Error(`cannot import candidate file ${file}: ${e instanceof Error ? e.message : String(e)}`);
   }

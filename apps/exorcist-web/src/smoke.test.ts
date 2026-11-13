@@ -111,8 +111,12 @@ describe("graveyard-ui wiring (static)", () => {
       ]);
     });
 
-    it("the exorcist-npm exports map contains only ./report", () => {
-      expect(manifests.exorcistNpm["exports"]).toEqual({ "./report": "./src/scan/report.ts" });
+    it("the exorcist-npm exports map is ./report plus the two programmatic entries", () => {
+      expect(manifests.exorcistNpm["exports"]).toEqual({
+        "./report": "./src/scan/report.ts",
+        "./programmatic": "./src/programmatic.ts",
+        "./programmatic/testing": "./src/programmatic-testing.ts",
+      });
     });
 
     it("the skeleton exports keep . and ./death-score and add only the graveyard and proof paths", () => {

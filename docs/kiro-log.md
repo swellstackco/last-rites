@@ -515,3 +515,11 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - Defects T1-T7 fixed: proof for any grade with a valid report; Band full width (`align-items: stretch`) and ruled left-aligned fields; subtitle as two nowrap phrases; home Masthead, hanging Demo_Cards and runtime dead counts; summary as Field_Label; 1-up grid below 32.5rem with `<wbr>` Split_Points and `break-word`.
 - Root causes as hypothesized in design.md were confirmed by the fail-first runs recorded above. Properties TP1-TP6 with sabotage entries, all green. Judgment calls: as listed in tasks.md Notes and the per-phase entries.
 - Unverified: see the 8.5 entry (intermediate widths, pixel comparison).
+
+## 2026-11-13: kiro-integration Phase 1 (tasks 1.2 to 1.9)
+
+- 1.2 to 1.4: `mcp/` and `power/` workspaces created; exact pins installed (`@modelcontextprotocol/sdk` 1.32.2, `zod` 4.6.7, `intersect` 1.0.1, `deep-diff` 1.0.2, dev `esbuild` 0.28.2). One hoisted copy of each; `intersect`/`deep-diff` match `apps/exorcist-npm`. A throwaway `McpServer` + zod 4 raw shape + in-memory client script type-checked and ran, then was deleted. `vitest.config.ts` includes `mcp/src/**/*.test.ts`; `.gitignore` has `power/server/`.
+- 1.5, 1.6: `REPO_PATTERN` exported; `loadCandidate(file, cacheBust?)`.
+- Deviation from the spec text: the cache-bust query is `?cb=<bust>`, not `?v=<bust>`. The first run of the 1.7 test showed an edited file was NOT re-evaluated with `?v=` under vitest/vite-node (second load returned the old module "one", expected "two"): Vite strips a `v` query parameter when it resolves module ids. `?cb=` works. The design/requirements should say `?cb=` (Requirement 8.8 intent is unchanged). No fast-check counterexample (example tests).
+- 1.8, 1.9: `programmatic.ts` / `programmatic-testing.ts` are re-exports only. `apps/exorcist-npm` exports gained `./programmatic` and `./programmatic/testing`; the web smoke test that pinned the exports map to `./report` only now pins all three (a forced consequence of Requirement 1.6).
+- Note: `RECIPES` in the app is a `Record`, while the design's `ExorcistDeps` says `ReadonlyMap`; reconcile in task 4.9.

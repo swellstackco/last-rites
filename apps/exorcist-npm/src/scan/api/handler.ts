@@ -24,7 +24,7 @@ export interface ScanApiDeps {
 }
 
 const MAX_BODY_BYTES = 4096;
-const REPO_PATTERN = /^[A-Za-z0-9._-]{1,39}\/[A-Za-z0-9._-]{1,100}$/;
+export const REPO_PATTERN = /^[A-Za-z0-9._-]{1,39}\/[A-Za-z0-9._-]{1,100}$/;
 const DEMO_ROUTE = /^\/api\/demo\/([^/]+)$/;
 const TIMED_OUT: unique symbol = Symbol("timed_out");
 

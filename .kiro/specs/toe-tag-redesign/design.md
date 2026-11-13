@@ -534,3 +534,14 @@ Decisions made without asking, for the owner to confirm or reverse:
 16. **No wordmark heading.** `PRODUCT_NAME` is a `p`; the `h1` keeps "The Graveyard: owner/repo" so titles, focus and tests do not change.
 17. **Frozen v2 views** are a second copy next to v1; v1 stays for the polish properties.
 18. **`FORM_SUBTITLE` is decorative copy** ("Office of the Dependency Examiner · Form LR-1"); it is not data and carries no count.
+
+## Polish (bugfix)
+
+The seven visual defects found after this redesign are fixed by `.kiro/specs/toe-tag-polish/`. It changes these rules of this design (the polish spec wins where they differ):
+
+- The Band runs the full width of the tag, edge to edge (`align-items: stretch`).
+- Tag fields are left-aligned and ruled by Field_Lines.
+- The tag grid is 1 column below 32.5rem (not 22.5rem); tag names break at `<wbr>` Split_Points after "/" and "-", with `overflow-wrap: break-word` as the last resort.
+- The home page has a Masthead (`h1` wordmark, subtitle, pitch line); Demo_Cards hang with string and hole and show the dead count.
+- The subtitle is two nowrap phrases so "LR-1" is never alone on a line.
+- Proof is shown for any grade when a valid report exists.

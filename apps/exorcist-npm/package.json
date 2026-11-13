@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "exports": {
-    "./report": "./src/scan/report.ts"
+    "./report": "./src/scan/report.ts",
+    "./programmatic": "./src/programmatic.ts",
+    "./programmatic/testing": "./src/programmatic-testing.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

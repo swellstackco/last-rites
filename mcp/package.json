@@ -1,0 +1,26 @@
+{
+  "name": "@graveyard-kit/exorcist-mcp",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "vite-node src/build/run-build.ts --",
+    "power:sync": "vite-node src/power/sync.ts --",
+    "hook:scan-deps": "vite-node src/hooks/scan-deps.ts --",
+    "hook:monotonic": "vite-node src/hooks/monotonic.ts --",
+    "hook:stop-check": "vite-node src/hooks/stop-check.ts --",
+    "hook:candidate-proof": "vite-node src/hooks/candidate-proof.ts --"
+  },
+  "dependencies": {
+    "@graveyard-kit/exorcist-npm": "*",
+    "@graveyard-kit/skeleton": "*",
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "deep-diff": "1.0.2",
+    "intersect": "1.0.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.2"
+  }
+}

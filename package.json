@@ -4,7 +4,9 @@
   "type": "module",
   "workspaces": [
     "skeleton",
-    "apps/*"
+    "apps/*",
+    "mcp",
+    "power"
   ],
   "scripts": {
     "test": "vitest --run",
