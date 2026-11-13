@@ -1,0 +1,167 @@
+// Detail_Panel: a hand-written modal dialog (role="dialog") with focus trap and restore.
+import { GRADE_INFO, buildBreakdown, proofSlotFor } from "@graveyard-kit/skeleton/graveyard";
+import type { Grave } from "@graveyard-kit/skeleton/graveyard";
+import type { ScannedDependency } from "@graveyard-kit/exorcist-npm/report";
+import { h } from "../dom/h.js";
+import { restoreFocus, setInertAround, trapTab } from "../dom/focus.js";
+import { renderBreakdown } from "./breakdown.js";
+import { renderProofSlot } from "./proof-slot.js";
+import { graveId } from "./tombstone.js";
+
+export interface DetailOptions {
+  /** The page root that becomes inert while the panel is open. */
+  appRoot: HTMLElement;
+  /** Where the backdrop and panel live (a sibling of appRoot). */
+  host: HTMLElement;
+  /** Escape, Close or backdrop: the controller removes `pkg` from the route, then calls close(). */
+  onRequestClose(): void;
+}
+
+export interface OpenOptions {
+  /** The control that opened the panel; focus returns to it. Defaults to the active element. */
+  opener?: HTMLElement | null;
+  /** Fallback focus targets, in order, if the opener is gone (group heading, then h1). */
+  fallbacks?: () => ReadonlyArray<HTMLElement | null | undefined>;
+}
+
+export interface DetailHandle {
+  isOpen(): boolean;
+  /** The Grave currently shown, if any. */
+  current(): Grave<ScannedDependency> | undefined;
+  open(grave: Grave<ScannedDependency>, options?: OpenOptions): void;
+  close(): void;
+  destroy(): void;
+}
+
+function versionText(dep: ScannedDependency): string {
+  return dep.versionSource === "lockfile" && dep.resolvedVersion !== undefined
+    ? `${dep.resolvedVersion} (from lockfile)`
+    : `${dep.declaredRange} (declared range)`;
+}
+
+function renderContent(grave: Grave<ScannedDependency>, onClose: () => void): HTMLElement[] {
+  const dep = grave.record;
+  const death = dep.death;
+  const info = GRADE_INFO[death.grade];
+  const id = graveId(grave);
+  const breakdown = buildBreakdown(dep);
+  const slot = proofSlotFor(grave);
+
+  const closeButton = h(
+    "button",
+    { type: "button", class: "btn", "aria-label": `Close score breakdown for ${dep.name}` },
+    "Close",
+  );
+  closeButton.addEventListener("click", onClose);
+
+  const fact = (label: string, value: string) =>
+    h("div", null, h("p", { class: "muted" }, label), h("p", null, value));
+
+  const nodes: Array<HTMLElement | null> = [
+    h("div", { class: "sheet-head" }, h("h2", { id: "detail-title", tabindex: -1 }, dep.name), closeButton),
+    h(
+      "div",
+      { class: "facts" },
+      h(
+        "div",
+        null,
+        h("p", { class: "muted" }, "Death score"),
+        h("p", { class: "score-big" }, `${death.score} / 100`),
+        h("p", { class: "grade-chip" }, `${info.label} (${info.min}-${info.max})`),
+      ),
+      fact("Version", versionText(dep)),
+      fact("Dependency kinds", dep.kinds.join(", ")),
+      dep.replacement
+        ? fact(
+            "Replacement",
+            dep.replacement.replacements.length > 0
+              ? `${dep.replacement.type}: ${dep.replacement.replacements.join(", ")}`
+              : dep.replacement.type,
+          )
+        : null,
+    ),
+    renderBreakdown(breakdown, dep),
+    dep.evidenceWarnings.length > 0
+      ? h(
+          "div",
+          { class: "stack" },
+          h("h3", null, "Evidence warnings"),
+          h("ul", null, dep.evidenceWarnings.map((w) => h("li", null, w))),
+        )
+      : null,
+    slot ? renderProofSlot(slot, `${id}-proof`) : null,
+  ];
+  return nodes.filter((n): n is HTMLElement => n !== null);
+}
+
+export function createDetail(options: DetailOptions): DetailHandle {
+  const doc = options.host.ownerDocument;
+  // The backdrop is a native button (outside the tab order) so activating it is a real control.
+  const backdrop = h("button", {
+    type: "button",
+    class: "backdrop",
+    tabindex: -1,
+    hidden: true,
+    "aria-label": "Close score breakdown",
+  });
+  const panel = h("section", {
+    class: "sheet",
+    role: "dialog",
+    "aria-modal": "true",
+    "aria-labelledby": "detail-title",
+    hidden: true,
+  });
+  options.host.append(backdrop, panel);
+
+  let opened = false;
+  let grave: Grave<ScannedDependency> | undefined;
+  let remembered: HTMLElement | null = null;
+  let fallbacks: OpenOptions["fallbacks"];
+
+  const request = () => options.onRequestClose();
+  backdrop.addEventListener("click", request);
+  panel.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      request();
+      return;
+    }
+    trapTab(panel, event);
+  });
+
+  return {
+    isOpen: () => opened,
+    current: () => grave,
+    open(next, openOptions = {}) {
+      if (!opened) {
+        const active = doc.activeElement;
+        remembered = openOptions.opener ?? (active instanceof HTMLElement && active !== doc.body ? active : null);
+      }
+      fallbacks = openOptions.fallbacks ?? fallbacks;
+      grave = next;
+      panel.replaceChildren(...renderContent(next, request));
+      panel.scrollTop = 0;
+      setInertAround(options.appRoot, true);
+      backdrop.hidden = false;
+      panel.hidden = false;
+      opened = true;
+      doc.getElementById("detail-title")?.focus();
+    },
+    close() {
+      if (!opened) return;
+      opened = false;
+      grave = undefined;
+      setInertAround(options.appRoot, false);
+      backdrop.hidden = true;
+      panel.hidden = true;
+      panel.replaceChildren();
+      restoreFocus([remembered, ...(fallbacks ? fallbacks() : [])]);
+      remembered = null;
+    },
+    destroy() {
+      setInertAround(options.appRoot, false);
+      backdrop.remove();
+      panel.remove();
+    },
+  };
+}

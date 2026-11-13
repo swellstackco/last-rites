@@ -31,3 +31,6 @@ export const COPY = {
   skipToDead: "Skip to the dead packages",
   exorcismComing: "Exorcism coming",
 } as const;
+
+/** A report string shown in a Tombstone is cut to this many characters (with an ellipsis). */
+export const MAX_TOMBSTONE_TEXT = 200;
