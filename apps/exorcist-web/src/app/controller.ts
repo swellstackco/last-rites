@@ -216,12 +216,14 @@ export function createController(deps: ControllerDeps): Controller {
   /** The proof to show when a panel opens, starting the request on the first open. */
   const proofFor = (source: Source, grave: Grave<ScannedDependency>): ProofShown | undefined => {
     const grade = grave.record.death.grade;
-    if (source.kind !== "demo" || (grade !== "dead" && grade !== "dying")) return undefined;
+    if (source.kind !== "demo") return undefined;
+    // Ailing and alive packages show a Proof_Section only for a readable report (no placeholder, no loading line).
+    const reportOnly = grade === "ailing" || grade === "alive";
     const pkg = grave.record.name;
     if (!isProofName(source.name) || !isProofName(pkg)) return undefined;
     const key = `${source.name}/${pkg}`;
     const settled = proofsSettled.get(key);
-    if (settled) return settled;
+    if (settled) return reportOnly && settled.state.status !== "report" ? undefined : settled;
     if (!proofsStarted.has(key)) {
       proofsStarted.add(key);
       const controller = (proofAbort ??= new AbortController());
@@ -241,7 +243,7 @@ export function createController(deps: ControllerDeps): Controller {
         },
       );
     }
-    return { state: { status: "loading" } };
+    return reportOnly ? undefined : { state: { status: "loading" } };
   };
 
   const syncDetail = (pkg: string | undefined): void => {

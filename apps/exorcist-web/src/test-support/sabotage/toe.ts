@@ -1,6 +1,7 @@
 // Shared types for the Toe Tag DOM sabotages (toe-tag-redesign tt1 to tt3). A sabotage is a "wrong page":
 // a transform of the real page DOM applied inside the property after the package is opened.
 import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import type { RecordedCall } from "../fake-fetch.js";
 import type { ProofReport } from "@graveyard-kit/skeleton/proof";
 
 export interface ToeContext {
@@ -11,6 +12,13 @@ export interface ToeContext {
   proof?: ProofReport;
   /** The proof state served: report, absent, failed or invalid. */
   proofCase?: string;
+  /** TP1: `pending` while the proof request is held, `final` once it settled. */
+  phase?: "pending" | "final";
+  /** TP1: the grade of the opened package and the arrival order. */
+  grade?: string;
+  order?: "before" | "after";
+  /** TP1: the recorded fetch calls (a sabotage may edit them to emulate a wrong request policy). */
+  calls?: RecordedCall[];
 }
 
 export type ToeMutate = (doc: Document, ctx: ToeContext) => void;

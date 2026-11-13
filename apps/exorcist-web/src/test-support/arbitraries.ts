@@ -8,6 +8,8 @@ import { buildProofReport } from "./build-proof-report.js";
 import type { ProofKind } from "./build-proof-report.js";
 import { buildReport, tamperUrl } from "./build-report.js";
 import type { FixtureDependency } from "./build-report.js";
+import { AILING_SIGNALS, ALIVE_SIGNALS, DEAD_SIGNALS, DYING_SIGNALS } from "./signals.js";
+import type { GradeBand } from "@graveyard-kit/skeleton";
 
 /** Names shaped like the real ones plus long scoped, hostile and grade-word names. */
 const NAMES: readonly string[] = [
@@ -178,3 +180,95 @@ export const proofReportArb: fc.Arbitrary<ProofReport> = fc
     }
     return report;
   });
+
+// ---- toe-tag-polish generators ----------------------------------------------------------------------------
+
+const GRADE_SIGNALS: Record<GradeBand, PackageSignals> = {
+  dead: DEAD_SIGNALS,
+  dying: DYING_SIGNALS,
+  ailing: AILING_SIGNALS,
+  alive: ALIVE_SIGNALS,
+};
+
+/** Valid Proof_Names (see `isProofName`), shaped like the real demo packages. */
+const PROOF_SAFE_NAMES: readonly string[] = [
+  "intersect",
+  "deep-diff",
+  "node-abort-controller",
+  "gone",
+  "ldapjs",
+  "left-pad",
+  "request",
+  "chalk",
+  "ms",
+  "uuid",
+];
+
+export interface DemoPackageCase {
+  /** A demo-style Scan_Report with a valid Proof_Name for every package. */
+  report: ScanReport;
+  /** The package to open. */
+  name: string;
+  grade: GradeBand;
+}
+
+/** A report whose package `name` has `grade`, with 0-4 other packages of random grades. */
+export const demoPackageArb: fc.Arbitrary<DemoPackageCase> = fc
+  .tuple(
+    fc.constantFrom<GradeBand>("dead", "dying", "ailing", "alive"),
+    fc.constantFrom(...PROOF_SAFE_NAMES),
+    fc.array(
+      fc.tuple(fc.constantFrom(...PROOF_SAFE_NAMES), fc.constantFrom<GradeBand>("dead", "dying", "ailing", "alive")),
+      { maxLength: 4 },
+    ),
+  )
+  .map(([grade, name, others]) => {
+    const seen = new Set<string>([name]);
+    const deps: FixtureDependency[] = [{ name, signals: GRADE_SIGNALS[grade] }];
+    for (const [n, g] of others) {
+      if (seen.has(n)) continue;
+      seen.add(n);
+      deps.push({ name: n, signals: GRADE_SIGNALS[g] });
+    }
+    return { report: buildReport(deps), name, grade };
+  });
+
+export type ProofLoadCase = { kind: "report"; report: ProofReport } | { kind: "absent" | "failed" | "invalid" };
+
+export interface ProofLoadDraw {
+  load: ProofLoadCase;
+  /** `before`: the report is settled when the panel opens again; `after`: it arrives after the panel opened. */
+  order: "before" | "after";
+}
+
+export const proofLoadArb: fc.Arbitrary<ProofLoadDraw> = fc.record({
+  load: fc.oneof(
+    { weight: 8, arbitrary: proofReportArb.map((report): ProofLoadCase => ({ kind: "report", report })) },
+    { weight: 3, arbitrary: fc.constantFrom<ProofLoadCase>({ kind: "absent" }, { kind: "failed" }, { kind: "invalid" }) },
+  ),
+  order: fc.constantFrom<"before" | "after">("before", "after"),
+});
+
+const NAME_ATOM = fc.constantFrom("a", "b", "x1", "core", "utils", "semantic", "release", "backmerge", "é", "0");
+
+/** Package names: scoped, hyphenated, slashed, 1-80 chars, plus the fixed awkward ones. */
+export const packageNameArb: fc.Arbitrary<string> = fc.oneof(
+  { weight: 4, arbitrary: fc.array(fc.tuple(NAME_ATOM, fc.constantFrom("", "-", "/", "--", "-/")), { minLength: 1, maxLength: 14 }).map((parts) => parts.map(([a, s]) => a + s).join("").slice(0, 80)).filter((n) => n.length > 0) },
+  { weight: 2, arbitrary: fc.constantFrom(...NAMES) },
+  { weight: 1, arbitrary: fc.constantFrom("@saithodev/semantic-release-backmerge", "@scope/a-47-character-scoped-package-name-xxxxx", "plainname", "-lead", "trail-", "/lead", "trail/") },
+  { weight: 1, arbitrary: fc.stringOf(fc.constantFrom("a", "b", "-", "/", "<", ">", "&"), { minLength: 1, maxLength: 80 }) },
+);
+
+export type SnapshotCase = { kind: "ok"; report: ScanReport } | { kind: "failed" } | { kind: "invalid" };
+
+/** The four demo snapshots, each readable, failing or unreadable, and the order their responses arrive in. */
+export const snapshotSetArb: fc.Arbitrary<{ snapshots: SnapshotCase[]; order: number[] }> = fc.record({
+  snapshots: fc.array(
+    fc.oneof(
+      { weight: 3, arbitrary: scanReportArb.map((report): SnapshotCase => ({ kind: "ok", report })) },
+      { weight: 1, arbitrary: fc.constantFrom<SnapshotCase>({ kind: "failed" }, { kind: "invalid" }) },
+    ),
+    { minLength: 4, maxLength: 4 },
+  ),
+  order: fc.shuffledSubarray([0, 1, 2, 3], { minLength: 4, maxLength: 4 }),
+});

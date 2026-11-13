@@ -79,7 +79,10 @@ export function mountPage(options: MountOptions = {}): Page {
   dialogRoot.id = "dialog-root";
   doc.body.append(appRoot, dialogRoot);
 
-  const fake = createFakeFetch(options.fetchRoutes ?? {});
+  const fake = createFakeFetch(options.fetchRoutes ?? {}, (call) =>
+    // Opening any package now requests its proof: an unregistered proof route is "no report" (404), not a failure.
+    call.method === "GET" && call.url.includes("/demo/proofs/") ? { status: 404, body: "not found" } : undefined,
+  );
   const timers = createFakeTimers();
   const startAt = options.now ?? 0;
   const clock = { now: () => startAt + timers.now() };

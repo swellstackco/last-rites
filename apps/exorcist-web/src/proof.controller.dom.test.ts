@@ -67,13 +67,15 @@ describe("proof requests (controller)", () => {
     p.fake.assertNoUnexpected();
   });
 
-  it("none for ailing or alive packages", async () => {
+  it("one request per opened ailing or alive package, and no section without a report", async () => {
     const p = mount("#/demo/pump");
     await p.flush();
     await open(p, "meh");
+    expect(p.dialogRoot.querySelector("section.proof")).toBeNull();
     p.press("Escape");
     await open(p, "well");
-    expect(proofCalls(p)).toEqual([]);
+    expect(p.dialogRoot.querySelector("section.proof")).toBeNull();
+    expect(proofCalls(p)).toEqual(["GET /demo/proofs/pump/meh.json", "GET /demo/proofs/pump/well.json"]);
   });
 
   it("none for a scoped name", async () => {

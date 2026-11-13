@@ -394,3 +394,28 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - Real defect found by the browser, not by any test: at 375 and 320 the stacked Form_Grid Source cell (`declared_abandoned`, unbreakable by Requirement 10.9) overflowed its record box. Old output: `td.col-source` scrollWidth 174 > clientWidth 155. New output: no overflow. Fix: Source spans the whole record row at or below 40rem, and Value/Status/Points take full rows below 22.5rem (`detail.css`).
 - Not run: Compare_Box in a browser (no counterexample proof in demo data), automated mockup comparison, 320 wide beyond the Form_Grid probe.
 - Counterexamples from fast-check: none. Counts: 157 files, 1417 tests pass, 1 todo. Typecheck clean.
+
+## 2026-11-13: toe-tag-polish baseline (tasks 1.1 to 1.4)
+
+- 1.1: frozen `src/__reference__/views-v3/{tombstone,breakdown,header,proof-slot,picker,detail}.ts` (byte copies of the views at 6f860b4, imports adjusted). Instead of injecting a view set into `mountPage` (would need a controller change), `test-support/toe-reference-v3.ts` assembles the page, the open panel (v3 `createDetail` with a given proof state) and the picker from the v3 views in detached nodes.
+- 1.2: `proofPresent` and `pickerFacts` in `toe-facts.ts`; generators `demoPackageArb`, `proofLoadArb`, `packageNameArb`, `snapshotSetArb` in `arbitraries.ts`; `DEAD_SIGNALS` and `AILING_SIGNALS` in `signals.ts`; `toetag.polish.arbitraries.test.ts` (4 tests).
+- 1.3: TP6 (`properties/tp6.ts`, `toetag.polish.preserve.dom.test.ts`, 3 tests; scan page, open panel x every proof state x before/after arrival, picker with and without a live-route prefill). Run against the UNCHANGED code: PASS (seed random, numRuns 100). Sabotage (u) in `sabotage/tp6.ts`: 5 entries, all caught at seed 20261113; registered in `toetag.sabotage.test.ts`. ALLOWED differences list: empty.
+- 1.4: `npm run typecheck` clean; `npm test` plain and `CI=1`: 159 files, 1431 tests pass, 1 todo.
+- Counterexamples: none.
+
+## 2026-11-13: toe-tag-polish T1 fail-first (tasks 2.1, 2.2)
+
+- 2.1: TP1 (`properties/tp1.ts`, `toetag.polish.proof.dom.test.ts`): proof for every grade, both arrival orders, live scans never request; real `parse-server` / `intersect` example. TP6 got the allowed difference "proof-any-grade" (ailing/alive with a valid report may add `section.proof`).
+- 2.2: run against the UNCHANGED code, before any source change. Failing, for the reason in design.md "Hypothesized Root Cause" 1:
+  - `TP1: proof for any grade > a valid report is shown ...` (seed 1729774135, 3 shrinks). Shrunk counterexample: one ailing package `intersect` (score 25), load `absent`, order `before`. Old output: `expected one proof request for intersect, got []` (no `getProof` call for an ailing package). The simplest case already fails because the request is gated on dead/dying.
+  - `real data: parse-server / intersect (ailing, 35)`: `expected null not to be null` (no `section.proof` in the panel).
+  - Passing on unfixed code, as intended: "a live scan never requests a proof" (preservation of 3.4).
+- Cause confirmed: the controller gate. The detail slot gate (`proofSlotFor`) is the second half and is fixed in 2.3.
+
+## 2026-11-13: toe-tag-polish T1 fix (tasks 2.3 to 2.5)
+
+- 2.3: `controller.ts` `proofFor` no longer gates on grade; for ailing/alive it returns only a settled `report` (no loading line, no placeholder). `views/detail.ts` gained `slotFor` (dead/dying as before; ailing/alive only with a report) and `updateProof` appends the section when the report arrives after the panel opened. `skeleton/` untouched. Harness: `createFakeFetch` takes an optional fallback; `mountPage` answers unregistered `/demo/proofs/` routes with 404 (explicit routes win).
+- 2.4: sabotage (a) to (e) in `sabotage/tp1.ts` (main property) and (f) (live property); all caught at seed 20261113, real code passes. Sabotages emulate the wrong page (DOM edits plus edits to the recorded fetch calls), because the controller is not swappable. One pinned assertion updated: `proof.controller.dom.test.ts` "none for ailing or alive packages" is now "one request per opened ailing or alive package, and no section without a report".
+- 2.5: TP1 and TP6 green; typecheck clean; `npm test` plain and `CI=1`: 160 files, 1444 tests pass, 1 todo.
+- Counterexamples: the fail-first shrink recorded above (ailing `intersect`, `absent`, `before`: old output no request / no section; new output one request, no section). No other counterexample.
+- Not done (cap of 8 tasks): 3.1 onward (T2/T3 band and fields).

@@ -239,3 +239,82 @@ export function toeFacts(root: ParentNode): ToeFacts {
     proof: proofFacts(root),
   };
 }
+
+// ---- toe-tag-polish: panel proof presence and the Repo_Picker -------------------------------------------
+
+/** True when the open panel (or any part of `root`) has a Proof_Section. */
+export function proofPresent(root: ParentNode): boolean {
+  return root.querySelector("section.proof") !== null;
+}
+
+export interface DemoCardFacts {
+  demo: string;
+  name: string;
+  repo: string;
+  blurb: string;
+  snapshot: string;
+  /** The "N dead" text, or null when the card shows no count. */
+  dead: string | null;
+}
+
+export interface LiveFormFacts {
+  title: string;
+  labels: Array<{ for: string; text: string }>;
+  inputs: Array<{ id: string; name: string; placeholder: string; value: string; describedBy: string | null }>;
+  summary: string | null;
+  detailsOpen: boolean | null;
+  submit: string;
+  submitAriaDisabled: string | null;
+  /** Every `p.muted` of the form, in DOM order (hints and limits). */
+  hints: string[];
+}
+
+export interface PickerFacts {
+  /** The text of the one `h1` and its tabindex. */
+  heading: { text: string; tabindex: string | null } | null;
+  demoNote: string;
+  notice: string | null;
+  cards: DemoCardFacts[];
+  form: LiveFormFacts | null;
+}
+
+export function pickerFacts(root: ParentNode): PickerFacts {
+  const h1 = root.querySelector("h1");
+  const form = root.querySelector("form.live-form");
+  const notice = root.querySelector("main > p.notice");
+  return {
+    heading: h1 ? { text: trimmed(h1), tabindex: h1.getAttribute("tabindex") } : null,
+    demoNote: trimmed(root.querySelector("section[aria-labelledby='demo-title'] > p.muted")),
+    notice: notice ? trimmed(notice) : null,
+    cards: all(root, "ul.demo-cards button.demo-card").map((button): DemoCardFacts => {
+      const spans = all(button, ":scope > span:not(.tag-hole):not(.demo-dead)");
+      const dead = button.querySelector(":scope > .demo-dead");
+      return {
+        demo: button.getAttribute("data-demo") ?? "",
+        name: trimmed(spans[0]),
+        repo: trimmed(spans[1]),
+        blurb: trimmed(spans[2]),
+        snapshot: trimmed(spans[3]),
+        dead: dead ? trimmed(dead) : null,
+      };
+    }),
+    form: form
+      ? {
+          title: trimmed(form.querySelector("h2")),
+          labels: all(form, "label").map((l) => ({ for: l.getAttribute("for") ?? "", text: trimmed(l) })),
+          inputs: all<HTMLInputElement>(form, "input").map((i) => ({
+            id: i.id,
+            name: i.getAttribute("name") ?? "",
+            placeholder: i.getAttribute("placeholder") ?? "",
+            value: i.value,
+            describedBy: i.getAttribute("aria-describedby"),
+          })),
+          summary: form.querySelector("details > summary") ? trimmed(form.querySelector("details > summary")) : null,
+          detailsOpen: form.querySelector("details") ? (form.querySelector("details") as HTMLDetailsElement).open : null,
+          submit: trimmed(form.querySelector("button[type='submit']")),
+          submitAriaDisabled: form.querySelector("button[type='submit']")?.getAttribute("aria-disabled") ?? null,
+          hints: all(form, "p.muted").map((p) => trimmed(p)),
+        }
+      : null,
+  };
+}

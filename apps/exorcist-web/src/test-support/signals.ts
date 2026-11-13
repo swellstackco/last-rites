@@ -36,3 +36,17 @@ export const ALL_UNKNOWN_SIGNALS: PackageSignals = {
   openVulnsNoFix: unknown,
   knownReplacementExists: unknown,
 };
+
+/** Deprecated and archived on top of the dying signals: grade dead (checked by an example test). */
+export const DEAD_SIGNALS: PackageSignals = {
+  ...DYING_SIGNALS,
+  deprecated: known(true),
+  repoArchived: known(true),
+};
+
+/** Recent commit and no open vulnerabilities on top of the dying signals: grade ailing (checked by an example test). */
+export const AILING_SIGNALS: PackageSignals = {
+  ...DYING_SIGNALS,
+  monthsSinceLastCommit: known(0),
+  openVulnsNoFix: known(0),
+};

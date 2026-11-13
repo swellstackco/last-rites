@@ -10,6 +10,10 @@ import { checkAsyncProperty, formatAsyncReport } from "./test-support/async-prop
 import { build as tt1 } from "./test-support/properties/tt1.js";
 import { build as tt2 } from "./test-support/properties/tt2.js";
 import { build as tt3 } from "./test-support/properties/tt3.js";
+import { build as tp1, buildLive as tp1Live } from "./test-support/properties/tp1.js";
+import { TP1_LIVE_SABOTAGES, TP1_SABOTAGES } from "./test-support/sabotage/tp1.js";
+import { build as tp6 } from "./test-support/properties/tp6.js";
+import { TP6_SABOTAGES } from "./test-support/sabotage/tp6.js";
 import { build as tt4Build, check as tt4Check, sheetsFrom } from "./test-support/properties/tt4.js";
 import type { Sheets } from "./test-support/properties/tt4.js";
 import { build as tt5 } from "./test-support/properties/tt5.js";
@@ -37,6 +41,9 @@ const suites: Suite[] = [
   { property: "Property 1: Scan_Report facts", list: TT1_SABOTAGES, build: tt1 },
   { property: "Property 2: Proof_Report facts", list: TT2_SABOTAGES, build: tt2 },
   { property: "Property 3: safety", list: TT3_SABOTAGES, build: tt3 },
+  { property: "TP1: proof for any grade", list: TP1_SABOTAGES, build: tp1 },
+  { property: "TP1: live scan requests no proof", list: TP1_LIVE_SABOTAGES, build: tp1Live },
+  { property: "TP6: preservation (toe-tag-polish)", list: TP6_SABOTAGES, build: tp6 },
   { property: "Property 7: open at once (DOM part)", list: TT7_DOM_SABOTAGES, build: tt7Dom },
 ];
 

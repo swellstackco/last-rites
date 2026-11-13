@@ -1,6 +1,6 @@
 // Detail_Panel: a hand-written modal dialog (role="dialog") with focus trap and restore.
 import { GRADE_INFO, buildBreakdown, proofSlotFor } from "@graveyard-kit/skeleton/graveyard";
-import type { Grave, ProofState } from "@graveyard-kit/skeleton/graveyard";
+import type { Grave, ProofSlot, ProofState } from "@graveyard-kit/skeleton/graveyard";
 import type { ScannedDependency } from "@graveyard-kit/exorcist-npm/report";
 import { h } from "../dom/h.js";
 import { restoreFocus, setInertAround, trapTab } from "../dom/focus.js";
@@ -49,14 +49,23 @@ function versionText(dep: ScannedDependency): string {
     : `${dep.declaredRange} (declared range)`;
 }
 
+/**
+ * The Proof_Section's slot: dead and dying packages always have one (the shown state replaces the placeholder);
+ * an ailing or alive package has one only when a readable report is shown.
+ */
+function slotFor(grave: Grave<ScannedDependency>, proof?: ProofShown): ProofSlot | undefined {
+  const baseSlot = proofSlotFor(grave);
+  if (baseSlot) return proof ? { ...baseSlot, state: proof.state } : baseSlot;
+  return proof?.state.status === "report" ? { package: grave.record.name, state: proof.state } : undefined;
+}
+
 function renderContent(grave: Grave<ScannedDependency>, onClose: () => void, proof?: ProofShown): HTMLElement[] {
   const dep = grave.record;
   const death = dep.death;
   const info = GRADE_INFO[death.grade];
   const id = graveId(grave);
   const breakdown = buildBreakdown(dep);
-  const baseSlot = proofSlotFor(grave);
-  const slot = baseSlot && proof ? { ...baseSlot, state: proof.state } : baseSlot;
+  const slot = slotFor(grave, proof);
 
   const closeButton = h(
     "button",
@@ -172,10 +181,11 @@ export function createDetail(options: DetailOptions): DetailHandle {
     updateProof(key, proof) {
       if (!opened || !grave || grave.key !== key) return;
       const section = panel.querySelector<HTMLElement>("section.proof");
-      const slot = proofSlotFor(grave);
-      if (!section || !slot) return;
-      const fresh = renderProofSlot({ ...slot, state: proof.state }, `${graveId(grave)}-proof`, proof.unreadable === true);
-      section.replaceChildren(...Array.from(fresh.childNodes));
+      const slot = slotFor(grave, proof);
+      if (!slot) return;
+      const fresh = renderProofSlot(slot, `${graveId(grave)}-proof`, proof.unreadable === true);
+      if (section) section.replaceChildren(...Array.from(fresh.childNodes));
+      else panel.append(fresh); // the report of an ailing or alive package arrived after the panel opened
     },
     close() {
       if (!opened) return;

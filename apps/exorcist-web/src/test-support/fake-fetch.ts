@@ -65,7 +65,10 @@ function toResponse(spec: FakeResponseSpec): Response {
   return new Response(nullBody ? null : body, { status, headers: spec.headers ?? {} });
 }
 
-export function createFakeFetch(routes: Record<string, FakeHandler> = {}): FakeFetch {
+/** Answers a request that matched no explicit route; undefined leaves it unexpected. Explicit routes always win. */
+export type FakeFallback = (call: RecordedCall) => FakeResponseSpec | undefined;
+
+export function createFakeFetch(routes: Record<string, FakeHandler> = {}, fallback?: FakeFallback): FakeFetch {
   const table = new Map<string, FakeHandler>(Object.entries(routes));
   const calls: RecordedCall[] = [];
   const unexpected: string[] = [];
@@ -84,7 +87,7 @@ export function createFakeFetch(routes: Record<string, FakeHandler> = {}): FakeF
     const signal = init?.signal ?? undefined;
     if (signal?.aborted) return Promise.reject(abortError());
 
-    const handler = table.get(`${method} ${url}`);
+    const handler = table.get(`${method} ${url}`) ?? (fallback ? fallback(call) : undefined);
     if (handler === undefined) {
       const key = `${method} ${url}`;
       unexpected.push(key);

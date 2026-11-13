@@ -72,7 +72,7 @@ export function expectedProofFacts(c: ProofCase): ProofFacts {
   };
 }
 
-function proofRoute(c: ProofCase): { status?: number; body?: unknown } {
+export function proofRoute(c: ProofCase): { status?: number; body?: unknown } {
   switch (c.kind) {
     case "report":
       return { body: serializeProofReport(c.report) };
