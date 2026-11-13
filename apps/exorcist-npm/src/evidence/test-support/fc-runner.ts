@@ -88,3 +88,35 @@ export function assertProperty(
     throw new Error(text);
   }
 }
+
+/** Async variant of checkProperty, for `fc.asyncProperty`. */
+export async function checkPropertyAsync(
+  name: string,
+  prop: fc.IAsyncProperty<any>, // eslint-disable-line @typescript-eslint/no-explicit-any
+  seed: number = resolveSeed(),
+): Promise<CounterexampleReport | undefined> {
+  const details = await fc.check(prop, { numRuns: NUM_RUNS, seed });
+  if (!details.failed) return undefined;
+  return {
+    property: name,
+    seed,
+    numRuns: NUM_RUNS,
+    numShrinks: details.numShrinks,
+    counterexample: fc.stringify(details.counterexample),
+    path: details.counterexamplePath,
+    error: details.errorInstance instanceof Error ? details.errorInstance.message : null,
+  };
+}
+
+/** Async variant of assertProperty. */
+export async function assertPropertyAsync(
+  name: string,
+  prop: fc.IAsyncProperty<any>, // eslint-disable-line @typescript-eslint/no-explicit-any
+): Promise<void> {
+  const report = await checkPropertyAsync(name, prop);
+  if (report) {
+    const text = formatReport(report);
+    log("error", text);
+    throw new Error(text);
+  }
+}

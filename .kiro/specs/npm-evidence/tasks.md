@@ -46,22 +46,22 @@ This plan implements the Npm_Evidence_Stage in `/apps/exorcist-npm/src/evidence/
 
 ### Phase 3: Cache and resilient HTTP layer
 
-- [ ] 3.1 Create `src/evidence/http/cache.ts` with `CacheLayer` per the design: sha256 key over method, URL and body (headers excluded), `<root>/.cache/<hash>.json`, `schema: 1` entries, TTL check from the injected clock (`age >= ttl` is expired, future `storedAt` is absent), atomic write, ignore write failures, failures never written, unreadable or invalid files treated as absent, `fromCache` carried outside `response`.
+- [x] 3.1 Create `src/evidence/http/cache.ts` with `CacheLayer` per the design: sha256 key over method, URL and body (headers excluded), `<root>/.cache/<hash>.json`, `schema: 1` entries, TTL check from the injected clock (`age >= ttl` is expired, future `storedAt` is absent), atomic write, ignore write failures, failures never written, unreadable or invalid files treated as absent, `fromCache` carried outside `response`.
   - _Requirements: 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9, 8.10_
-- [ ] 3.2 Write the Property 4 test (cache transparency and TTL) in `http/cache.p4.test.ts`, with the sabotage list in `test-support/sabotage/p4.ts` (ignores TTL; `age == ttl` treated as fresh; two client calls on expiry; never writes; lossy copy).
+- [x] 3.2 Write the Property 4 test (cache transparency and TTL) in `http/cache.p4.test.ts`, with the sabotage list in `test-support/sabotage/p4.ts` (ignores TTL; `age == ttl` treated as fresh; two client calls on expiry; never writes; lossy copy).
   - **Property 4: Cache transparency and TTL**
   - **Validates: Requirements 8.4, 8.5, 8.10, 13.4, 13.7**
-- [ ] 3.3 Write the Property 9 test (cache keys map one-to-one to files, inside the root) in `http/cache.p9.test.ts`, with the sabotage list in `test-support/sabotage/p9.ts` (key includes headers; ignores body; ignores method).
+- [x] 3.3 Write the Property 9 test (cache keys map one-to-one to files, inside the root) in `http/cache.p9.test.ts`, with the sabotage list in `test-support/sabotage/p9.ts` (key includes headers; ignores body; ignores method).
   - **Property 9: Cache keys map one-to-one to files**
   - **Validates: Requirements 8.3, 8.9, 13.7**
-- [ ] 3.4 Create `src/evidence/http/resilient-client.ts` with `ResilientClient`: counting-semaphore scheduler acquired per attempt, 429 retry with `retry-after` or `min(30, 2^attempt)` backoff through the injected `Sleep`, no retry on timeout, retries bounded by `maxRetries`, GitHub rate-limit gate using `x-ratelimit-remaining`/`x-ratelimit-reset` from live responses only, `githubMaxWaitSeconds` cutoff, and 403 with `x-ratelimit-remaining: 0` classified as `rate_limited`. Add `http/fetch-json.ts` with the failure classification table.
+- [x] 3.4 Create `src/evidence/http/resilient-client.ts` with `ResilientClient`: counting-semaphore scheduler acquired per attempt, 429 retry with `retry-after` or `min(30, 2^attempt)` backoff through the injected `Sleep`, no retry on timeout, retries bounded by `maxRetries`, GitHub rate-limit gate using `x-ratelimit-remaining`/`x-ratelimit-reset` from live responses only, `githubMaxWaitSeconds` cutoff, and 403 with `x-ratelimit-remaining: 0` classified as `rate_limited`. Add `http/fetch-json.ts` with the failure classification table.
   - _Requirements: 10.1, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.9, 10.10_
-- [ ] 3.5 Write the Property 10 test (concurrency never exceeds the configured maximum) in `http/resilient-client.p10.test.ts`, with the sabotage list in `test-support/sabotage/p10.ts` (no limit; limit of `M + 1`; slot released before the client call settles).
+- [x] 3.5 Write the Property 10 test (concurrency never exceeds the configured maximum) in `http/resilient-client.p10.test.ts`, with the sabotage list in `test-support/sabotage/p10.ts` (no limit; limit of `M + 1`; slot released before the client call settles).
   - **Property 10: Concurrency never exceeds the configured maximum**
   - **Validates: Requirements 10.1, 13.7**
-- [ ] 3.6 Write example tests for the cache and resilient client: second run makes zero client calls, corrupt cache file overwritten, failure does not overwrite an existing entry, `retry-after` honored, backoff doubles and caps at 30, retries bounded, timeout not retried, gate waits for `x-ratelimit-reset`, wait above the maximum yields `rate_limited`, stale cached rate-limit headers do not trigger the gate.
+- [x] 3.6 Write example tests for the cache and resilient client: second run makes zero client calls, corrupt cache file overwritten, failure does not overwrite an existing entry, `retry-after` honored, backoff doubles and caps at 30, retries bounded, timeout not retried, gate waits for `x-ratelimit-reset`, wait above the maximum yields `rate_limited`, stale cached rate-limit headers do not trigger the gate.
   - _Requirements: 8.5, 8.7, 8.8, 10.3, 10.4, 10.5, 10.6, 10.7, 10.8, 10.10_
-- [ ] 3.7 Checkpoint after Phase 3 - Ensure all tests pass, ask the user if questions arise.
+- [x] 3.7 Checkpoint after Phase 3 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 4: Fixture recording
 
