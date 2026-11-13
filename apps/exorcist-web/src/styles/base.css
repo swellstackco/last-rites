@@ -170,6 +170,11 @@ summary {
   outline-offset: var(--ring-offset);
 }
 
+/* Programmatic focus (tabindex="-1" headings) shows no box; keyboard focus keeps the ring above. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
 /* Layout safety: grid and flex children may shrink, names may wrap anywhere. */
 .grid > *,
 .row > *,
@@ -181,9 +186,11 @@ summary {
 
 .tomb-name,
 .tomb-summary,
-dd,
-td,
-th {
+dd {
+  overflow-wrap: anywhere;
+}
+
+.breakdown .col-signal {
   overflow-wrap: anywhere;
 }
 

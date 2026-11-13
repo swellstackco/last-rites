@@ -93,6 +93,20 @@
   }
 }
 
+.breakdown .col-value,
+.breakdown .col-status,
+.breakdown .col-points,
+.breakdown .col-source {
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.breakdown .col-status,
+.breakdown .col-points {
+  white-space: nowrap;
+  width: 1%;
+}
+
 .bar {
   display: block;
   width: 100%;
@@ -171,6 +185,24 @@
   .breakdown th {
     border-bottom: 0;
     padding: var(--space-1) 0;
+  }
+
+  .breakdown tfoot th,
+  .breakdown tfoot td {
+    border-top: 0;
+  }
+
+  .breakdown tfoot .total {
+    border-top: 3px solid var(--moon);
+  }
+
+  .breakdown .total-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    padding: 0;
   }
 
   .breakdown td[data-label]::before {

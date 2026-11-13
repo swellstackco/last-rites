@@ -1,8 +1,19 @@
 /* The Graveyard: ground, header, groups, tombstones. */
+/* Content_Column: every Screen is centered, max-width, guttered. */
+.screen {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: var(--space-4);
+}
+
+@media (min-width: 40rem) {
+  .screen {
+    padding-inline: var(--space-6);
+  }
+}
+
 .app {
-  max-width: 90rem;
-  margin: 0 auto;
-  padding: var(--space-5) var(--space-4) var(--space-6);
+  padding-block: var(--space-5) var(--space-6);
   background:
     radial-gradient(60rem 24rem at 78% -6rem, rgba(232, 240, 242, 0.07), transparent 70%),
     linear-gradient(to bottom, var(--soil), var(--night) 22rem);
@@ -33,6 +44,9 @@
 }
 
 .counts {
+  margin: 0;
+  padding: 0;
+  list-style: none;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--space-3);
@@ -99,6 +113,11 @@
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
 }
 
+.grid-dead,
+.grid-dying {
+  padding-top: var(--space-2);
+}
+
 .grid-dead {
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
 }
@@ -137,8 +156,7 @@
   line-height: 1;
 }
 
-.tomb-grade,
-.tomb-label {
+.tomb-grade {
   font-size: var(--size-small);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -172,10 +190,10 @@
 .tombstone-dead {
   min-height: 15rem;
   padding-top: var(--space-6);
+  border: 2px solid var(--edge);
   border-top: 4px solid var(--ember);
   border-radius: var(--radius-arch) var(--radius-arch) var(--radius) var(--radius);
   box-shadow: 0 0 1.5rem rgba(255, 106, 61, 0.28);
-  background-image: linear-gradient(to bottom, transparent 2.25rem, var(--edge) 2.25rem, var(--edge) 2.3125rem, transparent 2.3125rem);
   text-align: center;
   justify-items: center;
 }
@@ -190,7 +208,6 @@
   color: var(--ember);
 }
 
-.tombstone-dead .tomb-label,
 .tombstone-dead .tomb-grade {
   color: var(--ember);
 }
@@ -208,6 +225,7 @@
 /* Dying */
 .tombstone-dying {
   min-height: 11rem;
+  border: 2px solid var(--edge);
   border-top: 4px solid var(--amber);
   border-radius: var(--radius-arch) var(--radius-arch) var(--radius) var(--radius) / 2rem 2rem var(--radius) var(--radius);
 }
@@ -217,8 +235,7 @@
   color: var(--amber);
 }
 
-.tombstone-dying .tomb-grade,
-.tombstone-dying .tomb-label {
+.tombstone-dying .tomb-grade {
   color: var(--amber);
 }
 
@@ -235,7 +252,6 @@
   color: var(--lichen);
 }
 
-.tombstone-ailing .tomb-label,
 .tombstone-ailing .tomb-grade {
   color: var(--lichen);
 }
@@ -253,7 +269,6 @@
   color: var(--moss);
 }
 
-.tombstone-alive .tomb-label,
 .tombstone-alive .tomb-grade {
   color: var(--moss);
 }

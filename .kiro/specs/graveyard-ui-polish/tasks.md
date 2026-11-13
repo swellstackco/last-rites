@@ -27,22 +27,22 @@ Fixes the seven presentation defects D1-D7 of the Graveyard_Page found in `docs/
 
 - [x] 3.1 `dom/h.ts`: add `col-signal`, `col-value`, `col-status`, `col-points`, `col-source`, `total-label` to `ClassName`; remove `tomb-label` after 3.2 (do not leave unused names); add `wbr` to the tag vocabulary if it is closed. Update `dom/h.test.ts` if it lists the vocabulary.
 - [x] 3.2 `views/tombstone.ts` (D3a): remove the `span.tomb-label.chip` child; keep `span.tomb-grade`. Do not change ids, aria, `data-*`, score spans, summary or badge. _Requirements: 2.3, 3.2_
-- [ ] 3.3 `views/breakdown.ts` (D4, D5, D6):
+- [x] 3.3 `views/breakdown.ts` (D4, D5, D6):
   - add the `col-*` classes to the header `th` and to every signal and calibration cell;
   - hostname in the Source_Cell with `<wbr>` after each dot (text unchanged, `aria-label` unchanged);
   - Calibration_Row Source cell `Engine rule: ${record.death.calibration?.rule ?? "calibration"}`;
   - Total_Row as `th scope=row colspan=3` plus `td data-label="Total" colspan=2`, no empty cells; mismatch rows unchanged.
   _Requirements: 2.5, 2.6, 2.7, 3.3, 3.4_
-- [ ] 3.4 `styles/graveyard.css` (D1): add `.screen` as the Content_Column (`max-width: 1200px`, `margin-inline: auto`, `padding-inline: var(--space-4)`, and `var(--space-6)` from `min-width: 40rem`); remove `max-width`, `margin` and horizontal padding from `.app` (keep its background and vertical padding). _Requirements: 2.1, 3.5_
-- [ ] 3.5 `styles/graveyard.css` (D2): `.counts { list-style: none; padding: 0; margin: 0 }`, keep the 2/4-column grid. Confirm `.grid` and `.demo-cards` keep their resets; prose lists untouched. _Requirements: 2.2_
-- [ ] 3.6 `styles/graveyard.css` (D3): delete the `.tomb-label` rules; remove `background-image` from `.tombstone-dead`; give dead and dying a uniform `border` with the grade-colored `border-top`; add top room (`padding-top` on `.grid-dead` / `.grid-dying`) only if needed; no `overflow: hidden|clip` on ancestors. Keep the radius, glow, `min-height` and the reduced-motion pulse. _Requirements: 2.4, 3.7_
-- [ ] 3.7 `styles/base.css` and `styles/detail.css` (D4, D6): replace `td, th { overflow-wrap: anywhere }` with the scoped `.col-signal` rule (keep `.tomb-name, .tomb-summary, dd`); add the Short_Cell / Source rules (`overflow-wrap: normal`, `word-break: normal`, `white-space: nowrap; width: 1%` on Status and Points); in the `max-width: 40rem` block set `border-top: 0` on `tfoot` cells and put the 3px border on the `.total` row. _Requirements: 2.5, 2.7, 3.5_
-- [ ] 3.8 `styles/base.css` (D7): add `:focus:not(:focus-visible) { outline: none; }` after the `:focus-visible` rule. Do not touch the `.focus()` calls, the ring, or the `forced-colors` block. Do NOT add the `h1[tabindex="-1"]:focus` contingency here; it is decided in 6.4. _Requirements: 2.8, 3.6_
+- [x] 3.4 `styles/graveyard.css` (D1): add `.screen` as the Content_Column (`max-width: 1200px`, `margin-inline: auto`, `padding-inline: var(--space-4)`, and `var(--space-6)` from `min-width: 40rem`); remove `max-width`, `margin` and horizontal padding from `.app` (keep its background and vertical padding). _Requirements: 2.1, 3.5_
+- [x] 3.5 `styles/graveyard.css` (D2): `.counts { list-style: none; padding: 0; margin: 0 }`, keep the 2/4-column grid. Confirm `.grid` and `.demo-cards` keep their resets; prose lists untouched. _Requirements: 2.2_
+- [x] 3.6 `styles/graveyard.css` (D3): delete the `.tomb-label` rules; remove `background-image` from `.tombstone-dead`; give dead and dying a uniform `border` with the grade-colored `border-top`; add top room (`padding-top` on `.grid-dead` / `.grid-dying`) only if needed; no `overflow: hidden|clip` on ancestors. Keep the radius, glow, `min-height` and the reduced-motion pulse. _Requirements: 2.4, 3.7_
+- [x] 3.7 `styles/base.css` and `styles/detail.css` (D4, D6): replace `td, th { overflow-wrap: anywhere }` with the scoped `.col-signal` rule (keep `.tomb-name, .tomb-summary, dd`); add the Short_Cell / Source rules (`overflow-wrap: normal`, `word-break: normal`, `white-space: nowrap; width: 1%` on Status and Points); in the `max-width: 40rem` block set `border-top: 0` on `tfoot` cells and put the 3px border on the `.total` row. _Requirements: 2.5, 2.7, 3.5_
+- [x] 3.8 `styles/base.css` (D7): add `:focus:not(:focus-visible) { outline: none; }` after the `:focus-visible` rule. Do not touch the `.focus()` calls, the ring, or the `forced-colors` block. Do NOT add the `h1[tabindex="-1"]:focus` contingency here; it is decided in 6.4. _Requirements: 2.8, 3.6_
 
 ### Phase 4: Re-verify
 
-- [ ] 4.1 Re-run Property 9 (DOM) and `checkStylesheet` against the fixed code: PASS, no violations. Record the result in `docs/kiro-log.md`.
-- [ ] 4.2 Re-run Property 10 and S7 against the fixed code: PASS (same seed as 2.3). Run the existing `apps/exorcist-web` suite (`theme.test.ts` included).
+- [x] 4.1 Re-run Property 9 (DOM) and `checkStylesheet` against the fixed code: PASS, no violations. Record the result in `docs/kiro-log.md`.
+- [x] 4.2 Re-run Property 10 and S7 against the fixed code: PASS (same seed as 2.3). Run the existing `apps/exorcist-web` suite (`theme.test.ts` included).
 - [ ] 4.3 Run the `apps/exorcist-web` suite with `CI=1` (seed 20261113) and with two random seeds; confirm green.
 
 ### Phase 5: Sabotage

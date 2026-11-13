@@ -33,6 +33,16 @@ function pointsBar(points: number, weight: number): HTMLElement {
   return h("span", { class: "bar", "aria-hidden": "true" }, fill);
 }
 
+/** Hostname text with a `<wbr>` after each dot, so it can only break at dots. */
+function hostWithBreaks(host: string): Child[] {
+  const out: Child[] = [];
+  host.split(".").forEach((part, i, all) => {
+    out.push(i < all.length - 1 ? `${part}.` : part);
+    if (i < all.length - 1) out.push(h("wbr", null));
+  });
+  return out;
+}
+
 function sourceCell(row: SignalRow): Child {
   if (row.href !== undefined) {
     // Re-validated here: an anchor is only ever built from a Safe_Url.
@@ -46,7 +56,7 @@ function sourceCell(row: SignalRow): Child {
           rel: "noopener noreferrer",
           "aria-label": `Source for ${row.label}: ${row.hrefHost ?? ""}, opens in a new tab`,
         },
-        row.hrefHost ?? "",
+        hostWithBreaks(row.hrefHost ?? ""),
       );
     }
   }
@@ -76,7 +86,7 @@ function signalRow(row: SignalRow): HTMLTableRowElement {
     { "data-status": unknown ? "unknown" : "known" },
     h(
       "th",
-      { scope: "row" },
+      { scope: "row", class: "col-signal" },
       row.label,
       h("br", null),
       h("span", { class: "muted" }, row.explanation),
@@ -84,21 +94,21 @@ function signalRow(row: SignalRow): HTMLTableRowElement {
     ),
     h(
       "td",
-      { "data-label": "Value" },
+      { "data-label": "Value", class: "col-value" },
       unknown ? h("span", { class: "unknown" }, `? ${row.rawDisplay}`) : row.rawDisplay,
     ),
-    h("td", { "data-label": "Status" }, unknown ? "Unknown" : "Known"),
+    h("td", { "data-label": "Status", class: "col-status" }, unknown ? "Unknown" : "Known"),
     h(
       "td",
-      { "data-label": "Points" },
+      { "data-label": "Points", class: "col-points" },
       pointsBar(row.points, row.weight),
       h("span", { class: "num" }, `${row.points} / ${row.weight}`),
     ),
-    h("td", { "data-label": "Source" }, sourceCell(row)),
+    h("td", { "data-label": "Source", class: "col-source" }, sourceCell(row)),
   );
 }
 
-function calibrationBody(row: CalibrationRow): HTMLTableSectionElement {
+function calibrationBody(row: CalibrationRow, rule: string): HTMLTableSectionElement {
   return h(
     "tbody",
     { class: "calibration" },
@@ -107,17 +117,17 @@ function calibrationBody(row: CalibrationRow): HTMLTableSectionElement {
       null,
       h(
         "th",
-        { scope: "row" },
+        { scope: "row", class: "col-signal" },
         h("span", { class: ["calibration-label", "chip"] }, "Declared abandoned"),
         h("br", null),
         row.text,
         h("br", null),
         h("span", { class: "muted" }, row.explanation),
       ),
-      h("td", { "data-label": "Value" }, "n/a"),
-      h("td", { "data-label": "Status" }, "Calibration"),
-      h("td", { "data-label": "Points" }, h("span", { class: "num" }, `+${row.points}`)),
-      h("td", { "data-label": "Source" }, "No source recorded"),
+      h("td", { "data-label": "Value", class: "col-value" }, "n/a"),
+      h("td", { "data-label": "Status", class: "col-status" }, "Calibration"),
+      h("td", { "data-label": "Points", class: "col-points" }, h("span", { class: "num" }, `+${row.points}`)),
+      h("td", { "data-label": "Source", class: "col-source" }, `Engine rule: ${rule}`),
     ),
   );
 }
@@ -141,26 +151,23 @@ export function renderBreakdown(
       h(
         "tr",
         null,
-        h("th", { scope: "col" }, "Signal"),
-        h("th", { scope: "col" }, "Value"),
-        h("th", { scope: "col" }, "Status"),
-        h("th", { scope: "col" }, "Points / weight"),
-        h("th", { scope: "col" }, "Source"),
+        h("th", { scope: "col", class: "col-signal" }, "Signal"),
+        h("th", { scope: "col", class: "col-value" }, "Value"),
+        h("th", { scope: "col", class: "col-status" }, "Status"),
+        h("th", { scope: "col", class: "col-points" }, "Points / weight"),
+        h("th", { scope: "col", class: "col-source" }, "Source"),
       ),
     ),
     h("tbody", null, signalRows.map(signalRow)),
-    calibration ? calibrationBody(calibration) : null,
+    calibration ? calibrationBody(calibration, death.calibration?.rule ?? "calibration") : null,
     h(
       "tfoot",
       null,
       h(
         "tr",
         { class: "total" },
-        h("th", { scope: "row" }, "Total"),
-        h("td", null, ""),
-        h("td", null, ""),
-        h("td", { "data-label": "Total" }, h("span", { class: "num" }, `${breakdown.score} / 100`)),
-        h("td", null, ""),
+        h("th", { scope: "row", colspan: 3, class: "total-label" }, "Total"),
+        h("td", { "data-label": "Total", colspan: 2 }, h("span", { class: "num" }, `${breakdown.score} / 100`)),
       ),
       breakdown.consistent
         ? null
