@@ -24,7 +24,7 @@ export const CSS_SABOTAGES: readonly CssSabotage[] = [
   { name: "(m) .screen padding-inline is 0", check: "S1", mutate: (c) => replaceOnce(c, "  margin-inline: auto;\n  padding-inline: var(--space-4);", "  margin-inline: auto;\n  padding-inline: 0;") },
   { name: "(n) .counts loses list-style: none", check: "S2", mutate: (c) => replaceOnce(c, ".counts {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n", ".counts {\n  margin: 0;\n  padding: 0;\n") },
   {
-    name: "(o) gradient line back on .tombstone-dead",
+    name: "(o) gradient back on .tombstone-dead",
     check: "S3",
     mutate: append(".tombstone-dead { background-image: linear-gradient(to bottom, transparent 2.25rem, var(--edge) 2.25rem, transparent 2.3rem); }"),
   },

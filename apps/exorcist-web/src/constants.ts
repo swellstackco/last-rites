@@ -1,6 +1,8 @@
 /** Display name of the product. Display text only; nothing is renamed to it. */
 export const PRODUCT_NAME = "Last Rites";
 export const SCREEN_NAME = "The Graveyard";
+/** Decorative masthead subtitle. Copy, not data. */
+export const FORM_SUBTITLE = "Office of the Dependency Examiner · Form LR-1";
 
 /** Live scan rate limit shown to the visitor. A test compares it with the Scan_Api default. */
 export const LIVE_SCAN_LIMIT = { limit: 10, windowSeconds: 60 } as const;
@@ -37,3 +39,6 @@ export const COPY = {
 
 /** A report string shown in a Tombstone is cut to this many characters (with an ellipsis). */
 export const MAX_TOMBSTONE_TEXT = 200;
+
+/** Decorative Tag_Labels of a Toe_Tag. None equals a grade word. */
+export const TAG_LABELS = { package: "PACKAGE", score: "SCORE", cause: "CAUSE" } as const;

@@ -51,10 +51,9 @@ export const hostileScanReportArb: fc.Arbitrary<ScanReport> = fc
 
 const ANY_ATTR_ON = /^on/i;
 /**
- * The points-bar width, plus (until task 4.1 removes it) the header count's token-colored top border. Neither can
- * hold report text: a number followed by `%`, or `var(--token)`.
+ * Only the points-bar width: a number followed by `%`. It cannot hold report text.
  */
-const ALLOWED_STYLE = /^(width:\s*\d+(\.\d+)?%|border-top-color:\s*var\(--[a-z-]+\));?$/;
+const ALLOWED_STYLE = /^width:\s*\d+(\.\d+)?%;?$/;
 const FORBIDDEN = "img, script, iframe, object, embed, svg, style";
 
 /** Throws a TT3Failure naming the first violated rule. */

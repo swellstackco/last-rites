@@ -3,7 +3,7 @@ import type { GradeBand } from "@graveyard-kit/skeleton";
 import { GRADE_INFO, summaryLine } from "@graveyard-kit/skeleton/graveyard";
 import type { Grave } from "@graveyard-kit/skeleton/graveyard";
 import type { ScannedDependency } from "@graveyard-kit/exorcist-npm/report";
-import { MAX_TOMBSTONE_TEXT } from "../constants.js";
+import { MAX_TOMBSTONE_TEXT, TAG_LABELS } from "../constants.js";
 import { h } from "../dom/h.js";
 import type { ClassName } from "../dom/h.js";
 
@@ -50,22 +50,42 @@ export function renderTombstone(grave: Grave<ScannedDependency>): HTMLButtonElem
       "data-key": grave.key,
       "data-grade": grade,
     },
-    h("span", { class: "tomb-name" }, cutText(name)),
+    h("span", { class: "tag-hole", "aria-hidden": "true" }),
     h(
       "span",
-      { class: "tomb-score", title: scoreLabel },
-      h("span", { "aria-hidden": "true" }, String(death.score)),
-      h("span", { class: "visually-hidden" }, scoreLabel),
+      { class: ["tag-field", "tag-package"] },
+      h("span", { class: "tag-label", "aria-hidden": "true" }, TAG_LABELS.package),
+      h("span", { class: "tomb-name" }, cutText(name)),
     ),
-    h("span", { class: "tomb-grade", "aria-hidden": "true" }, GRADE_INFO[grade].label),
-    h("span", { class: "tomb-summary" }, cutText(summaryLine(grave.record))),
-    unknown > 0
-      ? h(
-          "span",
-          { class: "tomb-badge", "aria-label": `${unknown} unknown ${unknown === 1 ? "signal" : "signals"}` },
-          `${unknown} unknown`,
-        )
-      : null,
+    h(
+      "span",
+      { class: ["tag-field", "tag-score"] },
+      h("span", { class: "tag-label", "aria-hidden": "true" }, TAG_LABELS.score),
+      h(
+        "span",
+        { class: "tomb-score", title: scoreLabel },
+        h("span", { "aria-hidden": "true" }, String(death.score)),
+        h("span", { class: "visually-hidden" }, scoreLabel),
+      ),
+    ),
+    h(
+      "span",
+      { class: ["tag-field", "tag-cause"] },
+      h("span", { class: "tag-label", "aria-hidden": "true" }, TAG_LABELS.cause),
+      h("span", { class: "tomb-summary" }, cutText(summaryLine(grave.record))),
+    ),
+    h(
+      "span",
+      { class: "tag-band" },
+      h("span", { class: "tomb-grade", "aria-hidden": "true" }, GRADE_INFO[grade].label),
+      unknown > 0
+        ? h(
+            "span",
+            { class: "tomb-badge", "aria-label": `${unknown} unknown ${unknown === 1 ? "signal" : "signals"}` },
+            `${unknown} unknown`,
+          )
+        : h("span", { class: "tag-range", "aria-hidden": "true" }, `${GRADE_INFO[grade].min}-${GRADE_INFO[grade].max}`),
+    ),
     h("span", { id: `${id}-desc`, class: "visually-hidden" }, TOMBSTONE_DESCRIPTION),
   );
 }

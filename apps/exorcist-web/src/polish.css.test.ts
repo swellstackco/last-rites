@@ -18,7 +18,7 @@ describe("Stylesheet checks (graveyard-ui-polish)", () => {
   it("S2 lists: layout lists have no bullets, prose lists keep theirs", () => {
     expect(text(of("S2"))).toBe("");
   });
-  it("S3 arch: no gradient line, uniform border, no clipping ancestor", () => {
+  it("S3 toe tag: no gradient, chamfer on the pseudo-element layers, no clipping ancestor", () => {
     expect(text(of("S3"))).toBe("");
   });
   it("S4 words: no mid-word breaks in short cells", () => {

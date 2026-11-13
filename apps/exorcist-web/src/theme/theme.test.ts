@@ -152,7 +152,9 @@ describe("CSS text checks", () => {
   it("has the recording sizes (16px root at every width, 56px score)", () => {
     expect(decls.some((d) => d.prop === "font-size" && d.value === "16px" && !d.preludes.some((p) => p.startsWith("@media")))).toBe(true);
     expect(decls.some((d) => d.prop === "font-size" && d.preludes.includes("html") && d.preludes.some((p) => /min-width:\s*1200px/.test(p)))).toBe(false);
-    expect(decls.some((d) => d.prop === "font-size" && d.value === "56px")).toBe(true);
+    const token = (v: string): string => v.replace(/var\((--[a-z0-9-]+)\)/gi, (m, n: string) => tokens.get(n) ?? m);
+    expect(decls.some((d) => d.prop === "font-size" && token(d.value) === "3.5rem")).toBe(true);
+    expect(tokens.get("--size-score-dead")).toBe("3.5rem");
   });
 
   it("loads nothing remote", () => {

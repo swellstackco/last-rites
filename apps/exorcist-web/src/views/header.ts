@@ -1,7 +1,7 @@
 // Summary_Header: repo facts, four count controls, legend, warnings, notes, skip link.
 import type { GradeBand } from "@graveyard-kit/skeleton";
 import { GRADE_INFO, GRADE_ORDER } from "@graveyard-kit/skeleton/graveyard";
-import { COPY, PRODUCT_NAME, SCREEN_NAME } from "../constants.js";
+import { COPY, FORM_SUBTITLE, PRODUCT_NAME, SCREEN_NAME } from "../constants.js";
 import { constantHref, h } from "../dom/h.js";
 import type { ClassName } from "../dom/h.js";
 import type { SummaryHeader } from "../model/report-view.js";
@@ -18,13 +18,6 @@ export interface HeaderHandle {
   /** The screen's h1 (tabindex -1), focus target on phase change. */
   heading: HTMLElement;
 }
-
-const COUNT_BORDER: Record<GradeBand, string> = {
-  dead: "var(--ember)",
-  dying: "var(--amber)",
-  ailing: "var(--lichen)",
-  alive: "var(--moss)",
-};
 
 export function renderHeader(opts: HeaderOptions): HeaderHandle {
   const { header } = opts;
@@ -51,7 +44,6 @@ export function renderHeader(opts: HeaderOptions): HeaderHandle {
       h("span", { class: "num" }, String(header.counts[grade])),
       h("span", null, label),
     );
-    button.style.borderTopColor = COUNT_BORDER[grade];
     button.addEventListener("click", () => opts.onFocusGroup(grade));
     return h("li", null, button);
   });
@@ -68,8 +60,9 @@ export function renderHeader(opts: HeaderOptions): HeaderHandle {
     h("nav", { "aria-label": "Skip links" }, skip),
     h(
       "div",
-      { class: "stack" },
-      h("p", { class: "meta" }, PRODUCT_NAME),
+      { class: "masthead" },
+      h("p", { class: "wordmark" }, PRODUCT_NAME),
+      h("p", { class: "form-subtitle" }, FORM_SUBTITLE),
       heading,
       h(
         "p",

@@ -124,23 +124,23 @@ export function checkStylesheet(css: string): Violation[] {
     if (prose && /^none$/.test(get(r, "list-style") ?? "")) bad("S2", `prose list rule removes bullets: ${r.selectors.join(", ")}`);
   }
 
-  // ---- S3 arch (2.4) ----
-  for (const r of rules.filter((x) => x.selectors.some((s) => /\.tombstone-dead\b/.test(s)))) {
+  // ---- S3 toe tag shape (toe-tag-redesign 5.7; was the arch of graveyard-ui-polish 2.4) ----
+  for (const r of rules.filter((x) => x.selectors.some((s) => /\.tombstone/.test(s)))) {
     for (const d of r.decls) {
       if ((d.prop === "background-image" || d.prop === "background") && /gradient/i.test(d.value)) {
-        bad("S3", `${r.selectors.join(", ")} draws a gradient line (${d.prop})`);
+        bad("S3", `${r.selectors.join(", ")} draws a gradient (${d.prop})`);
       }
     }
   }
-  for (const cls of ["tombstone-dead", "tombstone-dying"]) {
-    const rule = rules.find((r) => r.media.length === 0 && r.selectors.length === 1 && hasSelector(r, `.${cls}`));
-    const borderAt = rule?.decls.findIndex((d) => d.prop === "border") ?? -1;
-    const topAt = rule?.decls.findIndex((d) => d.prop === "border-top") ?? -1;
-    if (borderAt === -1 || topAt === -1 || borderAt > topAt) {
-      bad("S3", `.${cls} needs a uniform border before its border-top (found border at ${borderAt}, border-top at ${topAt})`);
-    }
+  // The chamfer lives on the two pseudo-element layers; the button and its ancestors are never clipped, so the focus ring is a full rectangle.
+  for (const pseudo of ["::before", "::after"]) {
+    const layer = rules.some((r) => hasSelector(r, `.tombstone${pseudo}`) && get(r, "clip-path") !== undefined);
+    if (!layer) bad("S3", `.tombstone${pseudo} needs a clip-path (the chamfer)`);
   }
-  for (const r of rules.filter((x) => x.selectors.some((s) => /^\.(grid|group|screen|app|tombstone)/.test(s)))) {
+  for (const r of rules.filter((x) => x.selectors.some((s) => /^\.(grid|group|screen|app|tombstone)\b/.test(s)))) {
+    const plain = r.selectors.filter((s) => !s.includes("::"));
+    const clip = get(r, "clip-path");
+    if (plain.length > 0 && clip !== undefined && clip !== "none") bad("S3", `${plain.join(", ")} clips with clip-path (${clip})`);
     const overflow = [get(r, "overflow"), get(r, "overflow-x"), get(r, "overflow-y")].find((v) => v !== undefined && /^(hidden|clip)\b/.test(v));
     if (overflow) bad("S3", `${r.selectors.join(", ")} clips overflow (${overflow})`);
   }
@@ -198,7 +198,7 @@ export function checkStylesheet(css: string): Violation[] {
   if (decls.some((d) => d.prop === "font-size" && d.preludes.includes("html") && d.preludes.some((p) => /min-width:\s*1200px/.test(p)))) {
     bad("S7", "a min-width 1200px font-size rule exists (root is 16px at every width)");
   }
-  if (!decls.some((d) => d.prop === "font-size" && d.value === "56px")) bad("S7", "56px dead score is gone");
+  if (!decls.some((d) => d.prop === "font-size" && px(resolve(d.value)) === 56)) bad("S7", "56px dead score is gone");
   const motion = decls.filter(
     (d) => /^(animation|transition)(-[a-z-]+)?$/.test(d.prop) || (d.prop === "scroll-behavior" && /smooth/.test(d.value)),
   );
