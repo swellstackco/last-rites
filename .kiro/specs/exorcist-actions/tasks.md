@@ -28,7 +28,7 @@ Terminology: a *Mutant* belongs to the proof of this app (five of them, Requirem
   - _Requirements: 1.5, 4.5_
 - [x] 1.7 Edit `apps/exorcist-npm/src/programmatic.ts`: add re-exports (no logic) of `fetchJson`, `classifyStatus`, `monthsSince`, `parseIsoTimestamp`, `countOpenVulnsNoFix`, `fetchOsv`, `OSV_QUERY_URL`, `osvListUrl`, `osvRequestBody`, `fetchGithub`, `createGithubGet`, `repoPageUrl`, `reasonMessage`, `isRecord`, `ok`, `fail`. Edit `programmatic-testing.ts`: add re-exports of `loadFixtureCase`, `FixtureEntry`, `UnmatchedFixtureRequest`. Update the pinned export list in `apps/exorcist-npm/src/programmatic.test.ts` and keep its "no function body" check green.
   - _Requirements: 1.4, 1.5_
-- [ ] 1.8 Checkpoint after Phase 1 - Run `npm run typecheck` and `npm test -- apps/exorcist-npm`; confirm every pre-existing test file is unchanged except the ones named above and that all are green. Ensure all tests pass, ask the user if questions arise.
+- [x] 1.8 Checkpoint after Phase 1 - Run `npm run typecheck` and `npm test -- apps/exorcist-npm`; confirm every pre-existing test file is unchanged except the ones named above and that all are green. Ensure all tests pass, ask the user if questions arise.
   - _Requirements: 1.5_
 
 ### Phase 2: Inventory and the Uses_String grammar
