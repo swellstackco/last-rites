@@ -3,6 +3,9 @@ import fc from "fast-check";
 import type { PackageSignals, SignalName, SignalValue } from "@graveyard-kit/skeleton";
 import { hostileUrlArb } from "@graveyard-kit/skeleton/graveyard/testing";
 import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import type { ProofReport } from "@graveyard-kit/skeleton/proof";
+import { buildProofReport } from "./build-proof-report.js";
+import type { ProofKind } from "./build-proof-report.js";
 import { buildReport, tamperUrl } from "./build-report.js";
 import type { FixtureDependency } from "./build-report.js";
 
@@ -100,3 +103,78 @@ export const scanReportArb: fc.Arbitrary<ScanReport> = fc
 
 /** An index into the report's dependencies; use it modulo the dependency count. */
 export const openPackageArb: fc.Arbitrary<number> = fc.nat({ max: 11 });
+
+// ---- Proof_Reports (toe-tag-redesign Property 2) -----------------------------------------------------
+
+export const proofKindArb: fc.Arbitrary<ProofKind> = fc.constantFrom<ProofKind>(
+  "proved",
+  "weak",
+  "counterexample",
+  "no_call_sites",
+  "error",
+);
+
+const HOSTILE_TEXT: readonly string[] = [
+  "<img src=x onerror=alert(1)>",
+  "javascript:alert(1)",
+  "&lt;b&gt;",
+  '"><script>',
+  "data:text/html,x",
+  "x".repeat(200),
+  "line one\nline two\r\n  indented\ttab\n",
+  "  leading and trailing  ",
+  "é😀 ü",
+  "",
+];
+
+/** Free text: arbitrary (well-formed unicode, multi-line) or from the hostile corpus. */
+const textArb: fc.Arbitrary<string> = fc.oneof(
+  { weight: 3, arbitrary: fc.fullUnicodeString({ maxLength: 24 }) },
+  { weight: 2, arbitrary: fc.constantFrom(...HOSTILE_TEXT) },
+  { weight: 1, arbitrary: fc.array(fc.string({ maxLength: 8 }), { maxLength: 4 }).map((l) => l.join("\n")) },
+);
+
+/**
+ * A consistent Proof_Report: 1-3 attempts, the last of any of the five kinds, 0-80 call sites (0 only when the
+ * report has no call sites), every free-text field arbitrary or hostile. Built with the real builders; it parses
+ * with the real `parseProofReport` (checked by an example test).
+ */
+export const proofReportArb: fc.Arbitrary<ProofReport> = fc
+  .tuple(
+    proofKindArb,
+    fc.array(fc.constantFrom<ProofKind>("counterexample", "error", "no_call_sites"), { maxLength: 2 }),
+    fc.integer({ min: 1, max: 80 }),
+    fc.integer({ min: 0, max: 3 }),
+    fc.array(textArb, { minLength: 8, maxLength: 8 }),
+  )
+  .map(([last, history, sites, imports, texts]) => {
+    // proved/weak attempts need call sites; no-call-sites attempts need none. Keep the report consistent.
+    const noSites = last === "no_call_sites" || history.includes("no_call_sites");
+    const kinds: ProofKind[] = noSites ? history.filter((k) => k !== "proved" && k !== "weak") : history;
+    const lastKind: ProofKind = noSites && (last === "proved" || last === "weak") ? "no_call_sites" : last;
+    const report = buildProofReport(lastKind, { callSites: sites, importSites: imports }, kinds);
+    const t = (i: number): string => texts[i] as string;
+    if (noSites) report.callSites = [];
+    report.callSites.forEach((c, i) => {
+      c.file = `${t(0)}#${i}`;
+      c.callee = t(1);
+      c.argTexts = [t(2)];
+    });
+    for (const a of report.attempts) {
+      if (a.candidate) a.candidate = { name: t(3), source: t(4) };
+      if (a.counterexample) {
+        a.counterexample = {
+          ...a.counterexample,
+          input: t(5),
+          oldOutput: t(6),
+          newOutput: t(7),
+          oldProjected: t(6),
+          newProjected: t(7),
+        };
+      }
+      if (a.error) a.error = { ...a.error, message: t(3) };
+      if (a.sabotage.survivors.length > 0) a.sabotage.survivors = a.sabotage.survivors.map(() => t(4));
+      if (a.recommendation) a.recommendation = report.importSites.length === 0 ? "remove-dependency" : "review-imports";
+    }
+    return report;
+  });

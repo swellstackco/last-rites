@@ -296,3 +296,13 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - 1.7: `vite build` ok; `dist/fonts/` holds the seven woff2 files; CSP meta unchanged; `dist/` is git-ignored.
 - Counterexamples from fast-check this run: none (no new properties).
 - Counts (repo root): 140 files, 1268 tests pass, 1 todo. Typecheck clean.
+
+## 2026-11-13: toe-tag-redesign 2.1 to 2.8 (preservation baseline, written against the UNCHANGED views)
+
+- 2.1: `src/__reference__/views-v2/{tombstone,breakdown,header,proof-slot}.ts` are byte copies of the current production views (imports adjusted). `views-v1/` untouched.
+- 2.2: `test-support/toe-facts.ts` (`toeFacts`, reads Fact_Hooks only) and `test-support/toe-reference.ts` (renders header, tags, groups, skipped, breakdown and proof slot with the frozen views; groups and skipped are assembled from the view model because those views are not frozen).
+- 2.3: `proofReportArb` and `proofKindArb` in `test-support/arbitraries.ts` (5 kinds, 1-80 call sites, 1-3 attempts, hostile/multi-line/unicode text); example test checks every report round-trips through the real parser.
+- 2.4-2.7: Property 1 (`properties/tt1.ts`) and Property 2 (`properties/tt2.ts`) with the real-data examples (4 demo scan reports, every `demo/proofs/**/*.json`). Property 1 reports sometimes carry a tampered grade (grade disagrees with score) so the Band, the mismatch row and the summary notice are really exercised. `scanReportArb` has 1-12 dependencies (the spec text says up to 60); I kept the existing arbitrary.
+- 2.8: Property 3 (`properties/tt3.ts`). Judgment call: the baseline page still sets an inline `style="border-top-color: var(--token)"` on the header count buttons (removed by task 4.1), so the property allows exactly that token-only form for now; it can hold no report text. Task 4.1 should tighten `ALLOWED_STYLE` to the bar width only.
+- Counterexamples found by fast-check this run: one, in Property 3 on the first run, shrunk to a one-dependency report (`left-pad`, ailing) and a one-call-site proof. Old output: the unchanged page. Failure: `style attribute "border-top-color: var(--ember);"`. That was the test's rule being stricter than the baseline page, not a bug in the page (the fix is the allowance above). Properties 1 and 2 found none.
+- Not yet done: sabotage lists (2.9) and the CI/random-seed baseline runs (2.10).
