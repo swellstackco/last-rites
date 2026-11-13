@@ -56,28 +56,28 @@ Scope is the Graveyard only. No change to the scan API, scanner, evidence stage 
 
 ### Phase 3: View model properties and sabotage
 
-- [ ] 3.1 Create `skeleton/src/graveyard/test-support/arbitraries.ts`: `graveRecordArb` (real `scoreDeath` over `packageSignalsArb` and `configWithFloorArb`, collision-prone names including `__proto__` and `constructor`, boundary-biased scores, calibrated and all-unknown records, `unknownReasons` for unknown signals), `graveRecordsArb` (0..60 records), `tamperedRecordArb` (one tamper: part points, score, grade or calibration points), and `hostileUrlArb` (the corpus of Requirement 19.6 mixed with `fc.string()` and valid URLs in mixed case). Re-use, do not copy, the generators in `death-score/arbitraries.ts`.
+- [x] 3.1 Create `skeleton/src/graveyard/test-support/arbitraries.ts`: `graveRecordArb` (real `scoreDeath` over `packageSignalsArb` and `configWithFloorArb`, collision-prone names including `__proto__` and `constructor`, boundary-biased scores, calibrated and all-unknown records, `unknownReasons` for unknown signals), `graveRecordsArb` (0..60 records), `tamperedRecordArb` (one tamper: part points, score, grade or calibration points), and `hostileUrlArb` (the corpus of Requirement 19.6 mixed with `fc.string()` and valid URLs in mixed case). Re-use, do not copy, the generators in `death-score/arbitraries.ts`.
   - _Requirements: 19.2, 19.4, 19.6_
-- [ ] 3.2 Create `skeleton/src/graveyard/test-support/sabotage-runner.ts` with `assertAllSabotagesCaught(propertyName, list, runProperty)` that fails with `Sabotage "<name>" stayed green for "<property>"`. Create `testing.ts` re-exporting the arbitraries, the runner and `assertProperty`, `NUM_RUNS`, `FIXED_SEED` from `death-score/fc-runner.ts`.
+- [x] 3.2 Create `skeleton/src/graveyard/test-support/sabotage-runner.ts` with `assertAllSabotagesCaught(propertyName, list, runProperty)` that fails with `Sabotage "<name>" stayed green for "<property>"`. Create `testing.ts` re-exporting the arbitraries, the runner and `assertProperty`, `NUM_RUNS`, `FIXED_SEED` from `death-score/fc-runner.ts`.
   - _Requirements: 19.8, 20.3_
-- [ ] 3.3 Write the Property 1 test in `test-support/properties/p1.ts` and `partition.p1.test.ts` (exporting `build(impl)`), with sabotages in `test-support/sabotage/p1.ts`: drop a record that shares a name; drop the alive group; boundary-score record in two groups; keys without suffix; filter out score 0; sort the input in place.
+- [x] 3.3 Write the Property 1 test in `test-support/properties/p1.ts` and `partition.p1.test.ts` (exporting `build(impl)`), with sabotages in `test-support/sabotage/p1.ts`: drop a record that shares a name; drop the alive group; boundary-score record in two groups; keys without suffix; filter out score 0; sort the input in place.
   - **Property 1: Grouping is a partition**
   - **Validates: Requirements 6.1, 6.2, 6.4, 6.7, 19.2**
-- [ ] 3.4 Write the Property 2 test in `test-support/properties/p2.ts` and `ordering.p2.test.ts` with an independently written reference comparator, and sabotages in `test-support/sabotage/p2.ts`: score ascending; no name tiebreak; reversed grade order; name before score; `localeCompare`; score as string; `Math.random` tiebreak; name descending.
+- [x] 3.4 Write the Property 2 test in `test-support/properties/p2.ts` and `ordering.p2.test.ts` with an independently written reference comparator, and sabotages in `test-support/sabotage/p2.ts`: score ascending; no name tiebreak; reversed grade order; name before score; `localeCompare`; score as string; `Math.random` tiebreak; name descending.
   - **Property 2: Ordering is band, then score descending, then name, stable and deterministic**
   - **Validates: Requirements 6.3, 6.6, 19.3**
-- [ ] 3.5 Write the Property 3 test in `test-support/properties/p3.ts` and `breakdown.p3.test.ts`, with sabotages in `test-support/sabotage/p3.ts`: omit the calibration row; count calibration twice; weight instead of points; exclude unknown rows from the sum; score computed from the sum; `consistent` always true.
+- [x] 3.5 Write the Property 3 test in `test-support/properties/p3.ts` and `breakdown.p3.test.ts`, with sabotages in `test-support/sabotage/p3.ts`: omit the calibration row; count calibration twice; weight instead of points; exclude unknown rows from the sum; score computed from the sum; `consistent` always true.
   - **Property 3: Breakdown rows sum to the displayed score**
   - **Validates: Requirements 9.3, 9.4, 9.5, 10.1, 10.2, 10.4, 11.3, 19.4**
-- [ ] 3.6 Write the Property 4 test for the view-model half in `test-support/properties/p4.ts` and `counts.p4.test.ts` (counts equal group sizes, equal an independent recount, sum to total), with sabotages in `test-support/sabotage/p4.ts` for the view-model: `dying` counted as `dead`; off-by-one alive; counts from the first 50 records. The header half of Property 4 is added in task 5.5.
+- [x] 3.6 Write the Property 4 test for the view-model half in `test-support/properties/p4.ts` and `counts.p4.test.ts` (counts equal group sizes, equal an independent recount, sum to total), with sabotages in `test-support/sabotage/p4.ts` for the view-model: `dying` counted as `dead`; off-by-one alive; counts from the first 50 records. The header half of Property 4 is added in task 5.5.
   - **Property 4: Header counts equal the grouped list sizes (view model)**
   - **Validates: Requirements 6.5, 8.2, 19.5**
-- [ ] 3.7 Write the Property 5 test in `test-support/properties/p5.ts` and `safe-url.p5.test.ts` (over `safeHttpUrl` and over every row `href` produced by `buildBreakdown` for tampered URLs), with sabotages in `test-support/sabotage/p5.ts`: no check; `javascript:` denylist only; case-sensitive denylist; `startsWith("http")`; accepts `//host`; accepts userinfo; validates trimmed but returns untrimmed; returns a normalized copy.
+- [x] 3.7 Write the Property 5 test in `test-support/properties/p5.ts` and `safe-url.p5.test.ts` (over `safeHttpUrl` and over every row `href` produced by `buildBreakdown` for tampered URLs), with sabotages in `test-support/sabotage/p5.ts`: no check; `javascript:` denylist only; case-sensitive denylist; `startsWith("http")`; accepts `//host`; accepts userinfo; validates trimmed but returns untrimmed; returns a normalized copy.
   - **Property 5: Source links only ever render http or https URLs**
   - **Validates: Requirements 12.1, 12.2, 12.3, 12.5, 18.1, 19.6**
-- [ ] 3.8 Create `skeleton/src/graveyard/sabotage.test.ts`: import the five lists and `build` functions; run each property against every entry with seed 20261113 through `assertAllSabotagesCaught`; assert every list is non-empty; assert the sabotages named in Requirement 20.2 exist in the right lists; assert the real implementations pass every property under the same seed.
+- [x] 3.8 Create `skeleton/src/graveyard/sabotage.test.ts`: import the five lists and `build` functions; run each property against every entry with seed 20261113 through `assertAllSabotagesCaught`; assert every list is non-empty; assert the sabotages named in Requirement 20.2 exist in the right lists; assert the real implementations pass every property under the same seed.
   - _Requirements: 20.1, 20.2, 20.3_
-- [ ] 3.9 Checkpoint after Phase 3 - Ensure `npm run typecheck` and `npm test` pass, ask the user if questions arise.
+- [x] 3.9 Checkpoint after Phase 3 - Ensure `npm run typecheck` and `npm test` pass, ask the user if questions arise.
 
 ### Phase 4: Page models, Api_Client and fixtures
 

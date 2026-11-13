@@ -14,12 +14,23 @@ export function compareGraves(a: Grave<GraveRecord>, b: Grave<GraveRecord>): num
 }
 
 export function buildGraveyard<T extends GraveRecord>(records: readonly T[]): GraveyardView<T> {
+  const names = new Set<string>(records.map((r) => r.name));
+  const used = new Set<string>();
   const seen = new Map<string, number>();
   const buckets: Record<GradeBand, Grave<T>[]> = { dead: [], dying: [], ailing: [], alive: [] };
+  // Reserve every first-of-name key (the name itself) so a suffixed key can never collide with it.
+  for (const r of records) if (!used.has(r.name)) used.add(r.name);
   records.forEach((record, index) => {
     const n = (seen.get(record.name) ?? 0) + 1;
     seen.set(record.name, n);
-    const key = n === 1 ? record.name : `${record.name}#${n}`;
+    let key = record.name;
+    if (n > 1) {
+      // `<name>#<n>`; if that equals another record's name or key (e.g. a record named "a#2"), bump n.
+      let k = n;
+      key = `${record.name}#${k}`;
+      while (used.has(key) || names.has(key)) key = `${record.name}#${++k}`;
+      used.add(key);
+    }
     buckets[record.death.grade].push({ key, index, record });
   });
   const group = (grade: GradeBand): GradeGroup<T> => {
