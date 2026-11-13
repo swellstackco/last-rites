@@ -1,0 +1,25 @@
+{
+  "repo": "parse-community/parse-server",
+  "commit": "3402ee6",
+  "package": "node-abort-controller",
+  "filesScanned": 371,
+  "callSites": [],
+  "importSites": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "status": "no-call-sites",
+      "weak": false,
+      "numRuns": 1000,
+      "runs": 0,
+      "seed": 20261113,
+      "shapes": [],
+      "recommendation": "remove-dependency",
+      "sabotage": {
+        "applied": 0,
+        "caught": 0,
+        "survivors": []
+      }
+    }
+  ]
+}

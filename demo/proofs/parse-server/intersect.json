@@ -1,0 +1,139 @@
+{
+  "repo": "parse-community/parse-server",
+  "commit": "3402ee6",
+  "package": "intersect",
+  "oracleVersion": "1.0.1",
+  "filesScanned": 371,
+  "callSites": [
+    {
+      "file": "src/Controllers/DatabaseController.js",
+      "line": 1395,
+      "column": 25,
+      "callee": "intersect.big",
+      "member": "big",
+      "argCount": 1,
+      "argTexts": [
+        "allIds"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": "src/Controllers/DatabaseController.js",
+      "line": 1397,
+      "column": 25,
+      "callee": "intersect",
+      "member": "",
+      "argCount": 1,
+      "argTexts": [
+        "allIds"
+      ],
+      "enclosing": "src"
+    }
+  ],
+  "importSites": [
+    {
+      "file": "src/Controllers/DatabaseController.js",
+      "line": 10,
+      "column": 1,
+      "form": "import-default"
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate": {
+        "name": "intersect.attempt1.js",
+        "source": "// Attempt 1: the NAIVE native replacement for `intersect@1.0.1`.\n// Written for this repository. It builds Sets, so it de-duplicates the result.\n// It is expected to be wrong where the old package keeps duplicates of the last list.\n\nfunction intersect(lists) {\n  if (!Array.isArray(lists) || lists.length === 0) return [];\n  const [first, ...rest] = lists;\n  const restSets = rest.map((list) => new Set(list));\n  const seen = new Set();\n  const out = [];\n  for (const item of first) {\n    if (seen.has(item)) continue;\n    if (restSets.every((s) => s.has(item))) {\n      seen.add(item);\n      out.push(item);\n    }\n  }\n  return out;\n}\n\nintersect.big = intersect;\n\nexport default intersect;\n"
+      },
+      "status": "counterexample",
+      "weak": false,
+      "numRuns": 1000,
+      "runs": 10,
+      "seed": 20261113,
+      "shapes": [
+        {
+          "id": "intersect",
+          "status": "failed",
+          "runs": 5,
+          "coverage": {
+            "duplicates-in-last-list": 2,
+            "empty-result": 45,
+            "multi-list": 2,
+            "non-empty-result": 4,
+            "single-list": 5
+          }
+        },
+        {
+          "id": "intersect.big",
+          "status": "failed",
+          "runs": 5,
+          "coverage": {
+            "duplicates-in-last-list": 2,
+            "empty-result": 45,
+            "multi-list": 2,
+            "non-empty-result": 4,
+            "single-list": 5
+          }
+        }
+      ],
+      "counterexample": {
+        "shape": "intersect",
+        "input": "[[[\"düC4Bbb2üB57051df3\",\"düC4Bbb2üB57051df3\"]]]",
+        "shrinks": 1,
+        "path": "4:40",
+        "oldOutput": "[\"düC4Bbb2üB57051df3\",\"düC4Bbb2üB57051df3\"]",
+        "newOutput": "[\"düC4Bbb2üB57051df3\"]",
+        "oldProjected": "[\"düC4Bbb2üB57051df3\",\"düC4Bbb2üB57051df3\"]",
+        "newProjected": "[\"düC4Bbb2üB57051df3\"]"
+      },
+      "sabotage": {
+        "applied": 0,
+        "caught": 0,
+        "survivors": []
+      }
+    },
+    {
+      "attempt": 2,
+      "candidate": {
+        "name": "intersect.attempt2.js",
+        "source": "// Attempt 2: corrected native replacement for `intersect@1.0.1`.\n// Written for this repository, from the shrunk counterexample of attempt 1:\n// the old package returns the elements of the LAST list, in its order and with its\n// duplicates, keeping those that appear in every earlier list.\n\nfunction intersect(lists) {\n  if (!Array.isArray(lists) || lists.length === 0) return [];\n  const last = lists[lists.length - 1];\n  const earlier = lists.slice(0, -1).map((list) => new Set(list));\n  return last.filter((item) => earlier.every((s) => s.has(item)));\n}\n\nintersect.big = intersect;\n\nexport default intersect;\n"
+      },
+      "status": "proved",
+      "weak": false,
+      "numRuns": 1000,
+      "runs": 2000,
+      "seed": 20261113,
+      "shapes": [
+        {
+          "id": "intersect",
+          "status": "passed",
+          "runs": 1000,
+          "coverage": {
+            "duplicates-in-last-list": 201,
+            "empty-result": 669,
+            "multi-list": 691,
+            "non-empty-result": 331,
+            "single-list": 154
+          }
+        },
+        {
+          "id": "intersect.big",
+          "status": "passed",
+          "runs": 1000,
+          "coverage": {
+            "duplicates-in-last-list": 201,
+            "empty-result": 669,
+            "multi-list": 691,
+            "non-empty-result": 331,
+            "single-list": 154
+          }
+        }
+      ],
+      "sabotage": {
+        "applied": 6,
+        "caught": 6,
+        "survivors": []
+      }
+    }
+  ]
+}

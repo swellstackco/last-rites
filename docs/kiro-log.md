@@ -257,3 +257,21 @@ Headless Chromium at 1352x761 and 375x812 (2x), demo parse-server, package ldapj
 - 9.3: typecheck clean; `npm test` green plain, with `CI=1` and with `FC_SEED=42`. Numbered properties run through the shared `fc-runner` at `numRuns` 100.
 - Counterexamples found by fast-check: none (no new property this run).
 - Counts (repo root): 139 files, 1253 tests pass, 1 todo.
+
+## 2026-11-13: proof-harness 9.4, 9.5, 10.1 to 10.6 (build summary and first real runs)
+
+Build summary (tasks 1 to 9):
+- Eleven properties (six from the brief, plus seven to eleven), each with a Sabotage_List run centrally (`skeleton/src/proof/sabotage.test.ts`, `apps/exorcist-npm/src/exorcise/sabotage.test.ts`). All lists were caught; no property needed a weaker check.
+- Dependencies: skeleton `fast-check` 3.23.2 (now a dependency); exorcist-npm `intersect` 1.0.1, `deep-diff` 1.0.2 (devDependencies), `typescript` 5.9.3, all exact.
+- Decisions: two entry points for proof code (pure `./proof`, runner with fast-check `./proof/runner`); added `return-defined` Mutator and `orderSensitive` so the deep-diff proof must see equal pairs; unsupported call shapes are errors, never skipped; proofs load lazily on the page.
+- Shrunk counterexamples found by fast-check against the real code during development: none. (Counterexamples below come from the real run, not from the test suite.)
+- Counts before this run (repo root): 139 files, 1253 tests pass, 1 todo.
+
+Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean before and after; nothing installed or built there). Preflight: HEAD `3402ee6`, `git status --short` empty. All runs: `--runs 1000`, seed 20261113 (default), `--label parse-community/parse-server --commit 3402ee6`.
+- intersect, attempt 1 (`intersect.attempt1.js`, naive `Set`): counterexample after 10 runs, 1 shrink. Input `[[["düC4Bbb2üB57051df3","düC4Bbb2üB57051df3"]]]`; old output `["düC4Bbb2üB57051df3","düC4Bbb2üB57051df3"]`; new output `["düC4Bbb2üB57051df3"]`. Both shapes (`intersect`, `intersect.big`) failed; sabotage not run (not proved). This matched the design's prediction: the old package keeps the duplicates of the last list.
+- intersect, attempt 2 (`intersect.attempt2.js`, filter the last list by `Set`s of the earlier lists): proved, 2000 runs (two shapes x 1000), sabotage 6 of 6 caught, not weak. 371 files scanned; 2 call sites (both `src`, `DatabaseController.js` lines 1395 `big` and 1397), 1 import site (`import-default`).
+- deep-diff, attempt 1 (`deep-diff.attempt1.js`, `util.isDeepStrictEqual`): proved, 1000 runs, sabotage 2 of 2 caught, not weak. 23 call sites, all `test`, all consumed as undefined checks. Coverage `equal-pair` 352, `unequal-pair` 648. No `unsupported_call_shapes`. (My first CLI run of this was issued in the same step as the candidate file write and also gave proved; I deleted that report and re-ran, so the committed file holds a single clean attempt.)
+- node-abort-controller (no candidate): `no-call-sites`, recommendation `remove-dependency`, 0 call sites, 0 import sites, sabotage 0.
+- Each run printed syntax-diagnostic warnings for 5 Flow-annotated files; call sites were still found.
+- Left for the next run: 10.7 (nothing to do, deep-diff proved), 10.8 (the node-abort-controller report was already written above to check the output, but the task is not ticked: the run was capped at 8 tasks and the verification in 10.9 is pending), 10.9 to 10.12 (determinism re-run, browser check, final log, final checkpoint).
+- Counts after this run: 139 files, 1256 tests pass, 1 todo (3 new tests come from `demo-proofs.test.ts` parsing the three real reports). Typecheck clean.

@@ -1,0 +1,381 @@
+{
+  "repo": "parse-community/parse-server",
+  "commit": "3402ee6",
+  "package": "deep-diff",
+  "oracleVersion": "1.0.2",
+  "filesScanned": 371,
+  "callSites": [
+    {
+      "file": "spec/MongoTransform.spec.js",
+      "line": 297,
+      "column": 12,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "output",
+        "input"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/Schema.spec.js",
+      "line": 335,
+      "column": 16,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "actualSchema",
+        "expectedSchema"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/Schema.spec.js",
+      "line": 426,
+      "column": 18,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "actualSchema",
+        "expectedSchema"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/Schema.spec.js",
+      "line": 454,
+      "column": 18,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "actualSchema.classLevelPermissions",
+        "newLevelPermissions"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/Schema.spec.js",
+      "line": 527,
+      "column": 16,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "actualSchema",
+        "expectedSchema"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/Schema.spec.js",
+      "line": 841,
+      "column": 16,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "actualSchema",
+        "expectedSchema"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/Schema.spec.js",
+      "line": 894,
+      "column": 16,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "actualSchema",
+        "expectedSchema"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/Schema.spec.js",
+      "line": 934,
+      "column": 16,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "actualSchema",
+        "expectedSchema"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/Schema.spec.js",
+      "line": 974,
+      "column": 16,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "actualSchema",
+        "expectedSchema"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/Schema.spec.js",
+      "line": 1150,
+      "column": 18,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "actualSchema",
+        "expectedSchema"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/Schema.spec.js",
+      "line": 1174,
+      "column": 18,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "schema.schemaData.NewClass.fields",
+        "expectedSchema"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/schemas.spec.js",
+      "line": 709,
+      "column": 13,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "response.data",
+        "{ className: '_Installation', fields: { objectId: { type: 'String' }, updatedAt: { type: 'Date' }, createdAt: { type: 'Date' }, installationId: { type: 'String' }, deviceToken: { type: 'String' }, cha…"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/schemas.spec.js",
+      "line": 935,
+      "column": 11,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "response.data",
+        "{ className: 'NewClass', fields: { ACL: { type: 'ACL' }, createdAt: { type: 'Date' }, objectId: { type: 'String' }, updatedAt: { type: 'Date' }, geo2: { type: 'GeoPoint' }, }, classLevelPermissions: d…"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/schemas.spec.js",
+      "line": 988,
+      "column": 11,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "response.data",
+        "{ className: 'NewClass', fields: { ACL: { type: 'ACL' }, createdAt: { type: 'Date' }, objectId: { type: 'String' }, updatedAt: { type: 'Date' }, newField: { type: 'String' }, }, classLevelPermissions:…"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/schemas.spec.js",
+      "line": 1046,
+      "column": 11,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "response.data",
+        "{ className: 'NewClass', fields: { ACL: { type: 'ACL' }, createdAt: { type: 'Date' }, objectId: { type: 'String' }, updatedAt: { type: 'Date' }, newField: { type: 'String', required: true, defaultValu…"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/schemas.spec.js",
+      "line": 1337,
+      "column": 11,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "response.data",
+        "{ className: '_User', fields: { objectId: { type: 'String' }, updatedAt: { type: 'Date' }, createdAt: { type: 'Date' }, username: { type: 'String' }, password: { type: 'String' }, email: { type: 'Stri…"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/schemas.spec.js",
+      "line": 1366,
+      "column": 13,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "response.data",
+        "{ className: '_User', fields: { objectId: { type: 'String' }, updatedAt: { type: 'Date' }, createdAt: { type: 'Date' }, username: { type: 'String' }, password: { type: 'String' }, email: { type: 'Stri…"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/schemas.spec.js",
+      "line": 3242,
+      "column": 13,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "response.data",
+        "{ className: 'NewClass', fields: { ACL: { type: 'ACL' }, createdAt: { type: 'Date' }, updatedAt: { type: 'Date' }, objectId: { type: 'String' }, aString: { type: 'String' }, }, classLevelPermissions: …"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/schemas.spec.js",
+      "line": 3310,
+      "column": 13,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "response.data",
+        "{ className: 'NewClass', fields: { ACL: { type: 'ACL' }, createdAt: { type: 'Date' }, updatedAt: { type: 'Date' }, objectId: { type: 'String' }, aPointer: { type: 'Pointer', targetClass: 'NewClass' },…"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/schemas.spec.js",
+      "line": 3383,
+      "column": 13,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "response.data",
+        "{ className: 'NewClass', fields: { ACL: { type: 'ACL' }, createdAt: { type: 'Date' }, updatedAt: { type: 'Date' }, objectId: { type: 'String' }, aString: { type: 'String' }, bString: { type: 'String' …"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/schemas.spec.js",
+      "line": 3461,
+      "column": 13,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "response.data",
+        "{ className: 'NewClass', fields: { ACL: { type: 'ACL' }, createdAt: { type: 'Date' }, updatedAt: { type: 'Date' }, objectId: { type: 'String' }, aString: { type: 'String' }, }, classLevelPermissions: …"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/schemas.spec.js",
+      "line": 3538,
+      "column": 13,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "response.data",
+        "{ className: 'NewClass', fields: { ACL: { type: 'ACL' }, createdAt: { type: 'Date' }, updatedAt: { type: 'Date' }, objectId: { type: 'String' }, aString: { type: 'String' }, bString: { type: 'String' …"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    },
+    {
+      "file": "spec/schemas.spec.js",
+      "line": 3629,
+      "column": 9,
+      "callee": "dd",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "response.data",
+        "{ className: 'NewClass', fields: { ACL: { type: 'ACL' }, createdAt: { type: 'Date' }, updatedAt: { type: 'Date' }, objectId: { type: 'String' }, aString: { type: 'String' }, bString: { type: 'String' …"
+      ],
+      "enclosing": "test",
+      "consumedAs": "undefined-check"
+    }
+  ],
+  "importSites": [
+    {
+      "file": "spec/MongoTransform.spec.js",
+      "line": 5,
+      "column": 12,
+      "form": "require"
+    },
+    {
+      "file": "spec/Schema.spec.js",
+      "line": 5,
+      "column": 12,
+      "form": "require"
+    },
+    {
+      "file": "spec/schemas.spec.js",
+      "line": 4,
+      "column": 12,
+      "form": "require"
+    }
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate": {
+        "name": "deep-diff.attempt1.js",
+        "source": "// Attempt 1: native replacement for `deep-diff@1.0.2`, for call sites that only ask\n// \"is the result undefined?\". Written for this repository.\n// Returns undefined when the values are deeply equal, otherwise a non-empty array.\n\nimport { isDeepStrictEqual } from \"node:util\";\n\nfunction diff(a, b) {\n  if (isDeepStrictEqual(a, b)) return undefined;\n  return [{ kind: \"N\" }];\n}\n\nexport default diff;\n"
+      },
+      "status": "proved",
+      "weak": false,
+      "numRuns": 1000,
+      "runs": 1000,
+      "seed": 20261113,
+      "shapes": [
+        {
+          "id": "deep-diff",
+          "status": "passed",
+          "runs": 1000,
+          "coverage": {
+            "equal-pair": 352,
+            "unequal-pair": 648
+          }
+        }
+      ],
+      "sabotage": {
+        "applied": 2,
+        "caught": 2,
+        "survivors": []
+      }
+    }
+  ]
+}
