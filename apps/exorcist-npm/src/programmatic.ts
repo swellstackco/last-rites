@@ -32,6 +32,8 @@ export type {
   ScannedDependency,
 } from "./scan/types.js";
 export { configFromEnv } from "./evidence/config.js";
+export { createEvidenceStage } from "./evidence/stage.js";
+export type { EvidenceStage } from "./evidence/types.js";
 export type { EvidenceConfig } from "./evidence/config.js";
 export { fetchE18e } from "./evidence/sources/e18e.js";
 export type { E18eEvidence } from "./evidence/sources/e18e.js";

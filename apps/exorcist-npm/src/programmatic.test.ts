@@ -14,6 +14,7 @@ const PROGRAMMATIC_NAMES = [
   "assembleReport",
   "configFromEnv",
   "createDeadline",
+  "createEvidenceStage",
   "createFetchClient",
   "createFsDemoStore",
   "createNodeReportFs",
