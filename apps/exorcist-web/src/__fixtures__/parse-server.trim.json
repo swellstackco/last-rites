@@ -1,0 +1,1079 @@
+{
+  "repo": "parse-community/parse-server",
+  "ref": "HEAD",
+  "scannedAt": "2026-11-13T04:09:38.860Z",
+  "dependencies": [
+    {
+      "name": "@babel/plugin-proposal-object-rest-spread",
+      "kinds": [
+        "devDependencies"
+      ],
+      "declaredRange": "7.20.7",
+      "resolvedVersion": "7.20.7",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": true
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 43
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 0
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 4
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": true
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread",
+          "repoArchived": "https://github.com/babel/babel",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread",
+          "monthsSinceLastCommit": "https://github.com/babel/babel",
+          "maintainerCount": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread",
+          "openVulnsNoFix": "https://osv.dev/list?q=@babel/plugin-proposal-object-rest-spread",
+          "knownReplacementExists": "https://raw.githubusercontent.com/e18e/module-replacements/main/manifests/native.json"
+        }
+      },
+      "unknownReasons": {},
+      "replacement": {
+        "type": "module",
+        "replacement": "spread_syntax",
+        "replacements": [
+          "spread_syntax"
+        ]
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 75,
+        "grade": "dead",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "true",
+            "weight": 20,
+            "points": 20,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/babel/babel"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "43",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "0",
+            "weight": 12,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/babel/babel"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "4",
+            "weight": 12,
+            "points": 2,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=@babel/plugin-proposal-object-rest-spread"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "true",
+            "weight": 3,
+            "points": 3,
+            "status": "known",
+            "sourceUrl": "https://raw.githubusercontent.com/e18e/module-replacements/main/manifests/native.json"
+          }
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "deprecated + no publish for 43 months (threshold 24)",
+          "points": 35
+        }
+      }
+    },
+    {
+      "name": "@saithodev/semantic-release-backmerge",
+      "kinds": [
+        "devDependencies"
+      ],
+      "declaredRange": "4.0.1",
+      "resolvedVersion": "4.0.1",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": true
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 35
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 35
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 1
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/@saithodev/semantic-release-backmerge",
+          "repoArchived": "https://github.com/saitho/semantic-release-backmerge",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/@saithodev/semantic-release-backmerge",
+          "monthsSinceLastCommit": "https://github.com/saitho/semantic-release-backmerge",
+          "maintainerCount": "https://registry.npmjs.org/@saithodev/semantic-release-backmerge",
+          "openVulnsNoFix": "https://osv.dev/list?q=@saithodev/semantic-release-backmerge",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 75,
+        "grade": "dead",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/@saithodev/semantic-release-backmerge"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "true",
+            "weight": 25,
+            "points": 25,
+            "status": "known",
+            "sourceUrl": "https://github.com/saitho/semantic-release-backmerge"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "35",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/@saithodev/semantic-release-backmerge"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "35",
+            "weight": 12,
+            "points": 12,
+            "status": "known",
+            "sourceUrl": "https://github.com/saitho/semantic-release-backmerge"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 9,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/@saithodev/semantic-release-backmerge"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=@saithodev/semantic-release-backmerge"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "repo archived + no publish for 35 months (threshold 24)",
+          "points": 14
+        }
+      }
+    },
+    {
+      "name": "deep-diff",
+      "kinds": [
+        "devDependencies"
+      ],
+      "declaredRange": "1.0.2",
+      "resolvedVersion": "1.0.2",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": true
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 98
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 10
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 1
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/deep-diff",
+          "repoArchived": "https://github.com/flitbit/diff",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/deep-diff",
+          "monthsSinceLastCommit": "https://github.com/flitbit/diff",
+          "maintainerCount": "https://registry.npmjs.org/deep-diff",
+          "openVulnsNoFix": "https://osv.dev/list?q=deep-diff",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 75,
+        "grade": "dead",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "true",
+            "weight": 20,
+            "points": 20,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/deep-diff"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/flitbit/diff"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "98",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/deep-diff"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "10",
+            "weight": 12,
+            "points": 3,
+            "status": "known",
+            "sourceUrl": "https://github.com/flitbit/diff"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 10,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/deep-diff"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=deep-diff"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "deprecated + no publish for 98 months (threshold 24)",
+          "points": 27
+        }
+      }
+    },
+    {
+      "name": "ldapjs",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "3.0.7",
+      "resolvedVersion": "3.0.7",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": true
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": true
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 35
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 29
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 4
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/ldapjs",
+          "repoArchived": "https://github.com/ldapjs/node-ldapjs",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/ldapjs",
+          "monthsSinceLastCommit": "https://github.com/ldapjs/node-ldapjs",
+          "maintainerCount": "https://registry.npmjs.org/ldapjs",
+          "openVulnsNoFix": "https://osv.dev/list?q=ldapjs",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 75,
+        "grade": "dead",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "true",
+            "weight": 20,
+            "points": 20,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/ldapjs"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "true",
+            "weight": 25,
+            "points": 25,
+            "status": "known",
+            "sourceUrl": "https://github.com/ldapjs/node-ldapjs"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "35",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/ldapjs"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "29",
+            "weight": 12,
+            "points": 10,
+            "status": "known",
+            "sourceUrl": "https://github.com/ldapjs/node-ldapjs"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "4",
+            "weight": 12,
+            "points": 2,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/ldapjs"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=ldapjs"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "deprecated + repo archived",
+          "points": 3
+        }
+      }
+    },
+    {
+      "name": "node-abort-controller",
+      "kinds": [
+        "devDependencies"
+      ],
+      "declaredRange": "3.1.1",
+      "resolvedVersion": "3.1.1",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": true
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 45
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 9
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 2
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/node-abort-controller",
+          "repoArchived": "https://github.com/southpolesteve/node-abort-controller",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/node-abort-controller",
+          "monthsSinceLastCommit": "https://github.com/southpolesteve/node-abort-controller",
+          "maintainerCount": "https://registry.npmjs.org/node-abort-controller",
+          "openVulnsNoFix": "https://osv.dev/list?q=node-abort-controller",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 75,
+        "grade": "dead",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "true",
+            "weight": 20,
+            "points": 20,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/node-abort-controller"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/southpolesteve/node-abort-controller"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "45",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/node-abort-controller"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "9",
+            "weight": 12,
+            "points": 3,
+            "status": "known",
+            "sourceUrl": "https://github.com/southpolesteve/node-abort-controller"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "2",
+            "weight": 12,
+            "points": 7,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/node-abort-controller"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=node-abort-controller"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "deprecated + no publish for 45 months (threshold 24)",
+          "points": 30
+        }
+      }
+    },
+    {
+      "name": "cross-env",
+      "kinds": [
+        "devDependencies"
+      ],
+      "declaredRange": "10.1.0",
+      "resolvedVersion": "10.1.0",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": true
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 13
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 11
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 1
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/cross-env",
+          "repoArchived": "https://github.com/kentcdodds/cross-env",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/cross-env",
+          "monthsSinceLastCommit": "https://github.com/kentcdodds/cross-env",
+          "maintainerCount": "https://registry.npmjs.org/cross-env",
+          "openVulnsNoFix": "https://osv.dev/list?q=cross-env",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 46,
+        "grade": "ailing",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/cross-env"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "true",
+            "weight": 25,
+            "points": 25,
+            "status": "known",
+            "sourceUrl": "https://github.com/kentcdodds/cross-env"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "13",
+            "weight": 15,
+            "points": 8,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/cross-env"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "11",
+            "weight": 12,
+            "points": 4,
+            "status": "known",
+            "sourceUrl": "https://github.com/kentcdodds/cross-env"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 9,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/cross-env"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=cross-env"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ]
+      }
+    },
+    {
+      "name": "jasmine-spec-reporter",
+      "kinds": [
+        "devDependencies"
+      ],
+      "declaredRange": "7.0.0",
+      "resolvedVersion": "7.0.0",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 67
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 67
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 1
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/jasmine-spec-reporter",
+          "repoArchived": "https://github.com/bcaudan/jasmine-spec-reporter",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/jasmine-spec-reporter",
+          "monthsSinceLastCommit": "https://github.com/bcaudan/jasmine-spec-reporter",
+          "maintainerCount": "https://registry.npmjs.org/jasmine-spec-reporter",
+          "openVulnsNoFix": "https://osv.dev/list?q=jasmine-spec-reporter",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 37,
+        "grade": "ailing",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/jasmine-spec-reporter"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/bcaudan/jasmine-spec-reporter"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "67",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/jasmine-spec-reporter"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "67",
+            "weight": 12,
+            "points": 12,
+            "status": "known",
+            "sourceUrl": "https://github.com/bcaudan/jasmine-spec-reporter"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 10,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/jasmine-spec-reporter"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=jasmine-spec-reporter"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ]
+      }
+    },
+    {
+      "name": "pg-monitor",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "3.1.0",
+      "resolvedVersion": "3.1.0",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 14
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 14
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 1
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/pg-monitor",
+          "repoArchived": "https://github.com/vitaly-t/pg-monitor",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/pg-monitor",
+          "monthsSinceLastCommit": "https://github.com/vitaly-t/pg-monitor",
+          "maintainerCount": "https://registry.npmjs.org/pg-monitor",
+          "openVulnsNoFix": "https://osv.dev/list?q=pg-monitor",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 23,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/pg-monitor"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/vitaly-t/pg-monitor"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "14",
+            "weight": 15,
+            "points": 9,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/pg-monitor"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "14",
+            "weight": 12,
+            "points": 5,
+            "status": "known",
+            "sourceUrl": "https://github.com/vitaly-t/pg-monitor"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 9,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/pg-monitor"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=pg-monitor"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ]
+      }
+    },
+    {
+      "name": "lodash",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "4.18.1",
+      "resolvedVersion": "4.18.1",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 7
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 2
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 1
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": true
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/lodash",
+          "repoArchived": "https://github.com/lodash/lodash",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/lodash",
+          "monthsSinceLastCommit": "https://github.com/lodash/lodash",
+          "maintainerCount": "https://registry.npmjs.org/lodash",
+          "openVulnsNoFix": "https://osv.dev/list?q=lodash",
+          "knownReplacementExists": "https://raw.githubusercontent.com/e18e/module-replacements/main/manifests/preferred.json"
+        }
+      },
+      "unknownReasons": {},
+      "replacement": {
+        "type": "module",
+        "replacement": "lodash-underscore",
+        "replacements": [
+          "lodash-underscore",
+          "es-toolkit",
+          "remeda"
+        ]
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 18,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/lodash"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/lodash/lodash"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "7",
+            "weight": 15,
+            "points": 4,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/lodash"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "2",
+            "weight": 12,
+            "points": 1,
+            "status": "known",
+            "sourceUrl": "https://github.com/lodash/lodash"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 10,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/lodash"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=lodash"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "true",
+            "weight": 3,
+            "points": 3,
+            "status": "known",
+            "sourceUrl": "https://raw.githubusercontent.com/e18e/module-replacements/main/manifests/preferred.json"
+          }
+        ]
+      }
+    }
+  ],
+  "skipped": [
+    {
+      "name": "mock-files-adapter",
+      "kind": "devDependencies",
+      "specifier": "file:spec/dependencies/mock-files-adapter",
+      "reason": "file"
+    },
+    {
+      "name": "mock-mail-adapter",
+      "kind": "devDependencies",
+      "specifier": "file:spec/dependencies/mock-mail-adapter",
+      "reason": "file"
+    }
+  ],
+  "warnings": [],
+  "summary": {
+    "total": 9,
+    "skipped": 2,
+    "alive": 2,
+    "ailing": 2,
+    "dying": 0,
+    "dead": 5
+  }
+}

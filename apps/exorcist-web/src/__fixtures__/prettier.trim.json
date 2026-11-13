@@ -1,0 +1,468 @@
+{
+  "repo": "prettier/prettier",
+  "ref": "HEAD",
+  "scannedAt": "2026-11-13T04:09:36.862Z",
+  "dependencies": [
+    {
+      "name": "remark-footnotes",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "2.0.0",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": true
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 25
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 25
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 1
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/remark-footnotes",
+          "repoArchived": "https://github.com/remarkjs/remark-footnotes",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/remark-footnotes",
+          "monthsSinceLastCommit": "https://github.com/remarkjs/remark-footnotes",
+          "maintainerCount": "https://registry.npmjs.org/remark-footnotes",
+          "openVulnsNoFix": "https://osv.dev/list?q=remark-footnotes",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 75,
+        "grade": "dead",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/remark-footnotes"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "true",
+            "weight": 25,
+            "points": 25,
+            "status": "known",
+            "sourceUrl": "https://github.com/remarkjs/remark-footnotes"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "25",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/remark-footnotes"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "25",
+            "weight": 12,
+            "points": 8,
+            "status": "known",
+            "sourceUrl": "https://github.com/remarkjs/remark-footnotes"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 10,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/remark-footnotes"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=remark-footnotes"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ],
+        "calibration": {
+          "rule": "declared_abandoned",
+          "reason": "repo archived + no publish for 25 months (threshold 24)",
+          "points": 17
+        }
+      }
+    },
+    {
+      "name": "cross-env",
+      "kinds": [
+        "devDependencies"
+      ],
+      "declaredRange": "10.1.0",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": true
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 13
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 11
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 1
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/cross-env",
+          "repoArchived": "https://github.com/kentcdodds/cross-env",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/cross-env",
+          "monthsSinceLastCommit": "https://github.com/kentcdodds/cross-env",
+          "maintainerCount": "https://registry.npmjs.org/cross-env",
+          "openVulnsNoFix": "https://osv.dev/list?q=cross-env",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 46,
+        "grade": "ailing",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/cross-env"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "true",
+            "weight": 25,
+            "points": 25,
+            "status": "known",
+            "sourceUrl": "https://github.com/kentcdodds/cross-env"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "13",
+            "weight": 15,
+            "points": 8,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/cross-env"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "11",
+            "weight": 12,
+            "points": 4,
+            "status": "known",
+            "sourceUrl": "https://github.com/kentcdodds/cross-env"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 9,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/cross-env"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=cross-env"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ]
+      }
+    },
+    {
+      "name": "unified",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "9.2.2",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 28
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 1
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 2
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/unified",
+          "repoArchived": "https://github.com/unifiedjs/unified",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/unified",
+          "monthsSinceLastCommit": "https://github.com/unifiedjs/unified",
+          "maintainerCount": "https://registry.npmjs.org/unified",
+          "openVulnsNoFix": "https://osv.dev/list?q=unified",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 23,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/unified"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/unifiedjs/unified"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "28",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/unified"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 1,
+            "status": "known",
+            "sourceUrl": "https://github.com/unifiedjs/unified"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "2",
+            "weight": 12,
+            "points": 7,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/unified"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=unified"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ]
+      }
+    },
+    {
+      "name": "leven",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "4.1.0",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 14
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 1
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 1
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/leven",
+          "repoArchived": "https://github.com/sindresorhus/leven",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/leven",
+          "monthsSinceLastCommit": "https://github.com/sindresorhus/leven",
+          "maintainerCount": "https://registry.npmjs.org/leven",
+          "openVulnsNoFix": "https://osv.dev/list?q=leven",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 19,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/leven"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/sindresorhus/leven"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "14",
+            "weight": 15,
+            "points": 9,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/leven"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/sindresorhus/leven"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 10,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/leven"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=leven"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ]
+      }
+    }
+  ],
+  "skipped": [],
+  "warnings": [
+    "no lockfile found; results use declared ranges"
+  ],
+  "summary": {
+    "total": 4,
+    "skipped": 0,
+    "alive": 2,
+    "ailing": 1,
+    "dying": 0,
+    "dead": 1
+  }
+}

@@ -1,0 +1,520 @@
+{
+  "repo": "jestjs/jest",
+  "ref": "HEAD",
+  "scannedAt": "2026-11-13T04:09:35.228Z",
+  "dependencies": [
+    {
+      "name": "netlify-plugin-cache",
+      "kinds": [
+        "devDependencies"
+      ],
+      "declaredRange": "^1.0.3",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 76
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 76
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 1
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/netlify-plugin-cache",
+          "repoArchived": "https://github.com/jakejarvis/netlify-plugin-cache",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/netlify-plugin-cache",
+          "monthsSinceLastCommit": "https://github.com/jakejarvis/netlify-plugin-cache",
+          "maintainerCount": "https://registry.npmjs.org/netlify-plugin-cache",
+          "openVulnsNoFix": "https://osv.dev/list?q=netlify-plugin-cache",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 37,
+        "grade": "ailing",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/netlify-plugin-cache"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/jakejarvis/netlify-plugin-cache"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "76",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/netlify-plugin-cache"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "76",
+            "weight": 12,
+            "points": 12,
+            "status": "known",
+            "sourceUrl": "https://github.com/jakejarvis/netlify-plugin-cache"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 10,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/netlify-plugin-cache"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=netlify-plugin-cache"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ]
+      }
+    },
+    {
+      "name": "promise",
+      "kinds": [
+        "devDependencies"
+      ],
+      "declaredRange": "^8.3.0",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 48
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 48
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 2
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": true
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/promise",
+          "repoArchived": "https://github.com/then/promise",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/promise",
+          "monthsSinceLastCommit": "https://github.com/then/promise",
+          "maintainerCount": "https://registry.npmjs.org/promise",
+          "openVulnsNoFix": "https://osv.dev/list?q=promise",
+          "knownReplacementExists": "https://raw.githubusercontent.com/e18e/module-replacements/main/manifests/native.json"
+        }
+      },
+      "unknownReasons": {},
+      "replacement": {
+        "type": "module",
+        "replacement": "Promise",
+        "replacements": [
+          "Promise"
+        ]
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 37,
+        "grade": "ailing",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/promise"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/then/promise"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "48",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/promise"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "48",
+            "weight": 12,
+            "points": 12,
+            "status": "known",
+            "sourceUrl": "https://github.com/then/promise"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "2",
+            "weight": 12,
+            "points": 7,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/promise"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=promise"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "true",
+            "weight": 3,
+            "points": 3,
+            "status": "known",
+            "sourceUrl": "https://raw.githubusercontent.com/e18e/module-replacements/main/manifests/native.json"
+          }
+        ]
+      }
+    },
+    {
+      "name": "jest-silent-reporter",
+      "kinds": [
+        "devDependencies"
+      ],
+      "declaredRange": "^0.6.0",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 29
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 29
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 1
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/jest-silent-reporter",
+          "repoArchived": "https://github.com/rickhanlonii/jest-silent-reporter",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/jest-silent-reporter",
+          "monthsSinceLastCommit": "https://github.com/rickhanlonii/jest-silent-reporter",
+          "maintainerCount": "https://registry.npmjs.org/jest-silent-reporter",
+          "openVulnsNoFix": "https://osv.dev/list?q=jest-silent-reporter",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 34,
+        "grade": "ailing",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/jest-silent-reporter"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/rickhanlonii/jest-silent-reporter"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "29",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/jest-silent-reporter"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "29",
+            "weight": 12,
+            "points": 10,
+            "status": "known",
+            "sourceUrl": "https://github.com/rickhanlonii/jest-silent-reporter"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 9,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/jest-silent-reporter"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=jest-silent-reporter"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ts-node",
+      "kinds": [
+        "devDependencies"
+      ],
+      "declaredRange": "^10.5.0",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 35
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 35
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 2
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/ts-node",
+          "repoArchived": "https://github.com/TypeStrong/ts-node",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/ts-node",
+          "monthsSinceLastCommit": "https://github.com/TypeStrong/ts-node",
+          "maintainerCount": "https://registry.npmjs.org/ts-node",
+          "openVulnsNoFix": "https://osv.dev/list?q=ts-node",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 34,
+        "grade": "ailing",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/ts-node"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/TypeStrong/ts-node"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "35",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/ts-node"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "35",
+            "weight": 12,
+            "points": 12,
+            "status": "known",
+            "sourceUrl": "https://github.com/TypeStrong/ts-node"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "2",
+            "weight": 12,
+            "points": 7,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/ts-node"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=ts-node"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ]
+      }
+    }
+  ],
+  "skipped": [
+    {
+      "name": "@jest/globals",
+      "kind": "devDependencies",
+      "specifier": "workspace:*",
+      "reason": "workspace"
+    },
+    {
+      "name": "@jest/test-utils",
+      "kind": "devDependencies",
+      "specifier": "workspace:*",
+      "reason": "workspace"
+    },
+    {
+      "name": "babel-jest",
+      "kind": "devDependencies",
+      "specifier": "workspace:*",
+      "reason": "workspace"
+    },
+    {
+      "name": "jest",
+      "kind": "devDependencies",
+      "specifier": "workspace:*",
+      "reason": "workspace"
+    },
+    {
+      "name": "jest-changed-files",
+      "kind": "devDependencies",
+      "specifier": "workspace:*",
+      "reason": "workspace"
+    },
+    {
+      "name": "jest-mock",
+      "kind": "devDependencies",
+      "specifier": "workspace:*",
+      "reason": "workspace"
+    },
+    {
+      "name": "jest-snapshot",
+      "kind": "devDependencies",
+      "specifier": "workspace:*",
+      "reason": "workspace"
+    },
+    {
+      "name": "jest-util",
+      "kind": "devDependencies",
+      "specifier": "workspace:*",
+      "reason": "workspace"
+    }
+  ],
+  "warnings": [
+    "workspaces are not scanned in v1; only the root package.json is inventoried",
+    "no lockfile found; results use declared ranges"
+  ],
+  "summary": {
+    "total": 4,
+    "skipped": 8,
+    "alive": 0,
+    "ailing": 4,
+    "dying": 0,
+    "dead": 0
+  }
+}
