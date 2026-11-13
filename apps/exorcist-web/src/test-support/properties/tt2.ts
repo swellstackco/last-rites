@@ -127,7 +127,7 @@ export async function checkProofFacts(c: ProofCase, mutate?: ToeMutate): Promise
 
 export const proofCaseArb: fc.Arbitrary<ProofCase> = fc.oneof(
   { weight: 8, arbitrary: proofReportArb.map((report): ProofCase => ({ kind: "report", report })) },
-  { weight: 1, arbitrary: fc.constantFrom<ProofCase>({ kind: "absent" }, { kind: "failed" }, { kind: "invalid" }) },
+  { weight: 3, arbitrary: fc.constantFrom<ProofCase>({ kind: "absent" }, { kind: "failed" }, { kind: "invalid" }) },
 );
 
 export function build(mutate?: ToeMutate): fc.IAsyncProperty<[ProofCase]> {

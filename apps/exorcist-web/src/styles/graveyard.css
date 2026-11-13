@@ -1,7 +1,7 @@
 /* The Graveyard: ground, header, groups, tombstones. */
 /* Content_Column: every Screen is centered, max-width, guttered. */
 .screen {
-  max-width: 1200px;
+  max-width: 1280px;
   margin-inline: auto;
   padding-inline: var(--space-4);
 }
@@ -14,9 +14,6 @@
 
 .app {
   padding-block: var(--space-5) var(--space-6);
-  background:
-    radial-gradient(60rem 24rem at 78% -6rem, rgba(232, 240, 242, 0.07), transparent 70%),
-    linear-gradient(to bottom, var(--soil), var(--night) 22rem);
 }
 
 .stack {
@@ -36,7 +33,7 @@
   display: grid;
   gap: var(--space-4);
   padding-bottom: var(--space-5);
-  border-bottom: 1px solid var(--edge);
+  border-bottom: var(--rule) solid var(--ink);
 }
 
 .meta {
@@ -80,16 +77,20 @@
 
 .notice {
   padding: var(--space-3) var(--space-4);
-  background: var(--stone);
-  border: 1px solid var(--amber);
-  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--rule) solid var(--ink);
+  border-left: 6px solid var(--amber);
+  border-radius: 0;
 }
 
 .error {
   padding: var(--space-3) var(--space-4);
-  background: var(--stone);
-  border: 1px solid var(--ember);
-  border-radius: var(--radius);
+  background: var(--paper);
+  color: var(--ink);
+  border: var(--rule) solid var(--ink);
+  border-left: 6px solid var(--red-ink);
+  border-radius: 0;
 }
 
 /* Groups */

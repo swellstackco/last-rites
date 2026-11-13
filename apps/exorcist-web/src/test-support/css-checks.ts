@@ -192,8 +192,11 @@ export function checkStylesheet(css: string): Violation[] {
   if (!decls.some((d) => d.prop === "overflow-wrap" && d.value === "anywhere")) bad("S7", "overflow-wrap: anywhere is gone");
   if (!decls.some((d) => d.prop === "--target" && d.value === "44px")) bad("S7", "--target is not 44px");
   if (!decls.some((d) => d.prop === "min-height" && d.value === "var(--target)")) bad("S7", "min-height: var(--target) is gone");
-  if (!decls.some((d) => d.prop === "font-size" && d.value === "18px" && d.preludes.some((p) => /min-width:\s*1200px/.test(p)))) {
-    bad("S7", "18px at min-width 1200px is gone");
+  if (!decls.some((d) => d.prop === "font-size" && d.value === "16px" && !d.preludes.some((p) => p.startsWith("@media")))) {
+    bad("S7", "root font-size is not 16px");
+  }
+  if (decls.some((d) => d.prop === "font-size" && d.preludes.includes("html") && d.preludes.some((p) => /min-width:\s*1200px/.test(p)))) {
+    bad("S7", "a min-width 1200px font-size rule exists (root is 16px at every width)");
   }
   if (!decls.some((d) => d.prop === "font-size" && d.value === "56px")) bad("S7", "56px dead score is gone");
   const motion = decls.filter(

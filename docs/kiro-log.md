@@ -306,3 +306,19 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - 2.8: Property 3 (`properties/tt3.ts`). Judgment call: the baseline page still sets an inline `style="border-top-color: var(--token)"` on the header count buttons (removed by task 4.1), so the property allows exactly that token-only form for now; it can hold no report text. Task 4.1 should tighten `ALLOWED_STYLE` to the bar width only.
 - Counterexamples found by fast-check this run: one, in Property 3 on the first run, shrunk to a one-dependency report (`left-pad`, ailing) and a one-call-site proof. Old output: the unchanged page. Failure: `style attribute "border-top-color: var(--ember);"`. That was the test's rule being stricter than the baseline page, not a bug in the page (the fix is the allowance above). Properties 1 and 2 found none.
 - Not yet done: sabotage lists (2.9) and the CI/random-seed baseline runs (2.10).
+
+## 2026-11-13: toe-tag-redesign 2.9 to 2.11 (sabotage lists, baseline runs)
+
+- 2.9: `test-support/sabotage/tt1.ts` (11 entries), `tt2.ts` (10), `tt3.ts` (6) with the entries named in design.md, and `src/toetag.sabotage.test.ts` (non-empty lists, real implementation green under seed 20261113, every sabotage caught).
+- Two entries first stayed green ("swap old and new output", "drop the unreadable line for invalid"). Causes: the swap looked for Old/New `pre`s under the wrong parent (each is in its own `div.stack`; fixed to search the `li`), and `proofCaseArb` produced the `absent`/`failed`/`invalid` states with probability 1/27 per run, so the fixed seed never drew `invalid`. Raised the weight of the non-report states from 1 to 3 in `tt2.ts` (about 27% of cases); both are now caught. This is a real weakness of the baseline property that the sabotage check found.
+- 2.10: baseline (page UNCHANGED): Properties 1 to 3 plus sabotage test green with `CI=1` (seed 20261113) and with a random `FC_SEED` (random seed run for P1/P3 files).
+- Counterexamples: none from the properties on the unchanged page. Sabotage counterexamples are printed by the test.
+
+## 2026-11-13: toe-tag-redesign 3.1 to 3.5 (base styles, container, old-test updates)
+
+- 3.1 to 3.3: `base.css` rewritten with Toe Tag tokens (Wall with one ruled-line gradient, Ink text, display-font headings, Paper controls with 2px Ink edge, hard hover shadow, dashed disabled look, Ink primary, global focus ring and layout-safety rules kept, forced-colors block uses `CanvasText`/`Highlight`, motion block unchanged). The 1200px root-size rule is deleted.
+- 3.4: `graveyard.css` top part: `.screen` max-width 1280px, `.app` has no background, `.notice`/`.error` are Paper boxes with a 6px amber / red-ink left bar, `.header` closes with a 2px Ink rule.
+- 3.5 (old tests that pinned the old look, justified): `css-checks.ts` S7 and `theme.test.ts` "recording sizes" now require a 16px root with no `html` rule at min-width 1200px (replacing "18px at 1200px"; the check is limited to `html` rules because legacy tombstone rules in a 1200px media block go away in Phase 5); `sabotage/css.ts` (k) and (l) re-pointed from `1200px` to the new `.screen` `1280px` text. S1's 960 to 1280 range is unchanged.
+- Found along the way: `safety.test.ts` scans every non-test `.ts` under `src` for `innerHTML` and `setAttribute("on`, which includes `test-support/`. The Property 3 sabotages use a parsed fragment via `createRange().createContextualFragment` and a joined attribute name instead of weakening that scan.
+- Counterexamples from fast-check this run: none on the real implementation (sabotage counterexamples are printed by the tests).
+- Counts (repo root): 146 files, 1319 tests pass, 1 todo. Typecheck clean.

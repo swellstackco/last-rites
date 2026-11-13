@@ -149,8 +149,9 @@ describe("CSS text checks", () => {
     expect(allCss).toMatch(/@media\s*\(forced-colors:\s*active\)/);
   });
 
-  it("has the recording sizes (18px at 1200px and up, 56px score)", () => {
-    expect(decls.some((d) => d.prop === "font-size" && d.value === "18px" && d.preludes.some((p) => /min-width:\s*1200px/.test(p)))).toBe(true);
+  it("has the recording sizes (16px root at every width, 56px score)", () => {
+    expect(decls.some((d) => d.prop === "font-size" && d.value === "16px" && !d.preludes.some((p) => p.startsWith("@media")))).toBe(true);
+    expect(decls.some((d) => d.prop === "font-size" && d.preludes.includes("html") && d.preludes.some((p) => /min-width:\s*1200px/.test(p)))).toBe(false);
     expect(decls.some((d) => d.prop === "font-size" && d.value === "56px")).toBe(true);
   });
 

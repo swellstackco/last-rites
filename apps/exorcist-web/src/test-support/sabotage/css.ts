@@ -19,8 +19,8 @@ function replaceOnce(css: string, from: string, to: string): string {
 const append = (rule: string) => (css: string): string => `${css}\n${rule}\n`;
 
 export const CSS_SABOTAGES: readonly CssSabotage[] = [
-  { name: "(k) .screen loses its max-width", check: "S1", mutate: (c) => replaceOnce(c, "  max-width: 1200px;\n  margin-inline: auto;", "  margin-inline: auto;") },
-  { name: "(l) .screen max-width is 90rem", check: "S1", mutate: (c) => replaceOnce(c, "max-width: 1200px;", "max-width: 90rem;") },
+  { name: "(k) .screen loses its max-width", check: "S1", mutate: (c) => replaceOnce(c, "  max-width: 1280px;\n  margin-inline: auto;", "  margin-inline: auto;") },
+  { name: "(l) .screen max-width is 90rem", check: "S1", mutate: (c) => replaceOnce(c, "max-width: 1280px;", "max-width: 90rem;") },
   { name: "(m) .screen padding-inline is 0", check: "S1", mutate: (c) => replaceOnce(c, "  margin-inline: auto;\n  padding-inline: var(--space-4);", "  margin-inline: auto;\n  padding-inline: 0;") },
   { name: "(n) .counts loses list-style: none", check: "S2", mutate: (c) => replaceOnce(c, ".counts {\n  margin: 0;\n  padding: 0;\n  list-style: none;\n", ".counts {\n  margin: 0;\n  padding: 0;\n") },
   {
