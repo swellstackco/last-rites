@@ -650,3 +650,14 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - 10.1: smoke tests for git-ignored `power/server`, exactly four hooks, two agents plus `prompts/`, root workspaces and vitest include.
 - Verification: `npm run typecheck` clean; `npm test` 204 files, 1809 passed, 1 todo.
 - Counterexamples from fast-check: none.
+
+## 2026-11-13: kiro-integration tasks 10.2 to 10.5 and 11.1, 11.2
+
+- Summary of the build (tasks 1 to 10): thirteen properties (P1 to P13), each with a Sabotage_List run by `mcp/src/sabotage.test.ts` at seed 20261113; every sabotage was caught and the real implementations pass. No shrunk counterexample was found by fast-check against the real code in this spec.
+- Dependencies added to `mcp` (exact): `@modelcontextprotocol/sdk` 1.32.2, `zod` 4.6.7, `intersect` 1.0.1, `deep-diff` 1.0.2, dev `esbuild` 0.28.2.
+- Decisions worth keeping: Kiro format wins over the brief (skills instead of a `steering/` folder, V3 agent fields, JSON v1 hooks); static oracle imports so the bundle works outside the repository; `cacheBust` on `loadCandidate` so a long-lived server reloads an edited candidate; `generate_pin_tests` is a dry run unless `out` is given; hook scripts always exit 0; `death_report` returns a one-dependency Scan_Report; the SDK's own input-validation error is mapped to `invalid_input`.
+- Bundle: `mcp/dist/server.mjs` 11.4 MB (11,921,220 bytes) with `typescript` bundled; 6.11 was never triggered. `mcp/dist/`, `mcp/dist/demo/`, `power/server/exorcist-mcp.mjs` and `power/server/demo/` exist and are git-ignored.
+- 10.2: `npm test` produced one "Unhandled Rejection" (exit code still 0, but Vitest reports it as an error). Cause was in my test, not the code: in `total.p4.test.ts` the `local` point's `reject` behavior returns a rejected promise from a factory (`deps.scan.local(dir)`) that nobody awaits. The test now marks that promise handled; the pipeline-level rejection is still covered by the `localPipeline` point. After the fix: `npm run typecheck` clean, `npm test` and `CI=1 npm test` both 204 files, 1809 passed, 1 todo, no errors. Not separately re-verified by me: that `FC_SEED` replays a failure by hand (the runner is the existing `fc-runner.ts`).
+- 11.1: preflight on `../lastrites-work/parse-server` (read only): HEAD `3402ee6`, branch `alpha` tracking `origin/alpha`, `git status --short` empty, remote `origin` https://github.com/parse-community/parse-server.git.
+- 11.2: `kiro-cli` 3.3.0 is installed, the bundle is built, but `KIRO_API_KEY` is not set in this environment. Phase 11.3 to 11.14 are NOT RUN. No transcript was faked.
+- Counterexamples from fast-check this run: none.

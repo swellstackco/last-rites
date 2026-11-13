@@ -291,19 +291,19 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
 
 - [x] 10.1 Extend `mcp/src/smoke.test.ts`: the power `server/` directory is ignored by git (`git check-ignore power/server/x`); `.kiro/hooks` has exactly the four files; `.kiro/agents` has exactly the two agent files plus `prompts/`; the root `package.json` `workspaces` equal the required array; the root `vitest.config.ts` includes `mcp/src/**/*.test.ts`.
   - _Requirements: 1.1, 1.4, 1.9, 12.1, 14.1_
-- [ ] 10.2 Run `npm run typecheck` and `npm test` plain and with `CI=1`; fix strict-mode errors; confirm every property runs with `numRuns` 100, `FC_SEED` replays, every Sabotage_List entry fails its property, and the stdio test passes offline.
+- [x] 10.2 Run `npm run typecheck` and `npm test` plain and with `CI=1`; fix strict-mode errors; confirm every property runs with `numRuns` 100, `FC_SEED` replays, every Sabotage_List entry fails its property, and the stdio test passes offline.
   - _Requirements: 18.2, 18.3, 18.4, 18.7_
-- [ ] 10.3 Run `npm run build -w @graveyard-kit/exorcist-mcp`, confirm `mcp/dist/server.mjs`, `mcp/dist/demo/`, `power/server/exorcist-mcp.mjs` and `power/server/demo/` exist, and `git status --short` shows none of them (ignored).
+- [x] 10.3 Run `npm run build -w @graveyard-kit/exorcist-mcp`, confirm `mcp/dist/server.mjs`, `mcp/dist/demo/`, `power/server/exorcist-mcp.mjs` and `power/server/demo/` exist, and `git status --short` shows none of them (ignored).
   - _Requirements: 10.1, 1.9_
-- [ ] 10.4 Append a dated entry to `docs/kiro-log.md` for the build of tasks 1 to 10: the thirteen properties, sabotage results and any shrunk counterexample found during development, the added dependencies and versions, the decisions worth recording (Kiro format divergences from the brief, static oracles, cache busting, dry-run by default, hook scripts always exit 0, `death_report` as a one-dependency Scan_Report), the bundle size and the 6.11 outcome, and the test counts.
+- [x] 10.4 Append a dated entry to `docs/kiro-log.md` for the build of tasks 1 to 10: the thirteen properties, sabotage results and any shrunk counterexample found during development, the added dependencies and versions, the decisions worth recording (Kiro format divergences from the brief, static oracles, cache busting, dry-run by default, hook scripts always exit 0, `death_report` as a one-dependency Scan_Report), the bundle size and the 6.11 outcome, and the test counts.
   - _Requirements: 17.9_
-- [ ] 10.5 Final checkpoint for the build - Ensure all tests pass, ask the user if questions arise.
+- [x] 10.5 Final checkpoint for the build - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 11: Real use against `../lastrites-work/parse-server` (manual, outside `npm test`)
 
-- [ ] 11.1 Preflight, read only: `git -C ../lastrites-work/parse-server rev-parse --short HEAD`, `branch --show-current`, `status --short` (must be empty), `remote -v`, `branch -vv`. Stop and ask if the checkout is dirty or missing. Record the values (they are the "before" state).
+- [x] 11.1 Preflight, read only: `git -C ../lastrites-work/parse-server rev-parse --short HEAD`, `branch --show-current`, `status --short` (must be empty), `remote -v`, `branch -vv`. Stop and ask if the checkout is dirty or missing. Record the values (they are the "before" state).
   - _Requirements: 17.1_
-- [ ] 11.2 Check prerequisites: `kiro-cli --version`; `KIRO_API_KEY` is set in the environment (check only that it is non-empty; never print it); the bundle is built (10.3). If `KIRO_API_KEY` is missing, STOP, record in the log that the real use is NOT RUN and why, and ask the user. Do not fake a transcript.
+- [x] 11.2 Check prerequisites: `kiro-cli --version`; `KIRO_API_KEY` is set in the environment (check only that it is non-empty; never print it); the bundle is built (10.3). If `KIRO_API_KEY` is missing, STOP, record in the log that the real use is NOT RUN and why, and ask the user. Do not fake a transcript.
   - _Requirements: 17.2_
 - [ ] 11.3 Start-up check: run `kiro-cli chat --v3 --agent coroner --no-interactive --require-mcp-startup "List the tools you can call, one per line, and nothing else."` from the repository root; save the raw output to `.cache/kiro-runs/coroner-tools.txt`; record the exit code (3 means the MCP server did not start, 4 that the agent was not found) and whether the tool list is exactly the four read tools of the coroner plus file reading. This also checks the unconfirmed `@exorcist/<tool>` entries in `tools`; record what the CLI did with them.
   - _Requirements: 17.2, 17.9_

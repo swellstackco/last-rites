@@ -153,7 +153,16 @@ function depsFor(s: Scenario): { deps: ExorcistDeps; hung: boolean; reached: () 
       deps.scan.github = bad() as unknown as ScanPipeline;
       break;
     case "local":
-      deps.scan.local = bad() as never;
+      {
+        // `local` is a factory, not a promise-returning function: a rejected promise it returns is never awaited
+        // by anyone, so mark it handled here (the pipeline-level rejection is covered by "localPipeline").
+        const f = bad();
+        deps.scan.local = ((...a: never[]) => {
+          const r = f(...a);
+          if (r instanceof Promise) r.catch(() => undefined);
+          return r;
+        }) as never;
+      }
       break;
     case "localPipeline":
       deps.scan.local = (() => (bad() as unknown as ScanPipeline)) as never;
