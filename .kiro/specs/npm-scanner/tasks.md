@@ -49,24 +49,24 @@ This plan implements the Npm_Scanner in `/apps/exorcist-npm/src/scan/` per the n
   - **Validates: Requirements 7.4, 7.5, 7.6, 7.7, 14.7**
 - [x] 2.10 Write report example tests in `report.test.ts`: a handwritten report with the exact expected text, each `ReportParseError` category with its path message, optional field omission, and the unknown-key rejection in `sourceUrls` and `unknownReasons`.
   - _Requirements: 7.4, 7.5, 7.6_
-- [ ] 2.11 Create `src/scan/assemble.ts` with `compareScanned` and `assembleReport`: sort by `death.score` descending then name ascending in code-unit order, summary counts from `death.grade`, `repo` as `owner/repo`, `ref`, and unchanged `skipped` and `warnings`.
+- [x] 2.11 Create `src/scan/assemble.ts` with `compareScanned` and `assembleReport`: sort by `death.score` descending then name ascending in code-unit order, summary counts from `death.grade`, `repo` as `owner/repo`, `ref`, and unchanged `skipped` and `warnings`.
   - _Requirements: 5.4, 5.5, 5.7_
-- [ ] 2.12 Write assemble example tests in `assemble.test.ts`: score tie broken by name, mixed-case names in code-unit order, summary counts for each grade, empty input, `skipped` and `warnings` copied unchanged. The property for this module (Property 4) is written in Phase 6 because it runs over `scanOne`.
+- [x] 2.12 Write assemble example tests in `assemble.test.ts`: score tie broken by name, mixed-case names in code-unit order, summary counts for each grade, empty input, `skipped` and `warnings` copied unchanged. The property for this module (Property 4) is written in Phase 6 because it runs over `scanOne`.
   - _Requirements: 5.4, 5.5, 5.7_
-- [ ] 2.13 Create `src/scan/api/rate-limit.ts` with `createRateLimiter({ limit, windowSeconds, clock, maxKeys })`: sliding-window log, expiry at age greater than or equal to the window, refused requests not recorded, `retryAfterSeconds = max(1, ceil((oldest + window - now) / 1000))`, `maxKeys` default 10000 with an empty-key sweep then least-recently-used eviction, and `size()`.
+- [x] 2.13 Create `src/scan/api/rate-limit.ts` with `createRateLimiter({ limit, windowSeconds, clock, maxKeys })`: sliding-window log, expiry at age greater than or equal to the window, refused requests not recorded, `retryAfterSeconds = max(1, ceil((oldest + window - now) / 1000))`, `maxKeys` default 10000 with an empty-key sweep then least-recently-used eviction, and `size()`.
   - _Requirements: 9.4, 9.6, 9.9_
-- [ ] 2.14 Write the Property 7 test in `api/rate-limit.p7.test.ts` (exporting `build(factory)`), with the sabotage list in `test-support/sabotage/scan-p7.ts` (inclusive window boundary; count refused requests; floored `retryAfterSeconds`; unclamped or millisecond `retryAfterSeconds`; one shared counter; limit off by one; never evict at `maxKeys`).
+- [x] 2.14 Write the Property 7 test in `api/rate-limit.p7.test.ts` (exporting `build(factory)`), with the sabotage list in `test-support/sabotage/scan-p7.ts` (inclusive window boundary; count refused requests; floored `retryAfterSeconds`; unclamped or millisecond `retryAfterSeconds`; one shared counter; limit off by one; never evict at `maxKeys`).
   - **Property 7: Rate limiter window**
   - **Validates: Requirements 9.4, 9.9, 14.1**
-- [ ] 2.15 Create `src/scan/api/client-ip.ts` with `clientIp(req, trustProxy)`: last trimmed `x-forwarded-for` entry when `trustProxy` is true, socket address when the header is absent or the last entry is empty, header ignored when false, literal `"unknown"` when neither exists. Include the nginx deployment note in a comment.
+- [x] 2.15 Create `src/scan/api/client-ip.ts` with `clientIp(req, trustProxy)`: last trimmed `x-forwarded-for` entry when `trustProxy` is true, socket address when the header is absent or the last entry is empty, header ignored when false, literal `"unknown"` when neither exists. Include the nginx deployment note in a comment.
   - _Requirements: 9.7, 9.8_
-- [ ] 2.16 Write client-ip tests in `api/client-ip.test.ts`: examples for each branch plus one fast-check property (`numRuns` 100 through `fc-runner.ts`) that `trustProxy: false` ignores any header value and `trustProxy: true` returns the trimmed last entry.
+- [x] 2.16 Write client-ip tests in `api/client-ip.test.ts`: examples for each branch plus one fast-check property (`numRuns` 100 through `fc-runner.ts`) that `trustProxy: false` ignores any header value and `trustProxy: true` returns the trimmed last entry.
   - _Requirements: 9.7, 9.8_
-- [ ] 2.17 Create `src/scan/api/config.ts`: `ScanApiConfig`, `DEFAULT_SCAN_API_CONFIG` (port 27431, scan 10 per 60, demo 120 per 60, timeout 60, `trustProxy` false, `demoDir` resolved to `<repo root>/demo`, `maxDependencies` 300), `ScanApiConfigError`, `validateScanApiConfig` (names the invalid field) and `parsePortEnv` (the only reader of the `PORT` value; accepts only `/^[0-9]{1,5}$/` in 1 to 65535).
+- [x] 2.17 Create `src/scan/api/config.ts`: `ScanApiConfig`, `DEFAULT_SCAN_API_CONFIG` (port 27431, scan 10 per 60, demo 120 per 60, timeout 60, `trustProxy` false, `demoDir` resolved to `<repo root>/demo`, `maxDependencies` 300), `ScanApiConfigError`, `validateScanApiConfig` (names the invalid field) and `parsePortEnv` (the only reader of the `PORT` value; accepts only `/^[0-9]{1,5}$/` in 1 to 65535).
   - _Requirements: 9.11, 10.2, 10.3, 10.4_
-- [ ] 2.18 Write config tests in `api/config.test.ts`: each invalid field named in the error, defaults, `parsePortEnv` examples (`undefined`, `""`, `" 80"`, `"+80"`, `"80.0"`, `"8e1"`, `"0"`, `"65536"`), plus one fast-check property (`numRuns` 100) that `parsePortEnv` accepts exactly the digit strings with a value from 1 to 65535.
+- [x] 2.18 Write config tests in `api/config.test.ts`: each invalid field named in the error, defaults, `parsePortEnv` examples (`undefined`, `""`, `" 80"`, `"+80"`, `"80.0"`, `"8e1"`, `"0"`, `"65536"`), plus one fast-check property (`numRuns` 100) that `parsePortEnv` accepts exactly the digit strings with a value from 1 to 65535.
   - _Requirements: 9.11, 10.3, 10.4_
-- [ ] 2.19 Checkpoint after Phase 2 - Ensure all tests pass, ask the user if questions arise.
+- [x] 2.19 Checkpoint after Phase 2 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 3: Fixture recording
 
