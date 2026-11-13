@@ -9,7 +9,7 @@ import type { RepoRef } from "./repo-url.js";
 import { depsDevPageUrl, type DepsDevEvidence } from "./sources/depsdev.js";
 import { E18E_DIRECTORY_URL, type E18eEvidence } from "./sources/e18e.js";
 import { repoPageUrl, type GithubEvidence } from "./sources/github.js";
-import { npmDocUrl, type NpmEvidence } from "./sources/npm.js";
+import { npmSourceUrl, type NpmEvidence } from "./sources/npm.js";
 import { osvListUrl } from "./sources/osv.js";
 import type { Failure, Outcome } from "./sources/outcome.js";
 import type { EvidenceResult, FailureCategory, Source, UnknownReason } from "./types.js";
@@ -61,7 +61,7 @@ function months(o: Outcome<string>, now: Date, source: Source, url: string): Ent
 
 export function assembleResult(input: AssembleInput): EvidenceResult {
   const { name, now, npm } = input;
-  const npmUrl = npmDocUrl(name);
+  const npmUrl = npmSourceUrl(name);
 
   // Short-circuits (Requirements 1.5, 1.7): a missing package or a range matching nothing.
   const allNotFound: Failure | undefined =

@@ -102,27 +102,27 @@ This plan implements the Npm_Evidence_Stage in `/apps/exorcist-npm/src/evidence/
 
 ### Phase 6: Stage-level properties and sabotage harness
 
-- [ ] 6.1 Write the Property 3 test (failure isolation) in `stage.p3.test.ts`, with the `isValidEvidenceResult` helper in `test-support/` and the sabotage list in `test-support/sabotage/p3.ts` (fail-fast; failed-as-alive; npm failure also blanks `knownReplacementExists`; rethrows the first failure). Exclude npm `not_found`, which is covered by 5.9.
+- [x] 6.1 Write the Property 3 test (failure isolation) in `stage.p3.test.ts`, with the `isValidEvidenceResult` helper in `test-support/` and the sabotage list in `test-support/sabotage/p3.ts` (fail-fast; failed-as-alive; npm failure also blanks `knownReplacementExists`; rethrows the first failure). Exclude npm `not_found`, which is covered by 5.9.
   - **Property 3: Failure isolation**
   - **Validates: Requirements 2.5, 4.6, 5.7, 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.8, 10.8, 13.3, 13.7**
-- [ ] 6.2 Write the Property 5 test (determinism and dependence on the injected Now only) in `stage.p5.test.ts`, with the sabotage list in `test-support/sabotage/p5.ts` (reads `new Date()`; random jitter in a reason message; completion-order `unknownReasons` and `warnings`).
+- [x] 6.2 Write the Property 5 test (determinism and dependence on the injected Now only) in `stage.p5.test.ts`, with the sabotage list in `test-support/sabotage/p5.ts` (reads `new Date()`; random jitter in a reason message; completion-order `unknownReasons` and `warnings`).
   - **Property 5: Determinism and dependence on the injected Now only**
   - **Validates: Requirements 11.1, 11.6, 13.5, 13.7**
-- [ ] 6.3 Write the Property 11 test (the GitHub token is confined to GitHub requests and never persisted) in `stage.p11.test.ts`, with the sabotage list in `test-support/sabotage/p11.ts` (token in the cache key; token sent to every host; failure message includes request headers).
+- [x] 6.3 Write the Property 11 test (the GitHub token is confined to GitHub requests and never persisted) in `stage.p11.test.ts`, with the sabotage list in `test-support/sabotage/p11.ts` (token in the cache key; token sent to every host; failure message includes request headers).
   - **Property 11: The GitHub token is confined to GitHub requests and never persisted**
   - **Validates: Requirements 4.8, 4.10, 14.5, 14.6, 13.7**
-- [ ] 6.4 Create `src/evidence/sabotage.test.ts` that imports every list under `test-support/sabotage/` (p1 to p11) and runs each sabotage against its property with the fixed seed, failing by name if any sabotage stays green.
+- [x] 6.4 Create `src/evidence/sabotage.test.ts` that imports every list under `test-support/sabotage/` (p1 to p11) and runs each sabotage against its property with the fixed seed, failing by name if any sabotage stays green.
   - _Requirements: 13.7, 13.8_
 
 ### Phase 7: Integration and documentation
 
-- [ ] 7.1 Write static smoke tests: the app imports `/skeleton` only through `@graveyard-kit/skeleton`, no file under `/skeleton` resolves an import under `apps/exorcist-npm`, `package.json` declares no LLM client dependency, the module exports `createEvidenceStage` and no `inventory`, `replacement` or `proof`, and a type-level test assigns `EvidenceResult["signals"]` to `PackageSignals`.
+- [x] 7.1 Write static smoke tests: the app imports `/skeleton` only through `@graveyard-kit/skeleton`, no file under `/skeleton` resolves an import under `apps/exorcist-npm`, `package.json` declares no LLM client dependency, the module exports `createEvidenceStage` and no `inventory`, `replacement` or `proof`, and a type-level test assigns `EvidenceResult["signals"]` to `PackageSignals`.
   - _Requirements: 1.2, 12.10, 14.1, 14.2, 14.3, 14.7_
-- [ ] 7.2 Run `npm run typecheck` across workspaces and `npm test`; fix strict-mode errors and confirm every property runs with `numRuns: 100` and every sabotage check fails its property as intended.
+- [x] 7.2 Run `npm run typecheck` across workspaces and `npm test`; fix strict-mode errors and confirm every property runs with `numRuns: 100` and every sabotage check fails its property as intended.
   - _Requirements: 12.1, 12.10, 13.1, 13.9, 13.10_
-- [ ] 7.3 Append a dated entry to `docs/kiro-log.md` noting the npm-evidence build, the 11 properties, the sabotage results, any shrunk counterexamples surfaced, and the requirement clarifications from the design (npm 404 versus failure isolation, e18e manifests, partial e18e failure).
+- [x] 7.3 Append a dated entry to `docs/kiro-log.md` noting the npm-evidence build, the 11 properties, the sabotage results, any shrunk counterexamples surfaced, and the requirement clarifications from the design (npm 404 versus failure isolation, e18e manifests, partial e18e failure).
   - _Requirements: 13.7_
-- [ ] 7.4 Final checkpoint - Ensure all tests pass, ask the user if questions arise.
+- [x] 7.4 Final checkpoint - Ensure all tests pass, ask the user if questions arise.
 
 ## Task Dependency Graph
 

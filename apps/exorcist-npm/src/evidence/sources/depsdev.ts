@@ -9,7 +9,7 @@
  */
 import { parseIsoTimestamp } from "../months-since.js";
 import { fetchJson } from "../http/fetch-json.js";
-import { fail, isRecord, ok, type Outcome, type SourceContext } from "./outcome.js";
+import { fail, isRecord, ok, urlName, type Outcome, type SourceContext } from "./outcome.js";
 
 export interface DepsDevNeeds {
   deprecated: boolean;
@@ -24,7 +24,7 @@ export interface DepsDevEvidence {
 
 export const depsDevApiUrl = (name: string): string =>
   `https://api.deps.dev/v3/systems/npm/packages/${encodeURIComponent(name)}`;
-export const depsDevPageUrl = (name: string): string => `https://deps.dev/npm/${name}`;
+export const depsDevPageUrl = (name: string): string => `https://deps.dev/npm/${urlName(name)}`;
 
 /**
  * Zero requests when disabled or when neither fillable signal is unknown. Otherwise one GET.

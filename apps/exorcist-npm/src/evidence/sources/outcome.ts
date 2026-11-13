@@ -22,3 +22,12 @@ export const fail = (source: Source, category: Failure["category"]): Outcome<nev
 export function isRecord(v: unknown): v is Record<string, unknown> {
   return typeof v === "object" && v !== null && !Array.isArray(v);
 }
+
+/**
+ * A package name as it appears in a user-facing source URL (Requirements 2.4, 5.5, 7.4): the name itself,
+ * so `@scope/pkg` stays readable. Only characters that would break the URL are percent-encoded; every valid
+ * npm name is returned unchanged. Request URLs (what is fetched) keep full `encodeURIComponent`.
+ */
+export function urlName(name: string): string {
+  return encodeURIComponent(name).replace(/%40/g, "@").replace(/%2F/gi, "/");
+}

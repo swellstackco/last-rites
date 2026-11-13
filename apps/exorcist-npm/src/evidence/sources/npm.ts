@@ -5,7 +5,7 @@
 import { parseIsoTimestamp } from "../months-since.js";
 import { fetchJson } from "../http/fetch-json.js";
 import { resolveVersion, type ResolvedVersion } from "../version.js";
-import { fail, isRecord, ok, type Outcome, type SourceContext } from "./outcome.js";
+import { fail, isRecord, ok, urlName, type Outcome, type SourceContext } from "./outcome.js";
 
 export interface NpmEvidence {
   resolution: ResolvedVersion;
@@ -18,7 +18,10 @@ export interface NpmEvidence {
   repository: unknown;
 }
 
+/** The URL fetched (scoped names fully encoded: `@scope%2Fpkg`). */
 export const npmDocUrl = (name: string): string => `https://registry.npmjs.org/${encodeURIComponent(name)}`;
+/** The user-facing sourceUrl, `https://registry.npmjs.org/<name>` as in Requirement 2.4 (scoped: `@scope/pkg`). */
+export const npmSourceUrl = (name: string): string => `https://registry.npmjs.org/${urlName(name)}`;
 
 function latestPublish(time: unknown): Outcome<string> {
   if (!isRecord(time)) return fail("npm", "malformed_response");

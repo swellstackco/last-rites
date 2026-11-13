@@ -5,10 +5,10 @@
 import { OSV_MAX_PAGES } from "../config.js";
 import { fetchJson } from "../http/fetch-json.js";
 import { countOpenVulnsNoFix, type OsvVuln } from "../osv-count.js";
-import { fail, isRecord, ok, type Outcome, type SourceContext } from "./outcome.js";
+import { fail, isRecord, ok, urlName, type Outcome, type SourceContext } from "./outcome.js";
 
 export const OSV_QUERY_URL = "https://api.osv.dev/v1/query";
-export const osvListUrl = (name: string): string => `https://osv.dev/list?q=${encodeURIComponent(name)}`;
+export const osvListUrl = (name: string): string => `https://osv.dev/list?q=${urlName(name)}`;
 
 /** Key order matters for exact-match fixtures: package{name,ecosystem}, version, page_token. */
 export function osvRequestBody(name: string, version: string, pageToken?: string): string {
