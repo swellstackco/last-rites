@@ -101,24 +101,24 @@ Terminology used in the tasks: a *Mutator* is part of the product (a deliberatel
   - **Validates: Requirements 6.3, 6.11, 9.4**
 - [x] 3.20 Create the Sabotage_List `skeleton/src/proof/test-support/sabotage/proof-p5.ts` (current time in the report; `Math.random()` in an error message; fresh random seed when none is given; `process.cwd()` in the candidate name; coverage key order from a shuffled insertion).
   - _Requirements: 18.2, 18.5_
-- [ ] 3.21 Write the Property 7 test in `skeleton/src/proof/runner/sabotage.p7.test.ts` (exporting `build(impl)`): generated synthetic recipes (some mutants survive), mutator lists (built-ins, subset, empty), seeds; accounting, ordering, `weak` rule, zero sabotage for non-proved, and deep-frozen inputs showing no Mutator modified anything.
+- [x] 3.21 Write the Property 7 test in `skeleton/src/proof/runner/sabotage.p7.test.ts` (exporting `build(impl)`): generated synthetic recipes (some mutants survive), mutator lists (built-ins, subset, empty), seeds; accounting, ordering, `weak` rule, zero sabotage for non-proved, and deep-frozen inputs showing no Mutator modified anything.
   - **Property 7: Sabotage accounting and the weak flag**
   - **Validates: Requirements 8.1, 8.5, 8.6, 8.7**
-- [ ] 3.22 Create the Sabotage_List `skeleton/src/proof/test-support/sabotage/proof-p7.ts` (`weak` ignores survivors; `weak` false when `applied` is 0; survivors include caught mutants; run the check for a `counterexample` status; count `applied` before filtering; survivors in reversed mutator order; a Mutator that writes into its argument).
+- [x] 3.22 Create the Sabotage_List `skeleton/src/proof/test-support/sabotage/proof-p7.ts` (`weak` ignores survivors; `weak` false when `applied` is 0; survivors include caught mutants; run the check for a `counterexample` status; count `applied` before filtering; survivors in reversed mutator order; a Mutator that writes into its argument).
   - _Requirements: 18.2_
-- [ ] 3.23 Fill `skeleton/src/proof/runner/index.ts` (`runProof`, `BUILT_IN_MUTATORS`, `applicableMutators`, `structuralEqual`, `deepClone` and the runner types) and `skeleton/src/proof/testing.ts` (synthetic recipes, report arbitrary, fault family).
+- [x] 3.23 Fill `skeleton/src/proof/runner/index.ts` (`runProof`, `BUILT_IN_MUTATORS`, `applicableMutators`, `structuralEqual`, `deepClone` and the runner types) and `skeleton/src/proof/testing.ts` (synthetic recipes, report arbitrary, fault family).
   - _Requirements: 11.2_
-- [ ] 3.24 Create `skeleton/src/proof/sabotage.test.ts`: import the Sabotage_Lists for Properties 2, 3, 5, 7, 8 and 9, run each property against every entry with the fixed seed through `assertAllSabotagesCaught`, fail with `Sabotage "<name>" stayed green for "<property>"`, assert every list is non-empty, assert the required names exist in the right lists, and assert the real implementations pass every property under the same seed.
+- [x] 3.24 Create `skeleton/src/proof/sabotage.test.ts`: import the Sabotage_Lists for Properties 2, 3, 5, 7, 8 and 9, run each property against every entry with the fixed seed through `assertAllSabotagesCaught`, fail with `Sabotage "<name>" stayed green for "<property>"`, assert every list is non-empty, assert the required names exist in the right lists, and assert the real implementations pass every property under the same seed.
   - _Requirements: 18.2, 18.3, 18.4, 18.5_
-- [ ] 3.25 Checkpoint after Phase 3 - Ensure all tests pass, ask the user if questions arise.
+- [x] 3.25 Checkpoint after Phase 3 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 4: Usage surface (npm)
 
-- [ ] 4.1 Create `apps/exorcist-npm/src/exorcise/source-fs.ts`: `DirEntry`, `SourceFs`, and `createNodeSourceFs()` (`readdir` with file types, no symlink following, `undefined` for unreadable directories and files).
+- [x] 4.1 Create `apps/exorcist-npm/src/exorcise/source-fs.ts`: `DirEntry`, `SourceFs`, and `createNodeSourceFs()` (`readdir` with file types, no symlink following, `undefined` for unreadable directories and files).
   - _Requirements: 2.8, 2.9_
-- [ ] 4.2 Write `source-fs.test.ts` against a temporary directory removed in `finally`: file and directory kinds, a symlink reported as `other`, a missing directory gives `undefined`, an unreadable file gives `undefined`.
+- [x] 4.2 Write `source-fs.test.ts` against a temporary directory removed in `finally`: file and directory kinds, a symlink reported as `other`, a missing directory gives `undefined`, an unreadable file gives `undefined`.
   - _Requirements: 2.1, 2.5, 2.6_
-- [ ] 4.3 Create `apps/exorcist-npm/src/exorcise/test-support/memory-fs.ts`: a `SourceFs` over a generated map of path to text, with a `shuffle(seed)` option for listing order and an option to make chosen files unreadable or oversized.
+- [x] 4.3 Create `apps/exorcist-npm/src/exorcise/test-support/memory-fs.ts`: a `SourceFs` over a generated map of path to text, with a `shuffle(seed)` option for listing order and an option to make chosen files unreadable or oversized.
   - _Requirements: 17.4_
 - [ ] 4.4 Create `apps/exorcist-npm/src/exorcise/classify-path.ts` with `enclosingOf(file)` per Requirement 2.7.
   - _Requirements: 2.7_
