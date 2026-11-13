@@ -275,3 +275,14 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - Each run printed syntax-diagnostic warnings for 5 Flow-annotated files; call sites were still found.
 - Left for the next run: 10.7 (nothing to do, deep-diff proved), 10.8 (the node-abort-controller report was already written above to check the output, but the task is not ticked: the run was capped at 8 tasks and the verification in 10.9 is pending), 10.9 to 10.12 (determinism re-run, browser check, final log, final checkpoint).
 - Counts after this run: 139 files, 1256 tests pass, 1 todo (3 new tests come from `demo-proofs.test.ts` parsing the three real reports). Typecheck clean.
+
+## 2026-11-13: proof-harness 10.7 to 10.12 (verification of the real reports, browser check, final checkpoint)
+
+- 10.7: deep-diff attempt 1 is `proved` (1000 runs, seed 20261113, sabotage 2 of 2 caught, not weak, no survivors). 23 call sites, all `test`, all 23 carry `consumedAs: undefined-check`. No candidate change needed.
+- 10.8: node-abort-controller: `no-call-sites`, recommendation `remove-dependency`, 0 call sites, 0 import sites, 371 files scanned. Re-run with `--fresh` into a temporary `--out` printed the same summary.
+- 10.9: the three reports parse (via `demo-proofs.test.ts`); no absolute path or timestamp (grep for `/Users` and time patterns finds none); the temporary node-abort-controller re-run is byte-identical to the committed file (`cmp`). Temp output removed.
+- 10.10: browser check run with headless Google Chrome against `apps/exorcist-web/dist` served from loopback (screenshots at 1300x2800, read by eye, then deleted).
+  - deep-diff panel: Proof section visible with PROVED badge, "1000 runs, seed 20261113", "Sabotage: 2 of 2 broken migrations caught", "Call sites (23)", and the attempt history ("Attempt 1: deep-diff.attempt1.js", PROVED, runs, seed, sabotage line). Looks right.
+  - intersect panel: NO Proof section is shown. Cause: `controller.ts` line 219 only requests a proof for packages graded `dead` or `dying`, and intersect scores 35 (ailing) in the parse-server demo. So the intersect report (attempt 1 counterexample, attempt 2 proved) is on disk but not reachable from the page. This matches the tested controller behavior ("none for ailing/alive") but means the best demo story (the shrunk counterexample) is invisible. Not changed in this run; needs a decision (show proofs for any package that has a report, or change the demo selection).
+  - node-abort-controller panel not opened (not required by the task text beyond the two named panels).
+- Counterexamples found by fast-check this run: none (no new properties).
