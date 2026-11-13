@@ -109,7 +109,13 @@ export function osvBody(name: string, version: string, pageToken?: string): stri
 }
 
 /** Record the npm document, then (when a GitHub repo can be derived) repo + latest commit, then OSV. */
-export async function recordPackageCase(rec: Recorder, caseName: string, pkg: string): Promise<void> {
+export async function recordPackageCase(
+  rec: Recorder,
+  caseName: string,
+  pkg: string,
+  /** When given, replaces `dist-tags.latest` as the version sent to OSV. */
+  version?: string,
+): Promise<void> {
   const doc = (await rec.record(caseName, "npm", {
     method: "GET",
     url: `https://registry.npmjs.org/${encodeURIComponent(pkg)}`,
@@ -128,14 +134,14 @@ export async function recordPackageCase(rec: Recorder, caseName: string, pkg: st
     });
   }
 
-  const version = doc["dist-tags"]?.latest;
-  if (!version) throw new Error(`${pkg} has no dist-tags.latest; cannot query OSV`);
+  const osvVersion = version ?? doc["dist-tags"]?.latest;
+  if (!osvVersion) throw new Error(`${pkg} has no dist-tags.latest; cannot query OSV`);
   let token: string | undefined;
   for (let page = 1; page <= OSV_MAX_PAGES; page++) {
     const out = (await rec.record(caseName, page === 1 ? "osv" : `osv-${page}`, {
       method: "POST",
       url: "https://api.osv.dev/v1/query",
-      body: osvBody(pkg, version, token),
+      body: osvBody(pkg, osvVersion, token),
     })) as { next_page_token?: string };
     token = out.next_page_token;
     if (!token) break;
