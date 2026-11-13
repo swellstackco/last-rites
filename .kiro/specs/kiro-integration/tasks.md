@@ -109,23 +109,23 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - _Requirements: 12.1, 12.3, 12.4_
 - [x] 3.15 Write `mcp/src/hooks/hook-files.test.ts` for these two files: each passes `validateHookFile`; the `matcher` of the monotonic hook matches `skeleton/src/death-score/weights.ts`, `severity.ts`, `grade.ts` and an absolute path ending in them, and does not match `weights.test.ts`, `score.ts`, `skeleton/src/graveyard/grade.ts`; the Stop hook has no `matcher`; each `description` is non-empty and at most 120 characters.
   - _Requirements: 12.1, 12.7_
-- [ ] 3.16 Run both hooks' scripts by hand once from the repository root (`npm run hook:monotonic -w @graveyard-kit/exorcist-mcp --silent`, `npm run hook:stop-check -w @graveyard-kit/exorcist-mcp --silent`), read the output and `.cache/hooks/fired.log`, and note in the task notes what each printed. From this point the two hooks are expected to fire on saves and when an agent turn stops; Phase 11 reads the log.
+- [x] 3.16 Run both hooks' scripts by hand once from the repository root (`npm run hook:monotonic -w @graveyard-kit/exorcist-mcp --silent`, `npm run hook:stop-check -w @graveyard-kit/exorcist-mcp --silent`), read the output and `.cache/hooks/fired.log`, and note in the task notes what each printed. From this point the two hooks are expected to fire on saves and when an agent turn stops; Phase 11 reads the log.
   - _Requirements: 12.6, 17.8_
-- [ ] 3.17 Checkpoint after Phase 3 - Ensure all tests pass, ask the user if questions arise.
+- [x] 3.17 Checkpoint after Phase 3 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 4: MCP core (errors, guards, local files, static oracles, scan source)
 
-- [ ] 4.1 Create `mcp/src/errors.ts` (`ErrorCode`, `ToolErrorValue`, `toolError`) and `mcp/src/result.ts` (`textResult`, `errorResult`, `safely`) as in the design; `safely` catches everything and returns `internal_error` / `unexpected error`.
+- [x] 4.1 Create `mcp/src/errors.ts` (`ErrorCode`, `ToolErrorValue`, `toolError`) and `mcp/src/result.ts` (`textResult`, `errorResult`, `safely`) as in the design; `safely` catches everything and returns `internal_error` / `unexpected error`.
   - _Requirements: 9.1, 9.2, 9.3, 9.4_
-- [ ] 4.2 Write `mcp/src/result.test.ts` examples: success shape, error shape, `safely` on a throw, on a rejection, on a thrown non-Error, error text never contains the thrown message.
+- [x] 4.2 Write `mcp/src/result.test.ts` examples: success shape, error shape, `safely` on a throw, on a rejection, on a thrown non-Error, error text never contains the thrown message.
   - _Requirements: 9.2, 9.3, 9.4_
-- [ ] 4.3 Create `mcp/src/guards.ts` part 1: `classifyRepoArgument`, `NPM_NAME_PATTERN`, `isNpmName`, `checkRuns`, `checkOut` (using `REPO_PATTERN`, `parseRepoTarget`, `DEMO_REPOS`, `isProofOutPath` from the programmatic entry).
+- [x] 4.3 Create `mcp/src/guards.ts` part 1: `classifyRepoArgument`, `NPM_NAME_PATTERN`, `isNpmName`, `checkRuns`, `checkOut` (using `REPO_PATTERN`, `parseRepoTarget`, `DEMO_REPOS`, `isProofOutPath` from the programmatic entry).
   - _Requirements: 3.1, 3.2, 3.4, 3.5, 3.7_
-- [ ] 4.4 Extend `guards.ts` part 2: the `FsProbe` type, `checkPath` and `checkCandidate` (resolve against `cwd`, 4096 limit, NUL, existence, directory or regular file, extension), returning `ToolErrorValue` with the codes of Requirement 3.6 and 3.7.
+- [x] 4.4 Extend `guards.ts` part 2: the `FsProbe` type, `checkPath` and `checkCandidate` (resolve against `cwd`, 4096 limit, NUL, existence, directory or regular file, extension), returning `ToolErrorValue` with the codes of Requirement 3.6 and 3.7.
   - _Requirements: 3.6, 3.7, 3.8_
-- [ ] 4.5 Write `mcp/src/guards.test.ts` examples: `/a/b`, `./x`, `../x`, `owner/name`, `./owner/name`, `parse-server`, `pump`, `Parse-Server`, `owner/name/extra`, empty, NUL, 4097 characters; `@scope/pkg`, `Pkg`, `a`, 214 and 215 characters; `runs` 99, 100, 100000, 100001, `1e3`, `200.5`; `out` forms; a missing path, a file given as a path, a directory given as a candidate, `candidate.ts`.
+- [x] 4.5 Write `mcp/src/guards.test.ts` examples: `/a/b`, `./x`, `../x`, `owner/name`, `./owner/name`, `parse-server`, `pump`, `Parse-Server`, `owner/name/extra`, empty, NUL, 4097 characters; `@scope/pkg`, `Pkg`, `a`, 214 and 215 characters; `runs` 99, 100, 100000, 100001, `1e3`, `200.5`; `out` forms; a missing path, a file given as a path, a directory given as a candidate, `candidate.ts`.
   - _Requirements: 3.1 to 3.7_
-- [ ] 4.6 Create `mcp/src/test-support/fakes.ts`: an in-memory `FsProbe` over a generated map, a recording `ReportFs`, a fake `DemoStore`, counting wrappers for every Dep (call counter and argument log), and `makeDeps(overrides)` with defaults built from the app's fake clock, `FakeHttp` and `memoryFiles`.
+- [x] 4.6 Create `mcp/src/test-support/fakes.ts`: an in-memory `FsProbe` over a generated map, a recording `ReportFs`, a fake `DemoStore`, counting wrappers for every Dep (call counter and argument log), and `makeDeps(overrides)` with defaults built from the app's fake clock, `FakeHttp` and `memoryFiles`.
   - _Requirements: 18.1_
 - [ ] 4.7 Write the Property 1 test in `mcp/src/guards.p1.test.ts` (exporting `build(impl)` over the guard functions and a tool-call harness stub that records Dep calls for rejected inputs).
   - **Property 1: Argument guards and routing**
