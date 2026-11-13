@@ -311,7 +311,11 @@ export function createController(deps: ControllerDeps): Controller {
       case "report": {
         const header = renderHeader({
           header: p.view.header,
-          onFocusGroup: (grade) => graveyard?.focusGroup(grade),
+          onFocusGroup: (grade) => {
+            // Tasks 7.3 and 8.7: the alive count control expands the disclosure, then focuses it.
+            if (grade === "alive") graveyard?.expandAlive();
+            graveyard?.focusGroup(grade);
+          },
         });
         graveyard = renderGraveyard({
           view: p.view.graveyard,
