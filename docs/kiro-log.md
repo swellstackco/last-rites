@@ -158,3 +158,12 @@ Headless Chromium at 1352x761 and 375x812 (2x), demo parse-server, package ldapj
 - 3.1-3.4: runner `types.ts`, `clone.ts`, `equal.ts`, `outcome.ts` (no tests until 3.5). `resolveMember` returns `thisArg` undefined for member `""`, else the object holding the last path segment.
 - Counterexamples found by fast-check this run: none (no new property was written; Property 9 only ran against sabotages).
 - Counts (repo root): `npm run typecheck` clean; `npm test` 104 files, 947 tests pass, 1 todo, with and without `CI=1`.
+
+## 2026-11-13 proof-harness 3.5-3.12 (Kiro CLI)
+
+- 3.5/3.6: `outcome.p8.test.ts` (exports `build(impl)` over `{ structuralEqual, deepClone, outcomesAgree }`) and `test-support/sabotage/proof-p8.ts` (eight entries plus `P8_REQUIRED`). Checked by a temporary test against the fixed seed: all eight caught, then removed (central test is 3.24). `Outcome` drops the thrown value, so the property builds its outcomes with an extra `message` field; the "compare thrown messages" sabotage reads it, the real code ignores it.
+- 3.7: `test-support/synthetic-recipes.ts` (five cases, `moduleFor`, `usageFor`, `usageResultFor`, eight-entry `FAULT_FAMILY`; "mutate its input" is flagged `equivalent` because the runner's clones hide it).
+- 3.8/3.9: `differential.ts` (`runShape`, `ResolvedMember`, the three harness error classes) and 15 example tests. Judgement call: on a failed shape the `coverage` counts include shrink attempts (fast-check runs the property while shrinking); documented in the type. Messages for `recipe_failure` are generic and never carry the thrown message or a path.
+- 3.10-3.12: `mutators.ts`, `mutators.test.ts` (full applicability table), `sabotage.ts`. `runSabotage(shapes, resolve, cfg, mutators)` takes the `CallShape`s that ran plus a resolver returning both sides, because a `ShapeRun` alone has no shape.
+- Counterexamples found by fast-check this run: none against the real code. The example tests pin shrunk results: reversing `sort-unique` shrinks to a two-element array; dropping the throw in `guarded-sqrt` shrinks to `[-1]` (old `<threw>`, new `1`).
+- Counts (repo root): `npm run typecheck` clean; `npm test` 107 files, 974 tests pass, 1 todo. Runner tests also green under FC_SEED 1, 2, 3.
