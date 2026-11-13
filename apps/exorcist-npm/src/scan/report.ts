@@ -68,7 +68,7 @@ function buildDependency(d: ScannedDependency): Record<string, unknown> {
     out["replacement"] = rep;
   }
   out["evidenceWarnings"] = [...d.evidenceWarnings];
-  out["death"] = {
+  const death: Record<string, unknown> = {
     score: d.death.score,
     grade: d.death.grade,
     parts: d.death.parts.map((p) => {
@@ -83,6 +83,14 @@ function buildDependency(d: ScannedDependency): Record<string, unknown> {
       return part;
     }),
   };
+  if (d.death.calibration !== undefined) {
+    death["calibration"] = {
+      rule: d.death.calibration.rule,
+      reason: d.death.calibration.reason,
+      points: d.death.calibration.points,
+    };
+  }
+  out["death"] = death;
   return out;
 }
 
@@ -250,7 +258,17 @@ function parseDeath(v: unknown, path: string): ScannedDependency["death"] {
     if (Object.hasOwn(po, "sourceUrl")) part.sourceUrl = asString(po["sourceUrl"], `${p}.sourceUrl`);
     return part;
   });
-  return { score, grade, parts };
+  const result: ScannedDependency["death"] = { score, grade, parts };
+  if (Object.hasOwn(o, "calibration")) {
+    const c = `${path}.calibration`;
+    const co = asObject(o["calibration"], c);
+    result.calibration = {
+      rule: asEnum(field(co, "rule", c), ["declared_abandoned"] as const, `${c}.rule`),
+      reason: asString(field(co, "reason", c), `${c}.reason`),
+      points: asInteger(field(co, "points", c), `${c}.points`),
+    };
+  }
+  return result;
 }
 
 function parseDependency(v: unknown, path: string): ScannedDependency {

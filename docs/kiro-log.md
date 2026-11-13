@@ -57,3 +57,9 @@ Dated notes on how Kiro was used to build this project: which surface (IDE, CLI,
 - Task 6.1: 9-row regression table in `score.test.ts`, signals hardcoded from `demo/parse-server.json` and `demo/prettier.json`. Every row's Weighted_Sum matches bugfix.md (72, 61, 58, 48, 45, 40, 27, 21, 46), so no reconciliation was needed. Note the demo JSON still holds the old (unfloored) scores until the demo snapshot is re-run manually.
 - Task 6.2: edge examples (publish T and T-1; floor 0, 100, -5, 150, NaN; S >= 75; both flags with unknown publish; one flag with unknown publish).
 - Spec gaps: design.md says sabotage (d) is "caught by Property 6 parts equality and Property 2". Property 2 cannot catch it: bumping a part keeps `sum(parts) = score`. Only Property 6 catches (d). Also (b) is caught only by Property 7 (the design said the same), and (a) is additionally caught by Property 5.
+
+## 2026-11-13: death-score-calibration 6.3-6.6
+
+- 6.3/6.4: `apps/exorcist-npm/src/scan/report.ts` codec silently dropped `death.calibration` (and canonical re-serialization would have hidden it). Serialize now emits `calibration` (after `parts`) only when present; parse reads it strictly. `reportArb` generates optional calibration so the Canonical_Json round-trip property covers it. No `undefined`-valued keys.
+- 6.5: no test/snapshot expectations changed. `demo/*.json` cached scores are stale for declared-abandoned packages until `npm run demo-snapshot -w @graveyard-kit/exorcist-npm` is run manually (not run here: network).
+- 6.6: skipped, no graveyard UI component exists yet in the repo.

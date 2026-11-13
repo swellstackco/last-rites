@@ -87,7 +87,16 @@ const part = fc.record(
   { requiredKeys: ["signal", "rawValue", "weight", "points", "status"] },
 );
 
-const death = fc.record({ score: nat(100), grade, parts: fc.array(part, { maxLength: 7 }) });
+const calibration = fc.record({
+  rule: fc.constant("declared_abandoned" as const),
+  reason: text,
+  points: nat(100),
+});
+
+const death = fc.record(
+  { score: nat(100), grade, parts: fc.array(part, { maxLength: 7 }), calibration },
+  { requiredKeys: ["score", "grade", "parts"] },
+);
 
 const dependency: fc.Arbitrary<ScannedDependency> = fc
   .record(
