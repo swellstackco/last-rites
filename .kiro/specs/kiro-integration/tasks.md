@@ -50,27 +50,27 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - _Requirements: 16.1, 15.2, 15.3_
 - [x] 2.5 Create `mcp/src/kiro-config/skill.ts`: `validateSkill(text, folderName)` (frontmatter of exactly `name` and `description`, `name` equal to the folder, non-empty body).
   - _Requirements: 16.1, 15.4_
-- [ ] 2.6 Create `mcp/src/kiro-config/agent.ts`: `validateAgentFile(text, ctx: { exists(path): boolean })` per the agent field list (rejects `allowedTools`, `toolsSettings`, `toolAliases`; `prompt` `file://` and `resources` `file://` targets must exist through `ctx.exists`; `permissions.rules` shape; every `mcpServers` entry has `command`).
+- [x] 2.6 Create `mcp/src/kiro-config/agent.ts`: `validateAgentFile(text, ctx: { exists(path): boolean })` per the agent field list (rejects `allowedTools`, `toolsSettings`, `toolAliases`; `prompt` `file://` and `resources` `file://` targets must exist through `ctx.exists`; `permissions.rules` shape; every `mcpServers` entry has `command`).
   - _Requirements: 16.1, 14.8_
-- [ ] 2.7 Create `mcp/src/kiro-config/privilege.ts`: `writeCapabilities(agent)`, `pushCapabilities(agent)` and the small glob matcher they use, per the design.
+- [x] 2.7 Create `mcp/src/kiro-config/privilege.ts`: `writeCapabilities(agent)`, `pushCapabilities(agent)` and the small glob matcher they use, per the design.
   - _Requirements: 14.2, 14.4, 14.5, 14.7_
-- [ ] 2.8 Create `mcp/src/kiro-config/index.ts` re-exporting the validators and privilege functions.
+- [x] 2.8 Create `mcp/src/kiro-config/index.ts` re-exporting the validators and privilege functions.
   - _Requirements: 16.1_
-- [ ] 2.9 Create `mcp/src/test-support/arbitraries/kiro-files.ts`: arbitraries for valid hook files, agent files, MCP settings, plugin manifests, Power `mcp.json` and skills (as objects and as canonical text), and `injectFault(kind, value)` returning the faulted value with the expected failing path, for each fault listed in Property 8.
+- [x] 2.9 Create `mcp/src/test-support/arbitraries/kiro-files.ts`: arbitraries for valid hook files, agent files, MCP settings, plugin manifests, Power `mcp.json` and skills (as objects and as canonical text), and `injectFault(kind, value)` returning the faulted value with the expected failing path, for each fault listed in Property 8.
   - _Requirements: 16.2_
-- [ ] 2.10 Write `mcp/src/kiro-config/validators.test.ts` examples: for each validator one valid sample, and each documented fault with its exact `path` and message text; non-JSON text, empty text, arrays, `null` and huge nesting never throw; an agent using `allowedTools` is rejected.
+- [x] 2.10 Write `mcp/src/kiro-config/validators.test.ts` examples: for each validator one valid sample, and each documented fault with its exact `path` and message text; non-JSON text, empty text, arrays, `null` and huge nesting never throw; an agent using `allowedTools` is rejected.
   - _Requirements: 16.2_
-- [ ] 2.11 Write the Property 8 test in `mcp/src/kiro-config/validators.p8.test.ts` (exporting `build(impl)` over the six validators).
+- [x] 2.11 Write the Property 8 test in `mcp/src/kiro-config/validators.p8.test.ts` (exporting `build(impl)` over the six validators).
   - **Property 8: Config validators**
   - **Validates: Requirements 16.1, 16.2, 16.3, 11.3, 12.7, 15.2, 15.3, 15.4**
-- [ ] 2.12 Create the Sabotage_List `mcp/src/test-support/sabotage/kiro-p8.ts` (accept an unknown trigger; skip the matcher compile check; accept an unknown field; report the wrong path; throw on non-JSON text; accept an `agent` action with no `prompt`; accept plugin version `1.0`).
+- [x] 2.12 Create the Sabotage_List `mcp/src/test-support/sabotage/kiro-p8.ts` (accept an unknown trigger; skip the matcher compile check; accept an unknown field; report the wrong path; throw on non-JSON text; accept an `agent` action with no `prompt`; accept plugin version `1.0`).
   - _Requirements: 18.3_
-- [ ] 2.13 Write `mcp/src/kiro-config/privilege.test.ts` examples: a read-only agent has `[]`; each grant of Property 9 alone gives its reason; `exorcist/*` and `exorcist/generate_pin_tests` allow rules; a push deny before and after the `git *` allow; the glob matcher on `git push origin x`, `git pushx`, `npm *`.
+- [x] 2.13 Write `mcp/src/kiro-config/privilege.test.ts` examples: a read-only agent has `[]`; each grant of Property 9 alone gives its reason; `exorcist/*` and `exorcist/generate_pin_tests` allow rules; a push deny before and after the `git *` allow; the glob matcher on `git push origin x`, `git pushx`, `npm *`.
   - _Requirements: 14.4, 14.5_
-- [ ] 2.14 Write the Property 9 test in `mcp/src/kiro-config/privilege.p9.test.ts` (exporting `build(impl)` over `{ writeCapabilities, pushCapabilities }`), using sample base agents written inline in `__fixtures__/agents/` (a read-only base shaped like the design's `coroner.json`, and an `exorcist` base shaped like the design's), not the real files (those are checked in Phase 8).
+- [x] 2.14 Write the Property 9 test in `mcp/src/kiro-config/privilege.p9.test.ts` (exporting `build(impl)` over `{ writeCapabilities, pushCapabilities }`), using sample base agents written inline in `__fixtures__/agents/` (a read-only base shaped like the design's `coroner.json`, and an `exorcist` base shaped like the design's), not the real files (those are checked in Phase 8).
   - **Property 9: Agent privilege**
   - **Validates: Requirements 14.2, 14.4, 14.5, 14.7**
-- [ ] 2.15 Create the Sabotage_List `kiro-p9.ts` (ignore an `@exorcist` selector without a tool name; ignore `ask` rules; ignore `shell`; treat `exorcist/*` as one tool; accept a push deny placed after the `git *` allow; inspect only `tools`).
+- [x] 2.15 Create the Sabotage_List `kiro-p9.ts` (ignore an `@exorcist` selector without a tool name; ignore `ask` rules; ignore `shell`; treat `exorcist/*` as one tool; accept a push deny placed after the `git *` allow; inspect only `tools`).
   - _Requirements: 18.3, 18.5_
 - [ ] 2.16 Checkpoint after Phase 2 - Ensure all tests pass, ask the user if questions arise.
 

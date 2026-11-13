@@ -1,0 +1,16 @@
+{
+  "name": "coroner",
+  "description": "Read-only sample base for the privilege tests.",
+  "prompt": "file://./prompts/coroner.md",
+  "tools": ["read", "@exorcist/scan_repo", "@exorcist/death_report", "@exorcist/usage_surface", "@exorcist/find_replacement"],
+  "includeMcpJson": false,
+  "mcpServers": { "exorcist": { "command": "node", "args": ["mcp/dist/server.mjs"] } },
+  "permissions": { "rules": [
+    { "capability": "fs_read", "effect": "allow" },
+    { "capability": "mcp", "match": ["exorcist/scan_repo", "exorcist/death_report", "exorcist/usage_surface", "exorcist/find_replacement"], "effect": "allow" },
+    { "capability": "mcp", "match": ["exorcist/generate_pin_tests"], "effect": "deny" },
+    { "capability": "fs_write", "effect": "deny" },
+    { "capability": "shell", "effect": "deny" },
+    { "capability": "web_fetch", "effect": "deny" }
+  ] }
+}
