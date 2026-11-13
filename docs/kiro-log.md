@@ -149,3 +149,12 @@ Headless Chromium at 1352x761 and 375x812 (2x), demo parse-server, package ldapj
 - 2.9/2.10: report arbitrary and Property 9 (`report.p9.test.ts`, exports `build(codec)`; the Sabotage_List is task 2.11, not yet written, so the property has not yet been shown to fail against a wrong codec).
 - fast-check counterexamples while writing the property, both bugs in my test/arbitrary, not in the codec: (1) seed 1023149898, shrunk to a report with 2 call sites, input `[report, 0, ""]`: "round trip changed the report", because I compared with `JSON.stringify` and the generated objects had a different key order than the parsed ones (fixed: deep equality). (2) seed 1975377224, shrunk to attempts `[{status: counterexample}, {status: no-call-sites}]` with no `counterexample` record: the arbitrary left optional keys out; old output = own text rejected as `inconsistent`, new = accepted after making the record required in the generator.
 - Counts (repo root): `npm run typecheck` clean; `npm test` 103 files, 921 tests pass, 1 todo. Property 9 also green under FC_SEED 1, 2, 3.
+
+## 2026-11-13 proof-harness 2.11-2.14, 3.1-3.4 (Kiro CLI)
+
+- 2.11: `test-support/sabotage/proof-p9.ts` (nine entries plus `P9_REQUIRED`). Checked by a temporary script against Property 9 under the fixed seed: all nine caught, then the script was removed (the central test is task 3.24). First version had two entries ("fills a missing field", "accepts an unknown key") caught only because their repaired text was non-canonical, which is the wrong reason. Fixed so the strict parse runs first and only the repair path skips the canonical comparison; both are then caught by the missing-field and extra-key checks.
+- Judgement call: to build the lenient and no-consistency sabotages without copying the parser, `report.ts` now has `parseProofReportWith(text, { consistency, canonical })`; `parseProofReport` calls it with both on. It is not exported from `index.ts`.
+- 2.12 `report.test.ts` (26 examples, exact canonical text, every category and consistency message, `appendAttempt`). 2.13 `index.ts` pure exports. 2.14 checkpoint green.
+- 3.1-3.4: runner `types.ts`, `clone.ts`, `equal.ts`, `outcome.ts` (no tests until 3.5). `resolveMember` returns `thisArg` undefined for member `""`, else the object holding the last path segment.
+- Counterexamples found by fast-check this run: none (no new property was written; Property 9 only ran against sabotages).
+- Counts (repo root): `npm run typecheck` clean; `npm test` 104 files, 947 tests pass, 1 todo, with and without `CI=1`.

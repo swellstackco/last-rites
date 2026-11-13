@@ -47,23 +47,23 @@ Terminology used in the tasks: a *Mutator* is part of the product (a deliberatel
 - [x] 2.10 Write the Property 9 test in `skeleton/src/proof/report.p9.test.ts` (exporting `build(codec)`): round trip, canonical re-serialization, single-edit rejection (whitespace, key order, extra key, missing newline, `1.0`), `missing_field` and `wrong_type` with path, each consistency rule broken alone gives `inconsistent`, no throw on arbitrary strings.
   - **Property 9: Proof_Report codec**
   - **Validates: Requirements 9.1, 9.2, 9.3, 9.5, 9.6, 9.7**
-- [ ] 2.11 Create the Sabotage_List `skeleton/src/proof/test-support/sabotage/proof-p9.ts` (four-space indent; no trailing newline; key order from input; absent optional as `null`; lenient parse without the canonical comparison; skip the consistency check; parse throws on empty text; parse fills a missing field; accept an unknown key), with the required-name constants.
+- [x] 2.11 Create the Sabotage_List `skeleton/src/proof/test-support/sabotage/proof-p9.ts` (four-space indent; no trailing newline; key order from input; absent optional as `null`; lenient parse without the canonical comparison; skip the consistency check; parse throws on empty text; parse fills a missing field; accept an unknown key), with the required-name constants.
   - _Requirements: 18.2, 18.5_
-- [ ] 2.12 Write `skeleton/src/proof/report.test.ts` examples: a handwritten report with its exact expected text, each `ReportParseError` category with its path message, each consistency rule with its message, `appendAttempt` numbering and non-mutation.
+- [x] 2.12 Write `skeleton/src/proof/report.test.ts` examples: a handwritten report with its exact expected text, each `ReportParseError` category with its path message, each consistency rule with its message, `appendAttempt` numbering and non-mutation.
   - _Requirements: 9.1, 9.5, 9.6, 9.7_
-- [ ] 2.13 Fill `skeleton/src/proof/index.ts` with the pure exports (types, `compareSites`, `sortSites`, names, `serializeProofReport`, `parseProofReport`, `appendAttempt`, `checkConsistency`).
+- [x] 2.13 Fill `skeleton/src/proof/index.ts` with the pure exports (types, `compareSites`, `sortSites`, names, `serializeProofReport`, `parseProofReport`, `appendAttempt`, `checkConsistency`).
   - _Requirements: 1.1, 11.4_
-- [ ] 2.14 Checkpoint after Phase 2 - Ensure all tests pass, ask the user if questions arise.
+- [x] 2.14 Checkpoint after Phase 2 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 3: Runner (outcome, differential, mutators, sabotage, runProof)
 
-- [ ] 3.1 Create `skeleton/src/proof/runner/types.ts`: `OutputKind`, `Projection`, `Outcome`, `CallShape`, `Recipe`, `ProofInput`, `ProofResult`, `Mutator`, as in the design. Imports `fast-check` types and the pure proof types only.
+- [x] 3.1 Create `skeleton/src/proof/runner/types.ts`: `OutputKind`, `Projection`, `Outcome`, `CallShape`, `Recipe`, `ProofInput`, `ProofResult`, `Mutator`, as in the design. Imports `fast-check` types and the pure proof types only.
   - _Requirements: 5.2, 5.3, 5.5, 5.6, 6.1_
-- [ ] 3.2 Create `skeleton/src/proof/runner/clone.ts`: `deepClone` (arrays, plain objects with own `__proto__` keys defined not assigned, `Date`, primitives including `-0`, `NaN`, `undefined`, `bigint`; other objects returned as is; depth guard 1000).
+- [x] 3.2 Create `skeleton/src/proof/runner/clone.ts`: `deepClone` (arrays, plain objects with own `__proto__` keys defined not assigned, `Date`, primitives including `-0`, `NaN`, `undefined`, `bigint`; other objects returned as is; depth guard 1000).
   - _Requirements: 6.6_
-- [ ] 3.3 Create `skeleton/src/proof/runner/equal.ts`: `structuralEqual` per Requirement 6.5.
+- [x] 3.3 Create `skeleton/src/proof/runner/equal.ts`: `structuralEqual` per Requirement 6.5.
   - _Requirements: 6.5_
-- [ ] 3.4 Create `skeleton/src/proof/runner/outcome.ts`: `capture`, `isThenable`, `outcomesAgree(projection, a, b)`, `render` (`fc.stringify`, cut to 2000 code units plus `…`), `renderOutcome` (`<threw>`), `resolveMember(module, member)` returning `{ fn, thisArg }` or `undefined`.
+- [x] 3.4 Create `skeleton/src/proof/runner/outcome.ts`: `capture`, `isThenable`, `outcomesAgree(projection, a, b)`, `render` (`fc.stringify`, cut to 2000 code units plus `…`), `renderOutcome` (`<threw>`), `resolveMember(module, member)` returning `{ fn, thisArg }` or `undefined`.
   - _Requirements: 6.4, 6.7, 6.8_
 - [ ] 3.5 Write the Property 8 test in `skeleton/src/proof/runner/outcome.p8.test.ts` (exporting `build(impl)` over `{ structuralEqual, deepClone, outcomesAgree }`): reflexive, symmetric, key-order permutation, `-0` vs `0`, `NaN`, array order, `Date`, class instances, clone equality and non-identity, own `__proto__` preserved, throw-versus-return rules with random messages.
   - **Property 8: Outcome equivalence including exceptions**

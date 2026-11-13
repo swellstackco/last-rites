@@ -357,7 +357,20 @@ export function checkConsistency(report: ProofReport): string | undefined {
   return undefined;
 }
 
+/**
+ * Test seam for the Sabotage_List (proof-p9.ts): the parser with individual checks switched off.
+ * Not part of the pure entry (`index.ts`); `parseProofReport` is the only supported parser.
+ */
+export interface ParseChecks {
+  consistency: boolean;
+  canonical: boolean;
+}
+
 export function parseProofReport(text: string): ParseProofReportOutcome {
+  return parseProofReportWith(text, { consistency: true, canonical: true });
+}
+
+export function parseProofReportWith(text: string, checks: ParseChecks): ParseProofReportOutcome {
   try {
     if (typeof text !== "string" || text.trim() === "") throw new Fail("empty", "report text is empty");
     let json: unknown;
@@ -391,9 +404,9 @@ export function parseProofReport(text: string): ParseProofReportOutcome {
     report.attempts = asArray(field(o, "attempts", root), "attempts").map((a, i) =>
       parseAttempt(a, `attempts[${i}]`),
     );
-    const bad = checkConsistency(report);
+    const bad = checks.consistency ? checkConsistency(report) : undefined;
     if (bad !== undefined) throw new Fail("inconsistent", bad);
-    if (serializeProofReport(report) !== text) {
+    if (checks.canonical && serializeProofReport(report) !== text) {
       throw new Fail("not_canonical", "report text is valid but not in canonical form");
     }
     return { ok: true, report };
