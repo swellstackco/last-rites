@@ -6,6 +6,9 @@ export const FORM_SUBTITLE_PARTS = ["Office of the Dependency Examiner ·", "For
 /** The whole subtitle: "Office of the Dependency Examiner · Form LR-1". */
 export const FORM_SUBTITLE: string = FORM_SUBTITLE_PARTS.join(" ");
 
+/** The one plain sentence under the home Masthead. Copy, not data. */
+export const PITCH_LINE = "Find the dead npm packages in a repo, swap them out, and prove the new code behaves the same.";
+
 /** Live scan rate limit shown to the visitor. A test compares it with the Scan_Api default. */
 export const LIVE_SCAN_LIMIT = { limit: 10, windowSeconds: 60 } as const;
 

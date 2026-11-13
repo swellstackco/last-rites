@@ -1,5 +1,5 @@
 // toe-tag-polish: static Stylesheet checks (checkToePolish) on the real Stylesheet, one named group per defect.
-// Node environment (reads the Stylesheet files). Groups are added by later tasks (S-T4 to S-T7).
+// Node environment (reads the Stylesheet files). Groups are added by later tasks (S-T6, S-T7).
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
@@ -20,6 +20,9 @@ describe("toe-tag-polish Stylesheet", () => {
   });
   it("T4 subtitle: Subtitle_Phrases never wrap, except the first one below 22.4375rem", () => {
     expect(of("S-T4")).toBe("");
+  });
+  it("T5 hang: Demo_Cards hang from a string with a two-sided chamfer and a Dead_Count rule", () => {
+    expect(of("S-T5")).toBe("");
   });
 });
 

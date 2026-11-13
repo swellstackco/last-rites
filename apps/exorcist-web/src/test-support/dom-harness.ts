@@ -2,6 +2,7 @@
 // No network, no real timers armed by the page, no Node built-ins (tests read their own fixtures).
 import { createApiClient } from "../api/client.js";
 import { createController } from "../app/controller.js";
+import { DEMO_REPOS } from "../model/demo-repos.js";
 import type { Controller } from "../app/controller.js";
 import { createFakeFetch } from "./fake-fetch.js";
 import type { FakeFetch, FakeHandler } from "./fake-fetch.js";
@@ -79,10 +80,16 @@ export function mountPage(options: MountOptions = {}): Page {
   dialogRoot.id = "dialog-root";
   doc.body.append(appRoot, dialogRoot);
 
-  const fake = createFakeFetch(options.fetchRoutes ?? {}, (call) =>
+  const demoNames = new Set(DEMO_REPOS.map((d) => d.name));
+  const fake = createFakeFetch(options.fetchRoutes ?? {}, (call) => {
+    if (call.method !== "GET") return undefined;
     // Opening any package now requests its proof: an unregistered proof route is "no report" (404), not a failure.
-    call.method === "GET" && call.url.includes("/demo/proofs/") ? { status: 404, body: "not found" } : undefined,
-  );
+    if (call.url.includes("/demo/proofs/")) return { status: 404, body: "not found" };
+    // The picker reads the four demo snapshots for their dead counts: unregistered, they are not available (404).
+    const demo = /^\/(?:api\/demo\/([^/]+)|demo\/([^/]+)\.json)$/.exec(call.url);
+    const name = demo?.[1] ?? demo?.[2];
+    return name !== undefined && demoNames.has(name) ? { status: 404, body: "not found" } : undefined;
+  });
   const timers = createFakeTimers();
   const startAt = options.now ?? 0;
   const clock = { now: () => startAt + timers.now() };

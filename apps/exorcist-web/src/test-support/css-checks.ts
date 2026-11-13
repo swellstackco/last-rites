@@ -213,8 +213,8 @@ export function checkStylesheet(css: string): Violation[] {
 }
 
 /**
- * toe-tag-polish static checks (design.md TP5). Groups: "S-T2" (full-width Band), "S-T3" (left-aligned, ruled Tag_Fields).
- * Later groups (S-T4 to S-T7) are added to this function by their own tasks.
+ * toe-tag-polish static checks (design.md TP5). Groups: "S-T2" (full-width Band), "S-T3" (left-aligned, ruled Tag_Fields), "S-T4" (subtitle), "S-T5" (hanging cards).
+ * Later groups (S-T6, S-T7) are added to this function by their own tasks.
  * jsdom computes no layout: these prove the cause is gone and the intended rules are present, not how a browser draws them.
  */
 export function checkToePolish(css: string): Violation[] {
@@ -303,6 +303,37 @@ export function checkToePolish(css: string): Violation[] {
   }
   if (!rules.some((r) => hasSelector(r, ".masthead .form-subtitle") && r.decls.some((d) => d.prop === "min-width" && d.value === "0"))) {
     bad("S-T4", ".masthead .form-subtitle must declare min-width: 0");
+  }
+
+  // ---- S-T5 hanging Demo_Cards and the home wordmark (2.5) ----
+  if (!anyBase(".demo-cards > li", "position", (v) => v === "relative")) bad("S-T5", ".demo-cards > li must be position: relative (it carries the string)");
+  if (!anyBase(".demo-cards > li", "padding-top", (v) => v.includes("--string-height"))) {
+    bad("S-T5", ".demo-cards > li must reserve var(--string-height) above the card");
+  }
+  const string = rules.filter((r) => r.media.length === 0 && hasSelector(r, ".demo-cards > li::before"));
+  if (!string.some((r) => get(r, "width") === "var(--rule)" && get(r, "background") === "var(--ink)" && get(r, "position") === "absolute")) {
+    bad("S-T5", ".demo-cards > li::before must draw the string (absolute, width var(--rule), Ink)");
+  }
+  for (const layer of ["::before", "::after"]) {
+    const clip = rules.filter((r) => hasSelector(r, `.demo-card${layer}`)).map((r) => get(r, "clip-path") ?? "");
+    if (!clip.some((v) => v.includes("calc(100% - var(--tag-chamfer)"))) {
+      bad("S-T5", `.demo-card${layer} must cut both top corners (a chamfer on the right as well as the left)`);
+    }
+  }
+  for (const r of rules.filter((x) => x.selectors.some((sel) => /^\.demo-cards?( > li)?$/.test(sel)))) {
+    for (const d of r.decls) {
+      if (d.prop === "clip-path" || /^mask/.test(d.prop) || (/^overflow(-x|-y)?$/.test(d.prop) && /^(hidden|clip)$/.test(d.value))) {
+        bad("S-T5", `${r.selectors.join(", ")} clips a focusable card or its ancestor (${d.prop}: ${d.value})`);
+      }
+    }
+  }
+  if (!anyBase(".demo-dead", "font-family", (v) => v === "var(--font-display)")) bad("S-T5", ".demo-dead must use var(--font-display)");
+  if (!anyBase(".demo-dead", "text-transform", (v) => v === "uppercase")) bad("S-T5", ".demo-dead must be uppercase");
+  if (!anyBase(".demo-dead", "border-top", (v) => /^var\(--rule-thin\)\s+solid\s+var\(--ink\)$/.test(v))) {
+    bad("S-T5", ".demo-dead must sit under a var(--rule-thin) Ink rule");
+  }
+  if (!anyBase(".masthead h1.wordmark", "text-align", (v) => v === "left" || v === "start")) {
+    bad("S-T5", ".masthead h1.wordmark must be left-aligned (it must not inherit the right-aligned graveyard h1)");
   }
   return out;
 }

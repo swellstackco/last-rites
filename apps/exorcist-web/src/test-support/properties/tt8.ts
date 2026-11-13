@@ -13,7 +13,7 @@ const parts = (s: string): string[] => s.split(",").map(norm);
 const media = (d: Decl): string[] => d.preludes.map(norm).filter((p) => p.startsWith("@media"));
 
 export const FOCUSABLE = ["button", ".btn", "a", "input", "summary", ".tombstone", ".count", ".backdrop", ".demo-card"] as const;
-export const ANCESTORS = ["li", ".grid", ".group", ".screen", ".app", ".stack", ".row", ".picker", ".status", ".sheet", ".sheet-tag", "body", "html"] as const;
+export const ANCESTORS = ["li", ".grid", ".demo-cards", ".live-form", ".group", ".screen", ".app", ".stack", ".row", ".picker", ".status", ".sheet", ".sheet-tag", "body", "html"] as const;
 const WATCHED = new Set<string>([...FOCUSABLE, ...ANCESTORS]);
 
 const REMOVAL_OK = new Set([":focus:not(:focus-visible)", 'h1[tabindex="-1"]:focus']);

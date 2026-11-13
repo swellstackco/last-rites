@@ -23,7 +23,7 @@ const fail = (message: string): never => {
 const same = (a: unknown, b: unknown): boolean => JSON.stringify(a) === JSON.stringify(b);
 
 /** Differences from the v3 views that a fix group made on purpose. Extended group by group. */
-export const ALLOWED: readonly string[] = ["proof-any-grade"];
+export const ALLOWED: readonly string[] = ["proof-any-grade", "home-masthead"];
 
 export type TP6Case =
   | { kind: "scan"; report: ScanReport; index: number }

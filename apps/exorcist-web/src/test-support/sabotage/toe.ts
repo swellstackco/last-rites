@@ -13,10 +13,12 @@ export interface ToeContext {
   /** The proof state served: report, absent, failed or invalid. */
   proofCase?: string;
   /** TP1: `pending` while the proof request is held, `final` once it settled. */
-  phase?: "pending" | "final";
+  phase?: "pending" | "final" | "left";
   /** TP1: the grade of the opened package and the arrival order. */
   grade?: string;
   order?: "before" | "after";
+  /** TP3: the kind of each demo snapshot (DEMO_REPOS order): ok, failed or invalid. */
+  snapshots?: Array<"ok" | "failed" | "invalid">;
   /** TP1: the recorded fetch calls (a sabotage may edit them to emulate a wrong request policy). */
   calls?: RecordedCall[];
 }

@@ -22,8 +22,8 @@ export function constantHref(literal: string): SafeHref {
 export type ClassName =
   | "app" | "screen" | "skip-link" | "visually-hidden" | "stack" | "row" | "chip"
   | "btn" | "btn-primary" | "notice" | "error" | "field" | "field-error"
-  | "picker" | "demo-cards" | "demo-card" | "live-form" | "status"
-  | "header" | "masthead" | "wordmark" | "form-subtitle" | "subtitle-phrase" | "meta" | "counts" | "count" | "legend" | "warnings" | "note"
+  | "picker" | "demo-cards" | "demo-card" | "demo-dead" | "live-form" | "status"
+  | "header" | "masthead" | "wordmark" | "form-subtitle" | "subtitle-phrase" | "pitch" | "meta" | "counts" | "count" | "legend" | "warnings" | "note"
   | "group" | "group-title" | "grid" | "grid-dead" | "grid-dying" | "grid-ailing" | "grid-alive"
   | "disclosure" | "skipped"
   | "tombstone" | "tombstone-dead" | "tombstone-dying" | "tombstone-ailing" | "tombstone-alive"

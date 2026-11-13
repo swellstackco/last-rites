@@ -20,6 +20,8 @@ import { renderHeader } from "../views/header.js";
 import { cooldownText } from "../views/live-form.js";
 import type { LiveFormHandle, LiveFormValues } from "../views/live-form.js";
 import { renderPicker } from "../views/picker.js";
+import type { PickerHandle } from "../views/picker.js";
+import { DEMO_REPOS } from "../model/demo-repos.js";
 import { renderError, renderLoading } from "../views/status.js";
 import { formatRoute, parseRoute } from "./router.js";
 import type { Route } from "./router.js";
@@ -121,6 +123,10 @@ export function createController(deps: ControllerDeps): Controller {
   const proofsStarted = new Set<string>();
   const proofsSettled = new Map<string, ProofShown>();
   let proofAbort: AbortController | undefined;
+  // Dead_Counts of the demo snapshots shown on the picker's cards: read once per session, painted at once on return.
+  const demoDead = new Map<string, number>();
+  let demoAbort: AbortController | undefined;
+  let pickerHandle: PickerHandle | undefined;
 
   // One persistent live region; written at the start and at the end of a cooldown only.
   const announce = h("div", { class: "visually-hidden", role: "status", id: "announce" });
@@ -181,6 +187,9 @@ export function createController(deps: ControllerDeps): Controller {
 
   const teardownScreen = (): void => {
     captureForm();
+    demoAbort?.abort();
+    demoAbort = undefined;
+    pickerHandle = undefined;
     detail?.destroy();
     detail = undefined;
     graveyard = undefined;
@@ -244,6 +253,32 @@ export function createController(deps: ControllerDeps): Controller {
       );
     }
     return reportOnly ? undefined : { state: { status: "loading" } };
+  };
+
+  /** Paints the known counts and reads the other snapshots; a failed or unreadable read is ignored (retried on the next picker). */
+  const loadDemoCounts = (picker: PickerHandle): void => {
+    pickerHandle = picker;
+    const controller = (demoAbort = new AbortController());
+    for (const demo of DEMO_REPOS) {
+      const known = demoDead.get(demo.name);
+      if (known !== undefined) {
+        picker.setDemoDead(demo.name, known);
+        continue;
+      }
+      deps.api.getDemo(demo.name, controller.signal).then(
+        (result) => {
+          if (destroyed || controller.signal.aborted || pickerHandle !== picker || !result.ok) return;
+          try {
+            const dead = buildReportView(result.report, "demo").header.counts.dead;
+            demoDead.set(demo.name, dead);
+            picker.setDemoDead(demo.name, dead);
+          } catch {
+            // An unreadable snapshot adds nothing to the card.
+          }
+        },
+        () => {},
+      );
+    }
   };
 
   const syncDetail = (pkg: string | undefined): void => {
@@ -319,6 +354,7 @@ export function createController(deps: ControllerDeps): Controller {
         phaseHeading = picker.heading;
         setTitle("");
         paintCooldown();
+        loadDemoCounts(picker);
         break;
       }
       case "loading": {

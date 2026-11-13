@@ -38,4 +38,16 @@ export const TP5_SABOTAGES: readonly PolishCssSabotage[] = [
     mutate: (c) =>
       replaceOnce(c, "@media (max-width: 22.4375rem) {\n  .subtitle-phrase:first-child {\n    white-space: normal;\n  }\n}", ".subtitle-phrase:first-child {\n  white-space: normal;\n}"),
   },
+  {
+    name: "(ad) .demo-cards > li loses the string padding",
+    check: "S-T5",
+    mutate: (c) => replaceOnce(c, ".grid > li,\n.demo-cards > li {\n  position: relative;\n  padding-top: var(--string-height);\n}", ".grid > li {\n  position: relative;\n  padding-top: var(--string-height);\n}"),
+  },
+  { name: "(ad) .demo-cards > li loses the string ::before", check: "S-T5", mutate: (c) => replaceOnce(c, ".grid > li::before,\n.demo-cards > li::before {", ".grid > li::before {") },
+  { name: "(ae) .demo-cards > li gets overflow: hidden", check: "S-T5", mutate: append(".demo-cards > li { overflow: hidden; }") },
+  {
+    name: "(ae) .demo-card is cut on one corner only again",
+    check: "S-T5",
+    mutate: (c) => replaceOnce(c, "    calc(100% - var(--tag-chamfer)) 0,\n    100% var(--tag-chamfer),\n    100% 100%,\n    0 100%,\n    0 var(--tag-chamfer)\n  );\n}\n\n.demo-card::after", "    100% 0,\n    100% 100%,\n    0 100%,\n    0 var(--tag-chamfer)\n  );\n}\n\n.demo-card::after"),
+  },
 ];

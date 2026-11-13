@@ -1,8 +1,9 @@
 // Repo_Picker screen: the four Demo_Repo cards first (larger), then the Live_Scan_Form.
-import { COPY, PRODUCT_NAME, SCREEN_NAME } from "../constants.js";
+import { COPY, PITCH_LINE, PRODUCT_NAME } from "../constants.js";
 import { h } from "../dom/h.js";
 import { DEMO_REPOS } from "../model/demo-repos.js";
 import { renderLiveForm } from "./live-form.js";
+import { renderFormSubtitle } from "./masthead.js";
 import type { LiveFormHandle, LiveFormValues } from "./live-form.js";
 
 export interface PickerOptions {
@@ -17,15 +18,18 @@ export interface PickerHandle {
   element: HTMLElement;
   heading: HTMLElement;
   form: LiveFormHandle;
+  /** Shows "N dead" on the Demo_Card of `name` (adds or updates it). Does nothing for an unknown name. */
+  setDemoDead(name: string, dead: number): void;
 }
 
 export function renderPicker(opts: PickerOptions): PickerHandle {
-  const heading = h("h1", { tabindex: -1 }, PRODUCT_NAME);
+  const heading = h("h1", { class: "wordmark", tabindex: -1 }, PRODUCT_NAME);
 
   const cards = DEMO_REPOS.map((demo) => {
     const button = h(
       "button",
       { type: "button", class: ["btn", "demo-card"], "data-demo": demo.name },
+      h("span", { class: "tag-hole", "aria-hidden": "true" }),
       h("span", { class: "tomb-name" }, demo.name),
       h("span", { class: "muted" }, demo.repo),
       h("span", null, demo.blurb),
@@ -46,9 +50,8 @@ export function renderPicker(opts: PickerOptions): PickerHandle {
     h(
       "header",
       { class: "header" },
-      h("p", { class: "meta" }, SCREEN_NAME),
-      heading,
-      h("p", null, "Find the dead packages in a codebase, and see exactly why each one scores the way it does."),
+      h("div", { class: "masthead" }, heading, renderFormSubtitle()),
+      h("p", { class: "pitch" }, PITCH_LINE),
     ),
     h(
       "main",
@@ -64,5 +67,13 @@ export function renderPicker(opts: PickerOptions): PickerHandle {
       form.element,
     ),
   );
-  return { element, heading, form };
+  const setDemoDead = (name: string, dead: number): void => {
+    const card = Array.from(element.querySelectorAll<HTMLElement>("button.demo-card")).find((c) => c.getAttribute("data-demo") === name);
+    if (!card) return;
+    const text = `${dead} dead`;
+    const existing = card.querySelector(":scope > .demo-dead");
+    if (existing) existing.textContent = text;
+    else card.append(h("span", { class: "demo-dead" }, text));
+  };
+  return { element, heading, form, setDemoDead };
 }

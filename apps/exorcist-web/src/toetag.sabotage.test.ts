@@ -14,6 +14,8 @@ import { build as tp1, buildLive as tp1Live } from "./test-support/properties/tp
 import { TP1_LIVE_SABOTAGES, TP1_SABOTAGES } from "./test-support/sabotage/tp1.js";
 import { build as tp2 } from "./test-support/properties/tp2.js";
 import { TP2_SABOTAGES } from "./test-support/sabotage/tp2.js";
+import { build as tp3 } from "./test-support/properties/tp3.js";
+import { TP3_SABOTAGES } from "./test-support/sabotage/tp3.js";
 import { build as tp6 } from "./test-support/properties/tp6.js";
 import { TP6_SABOTAGES } from "./test-support/sabotage/tp6.js";
 import { build as tt4Build, check as tt4Check, sheetsFrom } from "./test-support/properties/tt4.js";
@@ -46,6 +48,7 @@ const suites: Suite[] = [
   { property: "TP1: proof for any grade", list: TP1_SABOTAGES, build: tp1 },
   { property: "TP1: live scan requests no proof", list: TP1_LIVE_SABOTAGES, build: tp1Live },
   { property: "TP2: subtitle without an orphan", list: TP2_SABOTAGES, build: tp2 },
+  { property: "TP3: home masthead and hanging cards", list: TP3_SABOTAGES, build: tp3 },
   { property: "TP6: preservation (toe-tag-polish)", list: TP6_SABOTAGES, build: tp6 },
   { property: "Property 7: open at once (DOM part)", list: TT7_DOM_SABOTAGES, build: tt7Dom },
 ];

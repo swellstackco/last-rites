@@ -2,6 +2,7 @@
 import { afterEach, describe, expect, it } from "vitest";
 import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
 import { formatRoute } from "./app/router.js";
+import { DEMO_REPOS } from "./model/demo-repos.js";
 import { buildReport } from "./test-support/build-report.js";
 import { mountPage } from "./test-support/dom-harness.js";
 import type { Page } from "./test-support/dom-harness.js";
@@ -197,7 +198,10 @@ describe("live routes (DOM)", () => {
     const hash = formatRoute({ view: "live", repo: "owner/repo", ref: "dev" });
     const p = mount({}, hash);
     await p.flush();
-    expect(p.fake.calls).toHaveLength(0);
+    // No scan is started. The only requests are the picker's reads of the four demo snapshots (dead counts).
+    const names = DEMO_REPOS.map((d) => d.name);
+    expect(p.fake.calls.every((c) => c.method === "GET" && names.some((n) => c.url === `/api/demo/${n}` || c.url === `/demo/${n}.json`))).toBe(true);
+    expect(p.fake.calls.some((c) => c.url.includes("/api/scan"))).toBe(false);
     expect(p.controller.phase().tag).toBe("picker");
     expect(repoField(p).value).toBe("owner/repo");
     expect(refField(p).value).toBe("dev");

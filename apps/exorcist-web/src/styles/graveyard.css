@@ -76,6 +76,16 @@
   min-width: 0;
 }
 
+.masthead h1.wordmark {
+  margin: 0;
+  text-align: left;
+}
+
+.pitch {
+  max-width: 40rem;
+  margin: 0;
+}
+
 .meta {
   font-family: var(--font-mono);
   font-size: var(--size-value);
@@ -105,6 +115,12 @@
   .masthead h1 {
     grid-area: heading;
     text-align: right;
+  }
+
+  /* The home page's h1 is the wordmark itself: it keeps the wordmark's place and does not take the right-aligned heading rules. */
+  .masthead h1.wordmark {
+    grid-area: wordmark;
+    text-align: left;
   }
 
   .masthead .meta {
@@ -252,12 +268,14 @@
 }
 
 /* Toe_Tag: the string hangs from the list item; the shape is two clipped layers behind an unclipped button. */
-.grid > li {
+.grid > li,
+.demo-cards > li {
   position: relative;
   padding-top: var(--string-height);
 }
 
-.grid > li::before {
+.grid > li::before,
+.demo-cards > li::before {
   content: "";
   position: absolute;
   top: 0;
@@ -458,7 +476,7 @@
   text-transform: uppercase;
 }
 
-/* Picker: Manila index cards (button unclipped; the chamfered corner is drawn on two layers behind it). */
+/* Picker: Manila tags that hang on a string like the Toe_Tags (button unclipped; the chamfers are two layers behind it). */
 .demo-cards {
   display: grid;
   gap: var(--space-4);
@@ -490,7 +508,7 @@
   width: 100%;
   height: 100%;
   min-height: var(--target);
-  padding: var(--space-4);
+  padding: calc(var(--tag-hole-y) + var(--tag-hole) / 2 + var(--space-3)) var(--space-4) var(--space-4);
   text-align: left;
   color: var(--ink);
   background: none;
@@ -517,7 +535,14 @@
 .demo-card::before {
   inset: 0;
   background: var(--ink);
-  clip-path: polygon(var(--tag-chamfer) 0, 100% 0, 100% 100%, 0 100%, 0 var(--tag-chamfer));
+  clip-path: polygon(
+    var(--tag-chamfer) 0,
+    calc(100% - var(--tag-chamfer)) 0,
+    100% var(--tag-chamfer),
+    100% 100%,
+    0 100%,
+    0 var(--tag-chamfer)
+  );
 }
 
 .demo-card::after {
@@ -525,11 +550,25 @@
   background: var(--tag);
   clip-path: polygon(
     calc(var(--tag-chamfer) - var(--rule) * 0.586) 0,
-    100% 0,
+    calc(100% - var(--tag-chamfer) + var(--rule) * 0.586) 0,
+    100% calc(var(--tag-chamfer) - var(--rule) * 0.586),
     100% 100%,
     0 100%,
     0 calc(var(--tag-chamfer) - var(--rule) * 0.586)
   );
+}
+
+/* "N dead": shown only once the demo's snapshot was read. */
+.demo-dead {
+  margin-top: var(--space-1);
+  padding-top: var(--space-2);
+  border-top: var(--rule-thin) solid var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--size-band);
+  font-weight: 700;
+  letter-spacing: var(--track-band);
+  text-transform: uppercase;
+  color: var(--ink);
 }
 
 .demo-card .tomb-name {
