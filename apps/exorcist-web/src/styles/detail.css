@@ -509,9 +509,23 @@
     border-top: 0;
   }
 
-  .breakdown td.col-points,
-  .breakdown td.col-source {
+  .breakdown td.col-points {
     border-left: var(--rule-thin) solid var(--ink);
+  }
+
+  /* The source text can hold a long unbreakable token; give it the full row. */
+  .breakdown td.col-source {
+    grid-column: 1 / -1;
+  }
+
+  /* Below 22.5rem two columns are too tight for unbreakable values. */
+  @media (max-width: 22.5rem) {
+    .breakdown td.col-value,
+    .breakdown td.col-status,
+    .breakdown td.col-points {
+      grid-column: 1 / -1;
+      border-left: 0;
+    }
   }
 
   .breakdown td.col-status {

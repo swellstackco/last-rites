@@ -386,4 +386,11 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - Real gap found by sabotage in Property 4: "white text on the amber AILING band" stayed green, because Band colors travel through `--band-text` / `--band-color`, which the rule scan did not pair. Fix in `tt4.ts`: a rule that sets both must form a registered pair. Input: `.tombstone-ailing { --band-text: var(--on-band) }`; old output: no violation; new output: `Band text --on-band on --amber is not in the Pair_Registry`. (Found by a sabotage, not by a fast-check shrink.) A second stale-mutation problem (`a {` also matched `.breakdown a {`) was caught by the `replaceOnce` ambiguity guard and fixed in the mutation.
 - 11.1: `npm run typecheck` clean; `npm test` green three times (plain, `CI=1`, plain again); web build produces 7 woff2 files in `dist/fonts/` and the unchanged CSP meta. Counts: 157 files, 1417 tests pass, 1 todo. `git status` shows changes only under `apps/exorcist-web/src` (plus this log, tasks.md).
 - Counterexamples from fast-check this run: none (the static properties draw from tiny finite sets and the DOM property found nothing).
-- manual browser check: not run, see task 11.3 and `docs/review/2026-11-13-toe-tag-check.md`.
+- manual browser check: run in task 11.3, see the entry below and docs/review/2026-11-13-toe-tag-check.md.
+
+## 2026-11-13: toe-tag-redesign 11.3 (manual browser check)
+
+- Drove Google Chrome with playwright-core (npx cache, no dependency added) against the built `dist/` at 1352x761 and 375x812: 40 scripted checks pass (fonts, no cross-origin request, no horizontal scroll including during the swing, 44px targets, focus ring, one finite Tag_Swing, none under reduced motion, forced-colors emulation). Report: `docs/review/2026-11-13-toe-tag-check.md`, screenshots in `docs/review/2026-11-13-toe-tag-shots/`.
+- Real defect found by the browser, not by any test: at 375 and 320 the stacked Form_Grid Source cell (`declared_abandoned`, unbreakable by Requirement 10.9) overflowed its record box. Old output: `td.col-source` scrollWidth 174 > clientWidth 155. New output: no overflow. Fix: Source spans the whole record row at or below 40rem, and Value/Status/Points take full rows below 22.5rem (`detail.css`).
+- Not run: Compare_Box in a browser (no counterexample proof in demo data), automated mockup comparison, 320 wide beyond the Form_Grid probe.
+- Counterexamples from fast-check: none. Counts: 157 files, 1417 tests pass, 1 todo. Typecheck clean.
