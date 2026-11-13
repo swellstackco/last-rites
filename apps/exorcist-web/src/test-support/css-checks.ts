@@ -211,3 +211,98 @@ export function checkStylesheet(css: string): Violation[] {
 
   return out;
 }
+
+/**
+ * toe-tag-polish static checks (design.md TP5). Groups: "S-T2" (full-width Band), "S-T3" (left-aligned, ruled Tag_Fields).
+ * Later groups (S-T4 to S-T7) are added to this function by their own tasks.
+ * jsdom computes no layout: these prove the cause is gone and the intended rules are present, not how a browser draws them.
+ */
+export function checkToePolish(css: string): Violation[] {
+  const decls = declarations(stripComments(css));
+  const rules = rulesOf(decls);
+  const out: Violation[] = [];
+  const bad = (check: string, message: string): void => {
+    out.push({ check, message });
+  };
+  const base = (selector: string): Rule[] => rules.filter((r) => r.media.length === 0 && hasSelector(r, selector));
+  const anyBase = (selector: string, prop: string, test: (v: string) => boolean): boolean =>
+    base(selector).some((r) => {
+      const v = get(r, prop);
+      return v !== undefined && test(v);
+    });
+  const tagRule = (r: Rule): boolean => r.selectors.some((s) => /^\.(tombstone|tag-[a-z-]+|tomb-[a-z-]+)(?![a-z-])/.test(s));
+
+  // ---- S-T2 band (2.2) ----
+  // The global `button` rule centers children; .tombstone must say `stretch` itself or the Band shrinks to a chip.
+  if (!anyBase(".tombstone", "align-items", (v) => v === "stretch" || v === "normal")) {
+    bad("S-T2", ".tombstone must declare align-items: stretch (the global button rule's center shrinks the Band)");
+  }
+  for (const r of rules.filter((x) => x.selectors.some((s) => /^\.(tombstone|tag-band|tag-field)(?![a-z-])/.test(s)))) {
+    for (const prop of ["align-self", "justify-self"]) {
+      if (get(r, prop) === "center") bad("S-T2", `${r.selectors.join(", ")} sets ${prop}: center`);
+    }
+    if (r.selectors.some((s) => /^\.(tombstone|tag-field)(?![a-z-])/.test(s)) && get(r, "align-items") === "center") {
+      bad("S-T2", `${r.selectors.join(", ")} sets align-items: center`);
+    }
+  }
+  if (!anyBase(".tag-band", "display", (v) => v === "flex")) bad("S-T2", ".tag-band must be display: flex");
+  if (!anyBase(".tag-band", "justify-content", (v) => v === "space-between")) {
+    bad("S-T2", ".tag-band must be justify-content: space-between (grade word left, fact right)");
+  }
+  if (!anyBase(".tag-band", "align-self", (v) => v === "stretch")) bad("S-T2", ".tag-band must declare align-self: stretch");
+  for (const r of base(".tag-band")) {
+    for (const prop of ["margin-inline", "margin-left", "margin-right", "max-width", "width"]) {
+      const v = get(r, prop);
+      if (v !== undefined && v !== "0" && v !== "100%") bad("S-T2", `.tag-band declares ${prop}: ${v} (it must span the tag)`);
+    }
+    const margin = get(r, "margin");
+    if (margin !== undefined && margin.trim().split(/\s+/).some((p, i, a) => a.length > 1 && i % 2 === 1 && p !== "0")) {
+      bad("S-T2", `.tag-band declares margin: ${margin} (horizontal margin shrinks it)`);
+    }
+  }
+  if (!anyBase(".tomb-grade", "font-family", (v) => v === "var(--font-display)")) bad("S-T2", ".tomb-grade must use var(--font-display)");
+  if (!anyBase(".tomb-grade", "text-transform", (v) => v === "uppercase")) bad("S-T2", ".tomb-grade must be uppercase");
+  const bandColors: Record<string, string> = {
+    ".tombstone-dead": "var(--red)",
+    ".tombstone-dying": "var(--rust)",
+    ".tombstone-ailing": "var(--amber)",
+    ".tombstone-alive": "var(--steel)",
+  };
+  for (const [selector, color] of Object.entries(bandColors)) {
+    if (!anyBase(selector, "--band-color", (v) => v === color)) bad("S-T2", `${selector} must set --band-color: ${color}`);
+  }
+
+  // ---- S-T3 fields (2.3) ----
+  if (!anyBase(".tag-field", "border-bottom", (v) => /^var\(--rule-thin\)\s+solid\s+var\(--ink\)$/.test(v))) {
+    bad("S-T3", ".tag-field must close with border-bottom: var(--rule-thin) solid var(--ink) (the Field_Line)");
+  }
+  if (rules.some((r) => hasSelector(r, ".tag-field + .tag-field"))) {
+    bad("S-T3", "a `.tag-field + .tag-field` rule draws lines only between fields (the last field is not closed)");
+  }
+  for (const selector of [".tombstone", ".tag-field", ".tomb-score"]) {
+    if (!anyBase(selector, "text-align", (v) => v === "left" || v === "start")) bad("S-T3", `${selector} must declare text-align: left`);
+  }
+  for (const r of rules.filter(tagRule)) {
+    // Rules with the same selector merge, so look at every declaration, not the first one.
+    if (r.decls.some((d) => d.prop === "text-align" && d.value === "center")) bad("S-T3", `${r.selectors.join(", ")} centers text`);
+    if (r.decls.some((d) => (d.prop === "margin-inline" && d.value === "auto") || (d.prop === "margin" && /^0\s+auto$/.test(d.value)))) {
+      bad("S-T3", `${r.selectors.join(", ")} centers itself with auto margins`);
+    }
+  }
+
+
+  // ---- S-T4 subtitle (2.4) ----
+  if (!anyBase(".subtitle-phrase", "white-space", (v) => v === "nowrap")) bad("S-T4", ".subtitle-phrase must declare white-space: nowrap");
+  for (const r of rules) {
+    if (!r.selectors.some((s) => s.includes(".subtitle-phrase"))) continue;
+    for (const d of r.decls) {
+      if (d.prop !== "white-space" || d.value === "nowrap") continue;
+      const ok = r.selectors.every((s) => s === ".subtitle-phrase:first-child") && r.media.some((m) => /max-width:\s*22\.4375rem/.test(m));
+      if (!ok) bad("S-T4", `${r.selectors.join(", ")} turns off nowrap outside the first phrase below 22.4375rem (${r.media.join(" ") || "no media"})`);
+    }
+  }
+  if (!rules.some((r) => hasSelector(r, ".masthead .form-subtitle") && r.decls.some((d) => d.prop === "min-width" && d.value === "0"))) {
+    bad("S-T4", ".masthead .form-subtitle must declare min-width: 0");
+  }
+  return out;
+}

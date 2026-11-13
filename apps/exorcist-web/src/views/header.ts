@@ -1,11 +1,12 @@
 // Summary_Header: repo facts, four count controls, legend, warnings, notes, skip link.
 import type { GradeBand } from "@graveyard-kit/skeleton";
 import { GRADE_INFO, GRADE_ORDER } from "@graveyard-kit/skeleton/graveyard";
-import { COPY, FORM_SUBTITLE, PRODUCT_NAME, SCREEN_NAME } from "../constants.js";
+import { COPY, PRODUCT_NAME, SCREEN_NAME } from "../constants.js";
 import { constantHref, h } from "../dom/h.js";
 import type { ClassName } from "../dom/h.js";
 import type { SummaryHeader } from "../model/report-view.js";
 import { groupId } from "./graveyard.js";
+import { renderFormSubtitle } from "./masthead.js";
 
 export interface HeaderOptions {
   header: SummaryHeader;
@@ -62,7 +63,7 @@ export function renderHeader(opts: HeaderOptions): HeaderHandle {
       "div",
       { class: "masthead" },
       h("p", { class: "wordmark" }, PRODUCT_NAME),
-      h("p", { class: "form-subtitle" }, FORM_SUBTITLE),
+      renderFormSubtitle(),
       heading,
       h(
         "p",

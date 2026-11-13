@@ -2,7 +2,9 @@
 export const PRODUCT_NAME = "Last Rites";
 export const SCREEN_NAME = "The Graveyard";
 /** Decorative masthead subtitle. Copy, not data. */
-export const FORM_SUBTITLE = "Office of the Dependency Examiner · Form LR-1";
+export const FORM_SUBTITLE_PARTS = ["Office of the Dependency Examiner ·", "Form LR-1"] as const;
+/** The whole subtitle: "Office of the Dependency Examiner · Form LR-1". */
+export const FORM_SUBTITLE: string = FORM_SUBTITLE_PARTS.join(" ");
 
 /** Live scan rate limit shown to the visitor. A test compares it with the Scan_Api default. */
 export const LIVE_SCAN_LIMIT = { limit: 10, windowSeconds: 60 } as const;

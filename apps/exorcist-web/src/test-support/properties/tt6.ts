@@ -10,7 +10,7 @@ export class TT6Failure extends Error {}
 /** Classes whose text comes from a report; each must wrap anywhere. */
 export const TEXT_BEARING = [".tomb-name", ".tomb-summary", ".col-signal", ".proof-pre", "dd", ".proof-cell", ".notice", ".error", ".demo-card .muted"] as const;
 /** Selectors that may declare white-space: nowrap. */
-export const NOWRAP_ALLOWLIST = [".col-status", ".col-points", "button", ".btn", ".tag-label", ".tag-band", ".visually-hidden"] as const;
+export const NOWRAP_ALLOWLIST = [".col-status", ".col-points", "button", ".btn", ".tag-label", ".tag-band", ".subtitle-phrase", ".visually-hidden"] as const;
 /** Interactive selectors and the rule selectors that must carry the 44px target. */
 export const INTERACTIVE: readonly (readonly [string, readonly string[]])[] = [
   ["buttons", ["button"]],

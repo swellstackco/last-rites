@@ -23,7 +23,7 @@ export type ClassName =
   | "app" | "screen" | "skip-link" | "visually-hidden" | "stack" | "row" | "chip"
   | "btn" | "btn-primary" | "notice" | "error" | "field" | "field-error"
   | "picker" | "demo-cards" | "demo-card" | "live-form" | "status"
-  | "header" | "masthead" | "wordmark" | "form-subtitle" | "meta" | "counts" | "count" | "legend" | "warnings" | "note"
+  | "header" | "masthead" | "wordmark" | "form-subtitle" | "subtitle-phrase" | "meta" | "counts" | "count" | "legend" | "warnings" | "note"
   | "group" | "group-title" | "grid" | "grid-dead" | "grid-dying" | "grid-ailing" | "grid-alive"
   | "disclosure" | "skipped"
   | "tombstone" | "tombstone-dead" | "tombstone-dying" | "tombstone-ailing" | "tombstone-alive"

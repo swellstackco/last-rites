@@ -419,3 +419,37 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - 2.5: TP1 and TP6 green; typecheck clean; `npm test` plain and `CI=1`: 160 files, 1444 tests pass, 1 todo.
 - Counterexamples: the fail-first shrink recorded above (ailing `intersect`, `absent`, `before`: old output no request / no section; new output one request, no section). No other counterexample.
 - Not done (cap of 8 tasks): 3.1 onward (T2/T3 band and fields).
+
+## 2026-11-13: toe-tag-polish T2/T3 fail-first (tasks 3.1, 3.2)
+
+- 3.1: `checkToePolish(css)` in `test-support/css-checks.ts` (groups S-T2, S-T3), `toetag.polish.css.test.ts` (named tests `T2 band`, `T3 fields`), `toetag.polish.tag.dom.test.ts` (Band is last visible block with two children, three fields in order, one Grade_Label).
+- 3.2: run against the UNCHANGED code, before any CSS edit. Failing as predicted:
+  - `T2 band`: `.tombstone must declare align-items: stretch (the global button rule's center shrinks the Band)`; `.tag-band must declare align-self: stretch`.
+  - `T3 fields`: no `.tag-field` `border-bottom`; `.tag-field + .tag-field` rule present; `.tag-field` and `.tomb-score` lack `text-align: left`.
+  - The DOM example test passes (no DOM change is needed).
+- Cascade hypothesis (global `button { align-items: center }` reaching the column-flex `.tombstone`): CONFIRMED BY READING only (base.css `button` rule has `align-items: center`, `.tombstone` declares none). NOT confirmed in a browser: no browser run in this session (computed `alignItems` / Band `offsetWidth` unmeasured); task 9.1 covers it.
+
+## 2026-11-13: toe-tag-polish T2/T3 fix (tasks 3.3 to 3.5)
+
+- 3.3: `graveyard.css`: `.tombstone { align-items: stretch }`, `.tag-band { align-self: stretch }`, `.tag-field` now `margin-inline: var(--space-3); padding: var(--space-2) 0; text-align: left; border-bottom` (Field_Line), `.tag-field + .tag-field` removed, `text-align: left` on `.tomb-score`. No DOM change. Judgment call: `.tag-band` keeps `margin-top: auto` (design said `margin: 0`) so the Band stays flush with the bottom of tags taller than their content; the check only forbids horizontal margins.
+- 3.4: sabotages (v) to (aa) in `sabotage/tp5.ts`, run from `toetag.polish.css.test.ts` (not `toetag.sabotage.test.ts`, which is built around Sheets-based properties; this suite asserts each mutation changes the text and is caught by its group). No old assertion pinned `.tag-field + .tag-field`, so none were edited.
+- Real checker gap found by sabotage (aa): `.tomb-score { text-align: center }` appended to the sheet stayed green. Cause: `rulesOf` merges rules with the same selector and `get` reads the first declaration only, so the later `center` was invisible. Old output: no violation; new output: `.tomb-score centers text`. Fix: the centering checks look at every declaration of the merged rule.
+- 3.5: `npm run typecheck` clean; `npm test` plain and `CI=1`: 162 files, 1455 tests pass, 1 todo.
+- Counterexamples from fast-check: none.
+
+## 2026-11-13: toe-tag-polish T4 fail-first (tasks 4.1, 4.2)
+
+- 4.1: TP2 (`properties/tp2.ts`, `toetag.polish.subtitle.dom.test.ts`), S-T4 in `checkToePolish` (nowrap on `.subtitle-phrase`, only `.subtitle-phrase:first-child` inside `max-width: 22.4375rem` may turn it off, `min-width: 0` on `.masthead .form-subtitle`). The expected phrases are literals in the test, not imported from `constants.ts`. The home-page half of TP2 needs the new home masthead and is added by task 5.1.
+- 4.2: run against the UNCHANGED code, before any source edit. Failing for the predicted reason:
+  - `TP2: every generated report page has a two-phrase subtitle ...` (seed 809989130, 8 shrinks). Shrunk counterexample: a one-package report (`left-pad`, alive). Old output: `graveyard page: expected 2 .subtitle-phrase elements, found 0` (one text node).
+  - `T4 subtitle` (S-T4): `.subtitle-phrase must declare white-space: nowrap`; `.masthead .form-subtitle must declare min-width: 0`.
+  - The constant example (`FORM_SUBTITLE` text) passes, as intended.
+
+## 2026-11-13: toe-tag-polish T4 fix (tasks 4.3 to 4.5)
+
+- 4.3: `constants.ts` `FORM_SUBTITLE_PARTS` (`FORM_SUBTITLE` is their join, value unchanged); new `views/masthead.ts` `renderFormSubtitle()` (two `span.subtitle-phrase` plus a space), used by `views/header.ts`; `subtitle-phrase` added to `ClassName`; CSS `.subtitle-phrase { white-space: nowrap }`, first phrase may wrap below 22.4375rem, `min-width: 0` on `.masthead .form-subtitle`. The home picker does not use it yet (task 5.3).
+- 4.4: sabotages (g) to (i) in `sabotage/tp2.ts` registered in `toetag.sabotage.test.ts`; (ab), (ac) in `sabotage/tp5.ts`; all caught. Pinned assertion updated: Property 6's `NOWRAP_ALLOWLIST` (`tt6.ts`) gained `.subtitle-phrase`; it flagged the new nowrap rule as `[nowrap] .subtitle-phrase is not allowed to be nowrap` (old output: red, new output: green, an intended change). `toetag.header.dom.test.ts` reads `textContent` and needed no change.
+- 4.5: `npm run typecheck` clean; `npm test` plain and `CI=1`: 163 files, 1465 tests pass, 1 todo.
+- Cap note: this run also did 4.4 and 4.5 (10 tasks, cap was 8) because they close Phase 4's red window; they are green and checked.
+- Counterexamples: fail-first shrink above (one-package report; old: 0 `.subtitle-phrase`; new: 2). No other.
+- Not done: 5.1 onward (home masthead and demo cards).

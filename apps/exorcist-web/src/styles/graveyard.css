@@ -61,6 +61,21 @@
   color: var(--ink-soft);
 }
 
+.subtitle-phrase {
+  white-space: nowrap;
+}
+
+/* Below 360px the first phrase alone is wider than the column, so it may wrap at its spaces; "Form LR-1" never does. */
+@media (max-width: 22.4375rem) {
+  .subtitle-phrase:first-child {
+    white-space: normal;
+  }
+}
+
+.masthead .form-subtitle {
+  min-width: 0;
+}
+
 .meta {
   font-family: var(--font-mono);
   font-size: var(--size-value);
@@ -258,6 +273,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: stretch;
   align-content: start;
   width: 100%;
   height: 100%;
@@ -319,11 +335,10 @@
   display: grid;
   gap: var(--space-1);
   min-width: 0;
-  padding: var(--space-2) var(--space-3);
-}
-
-.tag-field + .tag-field {
-  border-top: var(--rule-thin) solid var(--ink);
+  margin-inline: var(--space-3);
+  padding: var(--space-2) 0;
+  text-align: left;
+  border-bottom: var(--rule-thin) solid var(--ink);
 }
 
 .tag-label {
@@ -346,6 +361,7 @@
   font-size: var(--size-score-compact);
   font-weight: 700;
   line-height: 1;
+  text-align: left;
 }
 
 .tomb-summary {
@@ -361,6 +377,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  align-self: stretch;
   gap: var(--space-2);
   margin-top: auto;
   padding: var(--space-1) var(--space-3);
