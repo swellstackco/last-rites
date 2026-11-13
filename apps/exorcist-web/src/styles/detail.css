@@ -65,32 +65,64 @@
   color: var(--mist);
 }
 
-/* Breakdown table */
+/* Breakdown: a Form_Grid. Ink outer rule, 1px grid lines, black caption bar, typewriter labels, mono values. */
 .breakdown {
   width: 100%;
   border-collapse: collapse;
-  font-size: 1rem;
+  border: var(--rule) solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  font-size: var(--size-body);
 }
 
 .breakdown caption {
   text-align: left;
-  padding-bottom: var(--space-2);
-  color: var(--mist);
+  padding: var(--space-2) var(--space-3);
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-display);
+  font-size: var(--size-h3);
+  font-weight: 600;
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .breakdown th,
 .breakdown td {
-  padding: var(--space-3) var(--space-2);
+  padding: var(--space-2) var(--space-3);
   text-align: left;
   vertical-align: top;
-  border-bottom: 1px solid var(--edge);
+  border: var(--rule-thin) solid var(--ink);
 }
 
-@media (min-width: 1200px) {
-  .breakdown td,
-  .breakdown th {
-    font-size: 18px;
-  }
+.breakdown thead th {
+  background: var(--paper-grid);
+  color: var(--ink-soft);
+  font-family: var(--font-label);
+  font-size: var(--size-label);
+  font-weight: 400;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+}
+
+.breakdown td {
+  font-family: var(--font-mono);
+  font-size: var(--size-value);
+}
+
+.breakdown tbody th {
+  font-weight: 600;
+}
+
+.breakdown .col-signal .muted {
+  font-family: var(--font-body);
+  font-size: var(--size-small);
+  font-weight: 400;
+}
+
+.breakdown .col-signal {
+  overflow-wrap: anywhere;
 }
 
 .breakdown .col-value,
@@ -107,37 +139,63 @@
   width: 1%;
 }
 
+.breakdown a {
+  color: var(--steel-ink);
+  text-decoration: underline;
+}
+
 .bar {
   display: block;
   width: 100%;
   height: 0.5rem;
-  background: var(--soil);
-  border: 1px solid var(--edge);
-  border-radius: var(--radius-sm);
+  background: var(--paper);
+  border: var(--rule) solid var(--ink);
+  border-radius: 0;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .bar-fill {
   display: block;
   height: 100%;
-  background: var(--ember);
+  background: var(--ink);
+}
+
+.calibration .bar-fill {
+  border-right: var(--rule-heavy) double var(--paper);
 }
 
 .unknown {
-  color: var(--amber);
+  color: var(--ink);
 }
 
-.mismatch {
-  color: var(--ember);
+.breakdown tr[data-status="unknown"] td {
+  border-style: dashed;
+}
+
+.mismatch td {
+  border: var(--rule) solid var(--red-ink);
+  color: var(--red-ink);
   font-weight: 700;
 }
 
-.calibration {
-  border-top: 3px double var(--ember);
+.mismatch td::before {
+  content: "Error: ";
+}
+
+.calibration th,
+.calibration td {
+  background: var(--paper-grid);
+  font-style: italic;
 }
 
 .calibration-label {
-  color: var(--ember);
+  font-style: normal;
+  font-family: var(--font-label);
+  font-size: var(--size-label);
+  letter-spacing: var(--track-label);
+  color: var(--ink);
+  background: var(--paper);
 }
 
 .breakdown tfoot td,
@@ -145,8 +203,13 @@
 .total td,
 .total th {
   font-weight: 700;
-  border-top: 3px solid var(--moon);
-  border-bottom: 0;
+}
+
+.breakdown tfoot .total td {
+  border-top: var(--rule-heavy) solid var(--ink);
+  font-family: var(--font-display);
+  font-size: var(--size-band);
+  letter-spacing: var(--track-display);
 }
 
 .proof {
@@ -209,14 +272,11 @@
   overflow-wrap: anywhere;
 }
 
-/* Narrow: the table stacks into blocks, each cell labelled by data-label. */
+/* Narrow: each row is a boxed record; every cell is captioned by its data-label. */
 @media (max-width: 40rem) {
   .breakdown,
   .breakdown tbody,
-  .breakdown tfoot,
-  .breakdown tr,
-  .breakdown td,
-  .breakdown th {
+  .breakdown tfoot {
     display: block;
   }
 
@@ -229,14 +289,44 @@
   }
 
   .breakdown tr {
-    padding: var(--space-3) 0;
-    border-bottom: 1px solid var(--edge);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: var(--space-3);
+    border: var(--rule) solid var(--ink);
+    background: var(--paper);
+  }
+
+  .breakdown th.col-signal {
+    grid-column: 1 / -1;
   }
 
   .breakdown td,
   .breakdown th {
-    border-bottom: 0;
-    padding: var(--space-1) 0;
+    display: block;
+    min-width: 0;
+    width: auto;
+    border: 0;
+    border-top: var(--rule-thin) solid var(--ink);
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .breakdown th.col-signal {
+    border-top: 0;
+  }
+
+  .breakdown td.col-points,
+  .breakdown td.col-source {
+    border-left: var(--rule-thin) solid var(--ink);
+  }
+
+  .breakdown td.col-status {
+    border-left: var(--rule-thin) solid var(--ink);
+  }
+
+  .breakdown .col-points,
+  .breakdown .col-status {
+    width: auto;
+    white-space: normal;
   }
 
   .breakdown tfoot th,
@@ -245,7 +335,8 @@
   }
 
   .breakdown tfoot .total {
-    border-top: 3px solid var(--moon);
+    grid-template-columns: minmax(0, 1fr);
+    border-top: var(--rule-heavy) solid var(--ink);
   }
 
   .breakdown .total-label {
@@ -257,9 +348,23 @@
     padding: 0;
   }
 
+  .breakdown .mismatch {
+    grid-template-columns: minmax(0, 1fr);
+    border-color: var(--red-ink);
+  }
+
   .breakdown td[data-label]::before {
-    content: attr(data-label) ": ";
-    color: var(--mist);
+    content: attr(data-label);
+    display: block;
+    font-family: var(--font-label);
+    font-size: var(--size-label);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .calibration tr {
+    background: var(--paper-grid);
   }
 }
 

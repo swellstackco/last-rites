@@ -196,32 +196,42 @@
   display: flex;
   align-items: baseline;
   gap: var(--space-3);
+  padding-bottom: var(--space-1);
+  border-bottom: var(--rule) solid var(--ink);
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: var(--track-display);
+}
+
+.group-title .num {
+  font-family: var(--font-mono);
 }
 
 .grid {
   display: grid;
   gap: var(--space-4);
   padding: 0;
+  margin: 0;
   list-style: none;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.grid-dead,
-.grid-dying {
-  padding-top: var(--space-2);
+@media (max-width: 22.4375rem) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
-.grid-dead {
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+@media (min-width: 48rem) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
-.grid-dying {
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
-}
-
-.grid-ailing,
-.grid-alive {
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+@media (min-width: 64rem) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 /* Toe_Tag: the string hangs from the list item; the shape is two clipped layers behind an unclipped button. */
@@ -344,6 +354,8 @@
 }
 
 .tag-band {
+  background: var(--band-color, var(--ink));
+  color: var(--band-text, var(--paper));
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -364,6 +376,45 @@
 .tag-range {
   font-family: var(--font-mono);
   font-size: 0.8125rem;
+  color: inherit;
+}
+
+.tomb-badge {
+  padding: 0 var(--space-1);
+  outline: var(--rule-thin) solid currentColor;
+}
+
+.tombstone-dead {
+  --band-color: var(--red);
+  --band-text: var(--on-band);
+  min-height: 15rem;
+}
+
+.tombstone-dying {
+  --band-color: var(--rust);
+  --band-text: var(--on-band);
+  min-height: 13rem;
+}
+
+.tombstone-ailing {
+  --band-color: var(--amber);
+  --band-text: var(--ink);
+  min-height: 9rem;
+}
+
+.tombstone-alive {
+  --band-color: var(--steel);
+  --band-text: var(--on-band);
+  min-height: 9rem;
+}
+
+/* Hover and press: hard Ink shadow, no movement, no transition. */
+.grid > li:hover {
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+.tombstone:hover::before {
+  background: var(--ink);
 }
 
 .tombstone-dead .tomb-name {
@@ -417,4 +468,11 @@
 .disclosure,
 .skipped {
   margin-top: var(--space-4);
+}
+
+button.disclosure {
+  width: 100%;
+  min-height: var(--target);
+  background: var(--paper);
+  border: var(--rule) solid var(--ink);
 }
