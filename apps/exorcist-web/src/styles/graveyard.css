@@ -1,0 +1,308 @@
+/* The Graveyard: ground, header, groups, tombstones. */
+.app {
+  max-width: 90rem;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+  background:
+    radial-gradient(60rem 24rem at 78% -6rem, rgba(232, 240, 242, 0.07), transparent 70%),
+    linear-gradient(to bottom, var(--soil), var(--night) 22rem);
+}
+
+.stack {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+/* Header */
+.header {
+  display: grid;
+  gap: var(--space-4);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--edge);
+}
+
+.meta {
+  color: var(--mist);
+}
+
+.counts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+@media (min-width: 40rem) {
+  .counts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.count {
+  display: grid;
+  gap: var(--space-1);
+  justify-items: start;
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-top-width: 4px;
+}
+
+.count .num {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.legend,
+.warnings,
+.note {
+  color: var(--mist);
+}
+
+.notice {
+  padding: var(--space-3) var(--space-4);
+  background: var(--stone);
+  border: 1px solid var(--amber);
+  border-radius: var(--radius);
+}
+
+.error {
+  padding: var(--space-3) var(--space-4);
+  background: var(--stone);
+  border: 1px solid var(--ember);
+  border-radius: var(--radius);
+}
+
+/* Groups */
+.group {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+
+.group-title {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-4);
+  padding: 0;
+  list-style: none;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+}
+
+.grid-dead {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+}
+
+.grid-dying {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+}
+
+.grid-ailing,
+.grid-alive {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 12rem), 1fr));
+}
+
+/* Tombstones */
+.tombstone {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+  width: 100%;
+  height: 100%;
+  padding: var(--space-4);
+  text-align: left;
+  background: var(--stone);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius);
+}
+
+.tomb-name {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.tomb-score {
+  font-family: var(--font-num);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.tomb-grade,
+.tomb-label {
+  font-size: var(--size-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tomb-summary {
+  color: var(--mist);
+  font-size: 1rem;
+}
+
+.tomb-badge {
+  justify-self: start;
+  padding: 0 var(--space-2);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius-sm);
+  font-size: var(--size-small);
+  color: var(--mist);
+}
+
+.chip {
+  display: inline-block;
+  padding: 0 var(--space-2);
+  border: 1px solid currentColor;
+  border-radius: var(--radius-sm);
+  font-size: var(--size-small);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Dead: tall slab, arched top, ember border and glow */
+.tombstone-dead {
+  min-height: 15rem;
+  padding-top: var(--space-6);
+  border-top: 4px solid var(--ember);
+  border-radius: var(--radius-arch) var(--radius-arch) var(--radius) var(--radius);
+  box-shadow: 0 0 1.5rem rgba(255, 106, 61, 0.28);
+  background-image: linear-gradient(to bottom, transparent 2.25rem, var(--edge) 2.25rem, var(--edge) 2.3125rem, transparent 2.3125rem);
+  text-align: center;
+  justify-items: center;
+}
+
+.tombstone-dead .tomb-name {
+  font-size: var(--size-name);
+  font-size: 24px;
+}
+
+.tombstone-dead .tomb-score {
+  font-size: 56px;
+  color: var(--ember);
+}
+
+.tombstone-dead .tomb-label,
+.tombstone-dead .tomb-grade {
+  color: var(--ember);
+}
+
+.tombstone-dead .tomb-summary {
+  font-size: 1rem;
+}
+
+@media (min-width: 1200px) {
+  .tombstone-dead .tomb-summary {
+    font-size: 18px;
+  }
+}
+
+/* Dying */
+.tombstone-dying {
+  min-height: 11rem;
+  border-top: 4px solid var(--amber);
+  border-radius: var(--radius-arch) var(--radius-arch) var(--radius) var(--radius) / 2rem 2rem var(--radius) var(--radius);
+}
+
+.tombstone-dying .tomb-score {
+  font-size: 2.5rem;
+  color: var(--amber);
+}
+
+.tombstone-dying .tomb-grade,
+.tombstone-dying .tomb-label {
+  color: var(--amber);
+}
+
+/* Ailing: compact */
+.tombstone-ailing {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: var(--space-2) var(--space-3);
+  border-left: 4px solid var(--lichen);
+}
+
+.tombstone-ailing .tomb-score {
+  font-size: 1.25rem;
+  color: var(--lichen);
+}
+
+.tombstone-ailing .tomb-label,
+.tombstone-ailing .tomb-grade {
+  color: var(--lichen);
+}
+
+/* Alive: chip-sized */
+.tombstone-alive {
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: var(--space-1) var(--space-3);
+  border-left: 4px solid var(--moss);
+}
+
+.tombstone-alive .tomb-score {
+  font-size: 1rem;
+  color: var(--moss);
+}
+
+.tombstone-alive .tomb-label,
+.tombstone-alive .tomb-grade {
+  color: var(--moss);
+}
+
+/* Picker and status */
+.demo-cards {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr));
+  padding: 0;
+  list-style: none;
+}
+
+.demo-card {
+  display: grid;
+  gap: var(--space-2);
+  align-content: start;
+  text-align: left;
+  padding: var(--space-5);
+}
+
+.field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.field-error {
+  color: var(--ember);
+}
+
+.disclosure,
+.skipped {
+  margin-top: var(--space-4);
+}
+
+/* Motion: the dead glow pulses slowly, only when motion is welcome. */
+@media (prefers-reduced-motion: no-preference) {
+  .tombstone-dead {
+    animation: ember-pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes ember-pulse {
+    0%,
+    100% {
+      box-shadow: 0 0 1rem rgba(255, 106, 61, 0.2);
+    }
+
+    50% {
+      box-shadow: 0 0 2rem rgba(255, 106, 61, 0.4);
+    }
+  }
+}

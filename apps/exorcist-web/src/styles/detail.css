@@ -1,0 +1,198 @@
+/* Detail_Panel: sheet, backdrop, Breakdown table. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  background: rgba(5, 9, 11, 0.72);
+}
+
+.sheet {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 60;
+  width: min(100%, 56rem);
+  height: 100dvh;
+  overflow-y: auto;
+  padding: var(--space-5);
+  background: var(--stone);
+  color: var(--moon);
+  border-left: 1px solid var(--edge);
+  display: grid;
+  gap: var(--space-5);
+  align-content: start;
+}
+
+.sheet[hidden],
+.backdrop[hidden] {
+  display: none;
+}
+
+@media (max-width: 40rem) {
+  .sheet {
+    width: 100%;
+    border-left: 0;
+    padding: var(--space-4);
+  }
+}
+
+.sheet-head {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  align-items: start;
+}
+
+.sheet h2 {
+  font-size: 28px;
+  overflow-wrap: anywhere;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  gap: var(--space-3);
+}
+
+.score-big {
+  font-family: var(--font-num);
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+.grade-chip {
+  color: var(--mist);
+}
+
+/* Breakdown table */
+.breakdown {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+.breakdown caption {
+  text-align: left;
+  padding-bottom: var(--space-2);
+  color: var(--mist);
+}
+
+.breakdown th,
+.breakdown td {
+  padding: var(--space-3) var(--space-2);
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--edge);
+}
+
+@media (min-width: 1200px) {
+  .breakdown td,
+  .breakdown th {
+    font-size: 18px;
+  }
+}
+
+.bar {
+  display: block;
+  width: 100%;
+  height: 0.5rem;
+  background: var(--soil);
+  border: 1px solid var(--edge);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+.bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--ember);
+}
+
+.unknown {
+  color: var(--amber);
+}
+
+.mismatch {
+  color: var(--ember);
+  font-weight: 700;
+}
+
+.calibration {
+  border-top: 3px double var(--ember);
+}
+
+.calibration-label {
+  color: var(--ember);
+}
+
+.breakdown tfoot td,
+.breakdown tfoot th,
+.total td,
+.total th {
+  font-weight: 700;
+  border-top: 3px solid var(--moon);
+  border-bottom: 0;
+}
+
+.proof {
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-4);
+  border: 1px dashed var(--edge);
+  border-radius: var(--radius);
+}
+
+/* Narrow: the table stacks into blocks, each cell labelled by data-label. */
+@media (max-width: 40rem) {
+  .breakdown,
+  .breakdown tbody,
+  .breakdown tfoot,
+  .breakdown tr,
+  .breakdown td,
+  .breakdown th {
+    display: block;
+  }
+
+  .breakdown thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+
+  .breakdown tr {
+    padding: var(--space-3) 0;
+    border-bottom: 1px solid var(--edge);
+  }
+
+  .breakdown td,
+  .breakdown th {
+    border-bottom: 0;
+    padding: var(--space-1) 0;
+  }
+
+  .breakdown td[data-label]::before {
+    content: attr(data-label) ": ";
+    color: var(--mist);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .sheet {
+    animation: sheet-in 180ms ease-out;
+  }
+
+  @keyframes sheet-in {
+    from {
+      transform: translateX(2rem);
+      opacity: 0;
+    }
+
+    to {
+      transform: none;
+      opacity: 1;
+    }
+  }
+}
