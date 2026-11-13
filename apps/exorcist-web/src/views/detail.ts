@@ -1,6 +1,6 @@
 // Detail_Panel: a hand-written modal dialog (role="dialog") with focus trap and restore.
 import { GRADE_INFO, buildBreakdown, proofSlotFor } from "@graveyard-kit/skeleton/graveyard";
-import type { Grave } from "@graveyard-kit/skeleton/graveyard";
+import type { Grave, ProofState } from "@graveyard-kit/skeleton/graveyard";
 import type { ScannedDependency } from "@graveyard-kit/exorcist-npm/report";
 import { h } from "../dom/h.js";
 import { restoreFocus, setInertAround, trapTab } from "../dom/focus.js";
@@ -17,7 +17,15 @@ export interface DetailOptions {
   onRequestClose(): void;
 }
 
+/** What the Proof_Section shows. `unreadable` adds the muted "could not be read" line. */
+export interface ProofShown {
+  state: ProofState;
+  unreadable?: boolean;
+}
+
 export interface OpenOptions {
+  /** Initial proof state for a dead or dying package; defaults to "Exorcism coming". */
+  proof?: ProofShown;
   /** The control that opened the panel; focus returns to it. Defaults to the active element. */
   opener?: HTMLElement | null;
   /** Fallback focus targets, in order, if the opener is gone (group heading, then h1). */
@@ -29,6 +37,8 @@ export interface DetailHandle {
   /** The Grave currently shown, if any. */
   current(): Grave<ScannedDependency> | undefined;
   open(grave: Grave<ScannedDependency>, options?: OpenOptions): void;
+  /** Replaces only the content of the open panel's Proof_Section, when the open grave has `key`. */
+  updateProof(key: string, proof: ProofShown): void;
   close(): void;
   destroy(): void;
 }
@@ -39,13 +49,14 @@ function versionText(dep: ScannedDependency): string {
     : `${dep.declaredRange} (declared range)`;
 }
 
-function renderContent(grave: Grave<ScannedDependency>, onClose: () => void): HTMLElement[] {
+function renderContent(grave: Grave<ScannedDependency>, onClose: () => void, proof?: ProofShown): HTMLElement[] {
   const dep = grave.record;
   const death = dep.death;
   const info = GRADE_INFO[death.grade];
   const id = graveId(grave);
   const breakdown = buildBreakdown(dep);
-  const slot = proofSlotFor(grave);
+  const baseSlot = proofSlotFor(grave);
+  const slot = baseSlot && proof ? { ...baseSlot, state: proof.state } : baseSlot;
 
   const closeButton = h(
     "button",
@@ -89,7 +100,7 @@ function renderContent(grave: Grave<ScannedDependency>, onClose: () => void): HT
           h("ul", null, dep.evidenceWarnings.map((w) => h("li", null, w))),
         )
       : null,
-    slot ? renderProofSlot(slot, `${id}-proof`) : null,
+    slot ? renderProofSlot(slot, `${id}-proof`, proof?.unreadable === true) : null,
   ];
   return nodes.filter((n): n is HTMLElement => n !== null);
 }
@@ -139,13 +150,21 @@ export function createDetail(options: DetailOptions): DetailHandle {
       }
       fallbacks = openOptions.fallbacks ?? fallbacks;
       grave = next;
-      panel.replaceChildren(...renderContent(next, request));
+      panel.replaceChildren(...renderContent(next, request, openOptions.proof));
       panel.scrollTop = 0;
       setInertAround(options.appRoot, true);
       backdrop.hidden = false;
       panel.hidden = false;
       opened = true;
       doc.getElementById("detail-title")?.focus();
+    },
+    updateProof(key, proof) {
+      if (!opened || !grave || grave.key !== key) return;
+      const section = panel.querySelector<HTMLElement>("section.proof");
+      const slot = proofSlotFor(grave);
+      if (!section || !slot) return;
+      const fresh = renderProofSlot({ ...slot, state: proof.state }, `${graveId(grave)}-proof`, proof.unreadable === true);
+      section.replaceChildren(...Array.from(fresh.childNodes));
     },
     close() {
       if (!opened) return;

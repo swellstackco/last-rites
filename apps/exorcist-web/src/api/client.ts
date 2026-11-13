@@ -1,5 +1,7 @@
 import { parseReport } from "@graveyard-kit/exorcist-npm/report";
 import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import { isProofName, parseProofReport } from "@graveyard-kit/skeleton/proof";
+import type { ProofReport } from "@graveyard-kit/skeleton/proof";
 import { DEMO_TIMEOUT_MS, LIVE_TIMEOUT_MS, MAX_ERROR_BODY_BYTES } from "../constants.js";
 import { describeError } from "./errors.js";
 import type { UiError } from "./errors.js";
@@ -18,8 +20,14 @@ export type ApiResult =
   | { ok: false; cancelled: true }
   | { ok: false; error: UiError };
 
+/** Result of loading a Proof_Report; `getProof` never throws. `cancelled` means the caller aborted. */
+export type ProofLoad =
+  | { ok: true; report: ProofReport }
+  | { ok: false; reason: "absent" | "invalid" | "failed" | "cancelled" };
+
 export interface ApiClient {
   getDemo(name: string, signal: AbortSignal): Promise<ApiResult>;
+  getProof(demo: string, pkg: string, signal: AbortSignal): Promise<ProofLoad>;
   scanRepo(input: { repo: string; ref?: string }, signal: AbortSignal): Promise<ApiResult>;
 }
 
@@ -108,6 +116,36 @@ export function createApiClient(deps: ApiClientDeps): ApiClient {
       if (fallbackResult.ok) return fallbackResult;
       if ("cancelled" in fallbackResult) return fallbackResult;
       return apiResult; // the original API error, not the fallback's
+    },
+
+    async getProof(demo, pkg, signal) {
+      if (!isProofName(demo) || !isProofName(pkg)) return { ok: false, reason: "absent" };
+      const raw = await request(
+        `${base}/demo/proofs/${demo}/${pkg}.json`,
+        { method: "GET", credentials: "omit" },
+        DEMO_TIMEOUT_MS,
+        signal,
+      );
+      switch (raw.kind) {
+        case "cancelled":
+          return { ok: false, reason: "cancelled" };
+        case "network":
+        case "timeout":
+          return { ok: false, reason: "failed" };
+        case "response": {
+          if (raw.status === 404) return { ok: false, reason: "absent" };
+          if (raw.status !== 200) return { ok: false, reason: "failed" };
+          try {
+            const parsed = parseProofReport(raw.text);
+            if (parsed.ok) return { ok: true, report: parsed.report };
+            // The dev server's SPA fallback answers 200 with HTML: not JSON means no proof here.
+            const c = parsed.error.category;
+            return { ok: false, reason: c === "invalid_json" || c === "empty" ? "absent" : "invalid" };
+          } catch {
+            return { ok: false, reason: "invalid" };
+          }
+        }
+      }
     },
 
     async scanRepo(input, signal) {

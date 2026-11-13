@@ -1,9 +1,11 @@
 // Controller: the Phase state machine. Owns requests, the cooldown, focus on phase change,
 // the Detail_Panel and document.title. Every dependency (api, timers, clock, location) is injected.
 import type { GradeBand } from "@graveyard-kit/skeleton";
+import { isProofName } from "@graveyard-kit/skeleton/proof";
+import { buildProofView } from "@graveyard-kit/skeleton/graveyard";
 import type { Grave } from "@graveyard-kit/skeleton/graveyard";
 import type { ScannedDependency } from "@graveyard-kit/exorcist-npm/report";
-import type { ApiClient } from "../api/client.js";
+import type { ApiClient, ProofLoad } from "../api/client.js";
 import { describeError } from "../api/errors.js";
 import type { UiError } from "../api/errors.js";
 import { PRODUCT_NAME } from "../constants.js";
@@ -11,7 +13,7 @@ import { h } from "../dom/h.js";
 import { buildReportView } from "../model/report-view.js";
 import type { ReportView } from "../model/report-view.js";
 import { createDetail } from "../views/detail.js";
-import type { DetailHandle } from "../views/detail.js";
+import type { DetailHandle, ProofShown } from "../views/detail.js";
 import { renderGraveyard } from "../views/graveyard.js";
 import type { GraveyardHandle } from "../views/graveyard.js";
 import { renderHeader } from "../views/header.js";
@@ -115,6 +117,10 @@ export function createController(deps: ControllerDeps): Controller {
   let cooldownTimer: ReturnType<typeof setTimeout> | undefined;
   let renderFailed = false;
   let destroyed = false;
+  // Proof requests: once per (demo, package) per page session; aborted when the route changes.
+  const proofsStarted = new Set<string>();
+  const proofsSettled = new Map<string, ProofShown>();
+  let proofAbort: AbortController | undefined;
 
   // One persistent live region; written at the start and at the end of a cooldown only.
   const announce = h("div", { class: "visually-hidden", role: "status", id: "announce" });
@@ -200,6 +206,44 @@ export function createController(deps: ControllerDeps): Controller {
     if (phase.tag === "report") delete phase.openKey;
   };
 
+  const shownFor = (load: ProofLoad): ProofShown => {
+    if (load.ok) return { state: { status: "report", view: buildProofView(load.report) } };
+    return load.reason === "invalid"
+      ? { state: { status: "coming_soon" }, unreadable: true }
+      : { state: { status: "coming_soon" } };
+  };
+
+  /** The proof to show when a panel opens, starting the request on the first open. */
+  const proofFor = (source: Source, grave: Grave<ScannedDependency>): ProofShown | undefined => {
+    const grade = grave.record.death.grade;
+    if (source.kind !== "demo" || (grade !== "dead" && grade !== "dying")) return undefined;
+    const pkg = grave.record.name;
+    if (!isProofName(source.name) || !isProofName(pkg)) return undefined;
+    const key = `${source.name}/${pkg}`;
+    const settled = proofsSettled.get(key);
+    if (settled) return settled;
+    if (!proofsStarted.has(key)) {
+      proofsStarted.add(key);
+      const controller = (proofAbort ??= new AbortController());
+      void deps.api.getProof(source.name, pkg, controller.signal).then(
+        (result) => {
+          if (destroyed) return;
+          if (!result.ok && result.reason === "cancelled") return;
+          const shown = shownFor(result);
+          proofsSettled.set(key, shown);
+          if (phase.tag === "report" && phase.source.kind === "demo" && phase.source.name === source.name) {
+            detail?.updateProof(grave.key, shown);
+          }
+        },
+        (error: unknown) => {
+          logError(error);
+          proofsStarted.delete(key);
+        },
+      );
+    }
+    return { state: { status: "loading" } };
+  };
+
   const syncDetail = (pkg: string | undefined): void => {
     if (phase.tag !== "report" || !detail || !graveyard) return;
     const current = phase;
@@ -219,7 +263,9 @@ export function createController(deps: ControllerDeps): Controller {
     const gy = graveyard;
     const heading = phaseHeading;
     current.openKey = pkg;
+    const proof = proofFor(current.source, grave);
     detail.open(grave, {
+      ...(proof ? { proof } : {}),
       opener: gy.tombstoneFor(grave.key),
       fallbacks: () => [gy.groupHeading(grave.record.death.grade as GradeBand), heading],
     });
@@ -352,6 +398,9 @@ export function createController(deps: ControllerDeps): Controller {
   // ---- transitions ------------------------------------------------------------------------
 
   const abortInFlight = (): void => {
+    proofAbort?.abort();
+    proofAbort = undefined;
+    for (const k of Array.from(proofsStarted)) if (!proofsSettled.has(k)) proofsStarted.delete(k);
     abort?.abort();
     abort = undefined;
     requestId++;

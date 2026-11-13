@@ -31,7 +31,10 @@ export type ClassName =
   | "backdrop" | "sheet" | "sheet-head" | "facts" | "score-big" | "grade-chip"
   | "breakdown" | "bar" | "bar-fill" | "calibration" | "calibration-label" | "total" | "unknown" | "mismatch"
   | "col-signal" | "col-value" | "col-status" | "col-points" | "col-source" | "total-label"
-  | "proof" | "num" | "muted";
+  | "proof" | "num" | "muted"
+  | "proof-badge" | "proof-badge-proved" | "proof-badge-weak" | "proof-badge-counterexample"
+  | "proof-badge-no_call_sites" | "proof-badge-error"
+  | "proof-sites" | "proof-attempts" | "proof-pre";
 
 type DataKey = `data-${string}`;
 type AriaKey = `aria-${string}`;

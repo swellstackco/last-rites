@@ -6,6 +6,7 @@ import { createFakeFetch } from "../test-support/fake-fetch.js";
 import { createFakeTimers } from "../test-support/fake-timers.js";
 import { buildReport } from "../test-support/build-report.js";
 import { DEMO_TIMEOUT_MS, LIVE_TIMEOUT_MS } from "../constants.js";
+import { buildProofReport, buildProofText } from "../test-support/build-proof-report.js";
 import type { PackageSignals } from "@graveyard-kit/skeleton";
 
 const unknown = { kind: "unknown" } as const;
@@ -176,6 +177,71 @@ describe("scanRepo", () => {
     const p = client.scanRepo({ repo: "a/b" }, ac.signal);
     ac.abort();
     expect(await p).toEqual({ ok: false, cancelled: true });
+    expect(timers.pendingCount()).toBe(0);
+  });
+});
+
+describe("getProof", () => {
+  const URL_OK = "GET /demo/proofs/parse-server/intersect.json";
+
+  it("requests exactly the proof URL and returns the parsed report", async () => {
+    const { ff, client, signal } = setup({ [URL_OK]: { body: buildProofText("proved") } });
+    const r = await client.getProof("parse-server", "intersect", signal);
+    expect(r).toEqual({ ok: true, report: buildProofReport("proved") });
+    expect(ff.calls.map((c) => `${c.method} ${c.url}`)).toEqual([URL_OK]);
+    expect(ff.calls[0]?.credentials).toBe("omit");
+    ff.assertNoUnexpected();
+  });
+
+  it("404 is absent", async () => {
+    const { client, signal } = setup({ [URL_OK]: { status: 404, body: "nope" } });
+    expect(await client.getProof("parse-server", "intersect", signal)).toEqual({ ok: false, reason: "absent" });
+  });
+
+  it("an HTML body with status 200 is absent", async () => {
+    const { client, signal } = setup({ [URL_OK]: { body: "<!doctype html><html></html>" } });
+    expect(await client.getProof("parse-server", "intersect", signal)).toEqual({ ok: false, reason: "absent" });
+  });
+
+  it("valid JSON that parseProofReport rejects is invalid", async () => {
+    const { client, signal } = setup({ [URL_OK]: { body: '{"repo": 5}' } });
+    expect(await client.getProof("parse-server", "intersect", signal)).toEqual({ ok: false, reason: "invalid" });
+  });
+
+  it("a server error status is failed", async () => {
+    const { client, signal } = setup({ [URL_OK]: { status: 500, body: "x" } });
+    expect(await client.getProof("parse-server", "intersect", signal)).toEqual({ ok: false, reason: "failed" });
+  });
+
+  it("a network error is failed", async () => {
+    const { client, signal } = setup({ [URL_OK]: () => Promise.reject(new TypeError("Failed to fetch")) });
+    expect(await client.getProof("parse-server", "intersect", signal)).toEqual({ ok: false, reason: "failed" });
+  });
+
+  it("a timeout is failed", async () => {
+    const { ff, timers, client, signal } = setup();
+    ff.hold(URL_OK);
+    const p = client.getProof("parse-server", "intersect", signal);
+    await Promise.resolve();
+    timers.advance(DEMO_TIMEOUT_MS);
+    expect(await p).toEqual({ ok: false, reason: "failed" });
+  });
+
+  it("an invalid name makes no request", async () => {
+    const { ff, client, signal } = setup();
+    for (const [d, p] of [["..", "x"], ["parse-server", "@scope/pkg"], ["Parse", "x"], ["a/b", "x"], ["", "x"], ["x", "a".repeat(65)]]) {
+      expect(await client.getProof(d as string, p as string, signal)).toEqual({ ok: false, reason: "absent" });
+    }
+    expect(ff.calls).toHaveLength(0);
+  });
+
+  it("cancellation is propagated and clears the timer", async () => {
+    const { ff, timers, client } = setup();
+    ff.hold(URL_OK);
+    const ac = new AbortController();
+    const p = client.getProof("parse-server", "intersect", ac.signal);
+    ac.abort();
+    expect(await p).toEqual({ ok: false, reason: "cancelled" });
     expect(timers.pendingCount()).toBe(0);
   });
 });

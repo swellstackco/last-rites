@@ -241,3 +241,10 @@ Headless Chromium at 1352x761 and 375x812 (2x), demo parse-server, package ldapj
 - 7.5/7.6: `ProofState` is now `coming_soon | loading | report`; old helper types removed. The grep showed one more consumer than the task lists (`graveyard/index.ts` re-exports, which I updated, and now also exports `buildProofView`, `ProofView` and friends). `apps/exorcist-web/src/views/proof-slot.ts` got a minimal `loading` and plain-text `report` branch so typecheck stays green; task 8.7 replaces it with the full Proof_Section.
 - 8.1-8.3: proof copy in `constants.ts`; `vite.config.ts` gets `PROOF_NAME_PATTERN`, `isProofName`, `proofNamesFromPath`, `demoProofs()` (registered after `demoSnapshots()`); tests in `vite-config.test.ts`. Note: `/demo/proofs/candidates/<x>.json` is a syntactically valid guarded pair (repo name `candidates`); the real candidates sit one level deeper (`candidates/parse-server/*.js`) so nothing matches. My first test assertion claimed otherwise and was wrong; fixed the test, not the guard.
 - Counterexamples found by fast-check against the real code: none.
+
+## 2026-11-13: proof-harness tasks 8.4 to 8.11 (page loads and renders proofs)
+
+- `getProof` added to the Api_Client; result has a fourth reason `cancelled` (caller abort) besides `absent`, `invalid`, `failed`, so the controller can ignore aborted requests. Empty or non-JSON 200 bodies (dev SPA fallback) are `absent`.
+- Controller starts one proof request per (demo, package), aborts unsettled ones on any route change and forgets them so a later open retries. `invalid` is shown as the placeholder plus a muted unreadable line (`ProofShown.unreadable`).
+- Existing `proof.dom.test.ts` now registers 404 routes for the proof URLs; other DOM tests tolerate the unmatched request.
+- No fast-check counterexamples this run (only example and DOM tests were written).
