@@ -48,12 +48,12 @@ All values live in `apps/exorcist-web/src/styles/tokens.css`. Colors, font stack
 
 | role | font | size | notes |
 |---|---|---|---|
-| wordmark | display 700 | `--size-wordmark` 40 to 56px | uppercase, tracking `--track-display`, a `p` |
+| wordmark | display 700 | `--size-wordmark` 40 to 56px | uppercase, tracking `--track-display`, a `p`, except the `h1` on the home page (left-aligned) |
 | h1 | display 700 | 20px | uppercase, tracking, the screen heading |
 | h2 (groups, sheet name) | display 700 | 24px | uppercase |
 | h3 (Proof, evidence) | display 600 | 18px | uppercase, in caption bars |
 | body | body 400 | 16px | root is 16px at every width |
-| tag name | mono 600 | 17px dead, 16px others | `overflow-wrap: anywhere` |
+| tag name | mono 600 | 17px dead, 16px others | `overflow-wrap: break-word`; `<wbr>` after every "/" and "-" (Split_Points) so names break there first |
 | tag score | display 700 | 56 / 44 / 32px | line-height 1 |
 | Band word | display 700 | 20px | uppercase, tracking `--track-band` |
 | Tag_Label, column labels | label 400 | 12 to 13px | uppercase, tracking `--track-label`, `--ink-soft` |
@@ -64,8 +64,10 @@ All values live in `apps/exorcist-web/src/styles/tokens.css`. Colors, font stack
 
 - **Boxes**: `border: var(--rule) solid var(--ink)`; grid lines inside boxes are `1px solid var(--ink)`. Radius 0 except the hole (50%); controls 2px.
 - **Toe_Tag**: `isolation: isolate; position: relative`. `::before` is the Ink layer and `::after` the Manila layer inset by `--rule`, both with the chamfered `clip-path` polygon, both behind the content. The button has `background: none; border: 0` and no `clip-path` or `overflow` on it or any ancestor, so its outline is a full rectangle.
+- **Tag fields**: PACKAGE, SCORE, CAUSE are left-aligned on one edge, each ruled by a 1px Ink Field_Line; the last sits above the Band.
+- **Demo cards**: hang like tags (string, hole) and show "N dead" when the snapshot count is known; nothing is shown otherwise.
 - **String and hole**: `.grid > li` has `padding-top: var(--string-height)` and a 2px Ink line down to the hole center; the hole is a 0.875rem circle with a 2px Ink border and `--wall` fill.
-- **Band**: flex, space-between, colored by grade (dead `--red`, dying `--rust`, ailing `--amber` with Ink text, alive `--steel`), Band word in the display font. The grade word is spelled out in text, never color alone.
+- **Band**: full width, edge to edge along the bottom inside the border (`.tombstone { align-items: stretch }`), flex, space-between, colored by grade (dead `--red`, dying `--rust`, ailing `--amber` with Ink text, alive `--steel`), Band word in the display font. The grade word is spelled out in text, never color alone.
 - **Sizes**: dead 15rem min-height, score 56px; dying 13rem, 44px; ailing and alive 9rem, 32px.
 - **Form_Grid** (Breakdown table): Ink outer edge, 1px Ink grid lines, caption as a black bar, header cells as typewriter labels, values in mono, Calibration_Row on `--paper-grid` italic, total row with a heavy top rule. At or below 40rem each row becomes a boxed record with `data-label` captions; no horizontal scroll at 375 or 320.
 - **Stamp** (`.proof-badge`): display font, uppercase, `--track-band`, 2px `currentColor` border, `rotate(-2.5deg)`, `max-width: 100%`, `overflow-wrap: anywhere`. Counterexample and error `--red-ink`; proved `--steel-ink`; weak Ink text with an amber border; no_call_sites `--ink-soft`. Inside attempts it is smaller and untilted.
@@ -75,7 +77,7 @@ All values live in `apps/exorcist-web/src/styles/tokens.css`. Colors, font stack
 - **Notices**: `.notice` is Paper with a 2px Ink rule and a 6px amber left bar; `.error` is the same with `--red-ink`. No icon.
 - **Focus ring**: `:focus-visible { outline: var(--ring-width) solid var(--focus); outline-offset: var(--ring-offset) }` everywhere; never clipped, never removed.
 - **Motion**: one finite tag swing and one Band stamp on the sheet, only inside `@media (prefers-reduced-motion: no-preference)`, with an explicit `reduce` block that turns them off. No `infinite`, no JavaScript timers, no transitions outside the no-preference block. Hover uses no transition.
-- **Narrow rules**: the page works at 375 and 320 with no horizontal scroll; 2-column tag grid at 375 (1 column below 22.5rem), 3 from 48rem, 4 from 64rem; text never breaks mid-word in short cells.
+- **Narrow rules**: the page works at 375 and 320 with no horizontal scroll; tag grid is 1 column below 32.5rem, 2 from 32.5rem, 3 from 48rem, 4 from 64rem; text never breaks mid-word in short cells.
 
 ## BANNED looks
 

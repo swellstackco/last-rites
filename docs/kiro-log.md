@@ -501,3 +501,17 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - 7.5: `npm run typecheck` clean; `npm test` plain and `CI=1`: 166 files, 1503 tests pass, 1 todo. Judgment call recorded: 1-up below 32.5rem and `break-word` as last resort replace the redesign's 2-up at 375 and `anywhere` on names (steering is updated in 8.1).
 - Counterexamples from fast-check: the fail-first shrink in the entry above (`"left-pad"`: old one text node, new `["left-", <wbr>, "pad"]`). None after the fix.
 - Gap closed afterwards: TP4 sabotages (q) to (t) are in `sabotage/tp4.ts` and run from `toetag.polish.names.dom.test.ts` (each makes `checkName` throw for the 47-character scoped name; the real markup passes). They are not in `toetag.sabotage.test.ts`, whose registry is built around mounted pages.
+
+## 2026-11-13: toe-tag-polish docs, verification and browser check (tasks 8.1 to 8.5, 9.1)
+
+- 8.1: `.kiro/steering/graveyard-ui.md` updated (wordmark `h1` on home, full-width Band, Tag fields, Demo cards, `break-word` plus `<wbr>`, grid 1/2/3/4 at 32.5/48/64rem). 8.2: "Polish (bugfix)" section appended to `toe-tag-redesign/design.md`.
+- 8.3: build ok: one JS, one CSS, seven woff2 in `dist/fonts/`, CSP meta unchanged (`index.html` has no diff), built CSS contains `32.5rem`, `.subtitle-phrase`, `.demo-dead`.
+- 8.4: `npm run typecheck` clean; `npm test` with `CI=1` (seed 20261113), plain, and two more plain runs: 166 files, 1508 tests pass, 1 todo. The "shrunk counterexample" lines in test output come from sabotage tests that are meant to fail (they prove the checks can fail); no real property failed. No new counterexample this run.
+- 8.5 clause map: 2.1 TP1 + browser; 2.2/2.3 S-T2/S-T3 + DOM example + browser; 2.4 TP2/S-T4 + browser (phrases one line each); 2.5 TP3/S-T5 + browser; 2.6 S-T6 + browser; 2.7 TP4/S-T7 + browser at 1352/390/320; 3.1-3.9 TP6, Properties 4-8 and the existing suite. Unverified: 2-column and 3-column grid widths (520, 768, 1024), exact mid-word break behavior, pixel comparison with the mockup (eyeballed only).
+- 9.1: browser check RUN, 64/64 scripted checks pass at 1352, 390, 320 (see `docs/review/2026-11-13-toe-tag-polish-check.md`). Two failures in early runs were script bugs (case-sensitive match against CSS-uppercased text; the `.tomb-name` selector also matched the skipped-packages list), not app defects. The system Google Chrome hung on launch, so the default Chromium was used. Observation: `views/skipped.ts` names get no `<wbr>`; out of scope.
+
+## 2026-11-13: toe-tag-polish done
+
+- Defects T1-T7 fixed: proof for any grade with a valid report; Band full width (`align-items: stretch`) and ruled left-aligned fields; subtitle as two nowrap phrases; home Masthead, hanging Demo_Cards and runtime dead counts; summary as Field_Label; 1-up grid below 32.5rem with `<wbr>` Split_Points and `break-word`.
+- Root causes as hypothesized in design.md were confirmed by the fail-first runs recorded above. Properties TP1-TP6 with sabotage entries, all green. Judgment calls: as listed in tasks.md Notes and the per-phase entries.
+- Unverified: see the 8.5 entry (intermediate widths, pixel comparison).
