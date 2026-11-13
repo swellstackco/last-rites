@@ -618,3 +618,15 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - 7.1/7.2: `.kiro/settings/mcp.json` as in the design; `kiro-files.test.ts` part 1 (validator, `args[0]` equals `BUNDLE_REL`, `autoApprove` is the four read tools, no secret-looking value).
 - Verification: `npm run typecheck` clean; `CI=1 npm test` green (see the final run below).
 - Counterexamples: none found by fast-check. Only slip: a Python-escaping mistake in my first stdio test edit (a literal `\n` in the source); fixed.
+
+## 2026-11-13: kiro-integration tasks 7.3 to 7.9
+
+- 7.3/7.4: `run-scan-deps.ts` and `run-candidate-proof.ts` (injected Deps, file system and probe; never throw) with the entry files `scan-deps.ts` and `candidate-proof.ts` (`SIBLING_DIR = "lastrites-work"` lives only in the entry file). `entry.ts` gained `nodeToolDeps(root)` (lazy import of `wire.ts`, the only extra reader of `process.env`; demo snapshots come from `<root>/demo`).
+- Deviations: Fired_Log hook ids are the hook names (`scan-deps-on-save`, `candidate-proof-on-save`), matching the two earlier hooks, not the shorter ids in the design. A candidate counterexample gives outcome `warn`, `error` gives `fail`. The `<runs>` in the status line is the report's `runs` (sum over shapes, e.g. 400 for a 200-run request), not the requested count.
+- 7.5: 21 examples in `runners.scan-candidate.test.ts` (baseline absent/corrupt, sorted rewrite, scan failure keeps the baseline, each stdin field name, missing checkout, proved and counterexample lines, exit 0).
+- 7.6: ran `hook:scan-deps` by hand: printed `no new dead packages`, exit 0, baseline `[]`, Fired_Log line written. Not run by hand: `hook:candidate-proof` (no checkout in this environment; covered by the fake-based tests).
+- 7.7: the `createHook` tool placed `timeout` inside `action`, which `validateHookFile` rejects (unknown field); I moved it to the hook level like the other two files. `.kiro/hooks/.gitkeep` removed.
+- 7.8: `hook-files.test.ts` covers all four files (exactly four, validator, scripts exist, matcher match/reject lists).
+- Verification: `npm run typecheck` clean; `npm test` 202 files, 1782 passed, 1 todo.
+- Counterexamples from fast-check: none (no new property tests).
+- 8.1: `.kiro/agents/prompts/coroner.md` written (read only; the report outline from the task). Run stopped here at the 8-task limit; 8.2 onward remain.

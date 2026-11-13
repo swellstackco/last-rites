@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "scan-deps-on-save",
+      "trigger": "PostFileSave",
+      "description": "Scan this repository's dependencies when a manifest or lockfile is saved and warn about new dead packages.",
+      "matcher": "^(?!.*node_modules/).*(^|/)package(-lock)?\\.json$",
+      "action": {
+        "type": "command",
+        "command": "npm run hook:scan-deps -w @graveyard-kit/exorcist-mcp --silent"
+      },
+      "timeout": 120
+    }
+  ]
+}

@@ -83,6 +83,12 @@ async function readAllStdin(): Promise<string> {
  */
 export const REPO_ROOT = resolve(import.meta.dirname, "../../..");
 
+/** The real Deps for the hooks that call the tools' code (`scan-deps`, `candidate-proof`); demo snapshots come from `<root>/demo`. */
+export async function nodeToolDeps(root: string) {
+  const { wireRealDeps } = await import("../wire.js");
+  return wireRealDeps(process.env, root, { cwd: root });
+}
+
 export function nodeEntryEnv(): EntryEnv {
   return {
     root: REPO_ROOT,

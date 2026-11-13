@@ -1,0 +1,16 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "candidate-proof-on-save",
+      "trigger": "PostFileSave",
+      "description": "Re-run the proof for a candidate file when it is saved and show the status.",
+      "matcher": "demo/proofs/candidates/[^/]+/[^/]+\\.js$",
+      "action": {
+        "type": "command",
+        "command": "npm run hook:candidate-proof -w @graveyard-kit/exorcist-mcp --silent"
+      },
+      "timeout": 180
+    }
+  ]
+}
