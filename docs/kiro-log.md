@@ -224,3 +224,13 @@ Headless Chromium at 1352x761 and 375x812 (2x), demo parse-server, package ldapj
 - 6.7: `run.ts` (`exorcise`). Order: scan, usage error (exit 2) for call sites without `--candidate`, default path, oracle and candidate load, `runProof`, existing report check, append, atomic write, summary lines. Run.test is task 6.8 (not done this run).
 - Counterexamples found by fast-check against the real code: none.
 - Counts (repo root): `npm run typecheck` clean; `npm test` 130 files, 1148 tests pass, 1 todo.
+
+## 2026-11-13 proof-harness 6.8-6.12, 7.1-7.3 (Kiro CLI)
+
+- 6.8: `run.test.ts` (11 in-process tests over an in-memory `ReportFs`, the memory `SourceFs` loaded from the fixture trees, real recipes and oracles). The de-duplicating `Set` candidate gives a counterexample on `intersect`; the printed lines equal the recorded strings.
+- 6.9: `cli.ts` (`main(argv)` returns the exit code; the process entry runs only when `VITEST` is unset and argv[1] is `cli.*` or `vite-node`). `repoRoot` is four levels up from the file.
+- 6.10: by hand, offline, temp output directory outside the repo: `node-abort-controller` on `declared-only` wrote a `no-call-sites` attempt with `remove-dependency`, exit 0; `parseProofReport` accepted the file (`true`). Temp directory and script deleted.
+- 6.11: `exorcise/sabotage.test.ts` for Properties 1, 4, 6 and 11 (all lists caught, real implementations green under the fixed seed).
+- 7.1-7.3: `proof-view.ts` (`buildProofView`; a report with no attempts is shown as a proof error, which a valid report never is), `proof-view.test.ts`, Property 10 (`proof-view.p10.test.ts`, `build(impl)`; it repeats the call sites up to 12 times so the 50 cap is exercised, since the report arbitrary has at most 8).
+- Not done on purpose (run capped at 8 tasks): 7.4-7.8. I had started 7.4-7.7 (sabotage list, `ProofState` change, web view) and reverted them; nothing from them remains.
+- Counterexamples found by fast-check against the real code: none. (The `run.test.ts` de-duplicating candidate counterexample is an intended one, not a bug.)
