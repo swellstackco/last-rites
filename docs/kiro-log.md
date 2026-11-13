@@ -537,3 +537,11 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - 2.9 to 2.13: arbitraries with `injectFault` (`test-support/arbitraries/kiro-files.ts`), mirrored `fc-runner.ts` and `sabotage-runner.ts` in `mcp/src/test-support/`, Property 8 and 9 tests with Sabotage_Lists `kiro-p8.ts` (9 entries, the 7 listed plus agent effect and skill folder) and `kiro-p9.ts` (6). Fixtures in `kiro-config/__fixtures__/agents/`.
 - Verification: `npm run typecheck` clean; `npm test` plain and `CI=1`: 171 files, 1537 tests pass, 1 todo. Counterexamples: none found by fast-check (all sabotages were caught on the first full run).
 - 2.14 and 2.15 (Property 9 test and `kiro-p9.ts`) were written in the same pass because 2.13's example tests and the Property 9 fixtures share their setup; both are marked done. 2.16 (checkpoint) left open.
+
+## 2026-11-13: kiro-integration tasks 2.16 and 3.1 to 3.7
+
+- 2.16: baseline checkpoint green (typecheck clean; `CI=1 npm test` 171 files, 1537 tests pass, 1 todo).
+- 3.1: `hooks/fired-line.ts` (`formatFiredLine` returns `undefined` for an invalid date, id or outcome instead of throwing; hook ids are `^[a-z0-9][a-z0-9-]{0,63}$`; `parseFiredLine` requires the ISO time to round-trip) and `hooks/stop-summary.ts`. Judgment calls: shown output lines are prefixed `> ` and cut to 198 characters so a whole line is at most 200; control characters become `?`; when the 4000 cap would be exceeded, the per-step line count is reduced (the tail is still kept) rather than the text being hard-cut.
+- 3.2/3.3: Property 12 (`hooks/format.p12.test.ts`) and `kiro-p12.ts` (5 sabotages, all caught). 3.4 to 3.6: `hooks/new-dead.ts`, Property 10 (`new-dead.p10.test.ts`) and `kiro-p10.ts` (5 sabotages, all caught).
+- 3.7: `hooks/candidate-target.ts` written (prefix may be empty, `./` or absolute; any backslash, `..`, empty inner segment, extra depth, non-`.js`, or non-Proof_Name gives `undefined`). Its Property 11 test is task 3.8, not done yet. A backslash anywhere is rejected, which resolves the design's overlap between "Windows-looking separators" in a prefix and "undefined for a backslash".
+- Counterexamples: none found by fast-check; all sabotages were caught on the first run.

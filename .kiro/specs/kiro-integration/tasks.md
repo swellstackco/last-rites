@@ -72,25 +72,25 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - **Validates: Requirements 14.2, 14.4, 14.5, 14.7**
 - [x] 2.15 Create the Sabotage_List `kiro-p9.ts` (ignore an `@exorcist` selector without a tool name; ignore `ask` rules; ignore `shell`; treat `exorcist/*` as one tool; accept a push deny placed after the `git *` allow; inspect only `tools`).
   - _Requirements: 18.3, 18.5_
-- [ ] 2.16 Checkpoint after Phase 2 - Ensure all tests pass, ask the user if questions arise.
+- [x] 2.16 Checkpoint after Phase 2 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 3: Hook helpers, hook scripts and the first two hooks
 
-- [ ] 3.1 Create `mcp/src/hooks/fired-line.ts` (`formatFiredLine(now, hookId, outcome)`, `parseFiredLine`; invalid date or id rejected without throwing) and `mcp/src/hooks/stop-summary.ts` (`formatStopSummary(tc, tests)` with the tail, line and total caps of Requirement 13.5).
+- [x] 3.1 Create `mcp/src/hooks/fired-line.ts` (`formatFiredLine(now, hookId, outcome)`, `parseFiredLine`; invalid date or id rejected without throwing) and `mcp/src/hooks/stop-summary.ts` (`formatStopSummary(tc, tests)` with the tail, line and total caps of Requirement 13.5).
   - _Requirements: 13.5, 13.6_
-- [ ] 3.2 Write the Property 12 test in `mcp/src/hooks/format.p12.test.ts` (exporting `build(impl)` over `{ formatStopSummary, formatFiredLine, parseFiredLine }`).
+- [x] 3.2 Write the Property 12 test in `mcp/src/hooks/format.p12.test.ts` (exporting `build(impl)` over `{ formatStopSummary, formatFiredLine, parseFiredLine }`).
   - **Property 12: Hook output formatting**
   - **Validates: Requirements 13.5, 13.6**
-- [ ] 3.3 Create the Sabotage_List `kiro-p12.ts` (PASS when only tests passed; head instead of tail; no length cap; local-time date; a section for a passing step).
+- [x] 3.3 Create the Sabotage_List `kiro-p12.ts` (PASS when only tests passed; head instead of tail; no length cap; local-time date; a section for a passing step).
   - _Requirements: 18.3_
-- [ ] 3.4 Create `mcp/src/hooks/new-dead.ts`: `deadNames(report)` and `newDeadPackages(baseline, report)` (sorted by UTF-16 code unit, no duplicates, `dead` only).
+- [x] 3.4 Create `mcp/src/hooks/new-dead.ts`: `deadNames(report)` and `newDeadPackages(baseline, report)` (sorted by UTF-16 code unit, no duplicates, `dead` only).
   - _Requirements: 13.1_
-- [ ] 3.5 Write the Property 10 test in `mcp/src/hooks/new-dead.p10.test.ts` (exporting `build(impl)`), over `reportArb` from the app's testing entry.
+- [x] 3.5 Write the Property 10 test in `mcp/src/hooks/new-dead.p10.test.ts` (exporting `build(impl)`), over `reportArb` from the app's testing entry.
   - **Property 10: New dead packages**
   - **Validates: Requirements 13.1**
-- [ ] 3.6 Create the Sabotage_List `kiro-p10.ts` (include `dying`; report packages already in the baseline; score order; duplicates; case-insensitive compare).
+- [x] 3.6 Create the Sabotage_List `kiro-p10.ts` (include `dying`; report packages already in the baseline; score order; duplicates; case-insensitive compare).
   - _Requirements: 18.3_
-- [ ] 3.7 Create `mcp/src/hooks/candidate-target.ts`: `candidateTarget(path)` per Requirement 13.3, using `isProofName` from the skeleton.
+- [x] 3.7 Create `mcp/src/hooks/candidate-target.ts`: `candidateTarget(path)` per Requirement 13.3, using `isProofName` from the skeleton.
   - _Requirements: 13.3_
 - [ ] 3.8 Write the Property 11 test in `mcp/src/hooks/candidate-target.p11.test.ts` (exporting `build(impl)`), including `proofReportPath` compatibility.
   - **Property 11: Candidate path mapping**

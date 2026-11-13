@@ -10,6 +10,10 @@ import {
   type AgentContext,
   type Check,
 } from "../kiro-config/index.js";
+import { formatFiredLine, parseFiredLine } from "../hooks/fired-line.js";
+import { formatStopSummary } from "../hooks/stop-summary.js";
+import { deadNames, newDeadPackages } from "../hooks/new-dead.js";
+import { candidateTarget } from "../hooks/candidate-target.js";
 
 /** The seam of Property 8: the six Config_Validators. */
 export interface Validators {
@@ -37,3 +41,27 @@ export interface PrivilegeChecks {
 }
 
 export const REAL_PRIVILEGE: PrivilegeChecks = { writeCapabilities, pushCapabilities };
+
+/** The seam of Property 12: the hook output formatters. */
+export interface HookFormat {
+  formatStopSummary: typeof formatStopSummary;
+  formatFiredLine: typeof formatFiredLine;
+  parseFiredLine: typeof parseFiredLine;
+}
+
+export const REAL_HOOK_FORMAT: HookFormat = { formatStopSummary, formatFiredLine, parseFiredLine };
+
+/** The seam of Property 10: the dead-package helpers. */
+export interface NewDead {
+  deadNames: typeof deadNames;
+  newDeadPackages: typeof newDeadPackages;
+}
+
+export const REAL_NEW_DEAD: NewDead = { deadNames, newDeadPackages };
+
+/** The seam of Property 11: the candidate path mapping. */
+export interface CandidateMap {
+  candidateTarget: typeof candidateTarget;
+}
+
+export const REAL_CANDIDATE_MAP: CandidateMap = { candidateTarget };
