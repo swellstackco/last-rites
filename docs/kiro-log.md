@@ -63,3 +63,14 @@ Dated notes on how Kiro was used to build this project: which surface (IDE, CLI,
 - 6.3/6.4: `apps/exorcist-npm/src/scan/report.ts` codec silently dropped `death.calibration` (and canonical re-serialization would have hidden it). Serialize now emits `calibration` (after `parts`) only when present; parse reads it strictly. `reportArb` generates optional calibration so the Canonical_Json round-trip property covers it. No `undefined`-valued keys.
 - 6.5: no test/snapshot expectations changed. `demo/*.json` cached scores are stale for declared-abandoned packages until `npm run demo-snapshot -w @graveyard-kit/exorcist-npm` is run manually (not run here: network).
 - 6.6: skipped, no graveyard UI component exists yet in the repo.
+
+## 2026-11-13: death-score-calibration final (tasks 7.1-7.3, 8.1-8.3)
+- Bug: the Death_Score is a pure weighted sum, so author-declared abandonment (deprecated / archived, corroborated) could not reach the dead band (ldapjs 72, deep-diff 48, ...). Root cause confirmed by the task 1.1 counterexample (deprecated + publish 25mo, sum 61): additive-only model, no rounding or grade-boundary effect.
+- Fix: `calibration` floor in `scoreDeath` (`abandonedFloor`, default 75), shown as a separate `calibration` entry; `parts[]` untouched. Properties: 1-5 restated/extended, plus 6 (fix checking) and 7 (preservation vs frozen `scoreDeathV1`), 7 total, `numRuns: 100`.
+- Sabotage: 10 total (5 old, 5 new), all caught at seed 20261113 (see the 5.3 entry for shrunk counterexamples); the real engine passes under the same seed.
+- Docs: README and skeleton docs do not describe the score breakdown, so 7.1 was skipped. `.kiro/specs/death-score/design.md` got a "Calibration (bugfix)" pointer section (7.2).
+- Stale demo snapshot: `demo/*.json` cached scores are stale for declared-abandoned packages until `npm run demo-snapshot -w @graveyard-kit/exorcist-npm` is run manually (network).
+- Checkpoint: `npm run typecheck` clean; `npm test` 53 files / 511 tests green, with and without `CI=1`.
+- Clause map (2.1-2.8, 3.1-3.9): 2.1/2.3 Property 6 + regression table; 2.2 edge example (S >= 75) + Property 6; 2.4 Property 2; 2.5/2.6 `isDeclaredAbandoned` generator test + edge examples (T, T-1, unknown publish) ; 2.7 `weights.test.ts` + floor edge examples (0, 100, -5, 150, NaN) + Property 7; 2.8 regression table; 3.1/3.2/3.5/3.8 Property 7; 3.3/3.4 regression rows eslint, mongodb-runner, cross-env; 3.6 Properties 1-5; 3.7 no I/O in `score.ts` (by inspection, no dedicated test); 3.9 typecheck + exorcist-npm tests.
+- Unverified: 3.7 (purity) has no test; clause 3.9 for the graveyard UI and MCP is vacuous because the UI component does not exist and MCP was not inspected.
+- Spec gaps: parent `death-score/design.md` Property 5 still says `>=` in its original text (the strict form was found in an earlier build); the new pointer section notes the restatement. Sabotage (d) is caught only by Property 6, not Property 2 as design.md says.

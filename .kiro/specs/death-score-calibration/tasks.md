@@ -51,15 +51,15 @@ Fixes the Death_Score so that declared-abandoned packages (author deprecated or 
 
 ### Phase 7: Documentation
 
-- [ ] 7.1 README: if the README or `skeleton` docs describe the score breakdown, add one sentence on the declared-abandoned floor and the `calibration` entry. Skip if there is no such description.
-- [ ] 7.2 `.kiro/specs/death-score/design.md`: add a pointer section "Calibration (bugfix)" linking to `.kiro/specs/death-score-calibration/`, noting the restated Transparent and Unknown-is-not-alive properties and the new `abandonedFloor` field in `WeightConfig`.
-- [ ] 7.3 Append the final dated entry to `docs/kiro-log.md`: bug, root cause confirmed, fix, properties, sabotage results, stale demo snapshot note, any judgement calls.
+- [x] 7.1 (SKIPPED: README and skeleton docs do not describe the score breakdown) README: if the README or `skeleton` docs describe the score breakdown, add one sentence on the declared-abandoned floor and the `calibration` entry. Skip if there is no such description.
+- [x] 7.2 `.kiro/specs/death-score/design.md`: add a pointer section "Calibration (bugfix)" linking to `.kiro/specs/death-score-calibration/`, noting the restated Transparent and Unknown-is-not-alive properties and the new `abandonedFloor` field in `WeightConfig`.
+- [x] 7.3 Append the final dated entry to `docs/kiro-log.md`: bug, root cause confirmed, fix, properties, sabotage results, stale demo snapshot note, any judgement calls.
 
 ### Phase 8: Checkpoint
 
-- [ ] 8.1 Run `npm run typecheck` across the repo: green.
-- [ ] 8.2 Run `npm test` across the repo: green (all workspaces, `numRuns: 100`, no network). Fix any fallout in `apps/exorcist-npm` in this spec.
-- [ ] 8.3 Final check against bugfix.md: each clause 2.1-2.8 and 3.1-3.9 maps to a passing test; list any unverified clause in `docs/kiro-log.md`.
+- [x] 8.1 Run `npm run typecheck` across the repo: green.
+- [x] 8.2 Run `npm test` across the repo: green (all workspaces, `numRuns: 100`, no network). Fix any fallout in `apps/exorcist-npm` in this spec.
+- [x] 8.3 Final check against bugfix.md: each clause 2.1-2.8 and 3.1-3.9 maps to a passing test; list any unverified clause in `docs/kiro-log.md`.
 
 ## Task Dependency Graph
 

@@ -229,3 +229,13 @@ For any fully-known `Package_Signals` and any single signal index `i`:
 - `grade.test.ts` — boundary integers (0, 24, 25, 49, 50, 74, 75, 100) and interior values.
 - `score.test.ts` — worked examples from `__fixtures__/` (all-alive, all-dead, mixed-unknown, with/without source URLs).
 - `score.prop.ts` — the five properties above, each with a sabotage variant, `numRuns: 100`, fixed seed.
+
+## Calibration (bugfix)
+
+The score gained a transparent declared-abandoned floor. See `.kiro/specs/death-score-calibration/` (bugfix.md, design.md, tasks.md).
+
+- `WeightConfig` has a new optional field `abandonedFloor` (default 75; 0 disables; clamped to [0, 100], rounded; non-finite disables).
+- `DeathScoreResult` has an optional `calibration` entry (`{ rule: "declared_abandoned", reason, points }`), present only when the floor raised the score. `parts[]` is unchanged.
+- Property 2 (Transparent) is restated: `score = sum(parts[].points) + (calibration?.points ?? 0)`.
+- Property 5 (Unknown is not alive) is restated: `unknown >= alive` always, and strict `unknown > alive` when the declared-abandoned condition does not hold (both sides may be floored to the same value otherwise).
+- Property 5 note from the original build: the strict `>` form (not `>=`) is the one the engine satisfies and sabotage requires.
