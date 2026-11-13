@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://api.deps.dev/v3/systems/npm/packages/picocolors",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json; charset=utf-8"
+    },
+    "body": "{\"packageKey\":{\"system\":\"NPM\",\"name\":\"picocolors\"},\"versions\":[{\"versionKey\":{\"system\":\"NPM\",\"name\":\"picocolors\",\"version\":\"0.0.0\"},\"publishedAt\":\"2021-09-27T00:33:41Z\",\"isDefault\":false,\"isDeprecated\":false,\"deprecatedReason\":\"\"},{\"versionKey\":{\"system\":\"NPM\",\"name\":\"picocolors\",\"version\":\"0.0.1\"},\"publishedAt\":\"2021-09-27T04:27:20Z\",\"isDefault\":false,\"isDeprecated\":false,\"deprecatedReason\":\"\"},{\"versionKey\":{\"system\":\"NPM\",\"name\":\"picocolors\",\"version\":\"0.1.0\"},\"publishedAt\":\"2021-09-27T17:09:57Z\",\"isDefault\":false,\"isDeprecated\":false,\"deprecatedReason\":\"\"},{\"versionKey\":{\"system\":\"NPM\",\"name\":\"picocolors\",\"version\":\"0.2.0\"},\"publishedAt\":\"2021-10-03T03:30:38Z\",\"isDefault\":false,\"isDeprecated\":false,\"deprecatedReason\":\"\"},{\"versionKey\":{\"system\":\"NPM\",\"name\":\"picocolors\",\"version\":\"0.2.1\"},\"publishedAt\":\"2021-10-04T15:52:15Z\",\"isDefault\":false,\"isDeprecated\":false,\"deprecatedReason\":\"\"},{\"versionKey\":{\"system\":\"NPM\",\"name\":\"picocolors\",\"version\":\"1.0.0\"},\"publishedAt\":\"2021-10-13T02:48:42Z\",\"isDefault\":false,\"isDeprecated\":false,\"deprecatedReason\":\"\"},{\"versionKey\":{\"system\":\"NPM\",\"name\":\"picocolors\",\"version\":\"1.0.1\"},\"publishedAt\":\"2024-05-14T02:44:16Z\",\"isDefault\":false,\"isDeprecated\":false,\"deprecatedReason\":\"\"},{\"versionKey\":{\"system\":\"NPM\",\"name\":\"picocolors\",\"version\":\"1.1.0\"},\"publishedAt\":\"2024-09-02T23:46:31Z\",\"isDefault\":false,\"isDeprecated\":false,\"deprecatedReason\":\"\"},{\"versionKey\":{\"system\":\"NPM\",\"name\":\"picocolors\",\"version\":\"1.1.1\"},\"publishedAt\":\"2024-10-16T18:20:03Z\",\"isDefault\":true,\"isDeprecated\":false,\"deprecatedReason\":\"\"}]}"
+  }
+}

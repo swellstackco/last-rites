@@ -65,17 +65,17 @@ This plan implements the Npm_Evidence_Stage in `/apps/exorcist-npm/src/evidence/
 
 ### Phase 4: Fixture recording
 
-- [ ] 4.1 Create `src/evidence/test-support/record-fixtures.ts`, a manual script (never run by `npm test`) that performs live requests for a named case through the real HTTP client and writes the responses into `__fixtures__/<case>/` in the layout defined in 1.4. It must not record request headers or the GitHub token.
+- [x] 4.1 Create `src/evidence/test-support/record-fixtures.ts`, a manual script (never run by `npm test`) that performs live requests for a named case through the real HTTP client and writes the responses into `__fixtures__/<case>/` in the layout defined in 1.4. It must not record request headers or the GitHub token.
   - _Requirements: 12.1, 12.2, 14.4_
-- [ ] 4.2 Record and commit the `picocolors` case (healthy package: npm document, GitHub repository and commit, OSV response) plus the three shared e18e manifests (`native`, `micro-utilities`, `preferred`) and one deps.dev response used to confirm the field names for `depsdev.ts`.
+- [x] 4.2 Record and commit the `picocolors` case (healthy package: npm document, GitHub repository and commit, OSV response) plus the three shared e18e manifests (`native`, `micro-utilities`, `preferred`) and one deps.dev response used to confirm the field names for `depsdev.ts`.
   - _Requirements: 12.2, 12.3, 12.5_
-- [ ] 4.3 Record and commit the `request` case (deprecated package: npm document, GitHub repository and commit, OSV response).
+- [x] 4.3 Record and commit the `request` case (deprecated package: npm document, GitHub repository and commit, OSV response).
   - _Requirements: 12.2, 12.3, 12.6_
-- [ ] 4.4 Record and commit the known-replacement case using `left-pad` (or `is-number` if `left-pad` lacks an e18e entry): npm document, GitHub repository and commit, OSV response; confirm the e18e entry has a non-empty replacement.
+- [x] 4.4 Record and commit the known-replacement case using `left-pad` (or `is-number` if `left-pad` lacks an e18e entry): npm document, GitHub repository and commit, OSV response; confirm the e18e entry has a non-empty replacement.
   - _Requirements: 12.2, 12.3, 12.7_
-- [ ] 4.5 Record and commit the archived-repository case: pick a published npm package whose GitHub repository has `archived: true`, record its npm document, GitHub repository and commit, and OSV response, and note the chosen package name in the fixture directory README.
+- [x] 4.5 Record and commit the archived-repository case: pick a published npm package whose GitHub repository has `archived: true`, record its npm document, GitHub repository and commit, and OSV response, and note the chosen package name in the fixture directory README.
   - _Requirements: 12.2, 12.3, 12.8_
-- [ ] 4.6 Record and commit the no-repository case: pick a published npm package whose registry document has no `repository` field, record its npm document and OSV response. No GitHub fixtures exist for this case.
+- [x] 4.6 Record and commit the no-repository case: pick a published npm package whose registry document has no `repository` field, record its npm document and OSV response. No GitHub fixtures exist for this case.
   - _Requirements: 12.2, 12.3, 12.9_
 
 ### Phase 5: Sources, assembly and stage

@@ -1,0 +1,12 @@
+{
+  "method": "POST",
+  "url": "https://api.osv.dev/v1/query",
+  "body": "{\"package\":{\"name\":\"gulp-util\",\"ecosystem\":\"npm\"},\"version\":\"3.0.8\"}",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": "{}"
+  }
+}
