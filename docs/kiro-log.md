@@ -185,3 +185,10 @@ Headless Chromium at 1352x761 and 375x812 (2x), demo parse-server, package ldapj
 - 4.1-4.3: `source-fs.ts` (lstat semantics, symlink is `other`, unreadable gives `undefined`), `source-fs.test.ts` (temp dir removed in `finally`; the unreadable-file case is skipped when run as root), `test-support/memory-fs.ts` (shuffle seed, unreadable, oversized and link options).
 - Counterexamples found by fast-check this run: none; every Property 7 sabotage was caught on the first run, the real code passed.
 - Counts (repo root): `npm run typecheck` clean; `npm test` 114 files, 1022 tests pass, 1 todo.
+
+## 2026-11-13 proof-harness 4.4-4.11 (Kiro CLI)
+
+- 4.4-4.11: `classify-path.ts`, `consumption.ts`, `bindings.ts`, `calls.ts` with example tests. Judgement calls: `enclosing` checks directory segments only (plus `.spec.`/`.test.` in the file name); an import site is positioned at the declaration start (`require`/`import()` at the call start); `import type` and type-only specifiers create no binding; subpath members are `./<subpath>` joined with `.` to the rest; call site position is the start of the callee (for `new x()` the `x`).
+- `smoke.test.ts` "app imports skeleton only through the package name" rejected the declared `@graveyard-kit/skeleton/proof` export that task 1.1 added. Relaxed to allow the declared exports (`death-score`, `graveyard`, `proof`, `proof/runner`, `proof/testing`); relative paths into skeleton are still rejected.
+- Counterexamples found by fast-check this run: none (no property written yet in this range).
+- Counts (repo root): `npm run typecheck` clean; `npm test` 118 files, 1096 tests pass, 1 todo.

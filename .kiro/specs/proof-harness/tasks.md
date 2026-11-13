@@ -120,21 +120,21 @@ Terminology used in the tasks: a *Mutator* is part of the product (a deliberatel
   - _Requirements: 2.1, 2.5, 2.6_
 - [x] 4.3 Create `apps/exorcist-npm/src/exorcise/test-support/memory-fs.ts`: a `SourceFs` over a generated map of path to text, with a `shuffle(seed)` option for listing order and an option to make chosen files unreadable or oversized.
   - _Requirements: 17.4_
-- [ ] 4.4 Create `apps/exorcist-npm/src/exorcise/classify-path.ts` with `enclosingOf(file)` per Requirement 2.7.
+- [x] 4.4 Create `apps/exorcist-npm/src/exorcise/classify-path.ts` with `enclosingOf(file)` per Requirement 2.7.
   - _Requirements: 2.7_
-- [ ] 4.5 Write `classify-path.test.ts`: `spec/a.js`, `src/test/x.ts`, `lib/__tests__/y.js`, `a.spec.js`, `b.test.tsx`, `__mocks__/z.js`, `src/contest/a.js` (not a test), `src/Controllers/DatabaseController.js`.
+- [x] 4.5 Write `classify-path.test.ts`: `spec/a.js`, `src/test/x.ts`, `lib/__tests__/y.js`, `a.spec.js`, `b.test.tsx`, `__mocks__/z.js`, `src/contest/a.js` (not a test), `src/Controllers/DatabaseController.js`.
   - _Requirements: 2.7_
-- [ ] 4.6 Create `apps/exorcist-npm/src/exorcise/consumption.ts` with `detectConsumedAs(callNode)` per Requirement 4 (matcher chain with optional `.not`, `undefined` and `void 0`, `===` and `!==` either side, parentheses skipped, syntax tree only).
+- [x] 4.6 Create `apps/exorcist-npm/src/exorcise/consumption.ts` with `detectConsumedAs(callNode)` per Requirement 4 (matcher chain with optional `.not`, `undefined` and `void 0`, `===` and `!==` either side, parentheses skipped, syntax tree only).
   - _Requirements: 4.1, 4.2, 4.3, 4.4_
-- [ ] 4.7 Write `consumption.test.ts` examples, parsing small snippets with `ts.createSourceFile`: `.toEqual(undefined)` single-line and multi-line, `.toStrictEqual`, `.toBe(undefined)`, `.toBeUndefined()`, `.not.toBeDefined()`, `x === undefined`, `undefined !== x`, `void 0`, and the negatives `== undefined`, `.toEqual(null)`, `.toEqual({})`, `if (x)`, an assignment, an argument of another function.
+- [x] 4.7 Write `consumption.test.ts` examples, parsing small snippets with `ts.createSourceFile`: `.toEqual(undefined)` single-line and multi-line, `.toStrictEqual`, `.toBe(undefined)`, `.toBeUndefined()`, `.not.toBeDefined()`, `x === undefined`, `undefined !== x`, `void 0`, and the negatives `== undefined`, `.toEqual(null)`, `.toEqual({})`, `if (x)`, an assignment, an argument of another function.
   - _Requirements: 4.1, 4.2, 4.3, 4.4_
-- [ ] 4.8 Create `apps/exorcist-npm/src/exorcise/bindings.ts`: from one `SourceFile` and the package name, collect the binding map (first binding in source order wins) and the Import_Sites for every form of Requirements 3.1, 3.6 and 3.7.
+- [x] 4.8 Create `apps/exorcist-npm/src/exorcise/bindings.ts`: from one `SourceFile` and the package name, collect the binding map (first binding in source order wins) and the Import_Sites for every form of Requirements 3.1, 3.6 and 3.7.
   - _Requirements: 3.1, 3.5, 3.6, 3.7, 3.8_
-- [ ] 4.9 Write `bindings.test.ts` examples: each import and require form with its `member` prefix, destructuring with rename, `require().a`, `import =`, `import type`, side-effect import, re-export, dynamic import, unbound `require`, a subpath specifier, a template literal without substitutions, `require(variable)` ignored, a repeated local name.
+- [x] 4.9 Write `bindings.test.ts` examples: each import and require form with its `member` prefix, destructuring with rename, `require().a`, `import =`, `import type`, side-effect import, re-export, dynamic import, unbound `require`, a subpath specifier, a template literal without substitutions, `require(variable)` ignored, a repeated local name.
   - _Requirements: 3.1, 3.5, 3.6, 3.7_
-- [ ] 4.10 Create `apps/exorcist-npm/src/exorcise/calls.ts`: from one `SourceFile` and the bindings, collect Call_Sites (identifier, property chain, string-literal element access, optional chain, `new`, immediate `require()` callee roots, `<dynamic>`), with `argTexts` collapsed and cut to 200 code units, positions 1-based at the start of the callee, `consumedAs` from `detectConsumedAs`.
+- [x] 4.10 Create `apps/exorcist-npm/src/exorcise/calls.ts`: from one `SourceFile` and the bindings, collect Call_Sites (identifier, property chain, string-literal element access, optional chain, `new`, immediate `require()` callee roots, `<dynamic>`), with `argTexts` collapsed and cut to 200 code units, positions 1-based at the start of the callee, `consumedAs` from `detectConsumedAs`.
   - _Requirements: 1.2, 1.7, 3.2, 3.3, 3.4, 3.5, 3.6, 3.9, 4.1, 4.2_
-- [ ] 4.11 Write `calls.test.ts` examples: `x(a)`, `x.big(a)`, `x["big"](a)`, `x?.big(a)`, `x[k](a)` (`<dynamic>`), `new x(a)`, nested `x(x(a))`, a call inside an argument, `require("P")(a)`, `require("P").big(a)`, positions on multi-line calls, `argTexts` whitespace collapse and the 200 cut, spread arguments kept as text starting with `...`, a call of an unbound name ignored.
+- [x] 4.11 Write `calls.test.ts` examples: `x(a)`, `x.big(a)`, `x["big"](a)`, `x?.big(a)`, `x[k](a)` (`<dynamic>`), `new x(a)`, nested `x(x(a))`, a call inside an argument, `require("P")(a)`, `require("P").big(a)`, positions on multi-line calls, `argTexts` whitespace collapse and the 200 cut, spread arguments kept as text starting with `...`, a call of an unbound name ignored.
   - _Requirements: 1.2, 3.2, 3.3, 3.4, 3.9_
 - [ ] 4.12 Create `apps/exorcist-npm/src/exorcise/usage-surface.ts`: `createUsageSurface({ fs })` with the walk (skip list, extension filter, no declaration files, 2 MiB limit, 50000 file guard), `parseSource` with the script kind per extension, `syntaxDiagnosticCount` through one narrow cast of `parseDiagnostics`, warnings, `filesScanned`, sorting with `sortSites`, and `enclosing` from `enclosingOf`.
   - _Requirements: 1.4, 1.5, 1.6, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9_

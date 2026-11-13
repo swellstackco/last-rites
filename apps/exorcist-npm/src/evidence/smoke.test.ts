@@ -27,11 +27,13 @@ function specifiers(file: string): string[] {
 }
 
 describe("static smoke checks", () => {
-  it("the app imports /skeleton only through @graveyard-kit/skeleton", () => {
+  it("the app imports /skeleton only through the package name and its declared exports", () => {
     const bad: string[] = [];
     for (const f of tsFiles(join(APP, "src"))) {
       for (const s of specifiers(f)) {
         if (s === "@graveyard-kit/skeleton") continue;
+        // Declared package exports (skeleton/package.json) are allowed; paths into src are not.
+        if (/^@graveyard-kit\/skeleton\/(death-score|graveyard|proof)(\/(runner|testing))?$/.test(s)) continue;
         if (s.startsWith("@graveyard-kit/skeleton/") || /(^|\/)skeleton(\/|$)/.test(s)) bad.push(`${f}: ${s}`);
       }
     }
