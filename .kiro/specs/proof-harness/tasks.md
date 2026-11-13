@@ -171,23 +171,23 @@ Terminology used in the tasks: a *Mutator* is part of the product (a deliberatel
   - _Requirements: 5.1, 5.2, 5.3, 5.4, 5.5, 5.6, 15.3, 15.4_
 - [x] 5.7 Write `recipes/deep-diff.test.ts`: `accepts` requires `consumedAs`, 500 samples show both labels and pass `guard`, key order is shuffled in the equal family, a one-change clone is never deep equal to its source, the arbitrary uses keys `*` and `_id`.
   - _Requirements: 15.3, 15.4_
-- [ ] 5.8 Create `recipes/node-abort-controller.ts` (`shapes: []`, no `loadOracle`) and `recipes/index.ts` exporting `RECIPES`.
+- [x] 5.8 Create `recipes/node-abort-controller.ts` (`shapes: []`, no `loadOracle`) and `recipes/index.ts` exporting `RECIPES`.
   - _Requirements: 5.1, 15.5_
-- [ ] 5.9 Write `recipes/index.test.ts`: the registry holds exactly the three packages, shape ids are unique, every shape's `argCount` matches its arbitrary's value length, `node-abort-controller` has no shape.
+- [x] 5.9 Write `recipes/index.test.ts`: the registry holds exactly the three packages, shape ids are unique, every shape's `argCount` matches its arbitrary's value length, `node-abort-controller` has no shape.
   - _Requirements: 5.1, 15.5_
-- [ ] 5.10 Create `apps/exorcist-npm/src/exorcise/candidate.ts`: `loadCandidate(file)` reading the source text, `import(pathToFileURL(...))`, `default ?? namespace`, returning `{ module, name, source }`, rejecting with a clear message for a missing file or an import error.
+- [x] 5.10 Create `apps/exorcist-npm/src/exorcise/candidate.ts`: `loadCandidate(file)` reading the source text, `import(pathToFileURL(...))`, `default ?? namespace`, returning `{ module, name, source }`, rejecting with a clear message for a missing file or an import error.
   - _Requirements: 10.5_
-- [ ] 5.11 Write `candidate.test.ts` with temporary candidate files removed in `finally`: a default-exported function with a `big` member, a namespace without `default`, a missing file, a file that throws on import.
+- [x] 5.11 Write `candidate.test.ts` with temporary candidate files removed in `finally`: a default-exported function with a `big` member, a namespace without `default`, a missing file, a file that throws on import.
   - _Requirements: 10.5_
-- [ ] 5.12 Write the Property 1 test in `recipes.p1.test.ts` (exporting `build(impl)` over `runProof`): the real `intersect` and `deep-diff` recipes and the synthetic recipes, the oracle itself and a call-through wrapper as candidate, accepted call sites generated per shape, status `proved`.
+- [x] 5.12 Write the Property 1 test in `recipes.p1.test.ts` (exporting `build(impl)` over `runProof`): the real `intersect` and `deep-diff` recipes and the synthetic recipes, the oracle itself and a call-through wrapper as candidate, accepted call sites generated per shape, status `proved`.
   - **Property 1: Differential soundness**
   - **Validates: Requirements 6.1 to 6.5, 6.7, 7.9, 15.1 to 15.4**
-- [ ] 5.13 Create the Sabotage_List `test-support/sabotage/proof-p1.ts` (compare outputs with `===`; compare thrown messages; call without `this`; project only the oracle side; compare with `JSON.stringify`).
+- [x] 5.13 Create the Sabotage_List `test-support/sabotage/proof-p1.ts` (compare outputs with `===`; compare thrown messages; call without `this`; project only the oracle side; compare with `JSON.stringify`).
   - _Requirements: 18.2, 18.5_
-- [ ] 5.14 Write the Property 4 test in `recipes.p4.test.ts` (exporting `build(impl)` over `{ recipes, mutators }`): for every recipe, shape and applicable Mutator, the Mutator applied to the oracle is caught; for every non-applicable Mutator, the stated reason from the table holds (for example `swap-first-two-args` is not applicable to `deep-diff` because `orderSensitive` is false).
+- [x] 5.14 Write the Property 4 test in `recipes.p4.test.ts` (exporting `build(impl)` over `{ recipes, mutators }`): for every recipe, shape and applicable Mutator, the Mutator applied to the oracle is caught; for every non-applicable Mutator, the stated reason from the table holds (for example `swap-first-two-args` is not applicable to `deep-diff` because `orderSensitive` is false).
   - **Property 4: Sabotage completeness**
   - **Validates: Requirements 8.2, 8.3, 8.4, 8.8**
-- [ ] 5.15 Create the Sabotage_List `test-support/sabotage/proof-p4.ts` (a Mutator that returns the original output; an `intersect` arbitrary limited to lists of length 0 or 1; a `deep-diff` arbitrary that never makes equal pairs; a recipe claiming `orderSensitive` for a symmetric function; a recipe declaring `outputKind` `array` for an object output).
+- [x] 5.15 Create the Sabotage_List `test-support/sabotage/proof-p4.ts` (a Mutator that returns the original output; an `intersect` arbitrary limited to lists of length 0 or 1; a `deep-diff` arbitrary that never makes equal pairs; a recipe claiming `orderSensitive` for a symmetric function; a recipe declaring `outputKind` `array` for an object output).
   - _Requirements: 18.2, 18.5_
 - [ ] 5.16 Checkpoint after Phase 5 - Ensure all tests pass, ask the user if questions arise.
 
