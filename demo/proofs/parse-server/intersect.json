@@ -1,6 +1,5 @@
 {
-  "repo": "parse-community/parse-server",
-  "commit": "3402ee6",
+  "repo": "parse-server",
   "package": "intersect",
   "oracleVersion": "1.0.1",
   "filesScanned": 371,
@@ -42,8 +41,8 @@
     {
       "attempt": 1,
       "candidate": {
-        "name": "intersect.attempt1.js",
-        "source": "// Attempt 1: the NAIVE native replacement for `intersect@1.0.1`.\n// Written for this repository. It builds Sets, so it de-duplicates the result.\n// It is expected to be wrong where the old package keeps duplicates of the last list.\n\nfunction intersect(lists) {\n  if (!Array.isArray(lists) || lists.length === 0) return [];\n  const [first, ...rest] = lists;\n  const restSets = rest.map((list) => new Set(list));\n  const seen = new Set();\n  const out = [];\n  for (const item of first) {\n    if (seen.has(item)) continue;\n    if (restSets.every((s) => s.has(item))) {\n      seen.add(item);\n      out.push(item);\n    }\n  }\n  return out;\n}\n\nintersect.big = intersect;\n\nexport default intersect;\n"
+        "name": "intersect.agent.js",
+        "source": "// Replacement for `intersect`: same call shape, intersect(arrays) and intersect.big(arrays).\nfunction intersect(sets) {\n  if (!Array.isArray(sets) || sets.length === 0) return [];\n  const first = sets[0];\n  const rest = sets.slice(1).map(s => new Set(s));\n  const seen = new Set();\n  const out = [];\n  for (const v of first) {\n    if (seen.has(v)) continue;\n    seen.add(v);\n    if (rest.every(s => s.has(v))) out.push(v);\n  }\n  return out;\n}\nintersect.big = intersect;\n\nexport const big = intersect;\nexport { intersect };\nexport default intersect;\n"
       },
       "status": "counterexample",
       "weak": false,
@@ -95,8 +94,8 @@
     {
       "attempt": 2,
       "candidate": {
-        "name": "intersect.attempt2.js",
-        "source": "// Attempt 2: corrected native replacement for `intersect@1.0.1`.\n// Written for this repository, from the shrunk counterexample of attempt 1:\n// the old package returns the elements of the LAST list, in its order and with its\n// duplicates, keeping those that appear in every earlier list.\n\nfunction intersect(lists) {\n  if (!Array.isArray(lists) || lists.length === 0) return [];\n  const last = lists[lists.length - 1];\n  const earlier = lists.slice(0, -1).map((list) => new Set(list));\n  return last.filter((item) => earlier.every((s) => s.has(item)));\n}\n\nintersect.big = intersect;\n\nexport default intersect;\n"
+        "name": "intersect.agent.js",
+        "source": "// Replacement for `intersect` as called in parse-server: intersect(arrays) and intersect.big(arrays).\n// Semantics (matching the old package's many-set path): membership is by string key,\n// and the result is taken from the LAST list, keeping its order and duplicates.\nfunction intersect(sets) {\n  const l = sets.length - 1;\n  const o = {};\n  for (const i in sets[0]) o[sets[0][i]] = 0;\n  for (let i = 1; i <= l; i++) {\n    const row = sets[i];\n    for (const j in row) {\n      const key = row[j];\n      if (o[key] === i - 1) o[key] = i;\n    }\n  }\n  const a = [];\n  const last = sets[l];\n  for (const i in last) {\n    const key = last[i];\n    if (o[key] === l) a.push(key);\n  }\n  return a;\n}\nintersect.big = intersect;\n\nexport const big = intersect;\nexport { intersect };\nexport default intersect;\n"
       },
       "status": "proved",
       "weak": false,
