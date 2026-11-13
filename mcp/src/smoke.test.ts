@@ -1,4 +1,5 @@
 /** Static smoke tests for the kiro-integration (Requirements 1.3, 1.8, 2.4, 13.7, 18.1). Nothing is started. */
+import { execFileSync } from "node:child_process";
 import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -67,5 +68,25 @@ describe("kiro-integration static checks", () => {
 
   it("createExorcistServer imports nothing from node:fs", () => {
     expect(read(join(MCP_SRC, "create-server.ts"))).not.toMatch(/node:fs|from\s+["']fs["']/);
+  });
+
+  it("the power server/ directory is ignored by git", () => {
+    expect(execFileSync("git", ["check-ignore", "power/server/x"], { cwd: ROOT, encoding: "utf8" }).trim()).toBe("power/server/x");
+  });
+
+  it("has exactly the four hook files and the two agent files plus prompts/", () => {
+    expect(readdirSync(join(ROOT, ".kiro/hooks")).filter((n) => !n.startsWith(".")).sort()).toEqual([
+      "candidate-proof-on-save.json",
+      "check-on-stop.json",
+      "death-score-monotonic-on-save.json",
+      "scan-deps-on-save.json",
+    ]);
+    expect(readdirSync(join(ROOT, ".kiro/agents")).filter((n) => !n.startsWith(".")).sort()).toEqual(["coroner.json", "exorcist.json", "prompts"]);
+  });
+
+  it("root workspaces and vitest include are as required", () => {
+    const pkg = JSON.parse(read(join(ROOT, "package.json"))) as { workspaces: string[] };
+    expect(pkg.workspaces).toEqual(["skeleton", "apps/*", "mcp", "power"]);
+    expect(read(join(ROOT, "vitest.config.ts"))).toContain("mcp/src/**/*.test.ts");
   });
 });

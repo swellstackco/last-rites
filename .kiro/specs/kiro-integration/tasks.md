@@ -273,23 +273,23 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - **Validates: Requirements 15.4, 15.5**
 - [x] 9.3 Create the Sabotage_List `kiro-p13.ts` (keep the steering frontmatter; drop a body line equal to `---`; `description` before `name`; CRLF output; truncate at 4000 characters).
   - _Requirements: 18.3_
-- [ ] 9.4 Create `mcp/src/power/sync.ts` and wire `power:sync`: reads `.kiro/steering/migration-rules.md` and `proof-rules.md`, writes `power/skills/migration-rules/SKILL.md` and `power/skills/proof-rules/SKILL.md` with the descriptions of the design. Run `npm run power:sync -w @graveyard-kit/exorcist-mcp` and check the two files.
+- [x] 9.4 Create `mcp/src/power/sync.ts` and wire `power:sync`: reads `.kiro/steering/migration-rules.md` and `proof-rules.md`, writes `power/skills/migration-rules/SKILL.md` and `power/skills/proof-rules/SKILL.md` with the descriptions of the design. Run `npm run power:sync -w @graveyard-kit/exorcist-mcp` and check the two files.
   - _Requirements: 15.4, 15.5_
-- [ ] 9.5 Create `power/plugin.json` as in the design; read the repository `LICENSE` and set `license` to its SPDX id (drop the field if the file has none).
+- [x] 9.5 Create `power/plugin.json` as in the design; read the repository `LICENSE` and set `license` to its SPDX id (drop the field if the file has none).
   - _Requirements: 15.2_
-- [ ] 9.6 Create `power/mcp.json` as in the design.
+- [x] 9.6 Create `power/mcp.json` as in the design.
   - _Requirements: 15.3_
-- [ ] 9.7 Create `power/README.md` with the sections of Requirement 15.6 (build, IDE and CLI install, the five tools, what `generate_pin_tests` executes, `GITHUB_TOKEN`, `EXORCIST_CACHE_DIR`, limits) and the outcome recorded in 6.11 if any; state plainly that how Kiro resolves `args` of a power `mcp.json` was assumed to be relative to the power folder and is checked in the final group.
+- [x] 9.7 Create `power/README.md` with the sections of Requirement 15.6 (build, IDE and CLI install, the five tools, what `generate_pin_tests` executes, `GITHUB_TOKEN`, `EXORCIST_CACHE_DIR`, limits) and the outcome recorded in 6.11 if any; state plainly that how Kiro resolves `args` of a power `mcp.json` was assumed to be relative to the power folder and is checked in the final group.
   - _Requirements: 15.6, 15.7_
-- [ ] 9.8 Create `mcp/src/power/power-files.test.ts`: `plugin.json`, `mcp.json` and both skills pass their validators; the power `mcp.json` `args[0]` equals `POWER_SERVER_REL`; each committed skill equals `skillFromSteering` of the current steering file (the drift guard); the README contains the install commands (`kiro-cli powers install`, "Add Custom Power") and the word `generate_pin_tests`; `power/` contains no `POWER.md`; the folder contains only the listed files (ignoring `server/`).
+- [x] 9.8 Create `mcp/src/power/power-files.test.ts`: `plugin.json`, `mcp.json` and both skills pass their validators; the power `mcp.json` `args[0]` equals `POWER_SERVER_REL`; each committed skill equals `skillFromSteering` of the current steering file (the drift guard); the README contains the install commands (`kiro-cli powers install`, "Add Custom Power") and the word `generate_pin_tests`; `power/` contains no `POWER.md`; the folder contains only the listed files (ignoring `server/`).
   - _Requirements: 15.1 to 15.7_
-- [ ] 9.9 Extend `mcp/src/sabotage.test.ts` with Property 13 and its list.
+- [x] 9.9 Extend `mcp/src/sabotage.test.ts` with Property 13 and its list.
   - _Requirements: 18.3_
-- [ ] 9.10 Checkpoint after Phase 9 - Ensure all tests pass, ask the user if questions arise.
+- [x] 9.10 Checkpoint after Phase 9 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 10: Verification and documentation
 
-- [ ] 10.1 Extend `mcp/src/smoke.test.ts`: the power `server/` directory is ignored by git (`git check-ignore power/server/x`); `.kiro/hooks` has exactly the four files; `.kiro/agents` has exactly the two agent files plus `prompts/`; the root `package.json` `workspaces` equal the required array; the root `vitest.config.ts` includes `mcp/src/**/*.test.ts`.
+- [x] 10.1 Extend `mcp/src/smoke.test.ts`: the power `server/` directory is ignored by git (`git check-ignore power/server/x`); `.kiro/hooks` has exactly the four files; `.kiro/agents` has exactly the two agent files plus `prompts/`; the root `package.json` `workspaces` equal the required array; the root `vitest.config.ts` includes `mcp/src/**/*.test.ts`.
   - _Requirements: 1.1, 1.4, 1.9, 12.1, 14.1_
 - [ ] 10.2 Run `npm run typecheck` and `npm test` plain and with `CI=1`; fix strict-mode errors; confirm every property runs with `numRuns` 100, `FC_SEED` replays, every Sabotage_List entry fails its property, and the stdio test passes offline.
   - _Requirements: 18.2, 18.3, 18.4, 18.7_

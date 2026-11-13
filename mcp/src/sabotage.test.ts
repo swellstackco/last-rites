@@ -1,4 +1,4 @@
-// Central sabotage test (proof-rules.md) for Properties 1 to 12 of the kiro-integration (Property 13 joins in task 9.9).
+// Central sabotage test (proof-rules.md) for Properties 1 to 13 of the kiro-integration.
 import { describe, expect, it } from "vitest";
 import { FIXED_SEED, checkProperty, checkPropertyAsync, log } from "./test-support/fc-runner.js";
 import type { Sabotage } from "./test-support/sabotage-runner.js";
@@ -15,6 +15,7 @@ import { KIRO_P9_SABOTAGES } from "./test-support/sabotage/kiro-p9.js";
 import { KIRO_P10_SABOTAGES } from "./test-support/sabotage/kiro-p10.js";
 import { KIRO_P11_SABOTAGES } from "./test-support/sabotage/kiro-p11.js";
 import { KIRO_P12_SABOTAGES } from "./test-support/sabotage/kiro-p12.js";
+import { KIRO_P13_SABOTAGES } from "./test-support/sabotage/kiro-p13.js";
 import { name as n1, build as b1 } from "./guards.p1.test.js";
 import { name as n2, build as b2 } from "./tools/output.p2.test.js";
 import { name as n3, build as b3 } from "./tools/wrapper.p3.test.js";
@@ -27,6 +28,7 @@ import { name as n9, build as b9 } from "./kiro-config/privilege.p9.test.js";
 import { name as n10, build as b10 } from "./hooks/new-dead.p10.test.js";
 import { name as n11, build as b11 } from "./hooks/candidate-target.p11.test.js";
 import { name as n12, build as b12 } from "./hooks/format.p12.test.js";
+import { name as n13, build as b13 } from "./power/skill.p13.test.js";
 
 interface Suite {
   property: string;
@@ -50,6 +52,7 @@ const suites: Suite[] = [
   { property: n10, list: KIRO_P10_SABOTAGES, required: [], real: V.REAL_NEW_DEAD, build: b10, async: false },
   { property: n11, list: KIRO_P11_SABOTAGES, required: ["(a) accept `..`"], real: V.REAL_CANDIDATE_MAP, build: b11, async: false },
   { property: n12, list: KIRO_P12_SABOTAGES, required: [], real: V.REAL_HOOK_FORMAT, build: b12, async: false },
+  { property: n13, list: KIRO_P13_SABOTAGES, required: [], real: V.REAL_SKILL_GEN, build: b13, async: false },
 ];
 
 const check = async (s: Suite, impl: unknown) =>

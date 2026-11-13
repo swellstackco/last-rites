@@ -1,0 +1,9 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "exorcist",
+  "version": "0.1.0",
+  "description": "Find dead npm packages, swap each for a living replacement, and prove with property tests that behavior did not change.",
+  "author": { "name": "Benjamin Jacobs" },
+  "keywords": ["dead packages", "dependencies", "npm", "migration", "property tests", "fast-check", "exorcist", "deprecated"],
+  "license": "MIT"
+}

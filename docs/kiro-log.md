@@ -639,3 +639,14 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - Not yet in `sabotage.test.ts` (that is 9.9). Property 13 runs its own sabotage check meanwhile.
 - Verification: `npm run typecheck` clean; `npm test` 203 files, 1793 passed, 1 todo.
 - Counterexamples from fast-check: none.
+
+## 2026-11-13: kiro-integration tasks 9.4 to 9.10 and 10.1
+
+- 9.4: `power:sync` (`mcp/src/power/sync.ts`) with the skill metadata in `power/skills.ts` (shared with the drift test). Skill descriptions avoid `: ` because it breaks plain YAML scalars; my first wording had one and I fixed it before committing anything.
+- 9.5/9.6: `power/plugin.json` (license MIT from `LICENSE`) and `power/mcp.json` (`env` empty, no secret).
+- 9.7: `power/README.md`. It states that the relative `args` path is assumed to resolve against the power folder; Phase 11 must check this.
+- 9.8: `power-files.test.ts` (validators, `args[0]` equals `POWER_SERVER_REL`, skills equal `skillFromSteering` of the steering, README needles, no `POWER.md`, file list).
+- 9.9: Property 13 added to `sabotage.test.ts`; all five sabotages caught.
+- 10.1: smoke tests for git-ignored `power/server`, exactly four hooks, two agents plus `prompts/`, root workspaces and vitest include.
+- Verification: `npm run typecheck` clean; `npm test` 204 files, 1809 passed, 1 todo.
+- Counterexamples from fast-check: none.
