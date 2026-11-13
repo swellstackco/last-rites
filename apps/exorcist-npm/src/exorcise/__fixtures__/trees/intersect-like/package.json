@@ -1,0 +1,1 @@
+{ "name": "intersect-like", "version": "0.0.0", "private": true, "dependencies": { "intersect": "1.0.1" } }

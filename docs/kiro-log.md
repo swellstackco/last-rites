@@ -192,3 +192,12 @@ Headless Chromium at 1352x761 and 375x812 (2x), demo parse-server, package ldapj
 - `smoke.test.ts` "app imports skeleton only through the package name" rejected the declared `@graveyard-kit/skeleton/proof` export that task 1.1 added. Relaxed to allow the declared exports (`death-score`, `graveyard`, `proof`, `proof/runner`, `proof/testing`); relative paths into skeleton are still rejected.
 - Counterexamples found by fast-check this run: none (no property written yet in this range).
 - Counts (repo root): `npm run typecheck` clean; `npm test` 118 files, 1096 tests pass, 1 todo.
+
+## 2026-11-13 proof-harness 4.12-4.19 (Kiro CLI)
+
+- 4.12: `usage-surface.ts` (`createUsageSurface`, `parseSource`, `syntaxDiagnosticCount`). Judgement calls: directory entries are sorted by name before the walk so the 50000-file guard is reproducible whatever order the file system lists; warnings are sorted by code unit; the warning texts are `<file>: N syntax diagnostics`, `<file>: skipped, larger than 2 MiB`, `<file>: skipped, could not be read`, `<root>: not a readable directory`.
+- 4.13-4.16: synthetic trees under `__fixtures__/trees/` (README states they were written for this repository) and `usage-surface.test.ts` (11 examples; real temp directory with `node_modules`, `dist`, `build`, `coverage`, `.git` and a symlink, removed in `finally`).
+- 4.17-4.19: `tree-model.ts` (Property 6 generator that also produces the expected result; columns are recorded while the text is assembled, no second parser), `usage-surface.p6.test.ts` (`build(factory)`), `proof-p6.ts` (eleven entries).
+- Sabotage checks (temporary test with the fixed seed, since removed; the central test is 6.11): first run left two entries green. "classifies enclosing by directory only": the generator named files `Thing.spec0.js`, which does not contain `.spec.`, so the defect could not show; fixed by a separate `infix` field (`a0.spec.js`). "returns files in listing order": the real walk sorts entries, so a spy on `readText` order saw sorted order; the entry now records the raw `readDir` listings and ranks files by a depth-first walk of them. After the fixes all eleven were caught and the real surface passed under eight further seeds.
+- Counterexamples found by fast-check against the real code: none. Property 6 held on the first run.
+- Counts (repo root): `npm run typecheck` clean; `npm test` 120 files, 1108 tests pass, 1 todo.
