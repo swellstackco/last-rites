@@ -106,21 +106,21 @@ This plan implements the Npm_Scanner in `/apps/exorcist-npm/src/scan/` per the n
 
 ### Phase 5: API handler, runtime and server
 
-- [ ] 5.1 Create `src/scan/api/types.ts`: `ApiRequest` (with lazy `readBody(limitBytes)`), `ApiResponse`, `ApiHandler` and the API error code union.
+- [x] 5.1 Create `src/scan/api/types.ts`: `ApiRequest` (with lazy `readBody(limitBytes)`), `ApiResponse`, `ApiHandler` and the API error code union.
   - _Requirements: 8.7, 10.6_
-- [ ] 5.2 Create `src/scan/api/watchdog.ts`: `Watchdog`, `noWatchdog` and `realWatchdog` (the only `setTimeout` in the scanner).
+- [x] 5.2 Create `src/scan/api/watchdog.ts`: `Watchdog`, `noWatchdog` and `realWatchdog` (the only `setTimeout` in the scanner).
   - _Requirements: 9.10_
-- [ ] 5.3 Create `src/scan/api/demo-store.ts`: `DEMO_NAME_PATTERN` (`^[a-z0-9][a-z0-9-]{0,63}$`), `DemoStore`, and `createFsDemoStore(demoDir)` that re-checks the name, reads `<demoDir>/<name>.json` as bytes untouched, returns `undefined` for `ENOENT`, `EISDIR` and `ENOTDIR`, and propagates other errors.
+- [x] 5.3 Create `src/scan/api/demo-store.ts`: `DEMO_NAME_PATTERN` (`^[a-z0-9][a-z0-9-]{0,63}$`), `DemoStore`, and `createFsDemoStore(demoDir)` that re-checks the name, reads `<demoDir>/<name>.json` as bytes untouched, returns `undefined` for `ENOENT`, `EISDIR` and `ENOTDIR`, and propagates other errors.
   - _Requirements: 8.2, 8.3, 8.4_
-- [ ] 5.4 Write demo-store tests in `api/demo-store.test.ts` against a temp directory: bytes returned unmodified, missing file, directory in place of a file, names with `/`, `..`, upper-case, empty and 65 characters rejected by the guard, temp directory removed in `afterEach`.
+- [x] 5.4 Write demo-store tests in `api/demo-store.test.ts` against a temp directory: bytes returned unmodified, missing file, directory in place of a file, names with `/`, `..`, upper-case, empty and 65 characters rejected by the guard, temp directory removed in `afterEach`.
   - _Requirements: 8.2, 8.3, 8.4_
-- [ ] 5.5 Create `src/scan/fetch-client.ts` with `createFetchClient({ maxBodyBytes, userAgent })`: wraps global `fetch`, `AbortSignal.timeout(req.timeoutMs)`, lower-case response headers, streamed body capped at 32 MiB by default, `HttpClientError("timeout" | "network_error")`, no credentials of its own, redirects followed.
+- [x] 5.5 Create `src/scan/fetch-client.ts` with `createFetchClient({ maxBodyBytes, userAgent })`: wraps global `fetch`, `AbortSignal.timeout(req.timeoutMs)`, lower-case response headers, streamed body capped at 32 MiB by default, `HttpClientError("timeout" | "network_error")`, no credentials of its own, redirects followed.
   - _Requirements: 4.1, 4.7, 12.5_
-- [ ] 5.6 Write fetch-client tests in `fetch-client.test.ts` that stub `globalThis.fetch` inside the test only (restored in `afterEach`, no real request is made): header lower-casing, body cap exceeded, timeout, method and body forwarded, user agent set, no `authorization` header added.
+- [x] 5.6 Write fetch-client tests in `fetch-client.test.ts` that stub `globalThis.fetch` inside the test only (restored in `afterEach`, no real request is made): header lower-casing, body cap exceeded, timeout, method and body forwarded, user agent set, no `authorization` header added.
   - _Requirements: 4.1, 13.1, 13.3_
-- [ ] 5.7 Create `src/scan/runtime.ts` with `createScanRuntime({ http, clock, sleep, evidenceConfig, maxDependencies })`: one `EvidenceStage`, one repo-file `CacheLayer` over its own `ResilientClient` on the same `cacheRoot`, one pipeline; a bad config throws `EvidenceConfigError` before any request.
+- [x] 5.7 Create `src/scan/runtime.ts` with `createScanRuntime({ http, clock, sleep, evidenceConfig, maxDependencies })`: one `EvidenceStage`, one repo-file `CacheLayer` over its own `ResilientClient` on the same `cacheRoot`, one pipeline; a bad config throws `EvidenceConfigError` before any request.
   - _Requirements: 5.2, 5.11, 10.6, 12.2_
-- [ ] 5.8 Write runtime tests in `runtime.test.ts` with `FakeHttp` and fixtures: a scan through the runtime succeeds, two scans on one runtime share the cache directory (second makes no registry request), a bad evidence config throws before any request.
+- [x] 5.8 Write runtime tests in `runtime.test.ts` with `FakeHttp` and fixtures: a scan through the runtime succeeds, two scans on one runtime share the cache directory (second makes no registry request), a bad evidence config throws before any request.
   - _Requirements: 5.11, 10.6, 13.1_
 - [ ] 5.9 Create `src/scan/api/handler.ts` with `createScanApi(deps)`: validates config first, two rate limiters on the injected Clock, default pipeline from `createScanRuntime`, routing, the `POST /api/scan` check order (rate limit, content type 415, size 413, body shape 400, deadline plus watchdog race), outcome-to-status mapping including `internal_error` as 500, `GET /api/demo/:name` with its own limiter, one `errorResponse` helper for the error body shape, never rejects.
   - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7, 8.8, 8.9, 9.1, 9.2, 9.3, 9.4, 9.5, 9.6, 9.9, 9.10, 9.11, 10.6_
