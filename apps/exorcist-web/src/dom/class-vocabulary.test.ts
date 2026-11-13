@@ -39,8 +39,8 @@ describe("class vocabulary", () => {
   it("every ClassName is used by a view, the controller or the Stylesheet", () => {
     const text = codeSources.join("\n");
     const unused = [...vocabulary].filter((n) => !usedInCode().has(n) && !cssClasses.has(n) && !text.includes(`"${n}"`));
-    // Unused before graveyard-ui-polish; left alone (out of scope). Any other unused name fails.
-    expect(unused.sort()).toEqual(["btn-quiet", "fog"]);
+    // toe-tag-redesign 8.6: fog, btn-quiet and card were removed; no unused name remains.
+    expect(unused.sort()).toEqual([]);
   });
 
   it("the new polish names are in the vocabulary and used by a view and the Stylesheet", () => {

@@ -20,8 +20,8 @@ export function constantHref(literal: string): SafeHref {
 
 /** The fixed class vocabulary; every class used by the views and styles/*.css. */
 export type ClassName =
-  | "app" | "screen" | "skip-link" | "visually-hidden" | "fog" | "stack" | "row" | "card" | "chip"
-  | "btn" | "btn-primary" | "btn-quiet" | "notice" | "error" | "field" | "field-error"
+  | "app" | "screen" | "skip-link" | "visually-hidden" | "stack" | "row" | "chip"
+  | "btn" | "btn-primary" | "notice" | "error" | "field" | "field-error"
   | "picker" | "demo-cards" | "demo-card" | "live-form" | "status"
   | "header" | "masthead" | "wordmark" | "form-subtitle" | "meta" | "counts" | "count" | "legend" | "warnings" | "note"
   | "group" | "group-title" | "grid" | "grid-dead" | "grid-dying" | "grid-ailing" | "grid-alive"

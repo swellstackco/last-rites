@@ -1,42 +1,6 @@
-/* Theme_Tokens for The Graveyard. Toe Tag tokens are added below; the legacy night tokens stay until task 8.5 so unmigrated stylesheets keep working. */
+/* Theme_Tokens for The Graveyard (Toe Tag). The single place for colors, font stacks and sizes. */
 :root {
-  color-scheme: dark;
-
-  /* grounds */
-  --night: #0b1215;
-  --soil: #121c20;
-  --stone: #1b282d;
-
-  /* text */
-  --moon: #e8f0f2;
-  --mist: #a9bcc2;
-
-  /* grade accents */
-  --ember: #ff6a3d;
-  --lichen: #c9dc6a;
-  --moss: #5fd6a4;
-
-  /* interactive */
-  --link: #8ad7ff;
-  --edge: #5c7780;
-
-  /* fonts */
-  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-num: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-
-  /* sizes */
-  --size-base: 1rem;
-  --size-score: 3.5rem;
-
-  /* spacing */
-
-  /* radii */
-  --radius-sm: 0.25rem;
-  --radius-arch: 999px;
-
-  /* focus ring */
-
-  /* ===== Toe Tag tokens (toe-tag-redesign task 1.6). The single place for colors, fonts and sizes. ===== */
+  color-scheme: light;
 
   /* ground and surfaces */
   --wall: #C9CFCB;

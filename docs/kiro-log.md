@@ -352,3 +352,15 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - Not done (cap of 8): 7.7 (Proof states), 7.8 checkpoint. The `sheet-in` slide animation in `detail.css` is still there and gated by no-preference; task 9.1 decides about motion.
 - Counterexamples from fast-check this run: none (Properties 1 to 3 and the sabotage test green).
 - Counts (repo root): 150 files, 1332 tests pass, 1 todo. Typecheck clean.
+
+## 2026-11-13: toe-tag-redesign 7.7, 7.8, 8.1 to 8.6 (Proof states, home, status, notices, token cleanup)
+
+- 7.7: Proof placeholder, loading and unreadable lines are Ink-soft on Paper; `updateProof` untouched (`proof.update.dom.test.ts` green).
+- 8.1/8.2: demo cards are Manila index cards (chamfered top-left on two pseudo-element layers, unclipped button, 2 across, 4 from 64rem, 1 below 22.5rem); live form is a Paper box with a black caption bar, typewriter captions, red-ink field errors.
+- 8.3: the loading and error screens now show the wordmark as `p.wordmark` (was `p.meta` with the same text); status and alert regions are ruled Paper boxes.
+- 8.4: `.skipped` and the existing `.notice` are the ruled form boxes; no new DOM.
+- 8.5: legacy Night tokens removed, `color-scheme: light`; `theme/theme.test.ts` rewritten for the new tokens (light grounds, AA text on every ground, 3:1 edge/ring, no legacy token referenced, no color literal outside `tokens.css`, no serif in the four stacks).
+- 8.6: `fog`, `btn-quiet` and `card` removed from `ClassName` (and `.card` from `base.css`); the unused-name list is now empty.
+- Not done (cap of 8): 8.7 checkpoint onward (Phase 9 and later).
+- Counterexamples from fast-check this run: none (Properties 1 to 3 and the sabotage test green).
+- Counts (repo root): 150 files, 1334 tests pass, 1 todo. Typecheck clean; web build succeeds.

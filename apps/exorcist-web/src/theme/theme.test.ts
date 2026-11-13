@@ -23,11 +23,10 @@ const color = (name: string): Rgb => {
   return parseHex(v);
 };
 
-const GROUNDS = ["--night", "--soil", "--stone"];
-// Task 1.6: --amber and --focus now hold their Toe Tag values (light page); they leave the legacy night lists and
-// are checked against the Toe Tag grounds below. Task 8.5 rewrites this file for the new tokens.
-const TEXT = ["--moon", "--mist", "--ember", "--lichen", "--moss", "--link"];
-const TOE_TAG_GROUNDS = ["--wall", "--tag", "--paper"];
+const GROUNDS = ["--wall", "--tag", "--paper", "--paper-grid"];
+const TEXT = ["--ink", "--ink-soft", "--steel-ink", "--red-ink"];
+const FONT_STACKS = ["--font-display", "--font-body", "--font-mono", "--font-label"];
+const LEGACY = ["--night", "--soil", "--stone", "--moon", "--mist", "--ember", "--lichen", "--moss", "--edge", "--link", "--font-ui", "--font-num"];
 
 describe("contrast math", () => {
   it("black on white is 21, symmetric, at least 1", () => {
@@ -55,8 +54,16 @@ describe("contrast math", () => {
 });
 
 describe("tokens.css", () => {
-  it("declares dark color scheme", () => {
-    expect(tokensCss).toMatch(/color-scheme:\s*dark/);
+  it("declares the light color scheme and the 44px target", () => {
+    expect(tokensCss).toMatch(/color-scheme:\s*light/);
+    expect(tokens.get("--target")).toBe("44px");
+  });
+
+  it("has no legacy night token, and no rule references one", () => {
+    for (const name of LEGACY) {
+      expect(tokens.has(name), `${name} declared`).toBe(false);
+      expect(allCss.includes(`var(${name})`), `${name} referenced`).toBe(false);
+    }
   });
 
   it("text tokens reach 4.5:1 on every ground", () => {
@@ -67,14 +74,11 @@ describe("tokens.css", () => {
     }
   });
 
-  it("focus ring and edge reach 3:1 on every ground", () => {
-    for (const t of ["--edge"]) {
+  it("the ink edge and the focus ring reach 3:1 on every ground", () => {
+    for (const t of ["--ink", "--focus"]) {
       for (const g of GROUNDS) {
         expect(contrastRatio(color(t), color(g)), `${t} on ${g}`).toBeGreaterThanOrEqual(3);
       }
-    }
-    for (const g of TOE_TAG_GROUNDS) {
-      expect(contrastRatio(color("--focus"), color(g)), `--focus on ${g}`).toBeGreaterThanOrEqual(3);
     }
   });
 
@@ -95,20 +99,26 @@ describe("tokens.css", () => {
     }
   });
 
-  it("backgrounds are dark (lightness below 25%)", () => {
-    for (const g of GROUNDS) expect(lightnessOf(color(g)), g).toBeLessThan(0.25);
+  it("grounds are light (lightness above 60%)", () => {
+    for (const g of GROUNDS) expect(lightnessOf(color(g)), g).toBeGreaterThan(0.6);
   });
 
-  it("font stacks contain no serif family", () => {
-    for (const name of ["--font-ui", "--font-num"]) {
+  it("font stacks contain no serif family and end in a generic family", () => {
+    for (const name of FONT_STACKS) {
       const families = (tokens.get(name) ?? "").split(",").map((f) => f.trim().replace(/^["']|["']$/g, "").toLowerCase());
-      expect(families.length).toBeGreaterThan(0);
+      expect(families.length, name).toBeGreaterThan(0);
       for (const f of families) {
         expect(f).not.toBe("serif");
         expect(f).not.toMatch(/georgia|times|garamond|palatino|cambria|book antiqua/);
       }
-      expect(families.at(-1)).toMatch(/^(sans-serif|monospace)$/);
+      expect(families.at(-1), name).toMatch(/^(sans-serif|monospace)$/);
     }
+  });
+
+  it("the rest of the Stylesheet holds no color literal", () => {
+    const rest = ["base.css", "graveyard.css", "detail.css"].map((f) => stripComments(read(f))).join("\n");
+    expect(rest).not.toMatch(/#[0-9a-fA-F]{3,8}\b/);
+    expect(rest).not.toMatch(/\b(rgba?|hsla?)\(/);
   });
 });
 

@@ -335,6 +335,15 @@
   margin-inline: var(--space-4);
 }
 
+/* Proof states: placeholder, loading and unreadable lines are Ink-soft on Paper; the disabled control is dashed. */
+.proof .muted {
+  color: var(--ink-soft);
+}
+
+.proof [aria-disabled="true"] {
+  justify-self: start;
+}
+
 /* Stamp: tilted, bordered in its text color, never clipped. */
 .proof-badge {
   display: inline-block;

@@ -23,7 +23,7 @@ export function renderLoading(opts: LoadingOptions): ScreenHandle {
   const element = h(
     "main",
     { class: ["status", "stack"] },
-    h("p", { class: "meta" }, PRODUCT_NAME),
+    h("p", { class: "wordmark" }, PRODUCT_NAME),
     heading,
     h(
       "div",
@@ -68,7 +68,7 @@ export function renderError(opts: ErrorOptions): ErrorHandle {
   const element = h(
     "main",
     { class: ["status", "stack"] },
-    h("p", { class: "meta" }, PRODUCT_NAME),
+    h("p", { class: "wordmark" }, PRODUCT_NAME),
     heading,
     h(
       "div",
