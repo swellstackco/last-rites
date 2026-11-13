@@ -115,21 +115,21 @@ Scope is the Graveyard only. No change to the scan API, scanner, evidence stage 
 
 ### Phase 5: Page properties and sabotage
 
-- [ ] 5.1 Write the Property 6 test in `test-support/properties/p6.ts` and `router.p6.test.ts` (round trip over valid routes with hostile `pkg` strings; totality over arbitrary strings; idempotent normal form), with sabotages in `test-support/sabotage/p6.ts`: `/` not encoded; `&` not encoded; `ref` dropped; repo lower-cased on parse; decode errors thrown; `+` decoded as space.
+- [x] 5.1 Write the Property 6 test in `test-support/properties/p6.ts` and `router.p6.test.ts` (round trip over valid routes with hostile `pkg` strings; totality over arbitrary strings; idempotent normal form), with sabotages in `test-support/sabotage/p6.ts`: `/` not encoded; `&` not encoded; `ref` dropped; repo lower-cased on parse; decode errors thrown; `+` decoded as space.
   - **Property 6: Route codec round trip and totality**
   - **Validates: Requirements 17.1, 17.2, 17.3, 19.7**
-- [ ] 5.2 Write the Property 7 test in `test-support/properties/p7.ts` and `repo-input.p7.test.ts` (accepted outputs match the patterns; every valid pair is accepted in each spelling with case preserved; other hosts, extra segments, `..`, inner spaces and over-length are rejected), with sabotages in `test-support/sabotage/p7.ts`: extra path segments accepted; any host accepted; `..` in ref accepted; `_` rejected in a repo name; result lower-cased; `.git` stripped anywhere in the name.
+- [x] 5.2 Write the Property 7 test in `test-support/properties/p7.ts` and `repo-input.p7.test.ts` (accepted outputs match the patterns; every valid pair is accepted in each spelling with case preserved; other hosts, extra segments, `..`, inner spaces and over-length are rejected), with sabotages in `test-support/sabotage/p7.ts`: extra path segments accepted; any host accepted; `..` in ref accepted; `_` rejected in a repo name; result lower-cased; `.git` stripped anywhere in the name.
   - **Property 7: Repo input parsing**
   - **Validates: Requirements 3.2, 3.3, 19.7**
-- [ ] 5.3 Write the Property 8 test in `test-support/properties/p8.ts` and `errors.p8.test.ts` (total, safe, bounded, non-empty strings, clamped retry), with sabotages in `test-support/sabotage/p8.ts`: throws on an unknown code; empty detail for unknown codes; unclamped `retryAfterSeconds`; negative or NaN `retryAfterSeconds`; server message not truncated; 429 without header gives `undefined`.
+- [x] 5.3 Write the Property 8 test in `test-support/properties/p8.ts` and `errors.p8.test.ts` (total, safe, bounded, non-empty strings, clamped retry), with sabotages in `test-support/sabotage/p8.ts`: throws on an unknown code; empty detail for unknown codes; unclamped `retryAfterSeconds`; negative or NaN `retryAfterSeconds`; server message not truncated; 429 without header gives `undefined`.
   - **Property 8: Error description is total and safe**
   - **Validates: Requirements 4.2, 4.3, 4.8, 4.11, 19.7**
-- [ ] 5.4 Create `apps/exorcist-web/src/sabotage.test.ts`: run Properties 6 to 8, and the header half of Property 4 once task 5.5 adds it, against their lists with seed 20261113, the same failure message, the non-empty and presence assertions, and the real implementations passing under the same seed.
+- [x] 5.4 Create `apps/exorcist-web/src/sabotage.test.ts`: run Properties 6 to 8, and the header half of Property 4 once task 5.5 adds it, against their lists with seed 20261113, the same failure message, the non-empty and presence assertions, and the real implementations passing under the same seed.
   - _Requirements: 20.1, 20.2, 20.3_
-- [ ] 5.5 Add the header half of Property 4: extend `counts.p4.test.ts` (or a page-side `header.p4.test.ts`) to run `buildReportView` over generated reports (correct and tampered `summary`), asserting header counts deep-equal the view counts and an independent recount, `total === dependencies.length` (skipped excluded), and `summaryDisagrees` iff the summary differs. Add the sabotages to `test-support/sabotage/p4.ts` (counts from `report.summary`; total includes skipped; `summaryDisagrees` always false) and run them from `apps/exorcist-web/src/sabotage.test.ts` (task 5.4).
+- [x] 5.5 Add the header half of Property 4: extend `counts.p4.test.ts` (or a page-side `header.p4.test.ts`) to run `buildReportView` over generated reports (correct and tampered `summary`), asserting header counts deep-equal the view counts and an independent recount, `total === dependencies.length` (skipped excluded), and `summaryDisagrees` iff the summary differs. Add the sabotages to `test-support/sabotage/p4.ts` (counts from `report.summary`; total includes skipped; `summaryDisagrees` always false) and run them from `apps/exorcist-web/src/sabotage.test.ts` (task 5.4).
   - **Property 4: Header counts equal the grouped list sizes (header)**
   - **Validates: Requirements 6.5, 8.2, 8.3, 19.5**
-- [ ] 5.6 Checkpoint after Phase 5 - Ensure `npm run typecheck` and `npm test` pass, ask the user if questions arise.
+- [x] 5.6 Checkpoint after Phase 5 - Ensure `npm run typecheck` and `npm test` pass, ask the user if questions arise.
 
 ### Phase 6: Theme and DOM foundation
 
