@@ -32,23 +32,23 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - _Requirements: 1.6, 1.7_
 - [x] 1.9 Create `apps/exorcist-npm/src/programmatic-testing.ts`: re-exports of `reportArb`, `FakeHttp`, the fake clock and sleep, `memoryFiles` and the in-memory `SourceFs` from the existing test support, nothing else.
   - _Requirements: 1.6_
-- [ ] 1.10 Write `apps/exorcist-npm/src/programmatic.test.ts`: the sorted export names of both entry files equal a pinned list; neither file contains a function body (static check on the source text); `scan/index.ts` and `evidence/index.ts` export lists are unchanged (the existing smoke tests keep passing).
+- [x] 1.10 Write `apps/exorcist-npm/src/programmatic.test.ts`: the sorted export names of both entry files equal a pinned list; neither file contains a function body (static check on the source text); `scan/index.ts` and `evidence/index.ts` export lists are unchanged (the existing smoke tests keep passing).
   - _Requirements: 1.6, 1.7, 19.1_
-- [ ] 1.11 Run `npm install` (offline, no new packages), `npm run typecheck` and `npm test`; confirm green with the new workspaces.
+- [x] 1.11 Run `npm install` (offline, no new packages), `npm run typecheck` and `npm test`; confirm green with the new workspaces.
   - _Requirements: 1.1, 1.4, 18.7_
-- [ ] 1.12 Checkpoint after Phase 1 - Ensure all tests pass, ask the user if questions arise.
+- [x] 1.12 Checkpoint after Phase 1 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 2: Kiro config validators and agent privilege (pure)
 
-- [ ] 2.1 Create `mcp/src/kiro-config/helpers.ts`: `Check = { ok: true } | { ok: false; error: { path: string; message: string } }`, `parseJson(text)`, `objectWith(value, path, { required, optional })` (rejects unknown keys), `stringField`, `boolField`, `arrayOf`, `isKebab`, `isSemver`. Pure, total.
+- [x] 2.1 Create `mcp/src/kiro-config/helpers.ts`: `Check = { ok: true } | { ok: false; error: { path: string; message: string } }`, `parseJson(text)`, `objectWith(value, path, { required, optional })` (rejects unknown keys), `stringField`, `boolField`, `arrayOf`, `isKebab`, `isSemver`. Pure, total.
   - _Requirements: 16.1, 16.2_
-- [ ] 2.2 Create `mcp/src/kiro-config/hook.ts`: `validateHookFile(text)` per the hook field list and trigger list of the design (compiling `matcher`, command/agent action rules, `version` v1, `timeout` number).
+- [x] 2.2 Create `mcp/src/kiro-config/hook.ts`: `validateHookFile(text)` per the hook field list and trigger list of the design (compiling `matcher`, command/agent action rules, `version` v1, `timeout` number).
   - _Requirements: 16.1, 16.2, 12.7_
-- [ ] 2.3 Create `mcp/src/kiro-config/mcp-settings.ts`: `validateMcpSettings(text)` (`mcpServers` of `{ command, args?, env?, disabled?, autoApprove?, disabledTools? }`, `type` rejected).
+- [x] 2.3 Create `mcp/src/kiro-config/mcp-settings.ts`: `validateMcpSettings(text)` (`mcpServers` of `{ command, args?, env?, disabled?, autoApprove?, disabledTools? }`, `type` rejected).
   - _Requirements: 16.1, 11.3_
-- [ ] 2.4 Create `mcp/src/kiro-config/plugin.ts` (`validatePluginManifest`: `$schema`, kebab `name`, semver `version`, `description`, `author.name`, `keywords`, optional `homepage`/`repository`/`license`) and `power-mcp.ts` (`validatePowerMcp`: `$schema`, `mcpServers` with `type` `stdio`, `command`, `args`, `env`).
+- [x] 2.4 Create `mcp/src/kiro-config/plugin.ts` (`validatePluginManifest`: `$schema`, kebab `name`, semver `version`, `description`, `author.name`, `keywords`, optional `homepage`/`repository`/`license`) and `power-mcp.ts` (`validatePowerMcp`: `$schema`, `mcpServers` with `type` `stdio`, `command`, `args`, `env`).
   - _Requirements: 16.1, 15.2, 15.3_
-- [ ] 2.5 Create `mcp/src/kiro-config/skill.ts`: `validateSkill(text, folderName)` (frontmatter of exactly `name` and `description`, `name` equal to the folder, non-empty body).
+- [x] 2.5 Create `mcp/src/kiro-config/skill.ts`: `validateSkill(text, folderName)` (frontmatter of exactly `name` and `description`, `name` equal to the folder, non-empty body).
   - _Requirements: 16.1, 15.4_
 - [ ] 2.6 Create `mcp/src/kiro-config/agent.ts`: `validateAgentFile(text, ctx: { exists(path): boolean })` per the agent field list (rejects `allowedTools`, `toolsSettings`, `toolAliases`; `prompt` `file://` and `resources` `file://` targets must exist through `ctx.exists`; `permissions.rules` shape; every `mcpServers` entry has `command`).
   - _Requirements: 16.1, 14.8_
