@@ -80,15 +80,15 @@ This plan implements the Npm_Evidence_Stage in `/apps/exorcist-npm/src/evidence/
 
 ### Phase 5: Sources, assembly and stage
 
-- [ ] 5.1 Create `src/evidence/sources/npm.ts`: `GET https://registry.npmjs.org/<encoded name>` through the cache, per-field parsing of the Resolved_Version deprecation message, latest valid `time` entry (ignoring `created` and `modified`), `maintainers` count and `repository` field, 404 as `not_found`. Returns an `Outcome`, never throws.
+- [x] 5.1 Create `src/evidence/sources/npm.ts`: `GET https://registry.npmjs.org/<encoded name>` through the cache, per-field parsing of the Resolved_Version deprecation message, latest valid `time` entry (ignoring `created` and `modified`), `maintainers` count and `repository` field, 404 as `not_found`. Returns an `Outcome`, never throws.
   - _Requirements: 1.5, 1.7, 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 9.1, 9.7_
-- [ ] 5.2 Create `src/evidence/sources/github.ts`: repository metadata then latest commit on the default branch (`committer.date`, falling back to `author.date`), bearer token only when configured, one retry without the token after a 401 with a "token rejected" warning, `not_found` for 404, commit failure keeps `repoArchived`.
+- [x] 5.2 Create `src/evidence/sources/github.ts`: repository metadata then latest commit on the default branch (`committer.date`, falling back to `author.date`), bearer token only when configured, one retry without the token after a 401 with a "token rejected" warning, `not_found` for 404, commit failure keeps `repoArchived`.
   - _Requirements: 4.1, 4.2, 4.3, 4.5, 4.6, 4.7, 4.8, 4.9, 4.10, 14.5, 14.6_
-- [ ] 5.3 Create `src/evidence/sources/osv.ts`: `POST https://api.osv.dev/v1/query` with the package name, ecosystem and Resolved_Version, follow `next_page_token` for up to 10 pages, `incomplete` if the token remains, no request without a Resolved_Version.
+- [x] 5.3 Create `src/evidence/sources/osv.ts`: `POST https://api.osv.dev/v1/query` with the package name, ecosystem and Resolved_Version, follow `next_page_token` for up to 10 pages, `incomplete` if the token remains, no request without a Resolved_Version.
   - _Requirements: 5.1, 5.4, 5.5, 5.6, 5.7, 5.8_
-- [ ] 5.4 Create `src/evidence/sources/e18e.ts`: fetch the three manifests in fixed order, `Object.hasOwn` lookup, first manifest in order wins, build `ReplacementInfo` (first of `replacements`, plus the full list), unknown when a manifest failed and none retrieved matched, unknown with `malformed_response` when the matching entry has no readable `type`.
+- [x] 5.4 Create `src/evidence/sources/e18e.ts`: fetch the three manifests in fixed order, `Object.hasOwn` lookup, first manifest in order wins, build `ReplacementInfo` (first of `replacements`, plus the full list), unknown when a manifest failed and none retrieved matched, unknown with `malformed_response` when the matching entry has no readable `type`.
   - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 6.6_
-- [ ] 5.5 Create `src/evidence/sources/depsdev.ts`: disabled by default, one `GET https://api.deps.dev/v3/systems/npm/packages/<name>`, fills only unknown `deprecated` and `monthsSinceLastPublish`, no retry, source URL `https://deps.dev/npm/<name>`, zero requests when nothing fillable is unknown or when no Repo_Ref was the only gap.
+- [x] 5.5 Create `src/evidence/sources/depsdev.ts`: disabled by default, one `GET https://api.deps.dev/v3/systems/npm/packages/<name>`, fills only unknown `deprecated` and `monthsSinceLastPublish`, no retry, source URL `https://deps.dev/npm/<name>`, zero requests when nothing fillable is unknown or when no Repo_Ref was the only gap.
   - _Requirements: 7.1, 7.2, 7.3, 7.4, 7.5, 7.6, 7.7_
 - [ ] 5.6 Create `src/evidence/assemble.ts`, a pure `assembleResult(outcomes)`: compute Months_Since from `now`, build each `SignalValue`, set `sourceUrls` only for known signals, set `unknownReasons` only for unknown signals with messages built from category, source and public URL only, order everything by `SIGNAL_NAMES`, and map `not_applicable` when no Repo_Ref exists.
   - _Requirements: 1.1, 4.4, 9.2, 9.4, 9.5, 9.6, 9.8, 11.4_

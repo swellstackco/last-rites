@@ -1,5 +1,6 @@
-import type { FailureCategory } from "../types.js";
-import type { HttpResponse } from "./types.js";
+import type { FailureCategory, Source } from "../types.js";
+import type { CacheLayer } from "./cache.js";
+import type { HttpRequest, HttpResponse } from "./types.js";
 
 /** Failure classification table (design: "Failure classification"). */
 
@@ -20,4 +21,27 @@ export function parseJsonBody(body: string): JsonParse {
   } catch {
     return { ok: false };
   }
+}
+
+export type FetchJsonResult =
+  | { ok: true; json: unknown; fromCache: boolean }
+  | { ok: false; category: FailureCategory; /** HTTP status when the failure was an HTTP response. */ status?: number };
+
+/** One cached request, classified: transport/HTTP failures and non-JSON 2xx bodies become categories. Never throws. */
+export async function fetchJson(cache: CacheLayer, source: Source, req: HttpRequest): Promise<FetchJsonResult> {
+  let result: Awaited<ReturnType<CacheLayer["get"]>>;
+  try {
+    result = await cache.get(source, req);
+  } catch {
+    return { ok: false, category: "network_error" };
+  }
+  if (!result.ok) {
+    return result.failure.kind === "transport"
+      ? { ok: false, category: result.failure.category }
+      : { ok: false, category: classifyStatus(result.failure.response), status: result.failure.response.status };
+  }
+  const parsed = parseJsonBody(result.response.body);
+  return parsed.ok
+    ? { ok: true, json: parsed.value, fromCache: result.fromCache }
+    : { ok: false, category: "malformed_response" };
 }
