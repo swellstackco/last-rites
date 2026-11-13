@@ -9,7 +9,7 @@ const cfg = (patch: Partial<ScanApiConfig>): ScanApiConfig => ({ ...DEFAULT_SCAN
 describe("DEFAULT_SCAN_API_CONFIG", () => {
   it("has the documented defaults", () => {
     const c = DEFAULT_SCAN_API_CONFIG;
-    expect(c.port).toBe(27431);
+    expect(c.port).toBe(24817);
     expect(c.scanRateLimit).toEqual({ limit: 10, windowSeconds: 60 });
     expect(c.demoRateLimit).toEqual({ limit: 120, windowSeconds: 60 });
     expect(c.timeoutSeconds).toBe(60);
@@ -41,8 +41,8 @@ describe("validateScanApiConfig", () => {
 
 describe("parsePortEnv", () => {
   it("defaults for undefined and empty", () => {
-    expect(parsePortEnv(undefined)).toBe(27431);
-    expect(parsePortEnv("")).toBe(27431);
+    expect(parsePortEnv(undefined)).toBe(24817);
+    expect(parsePortEnv("")).toBe(24817);
   });
   it.each([" 80", "+80", "80.0", "8e1", "0", "65536", "123456", "-1", "abc"])("rejects %j", (raw) => {
     expect(() => parsePortEnv(raw)).toThrow(ScanApiConfigError);

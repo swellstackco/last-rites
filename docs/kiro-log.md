@@ -78,7 +78,7 @@ Dated notes on how Kiro was used to build this project: which surface (IDE, CLI,
 
 ## 2026-11-13: graveyard-ui Phase 9 (tasks 9.1-9.7)
 - Built the Graveyard (view model in `skeleton/src/graveyard`, page in `apps/exorcist-web`). Eight properties: the five required (partition, ordering, breakdown sum, header counts, safe links) plus route codec, repo input and error totality, all `numRuns: 100`. Every sabotage list is caught at seed 20261113 by `skeleton/src/graveyard/sabotage.test.ts` and `apps/exorcist-web/src/sabotage.test.ts`; the real implementations pass under the same seed.
-- 9.1-9.3: `vite.config.ts` (loopback 5173 strictPort, `/api` proxy to 127.0.0.1:27431, `demoSnapshots` plugin, build-only CSP meta, es2022, no sourcemaps), `vite-config.test.ts`, `scripts/dev.ts`, root `npm run dev`.
+- 9.1-9.3: `vite.config.ts` (loopback 5173 strictPort, `/api` proxy to 127.0.0.1:24817, `demoSnapshots` plugin, build-only CSP meta, es2022, no sourcemaps), `vite-config.test.ts`, `scripts/dev.ts`, root `npm run dev`.
 - 9.4: `npm run build -w @graveyard-kit/exorcist-web` OK: `dist/index.html`, one JS and one CSS asset, `dist/demo/{jest,parse-server,prettier,pump}.json`, CSP meta present, `dist/` git-ignored.
 - jsdom version: 25.0.1 (exact pin).
 - 9.5 visual checks NOT RUN (no browser headless here; Claude will do them): no horizontal scroll at 375/320; header plus all parse-server dead tombstones above the fold at 1920x1080; calibration row and total readable in the panel; focus ring on Tab; reduced-motion stops the glow; real `inert` enforcement.

@@ -117,7 +117,7 @@ describe("scanner static smoke checks", () => {
     const pkg = JSON.parse(readFileSync(join(APP, "package.json"), "utf8")) as { scripts: Record<string, string> };
     expect(pkg.scripts["demo-snapshot"]).toBe("vite-node src/scan/demo-snapshot.ts --");
     expect(pkg.scripts["record-scan-fixtures"]).toBe("vite-node src/scan/test-support/record-scan-fixtures.ts --");
-    expect(pkg.scripts["serve"]).toBe("vite-node src/scan/server.ts");
+    expect(pkg.scripts["serve"]).toBe("vite-node src/scan/serve-entry.ts");
   });
 
   it("no test starts demo-snapshot or server as an entry point", () => {

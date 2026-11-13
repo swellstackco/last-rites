@@ -33,7 +33,7 @@ The page reads reports from the existing Scan_Api (`GET /api/demo/:name`, `POST 
 
 Facts checked in the repository while writing this spec:
 
-- `GET /api/demo/:name` returns the file bytes unmodified; `POST /api/scan` returns Canonical_Json. Errors are `{ "error": { "code", "message" } }`. A 429 carries a positive integer `retry-after` header. Defaults: scan limit 10 per 60 s per IP, demo limit 120 per 60 s per IP, port 27431 on `127.0.0.1`. The handler sets **no CORS headers**, so the page must be same-origin (Vite proxy in dev, nginx in production).
+- `GET /api/demo/:name` returns the file bytes unmodified; `POST /api/scan` returns Canonical_Json. Errors are `{ "error": { "code", "message" } }`. A 429 carries a positive integer `retry-after` header. Defaults: scan limit 10 per 60 s per IP, demo limit 120 per 60 s per IP, port 24817 on `127.0.0.1`. The handler sets **no CORS headers**, so the page must be same-origin (Vite proxy in dev, nginx in production).
 - `parseReport(text)` is a strict structural parser (categories `empty`, `invalid_json`, `missing_field`, `wrong_type`, `not_canonical`) that already handles `death.calibration`. It does **not** check URL schemes or string contents, so a tampered `sourceUrl: "javascript:..."` passes it. `safeHttpUrl` is therefore required in the view model.
 - `report.ts` imports at run time only `SIGNAL_NAMES` (skeleton) and `KIND_PRECEDENCE` (`./types.js`); every other import is `import type`. It is safe to bundle for the browser.
 - `exorcist-npm/package.json` has no `exports` field, so a subpath export (`./report`) must be added for the page to import `parseReport` and the report types.
@@ -59,7 +59,7 @@ Facts checked in the repository while writing this spec:
                         │      │  GET /api/demo/:name      POST /api/scan         │
                         └──────┼─────────────────────────────────┼───────────────┘
                                ▼                                 ▼
-                    Scan_Api (127.0.0.1:27431, via Vite proxy / nginx)
+                    Scan_Api (127.0.0.1:24817, via Vite proxy / nginx)
                                │ 200 text            │ error JSON, 429 + retry-after
                                ▼                     ▼
         parseReport(text) ─► ScanReport      errors.ts  describeError() ─► Ui_Error
@@ -456,7 +456,7 @@ Rules:
 
 ### vite.config.ts
 
-- `server.proxy`: `/api` → `http://127.0.0.1:27431` (`changeOrigin: false`).
+- `server.proxy`: `/api` → `http://127.0.0.1:24817` (`changeOrigin: false`).
 - A small inline plugin `demoSnapshots`: in dev, a middleware serves `/demo/<name>.json` from the repo-root `demo/` directory (name checked against the demo pattern, no path joins from raw input); in build, `generateBundle` emits each `demo/*.json` as `demo/<name>.json`.
 - A build-only `transformIndexHtml` that injects the CSP meta: `default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'` (frame-ancestors is ignored in a meta tag, so it is also noted for the nginx header; the meta alone does not set it). Dev mode injects inline HMR scripts, so no CSP in dev.
 - `build.target: "es2022"`, `build.sourcemap: false`.

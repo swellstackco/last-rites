@@ -11,7 +11,7 @@
     "record-fixtures": "vite-node src/evidence/test-support/record-fixtures.ts --",
     "demo-snapshot": "vite-node src/scan/demo-snapshot.ts --",
     "record-scan-fixtures": "vite-node src/scan/test-support/record-scan-fixtures.ts --",
-    "serve": "vite-node src/scan/server.ts"
+    "serve": "vite-node src/scan/serve-entry.ts"
   },
   "dependencies": {
     "@graveyard-kit/skeleton": "*",

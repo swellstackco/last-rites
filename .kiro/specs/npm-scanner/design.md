@@ -564,7 +564,7 @@ The shape is "Web-standard-ish": it mirrors the pieces of `Request`/`Response` t
 
 ```ts
 export interface ScanApiConfig {
-  port: number;                                              // default 27431
+  port: number;                                              // default 24817
   scanRateLimit: { limit: number; windowSeconds: number };   // default 10 per 60
   demoRateLimit: { limit: number; windowSeconds: number };   // default 120 per 60, separate counter
   timeoutSeconds: number;                                    // request and scan timeout, default 60
@@ -578,7 +578,7 @@ export function validateScanApiConfig(c: ScanApiConfig): void;   // throws, nami
 export function parsePortEnv(raw: string | undefined): number;  // the only reader of the PORT value
 ```
 
-`validateScanApiConfig` requires `port` to be an integer from 1 to 65535, every limit, window and timeout to be a finite number greater than 0, and `maxDependencies` to be a positive integer. `parsePortEnv` returns 27431 for `undefined` or `""`, accepts only `/^[0-9]{1,5}$/` strings whose value is 1 to 65535, and throws `ScanApiConfigError` naming `PORT` and the rejected value otherwise (so `" 80"`, `"+80"`, `"80.0"`, `"8e1"` and `"0"` are rejected). `demoDir` defaults to `fileURLToPath(new URL("../../../../../demo/", import.meta.url))` evaluated in `src/scan/api/config.ts`, which is `<repo root>/demo`. `demo-snapshot.ts` (one level up) uses `../../../../demo/` and must resolve to the same directory; a smoke test compares the two.
+`validateScanApiConfig` requires `port` to be an integer from 1 to 65535, every limit, window and timeout to be a finite number greater than 0, and `maxDependencies` to be a positive integer. `parsePortEnv` returns 24817 for `undefined` or `""`, accepts only `/^[0-9]{1,5}$/` strings whose value is 1 to 65535, and throws `ScanApiConfigError` naming `PORT` and the rejected value otherwise (so `" 80"`, `"+80"`, `"80.0"`, `"8e1"` and `"0"` are rejected). `demoDir` defaults to `fileURLToPath(new URL("../../../../../demo/", import.meta.url))` evaluated in `src/scan/api/config.ts`, which is `<repo root>/demo`. `demo-snapshot.ts` (one level up) uses `../../../../demo/` and must resolve to the same directory; a smoke test compares the two.
 
 ### api/rate-limit.ts
 

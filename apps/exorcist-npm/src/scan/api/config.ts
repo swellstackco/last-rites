@@ -17,7 +17,7 @@ export interface ScanApiConfig {
   maxDependencies: number;
 }
 
-export const DEFAULT_PORT = 27431;
+export const DEFAULT_PORT = 24817;
 
 export const DEFAULT_SCAN_API_CONFIG: ScanApiConfig = {
   port: DEFAULT_PORT,

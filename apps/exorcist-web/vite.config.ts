@@ -4,7 +4,7 @@ import { defineConfig } from "vite";
 
 /** Same pattern as the Demo_Repo names (src/model/demo-repos.ts). */
 export const DEMO_NAME_PATTERN = /^[a-z0-9][a-z0-9-]{0,63}$/;
-export const API_TARGET = "http://127.0.0.1:27431";
+export const API_TARGET = "http://127.0.0.1:24817";
 
 /** Build-only CSP. frame-ancestors is ignored in a meta tag; set it in the nginx header. */
 export const CSP =

@@ -34,9 +34,9 @@ describe("vite config", () => {
   });
 
   it("proxies /api to the local scan API and binds loopback", () => {
-    expect(API_TARGET).toBe("http://127.0.0.1:27431");
+    expect(API_TARGET).toBe("http://127.0.0.1:24817");
     const server = (config as { server?: { host?: string; port?: number; strictPort?: boolean; proxy?: Record<string, { target: string }> } }).server;
-    expect(server?.proxy?.["/api"]?.target).toBe("http://127.0.0.1:27431");
+    expect(server?.proxy?.["/api"]?.target).toBe("http://127.0.0.1:24817");
     expect(server?.host).toBe("127.0.0.1");
     expect(server?.port).toBe(5173);
     expect(server?.strictPort).toBe(true);

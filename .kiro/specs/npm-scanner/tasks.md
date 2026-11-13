@@ -62,7 +62,7 @@ This plan implements the Npm_Scanner in `/apps/exorcist-npm/src/scan/` per the n
   - _Requirements: 9.7, 9.8_
 - [x] 2.16 Write client-ip tests in `api/client-ip.test.ts`: examples for each branch plus one fast-check property (`numRuns` 100 through `fc-runner.ts`) that `trustProxy: false` ignores any header value and `trustProxy: true` returns the trimmed last entry.
   - _Requirements: 9.7, 9.8_
-- [x] 2.17 Create `src/scan/api/config.ts`: `ScanApiConfig`, `DEFAULT_SCAN_API_CONFIG` (port 27431, scan 10 per 60, demo 120 per 60, timeout 60, `trustProxy` false, `demoDir` resolved to `<repo root>/demo`, `maxDependencies` 300), `ScanApiConfigError`, `validateScanApiConfig` (names the invalid field) and `parsePortEnv` (the only reader of the `PORT` value; accepts only `/^[0-9]{1,5}$/` in 1 to 65535).
+- [x] 2.17 Create `src/scan/api/config.ts`: `ScanApiConfig`, `DEFAULT_SCAN_API_CONFIG` (port 24817, scan 10 per 60, demo 120 per 60, timeout 60, `trustProxy` false, `demoDir` resolved to `<repo root>/demo`, `maxDependencies` 300), `ScanApiConfigError`, `validateScanApiConfig` (names the invalid field) and `parsePortEnv` (the only reader of the `PORT` value; accepts only `/^[0-9]{1,5}$/` in 1 to 65535).
   - _Requirements: 9.11, 10.2, 10.3, 10.4_
 - [x] 2.18 Write config tests in `api/config.test.ts`: each invalid field named in the error, defaults, `parsePortEnv` examples (`undefined`, `""`, `" 80"`, `"+80"`, `"80.0"`, `"8e1"`, `"0"`, `"65536"`), plus one fast-check property (`numRuns` 100) that `parsePortEnv` accepts exactly the digit strings with a value from 1 to 65535.
   - _Requirements: 9.11, 10.3, 10.4_

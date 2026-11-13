@@ -46,7 +46,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 - **Scan_Error**: a typed error value `{ code, message }`, with `code` one of `invalid_repo`, `invalid_ref`, `no_package_json`, `malformed_package_json`, `invalid_package_json_shape`, `too_many_dependencies`, `repo_fetch_failed`, `scan_timeout`, or `internal_error`.
 - **Canonical_Json**: the Scan_Report serialization with object keys in a fixed documented order and two-space indentation, ending in one newline.
 - **Max_Dependencies**: 300, the maximum number of distinct names in the root `package.json` across all Dependency_Kinds.
-- **Scan_Api_Config**: the configuration object for the Scan_Api: port (default 27431), per-IP scan rate-limit window and limit (default 10 per 60 seconds), per-IP demo rate-limit window and limit (default 120 per 60 seconds), request and scan timeout (default 60 seconds), `trustProxy` flag, demo directory, and Max_Dependencies.
+- **Scan_Api_Config**: the configuration object for the Scan_Api: port (default 24817), per-IP scan rate-limit window and limit (default 10 per 60 seconds), per-IP demo rate-limit window and limit (default 120 per 60 seconds), request and scan timeout (default 60 seconds), `trustProxy` flag, demo directory, and Max_Dependencies.
 - **Clock**: the injected time source exported by `apps/exorcist-npm/src/evidence`.
 - **Test_Support**: the existing helpers FakeHttp, fake-clock, fake-sleep, temp-cache, fc-runner, sabotage-runner, stage-harness, the `createRecorder` recorder pattern in `record-fixtures.ts`, and `no-network.setup.ts`.
 
@@ -200,7 +200,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 
 1. WHEN the server starts successfully, THE Scan_Api SHALL listen on the IPv4 loopback address `127.0.0.1` only and SHALL NOT accept connections addressed to any non-loopback interface of the host.
 2. THE Scan_Api SHALL read the listening port from the `PORT` environment variable in exactly one place in the codebase.
-3. IF `PORT` is unset or is an empty string, THEN THE Scan_Api SHALL listen on port 27431 (a deliberately non-obvious default).
+3. IF `PORT` is unset or is an empty string, THEN THE Scan_Api SHALL listen on port 24817 (a deliberately non-obvious default).
 4. IF `PORT` is set to a non-empty value that is not a base-10 integer from 1 to 65535 inclusive (including values with whitespace, a sign, a decimal point, or non-digit characters), THEN THE Scan_Api SHALL terminate startup with a non-zero exit status, SHALL write an error naming `PORT` and the rejected value to standard error, and SHALL NOT open any listening socket.
 5. IF the resolved port is already in use or cannot be bound, THEN THE Scan_Api SHALL terminate startup with a non-zero exit status and SHALL write an error naming the port to standard error.
 6. THE Scan_Api handler SHALL be constructible with an injected HttpClient, Clock, Sleep, and configuration, and SHALL be invocable in-process with a request object and return a response without opening a network socket.

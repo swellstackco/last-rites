@@ -9,7 +9,7 @@ It has two parts, split as `.kiro/steering/structure.md` requires:
 1. The Graveyard_View_Model, pure TypeScript in `/skeleton/src/graveyard/`, reusable by any adapter. It groups, orders, counts and explains results, builds the score breakdown, validates source links, and defines the data shape of the future Proof_Slot. It has no DOM, no I/O and no clock.
 2. The Graveyard_Page, a new workspace package `apps/exorcist-web` (Vite + TypeScript, no UI framework). It holds the repo picker, the live scan box, the API client, the routing, the DOM rendering, and the night theme.
 
-It consumes the existing Scan_Api (`POST /api/scan`, `GET /api/demo/:name`, listening on `127.0.0.1:27431`) and the existing Scan_Report (`ScanReport`, `ScannedDependency`, `parseReport`). It does not change the scan API, the scanner, or the death-score engine. It renders `death.calibration` (added by the death-score-calibration bugfix) as its own labelled row so the points visibly add up to the score.
+It consumes the existing Scan_Api (`POST /api/scan`, `GET /api/demo/:name`, listening on `127.0.0.1:24817`) and the existing Scan_Report (`ScanReport`, `ScannedDependency`, `parseReport`). It does not change the scan API, the scanner, or the death-score engine. It renders `death.calibration` (added by the death-score-calibration bugfix) as its own labelled row so the points visibly add up to the score.
 
 The proof harness is a later spec. This spec ships a disabled "Exorcism coming" placeholder on dead and dying tombstones and fixes the data shape that panel will take.
 
@@ -377,8 +377,8 @@ Behavioral decisions fixed here so design does not have to guess:
 
 #### Acceptance Criteria
 
-1. THE root `package.json` SHALL provide `npm run dev`, which starts the Scan_Api (the existing `serve` script of `exorcist-npm`, loopback port 27431) and the Vite dev server for `apps/exorcist-web`, stops both when interrupted, and prints the page URL.
-2. THE Vite dev server SHALL proxy `/api` to `http://127.0.0.1:27431`, so that the page uses same-origin paths and the Scan_Api needs no CORS headers.
+1. THE root `package.json` SHALL provide `npm run dev`, which starts the Scan_Api (the existing `serve` script of `exorcist-npm`, loopback port 24817) and the Vite dev server for `apps/exorcist-web`, stops both when interrupted, and prints the page URL.
+2. THE Vite dev server SHALL proxy `/api` to `http://127.0.0.1:24817`, so that the page uses same-origin paths and the Scan_Api needs no CORS headers.
 3. THE package `apps/exorcist-web` SHALL provide `build` (Vite production build into `dist/`), `typecheck` (`tsc --noEmit`) and `dev` scripts; `npm test` and `npm run typecheck` at the root SHALL NOT start a server or a build.
 4. THE production build SHALL be static files that nginx can serve with `/api/` proxied to the loopback Scan_Api; this spec SHALL NOT add an nginx file.
 5. THE final task SHALL append a dated entry to `docs/kiro-log.md` with the properties, the sabotage results, the manual visual checks of Requirement 16 that could or could not be run, and the judgment calls that matter.
