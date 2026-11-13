@@ -12,23 +12,23 @@ Terminology used in the tasks: a *Mutator* is part of the product (a deliberatel
 
 ### Phase 1: Scaffold and dependencies
 
-- [ ] 1.1 Edit `skeleton/package.json`: move `fast-check` from `devDependencies` to `dependencies` pinned to the installed exact version `3.23.2`, and add the exports `"./proof": "./src/proof/index.ts"`, `"./proof/runner": "./src/proof/runner/index.ts"` and `"./proof/testing": "./src/proof/testing.ts"`, keeping every existing export. Create the three entry files as empty re-export stubs so the paths resolve.
+- [x] 1.1 Edit `skeleton/package.json`: move `fast-check` from `devDependencies` to `dependencies` pinned to the installed exact version `3.23.2`, and add the exports `"./proof": "./src/proof/index.ts"`, `"./proof/runner": "./src/proof/runner/index.ts"` and `"./proof/testing": "./src/proof/testing.ts"`, keeping every existing export. Create the three entry files as empty re-export stubs so the paths resolve.
   - _Requirements: 11.2, 11.4_
-- [ ] 1.2 Run `npm install --save-dev --save-exact intersect@1.0.1 deep-diff@1.0.2 -w @graveyard-kit/exorcist-npm` and `npm install --save-exact typescript@5.9.3 -w @graveyard-kit/exorcist-npm` (this is the only task that needs the network; it updates `package-lock.json`). Confirm `apps/exorcist-npm/package.json` lists the three exact versions and that `npm ls typescript` still shows one hoisted `5.9.3`.
+- [x] 1.2 Run `npm install --save-dev --save-exact intersect@1.0.1 deep-diff@1.0.2 -w @graveyard-kit/exorcist-npm` and `npm install --save-exact typescript@5.9.3 -w @graveyard-kit/exorcist-npm` (this is the only task that needs the network; it updates `package-lock.json`). Confirm `apps/exorcist-npm/package.json` lists the three exact versions and that `npm ls typescript` still shows one hoisted `5.9.3`.
   - _Requirements: 11.1, 11.6_
-- [ ] 1.3 Edit `apps/exorcist-npm/package.json` to add the script `"exorcise": "vite-node src/exorcise/cli.ts --"` and nothing else (the `exports` field stays unchanged).
+- [x] 1.3 Edit `apps/exorcist-npm/package.json` to add the script `"exorcise": "vite-node src/exorcise/cli.ts --"` and nothing else (the `exports` field stays unchanged).
   - _Requirements: 10.1, 11.3_
-- [ ] 1.4 Create `demo/proofs/.gitkeep` and `demo/proofs/candidates/parse-server/.gitkeep` so the directories exist before the final task group.
+- [x] 1.4 Create `demo/proofs/.gitkeep` and `demo/proofs/candidates/parse-server/.gitkeep` so the directories exist before the final task group.
   - _Requirements: 9.8, 15.6_
-- [ ] 1.5 Run `npm run typecheck` and `npm test` and confirm they are still green with the stubs; confirm the root `vitest.config.ts` already includes `skeleton/src/**/*.test.ts` and `apps/*/src/**/*.test.ts` (no change expected).
+- [x] 1.5 Run `npm run typecheck` and `npm test` and confirm they are still green with the stubs; confirm the root `vitest.config.ts` already includes `skeleton/src/**/*.test.ts` and `apps/*/src/**/*.test.ts` (no change expected).
   - _Requirements: 17.6_
-- [ ] 1.6 Checkpoint after Phase 1 - Ensure all tests pass, ask the user if questions arise.
+- [x] 1.6 Checkpoint after Phase 1 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 2: Pure proof types, names and report codec (skeleton)
 
-- [ ] 2.1 Create `skeleton/src/proof/types.ts` with `Enclosing`, `ImportForm`, `CallSite`, `ImportSite`, `UsageSurfaceInput`, `UsageSurfaceResult`, `UsageSurface`, `ProofStatus`, `ProofErrorCode`, `Recommendation`, `ShapeResult`, `SabotageSummary`, `CounterexampleRecord`, `ProofAttempt` and `ProofReport`, exactly as in the design. No import of `fast-check`, Node or `apps/`.
+- [x] 2.1 Create `skeleton/src/proof/types.ts` with `Enclosing`, `ImportForm`, `CallSite`, `ImportSite`, `UsageSurfaceInput`, `UsageSurfaceResult`, `UsageSurface`, `ProofStatus`, `ProofErrorCode`, `Recommendation`, `ShapeResult`, `SabotageSummary`, `CounterexampleRecord`, `ProofAttempt` and `ProofReport`, exactly as in the design. No import of `fast-check`, Node or `apps/`.
   - _Requirements: 1.1, 1.2, 1.3, 1.4, 9.2, 9.3_
-- [ ] 2.2 Create `skeleton/src/proof/usage-surface.ts` with `compareSites` (file by UTF-16 code unit, then line, then column) and `sortSites` (returns a new array, stable).
+- [x] 2.2 Create `skeleton/src/proof/usage-surface.ts` with `compareSites` (file by UTF-16 code unit, then line, then column) and `sortSites` (returns a new array, stable).
   - _Requirements: 1.5_
 - [ ] 2.3 Write `skeleton/src/proof/usage-surface.test.ts`: examples for `compareSites` (code-unit order of `B` before `a`, line before column) plus one fast-check property (`numRuns` 100 through `fc-runner.ts`) that `sortSites` is a permutation, is sorted, and is idempotent.
   - _Requirements: 1.5_

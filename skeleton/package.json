@@ -7,13 +7,18 @@
     ".": "./src/death-score/index.ts",
     "./death-score": "./src/death-score/index.ts",
     "./graveyard": "./src/graveyard/index.ts",
-    "./graveyard/testing": "./src/graveyard/testing.ts"
+    "./graveyard/testing": "./src/graveyard/testing.ts",
+    "./proof": "./src/proof/index.ts",
+    "./proof/runner": "./src/proof/runner/index.ts",
+    "./proof/testing": "./src/proof/testing.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"
   },
+  "dependencies": {
+    "fast-check": "3.23.2"
+  },
   "devDependencies": {
-    "vitest": "^2.1.8",
-    "fast-check": "^3.23.2"
+    "vitest": "^2.1.8"
   }
 }

@@ -93,7 +93,8 @@ describe("graveyard-ui wiring (static)", () => {
         if (dep.startsWith("@graveyard-kit/")) {
           expect({ dep, version }).toEqual({ dep, version: "*" }); // workspace links
         } else if (dep === "vitest" || dep === "fast-check") {
-          expect({ dep, version }).toEqual({ dep, version: skeletonDeps[dep] }); // "as in the other packages"
+          // "as in the other packages"; proof-harness 1.1 pinned skeleton's fast-check exactly, so compare without a range prefix
+          expect({ dep, version: version.replace(/^\^/, "") }).toEqual({ dep, version: skeletonDeps[dep]?.replace(/^\^/, "") });
         } else {
           expect({ dep, exact: /^\d+\.\d+\.\d+$/.test(version) }).toEqual({ dep, exact: true });
         }
@@ -114,12 +115,16 @@ describe("graveyard-ui wiring (static)", () => {
       expect(manifests.exorcistNpm["exports"]).toEqual({ "./report": "./src/scan/report.ts" });
     });
 
-    it("the skeleton exports keep . and ./death-score and add only the graveyard paths", () => {
+    it("the skeleton exports keep . and ./death-score and add only the graveyard and proof paths", () => {
       expect(manifests.skeleton["exports"]).toEqual({
         ".": "./src/death-score/index.ts",
         "./death-score": "./src/death-score/index.ts",
         "./graveyard": "./src/graveyard/index.ts",
         "./graveyard/testing": "./src/graveyard/testing.ts",
+        // added by proof-harness 1.1
+        "./proof": "./src/proof/index.ts",
+        "./proof/runner": "./src/proof/runner/index.ts",
+        "./proof/testing": "./src/proof/testing.ts",
       });
     });
   });

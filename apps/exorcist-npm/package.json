@@ -11,16 +11,20 @@
     "record-fixtures": "vite-node src/evidence/test-support/record-fixtures.ts --",
     "demo-snapshot": "vite-node src/scan/demo-snapshot.ts --",
     "record-scan-fixtures": "vite-node src/scan/test-support/record-scan-fixtures.ts --",
-    "serve": "vite-node src/scan/serve-entry.ts"
+    "serve": "vite-node src/scan/serve-entry.ts",
+    "exorcise": "vite-node src/exorcise/cli.ts --"
   },
   "dependencies": {
     "@graveyard-kit/skeleton": "*",
-    "semver": "7.6.3"
+    "semver": "7.6.3",
+    "typescript": "5.9.3"
   },
   "devDependencies": {
     "@types/node": "22.10.2",
     "@types/semver": "7.5.8",
+    "deep-diff": "1.0.2",
     "fast-check": "^3.23.2",
+    "intersect": "1.0.1",
     "vitest": "^2.1.8"
   }
 }

@@ -132,3 +132,12 @@ Dated notes on how Kiro was used to build this project: which surface (IDE, CLI,
 ## 2026-11-13 graveyard-ui-polish task 6.4: manual browser check (Claude)
 
 Headless Chromium at 1352x761 and 375x812 (2x), demo parse-server, package ldapjs, after 3c1a49b. D1 centered column with gutters: fixed. D2 no bullets by count chips: fixed. D3 one grade label, full arch outline, no stray line: fixed. D4 Status/Points/Source cells no longer break mid-word ("Known", "registry.npmjs.org" intact): fixed. D5 calibration source reads "Engine rule: declared_abandoned": fixed. D6 one Total line on mobile: fixed. D7 page h1 shows no focus box on load: fixed (the panel heading still shows a ring in headless, where there was no prior mouse click; in Chrome after a click it shows none). No horizontal scroll at either width, 0 console errors.
+
+## 2026-11-13 proof-harness 1.1-1.6, 2.1, 2.2 (Kiro CLI)
+
+- 1.1: skeleton `fast-check` moved to `dependencies` at exact `3.23.2`; exports `./proof`, `./proof/runner`, `./proof/testing` added with stub entry files.
+- 1.2: installed `intersect@1.0.1`, `deep-diff@1.0.2` (dev) and `typescript@5.9.3` (dependency) in exorcist-npm; `npm ls typescript` shows one hoisted 5.9.3. Network used only here.
+- 1.3: `exorcise` script added. 1.4: `demo/proofs/` placeholders. 1.5: typecheck and tests green.
+- 2.1 pure types, 2.2 `compareSites`/`sortSites` written in `skeleton/src/proof/`.
+- Side effect: `apps/exorcist-web/src/smoke.test.ts` pinned the old graveyard-ui manifests (exact skeleton export list; web fast-check range equal to skeleton's). Updated it to allow the three proof exports and to compare fast-check ignoring a `^` prefix. Assertions were relaxed only for what 1.1 deliberately changed.
+- 1.6 checkpoint: suite 100 files, 909 tests pass, 1 todo. No fast-check counterexamples yet (no properties written so far).
