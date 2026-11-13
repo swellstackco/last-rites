@@ -1,0 +1,241 @@
+{
+  "repo": "mafintosh/pump",
+  "ref": "HEAD",
+  "scannedAt": "2026-11-13T03:47:41.639Z",
+  "dependencies": [
+    {
+      "name": "once",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "^1.3.1",
+      "resolvedVersion": "1.4.0",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 122
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 12
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 1
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/once",
+          "repoArchived": "https://github.com/isaacs/once",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/once",
+          "monthsSinceLastCommit": "https://github.com/isaacs/once",
+          "maintainerCount": "https://registry.npmjs.org/once",
+          "openVulnsNoFix": "https://osv.dev/list?q=once",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 29,
+        "grade": "ailing",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/once"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/isaacs/once"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "122",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/once"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "12",
+            "weight": 12,
+            "points": 4,
+            "status": "known",
+            "sourceUrl": "https://github.com/isaacs/once"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 10,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/once"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=once"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ]
+      }
+    },
+    {
+      "name": "end-of-stream",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "^1.1.0",
+      "resolvedVersion": "1.4.4",
+      "versionSource": "lockfile",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 16
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 2
+        },
+        "maintainerCount": {
+          "kind": "known",
+          "value": 1
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://registry.npmjs.org/end-of-stream",
+          "repoArchived": "https://github.com/mafintosh/end-of-stream",
+          "monthsSinceLastPublish": "https://registry.npmjs.org/end-of-stream",
+          "monthsSinceLastCommit": "https://github.com/mafintosh/end-of-stream",
+          "maintainerCount": "https://registry.npmjs.org/end-of-stream",
+          "openVulnsNoFix": "https://osv.dev/list?q=end-of-stream",
+          "knownReplacementExists": "https://github.com/e18e/module-replacements/tree/main/manifests"
+        }
+      },
+      "unknownReasons": {},
+      "evidenceWarnings": [],
+      "death": {
+        "score": 20,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/end-of-stream"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/mafintosh/end-of-stream"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "16",
+            "weight": 15,
+            "points": 10,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/end-of-stream"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "2",
+            "weight": 12,
+            "points": 1,
+            "status": "known",
+            "sourceUrl": "https://github.com/mafintosh/end-of-stream"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "1",
+            "weight": 12,
+            "points": 9,
+            "status": "known",
+            "sourceUrl": "https://registry.npmjs.org/end-of-stream"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=end-of-stream"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/e18e/module-replacements/tree/main/manifests"
+          }
+        ]
+      }
+    }
+  ],
+  "skipped": [],
+  "warnings": [],
+  "summary": {
+    "total": 2,
+    "skipped": 0,
+    "alive": 1,
+    "ailing": 1,
+    "dying": 0,
+    "dead": 0
+  }
+}

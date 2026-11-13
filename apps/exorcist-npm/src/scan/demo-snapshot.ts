@@ -123,7 +123,7 @@ export async function main(): Promise<void> {
 }
 
 // Never run under Vitest, and only when this file is the process entry point.
-if (!process.env["VITEST"] && /demo-snapshot\.[cm]?[jt]s$/.test(process.argv[1] ?? "")) {
+if (!process.env["VITEST"] && /(demo-snapshot\.[cm]?[jt]s|vite-node)$/.test(process.argv[1] ?? "")) {
   main().catch((e: unknown) => {
     console.error(e);
     process.exit(1);
