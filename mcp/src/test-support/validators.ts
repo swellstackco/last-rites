@@ -14,6 +14,11 @@ import { formatFiredLine, parseFiredLine } from "../hooks/fired-line.js";
 import { formatStopSummary } from "../hooks/stop-summary.js";
 import { deadNames, newDeadPackages } from "../hooks/new-dead.js";
 import { candidateTarget } from "../hooks/candidate-target.js";
+import { scanRepoImpl } from "../tools/scan-repo.js";
+import { deathReportImpl } from "../tools/death-report.js";
+import { usageSurfaceImpl } from "../tools/usage-surface.js";
+import { findReplacementImpl } from "../tools/find-replacement.js";
+import { generatePinTestsImpl } from "../tools/generate-pin-tests.js";
 import { obtainScanReport } from "../scan-source.js";
 import { checkOut, checkRuns, classifyRepoArgument, guardedScan, isNpmName } from "../guards.js";
 
@@ -85,3 +90,20 @@ export interface ScanSource {
 }
 
 export const REAL_SCAN_SOURCE: ScanSource = { obtainScanReport };
+
+/** The seam of Properties 2 to 6: the five tool implementations. */
+export interface Tools {
+  scanRepo: typeof scanRepoImpl;
+  deathReport: typeof deathReportImpl;
+  usageSurface: typeof usageSurfaceImpl;
+  findReplacement: typeof findReplacementImpl;
+  generatePinTests: typeof generatePinTestsImpl;
+}
+
+export const REAL_TOOLS: Tools = {
+  scanRepo: scanRepoImpl,
+  deathReport: deathReportImpl,
+  usageSurface: usageSurfaceImpl,
+  findReplacement: findReplacementImpl,
+  generatePinTests: generatePinTestsImpl,
+};

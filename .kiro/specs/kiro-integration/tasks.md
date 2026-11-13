@@ -163,22 +163,22 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - _Requirements: 7.1 to 7.6_
 - [x] 5.5 Create `mcp/src/tools/generate-pin-tests.ts` part 1 (no `out`): builds `CliArgs`, the in-memory `ReportFs` at `memory/proofs/dry-run/<package>.json`, calls `exorcise`, returns the report text and the summary item, maps exit 1 and 2.
   - _Requirements: 8.1, 8.2, 8.3, 8.5, 8.6, 8.7_
-- [ ] 5.6 Write `generate-pin-tests.test.ts` part 1 with the real harness over the `intersect-like` tree: an oracle-equivalent candidate gives `proved` with a sabotage line, a de-duplicating candidate gives a successful result with `counterexample` and the shrunk input, the `declared-only` tree gives `no-call-sites` with no candidate, call sites without a candidate give `usage_error`, a missing candidate file gives `invalid_candidate`, nothing is written anywhere.
+- [x] 5.6 Write `generate-pin-tests.test.ts` part 1 with the real harness over the `intersect-like` tree: an oracle-equivalent candidate gives `proved` with a sabotage line, a de-duplicating candidate gives a successful result with `counterexample` and the shrunk input, the `declared-only` tree gives `no-call-sites` with no candidate, call sites without a candidate give `usage_error`, a missing candidate file gives `invalid_candidate`, nothing is written anywhere.
   - _Requirements: 8.1 to 8.7_
-- [ ] 5.7 Extend `generate-pin-tests.ts` part 2 (with `out`): the node `ReportFs`, `isProofOutPath` guard, only `out` and its temporary sibling touched; write `generate-pin-tests.out.test.ts` with the recording `ReportFs`: first run creates attempt 1, second appends attempt 2, a report for a different usage surface gives `proof_failed` and writes nothing, an invalid existing report gives `proof_failed`, a bad `out` gives `invalid_out`.
+- [x] 5.7 Extend `generate-pin-tests.ts` part 2 (with `out`): the node `ReportFs`, `isProofOutPath` guard, only `out` and its temporary sibling touched; write `generate-pin-tests.out.test.ts` with the recording `ReportFs`: first run creates attempt 1, second appends attempt 2, a report for a different usage surface gives `proof_failed` and writes nothing, an invalid existing report gives `proof_failed`, a bad `out` gives `invalid_out`.
   - _Requirements: 8.4, 8.9, 3.7_
-- [ ] 5.8 Write `generate-pin-tests.reload.test.ts` with a real temporary candidate file (removed in `finally`) and the real candidate loader of `wire.ts`' candidate wrapper (`loadCandidateBusted`, a small exported function in `mcp/src/candidate-loader.ts` that hashes the source and calls the app's `loadCandidate(file, hash16)`): the first call proves, the file is edited to de-duplicate, the second call in the same process gives a counterexample.
+- [x] 5.8 Write `generate-pin-tests.reload.test.ts` with a real temporary candidate file (removed in `finally`) and the real candidate loader of `wire.ts`' candidate wrapper (`loadCandidateBusted`, a small exported function in `mcp/src/candidate-loader.ts` that hashes the source and calls the app's `loadCandidate(file, hash16)`): the first call proves, the file is edited to de-duplicate, the second call in the same process gives a counterexample.
   - _Requirements: 8.8_
-- [ ] 5.9 Create `mcp/src/tools/index.ts`: `registerTools(server, deps)` registering the five tools with name, title, description, zod shape, annotations and the `safely`-wrapped handler; export `TOOL_NAMES`.
+- [x] 5.9 Create `mcp/src/tools/index.ts`: `registerTools(server, deps)` registering the five tools with name, title, description, zod shape, annotations and the `safely`-wrapped handler; export `TOOL_NAMES`.
   - _Requirements: 2.1, 2.2_
-- [ ] 5.10 Create `mcp/src/test-support/arbitraries/tool-outcomes.ts`: generators of fake pipeline outcomes (success from `reportArb`, each error code), Usage_Surface results, e18e outcomes, and `exorcise` outcomes through the real `runProof` on the synthetic recipes of `@graveyard-kit/skeleton/proof/testing`.
+- [x] 5.10 Create `mcp/src/test-support/arbitraries/tool-outcomes.ts`: generators of fake pipeline outcomes (success from `reportArb`, each error code), Usage_Surface results, e18e outcomes, and `exorcise` outcomes through the real `runProof` on the synthetic recipes of `@graveyard-kit/skeleton/proof/testing`.
   - _Requirements: 18.1_
-- [ ] 5.11 Write the Property 2 test in `mcp/src/tools/output.p2.test.ts` (exporting `build(impl)` over the five tool `impl` functions).
+- [x] 5.11 Write the Property 2 test in `mcp/src/tools/output.p2.test.ts` (exporting `build(impl)` over the five tool `impl` functions).
   - **Property 2: Output contract with the existing validators**
   - **Validates: Requirements 4.8, 5.3, 5.5, 6.3, 7.3, 7.4, 7.6, 8.5, 9.1, 9.2**
-- [ ] 5.12 Create the Sabotage_List `kiro-p2.ts` (non-canonical JSON; `death_report` returning the dependency object; `usage_surface` without `attempts`; `replacement: null`; error without `isError`; whole summary kept).
+- [x] 5.12 Create the Sabotage_List `kiro-p2.ts` (non-canonical JSON; `death_report` returning the dependency object; `usage_surface` without `attempts`; `replacement: null`; error without `isError`; whole summary kept).
   - _Requirements: 18.3, 18.5_
-- [ ] 5.13 Write the Property 3 test in `mcp/src/tools/wrapper.p3.test.ts` (exporting `build(impl)`): each tool against the direct call of the wrapped function with counting Deps.
+- [x] 5.13 Write the Property 3 test in `mcp/src/tools/wrapper.p3.test.ts` (exporting `build(impl)`): each tool against the direct call of the wrapped function with counting Deps.
   - **Property 3: Thin-wrapper equivalence**
   - **Validates: Requirements 4.4, 4.5, 5.2, 5.3, 6.2, 7.2, 8.2, 8.3, 8.4**
 - [ ] 5.14 Create the Sabotage_List `kiro-p3.ts` (extra field `source: "mcp"`; different dependency order; pipeline called twice; different default seed; `ref` ignored; `importSites` dropped; evidence stage instead of `fetchE18e`).

@@ -1,4 +1,4 @@
-import { basename } from "node:path";
+import { basename, resolve } from "node:path";
 import { exorcise, type CliArgs, type ReportFs } from "@graveyard-kit/exorcist-npm/programmatic";
 import { z } from "zod";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
@@ -50,6 +50,19 @@ function memoryReportFs(): ReportFs & { written: string | undefined } {
   return fs;
 }
 
+/** The real ReportFs, remembering the text it was asked to write so the tool can return it. */
+function capturingReportFs(inner: ReportFs): ReportFs & { written: string | undefined } {
+  const fs = {
+    written: undefined as string | undefined,
+    readText: (path: string) => inner.readText(path),
+    async writeAtomic(path: string, text: string): Promise<void> {
+      await inner.writeAtomic(path, text);
+      fs.written = text;
+    },
+  };
+  return fs;
+}
+
 export async function generatePinTestsImpl(deps: ExorcistDeps, args: GeneratePinTestsArgs): Promise<CallToolResult> {
   const pkg = checkProofPackage(args.package);
   if (!pkg.ok) return errorResult(pkg.code, pkg.message);
@@ -63,21 +76,22 @@ export async function generatePinTestsImpl(deps: ExorcistDeps, args: GeneratePin
   }
   const runs = checkRuns(args.runs);
   if (!runs.ok) return errorResult(runs.code, runs.message);
+  let out: string | undefined;
   if (args.out !== undefined) {
     const o = checkOut(args.out);
     if (!o.ok) return errorResult(o.code, o.message);
-    // Writing to `out` is added with task 5.7.
-    return errorResult("invalid_out", "writing a report to out is not available yet");
+    out = resolve(deps.cwd, o.out);
   }
 
-  const fs = memoryReportFs();
+  // Without `out`: nothing exists and nothing is written. With `out`: the node ReportFs, only that path (Requirement 8.3, 8.4).
+  const fs = out === undefined ? memoryReportFs() : capturingReportFs(deps.proof.nodeReportFs);
   const lines: string[] = [];
   const cli: CliArgs = {
     repo: p.abs,
     package: pkg.name,
     runs: runs.runs,
     seed: DEFAULT_SEED,
-    out: `memory/proofs/dry-run/${pkg.name}.json`,
+    out: out ?? `memory/proofs/dry-run/${pkg.name}.json`,
     label: basename(p.abs),
     fresh: false,
   };
@@ -97,6 +111,6 @@ export async function generatePinTestsImpl(deps: ExorcistDeps, args: GeneratePin
   if (outcome.exit === 2) return errorResult("usage_error", outcome.message);
   if (outcome.exit === 1) return errorResult("proof_failed", outcome.message);
   if (fs.written === undefined) return errorResult("proof_failed", "the proof run produced no report");
-  const summary = lines.filter((l) => !l.startsWith("written: ")).join("\n");
+  const summary = (out === undefined ? lines.filter((l) => !l.startsWith("written: ")) : lines).join("\n");
   return textResult(fs.written, summary);
 }
