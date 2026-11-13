@@ -702,3 +702,13 @@ Decisions made without asking, for the owner to confirm or reverse:
 18. **CSP only in the production build**, as a `<meta>`; `frame-ancestors` cannot be set by a meta tag, so it is left to an nginx header (not added here).
 19. **`npm run dev`** is added at the root via a small `vite-node` launcher script, because `tech.md` promises the command and it does not exist yet.
 20. **Session-only data**: reports are kept in memory, never in browser storage.
+
+## Polish (bugfix)
+
+Seven presentation defects were fixed without changing any data. See `.kiro/specs/graveyard-ui-polish/` (bugfix.md, design.md, tasks.md).
+
+- The Tombstone has one grade label (`span.tomb-grade`); the `tomb-label` chip is gone.
+- The Content_Column (max 1200px, gutters) lives on `.screen`, not `.app`.
+- The Breakdown Total_Row has no empty cells (`th` colspan 3 + `td[data-label=Total]` colspan 2).
+- The calibration row Source reads "Engine rule: <rule>".
+- Focus: `:focus:not(:focus-visible)` and `h1[tabindex="-1"]:focus` remove the outline for script focus; the `:focus-visible` ring is unchanged.
