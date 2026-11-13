@@ -695,3 +695,8 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 
 - `KIRO_API_KEY` is still not set (kiro-cli 3.3.0 installed, bundle built, target checkout clean). Per 11.2, tasks 11.3 to 11.15 are NOT RUN; no transcript was faked and no code changed.
 - `npm run typecheck` clean; `npm test`: 204 files, 1809 passed, 1 todo. No counterexamples this run.
+
+## 2026-11-13: kiro-integration run, seventh attempt at 11.3
+
+- `KIRO_API_KEY` is still not set. Per 11.2, tasks 11.3 to 11.15 are NOT RUN; no transcript was faked and no code changed.
+- `npm run typecheck` clean; `CI=1 npm test`: 204 files, 1809 passed, 1 todo. No counterexamples this run.
