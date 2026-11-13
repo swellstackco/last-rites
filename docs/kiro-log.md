@@ -667,3 +667,9 @@ Real run against `../lastrites-work/parse-server` at `3402ee6` (checkout clean b
 - Checked the next unchecked task (11.3). It needs `kiro-cli` to run the agents headless, which needs `KIRO_API_KEY`. The variable is still not set here, so per 11.2 the real-use group (11.3 to 11.14) is NOT RUN. No transcript was faked and no code changed.
 - Verification: `npm run typecheck` clean; `CI=1 npm test` 204 files, 1809 passed, 1 todo.
 - Counterexamples from fast-check: none.
+
+## 2026-11-13: kiro-integration run, second attempt at 11.3
+
+- Re-checked: `KIRO_API_KEY` still not set (kiro-cli 3.3.0 installed, bundle built, `../lastrites-work/parse-server` present). Tasks 11.3 to 11.15 are NOT RUN; no transcript was faked, no code changed.
+- Verification: `npm run typecheck` clean; `npm test` 204 files, 1809 passed, 1 todo.
+- Counterexamples from fast-check: none.
