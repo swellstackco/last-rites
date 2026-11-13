@@ -14,6 +14,7 @@ import { formatFiredLine, parseFiredLine } from "../hooks/fired-line.js";
 import { formatStopSummary } from "../hooks/stop-summary.js";
 import { deadNames, newDeadPackages } from "../hooks/new-dead.js";
 import { candidateTarget } from "../hooks/candidate-target.js";
+import { obtainScanReport } from "../scan-source.js";
 import { checkOut, checkRuns, classifyRepoArgument, guardedScan, isNpmName } from "../guards.js";
 
 /** The seam of Property 8: the six Config_Validators. */
@@ -77,3 +78,10 @@ export interface Guards {
 }
 
 export const REAL_GUARDS: Guards = { classifyRepoArgument, isNpmName, checkRuns, checkOut, guardedScan };
+
+/** The seam of Property 7: demo routing in the scan source. */
+export interface ScanSource {
+  obtainScanReport: typeof obtainScanReport;
+}
+
+export const REAL_SCAN_SOURCE: ScanSource = { obtainScanReport };

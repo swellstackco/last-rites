@@ -144,24 +144,24 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - _Requirements: 18.1_
 - [x] 4.14 Write `mcp/src/scan-source.test.ts` examples: demo name, demo `owner/repo`, demo with `ref` goes live, invalid and missing snapshot, GitHub success and each pipeline error code, local success over the fixture checkout, local missing `package.json`, timeout, `ref` rules, zero HTTP requests for demos and rejected inputs.
   - _Requirements: 4.2 to 4.7_
-- [ ] 4.15 Write the Property 7 test in `mcp/src/scan-source.p7.test.ts` (exporting `build(impl)` over `obtainScanReport`), plus an example that every committed `demo/*.json` is accepted by `parseReport`.
+- [x] 4.15 Write the Property 7 test in `mcp/src/scan-source.p7.test.ts` (exporting `build(impl)` over `obtainScanReport`), plus an example that every committed `demo/*.json` is accepted by `parseReport`.
   - **Property 7: Demo routing**
   - **Validates: Requirements 4.2, 4.3, 3.3**
-- [ ] 4.16 Create the Sabotage_List `kiro-p7.ts` (fall back to a live scan on an invalid snapshot; serve unvalidated; route `owner/repo` with a `ref` to the demo; call pipeline and store; treat a missing snapshot as empty).
+- [x] 4.16 Create the Sabotage_List `kiro-p7.ts` (fall back to a live scan on an invalid snapshot; serve unvalidated; route `owner/repo` with a `ref` to the demo; call pipeline and store; treat a missing snapshot as empty).
   - _Requirements: 18.3_
-- [ ] 4.17 Checkpoint after Phase 4 - Ensure all tests pass, ask the user if questions arise.
+- [x] 4.17 Checkpoint after Phase 4 - Ensure all tests pass, ask the user if questions arise.
 
 ### Phase 5: The five tools
 
-- [ ] 5.1 Create `mcp/src/tools/scan-repo.ts` (zod shape, `impl(deps, args)`, description, annotations) and `scan-repo.test.ts` examples: demo, GitHub, local, each error code, output accepted by `parseReport`.
+- [x] 5.1 Create `mcp/src/tools/scan-repo.ts` (zod shape, `impl(deps, args)`, description, annotations) and `scan-repo.test.ts` examples: demo, GitHub, local, each error code, output accepted by `parseReport`.
   - _Requirements: 4.1 to 4.8, 2.2_
-- [ ] 5.2 Create `mcp/src/tools/death-report.ts` and `death-report.test.ts`: package found, `package_not_found`, `package_skipped` with the reason, `summary.total` 1, the dependency deep-equals the original, grade count correct, sources present.
+- [x] 5.2 Create `mcp/src/tools/death-report.ts` and `death-report.test.ts`: package found, `package_not_found`, `package_skipped` with the reason, `summary.total` 1, the dependency deep-equals the original, grade count correct, sources present.
   - _Requirements: 5.1 to 5.5_
-- [ ] 5.3 Create `mcp/src/tools/usage-surface.ts` and `usage-surface.test.ts` over the `intersect-like` and `declared-only` trees copied into `mcp/src/__fixtures__/trees/` (written for this repository, with a README stating they mimic call shapes): call sites and import sites present, `attempts: []`, warnings as a second item and capped at 50, `filesScanned` 0 is a success, no absolute path.
+- [x] 5.3 Create `mcp/src/tools/usage-surface.ts` and `usage-surface.test.ts` over the `intersect-like` and `declared-only` trees copied into `mcp/src/__fixtures__/trees/` (written for this repository, with a README stating they mimic call shapes): call sites and import sites present, `attempts: []`, warnings as a second item and capped at 50, `filesScanned` 0 is a success, no absolute path.
   - _Requirements: 6.1 to 6.6_
-- [ ] 5.4 Create `mcp/src/tools/find-replacement.ts` and `find-replacement.test.ts` with a fake `e18e`: match with `ReplacementInfo` (including an empty `replacements` list), `none`, a failure gives `evidence_unavailable` and never `none`, key order.
+- [x] 5.4 Create `mcp/src/tools/find-replacement.ts` and `find-replacement.test.ts` with a fake `e18e`: match with `ReplacementInfo` (including an empty `replacements` list), `none`, a failure gives `evidence_unavailable` and never `none`, key order.
   - _Requirements: 7.1 to 7.6_
-- [ ] 5.5 Create `mcp/src/tools/generate-pin-tests.ts` part 1 (no `out`): builds `CliArgs`, the in-memory `ReportFs` at `memory/proofs/dry-run/<package>.json`, calls `exorcise`, returns the report text and the summary item, maps exit 1 and 2.
+- [x] 5.5 Create `mcp/src/tools/generate-pin-tests.ts` part 1 (no `out`): builds `CliArgs`, the in-memory `ReportFs` at `memory/proofs/dry-run/<package>.json`, calls `exorcise`, returns the report text and the summary item, maps exit 1 and 2.
   - _Requirements: 8.1, 8.2, 8.3, 8.5, 8.6, 8.7_
 - [ ] 5.6 Write `generate-pin-tests.test.ts` part 1 with the real harness over the `intersect-like` tree: an oracle-equivalent candidate gives `proved` with a sabotage line, a de-duplicating candidate gives a successful result with `counterexample` and the shrunk input, the `declared-only` tree gives `no-call-sites` with no candidate, call sites without a candidate give `usage_error`, a missing candidate file gives `invalid_candidate`, nothing is written anywhere.
   - _Requirements: 8.1 to 8.7_
