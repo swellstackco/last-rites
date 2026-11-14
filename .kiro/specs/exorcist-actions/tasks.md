@@ -119,9 +119,9 @@ Terminology: a *Mutant* belongs to the proof of this app (five of them, Requirem
   - _Requirements: 14.1, 14.2, 14.3, 17.1, 17.2_
 - [x] 6.7 Create `src/proof/names.ts` (`actionProofName`, `repoProofName`) and `src/proof/attempt.ts` (`buildPinAttempt`, `buildContractAttempt`, `callSitesOf`, `buildProofReport`) per the mapping tables of the design; add `src/proof/index.ts`.
   - _Requirements: 14.4, 14.5, 14.6, 14.7, 14.8, 12.5, 13.6_
-- [ ] 6.8 Create `src/test-support/arbitraries/attempt.ts` and write `src/proof/attempt.p12.test.ts` for Property 12 (every outcome through `appendAttempt`, `serializeProofReport` and `parseProofReport`), exporting `build(impl)`, and the Sabotage_List `actions-p12.ts` with (a) to (h).
+- [x] 6.8 Create `src/test-support/arbitraries/attempt.ts` and write `src/proof/attempt.p12.test.ts` for Property 12 (every outcome through `appendAttempt`, `serializeProofReport` and `parseProofReport`), exporting `build(impl)`, and the Sabotage_List `actions-p12.ts` with (a) to (h).
   - _Requirements: 14.3, 14.4, 14.5, 14.6, 14.7, 14.8, 17.1, 17.2_
-- [ ] 6.9 Checkpoint after Phase 6 - Run `npm run typecheck` and `npm test -- apps/exorcist-actions`; ensure all tests pass, ask the user if questions arise.
+- [x] 6.9 Checkpoint after Phase 6 - Run `npm run typecheck` and `npm test -- apps/exorcist-actions`; ensure all tests pass, ask the user if questions arise.
   - _Requirements: 17.1_
 
 ### Phase 7: The exorcise command

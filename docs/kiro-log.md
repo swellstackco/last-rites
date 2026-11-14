@@ -724,3 +724,9 @@ The agent runs (11.3, 11.5, 11.8) were done by the operator (Claude Code) with t
 - Contract: `input_undeclared` and `output_missing` are decided per old `with` key only; the Input_Mapping entries of keys the use does not pass are ignored. `renamed` lists old names whose new name differs; a kept name is neither dropped nor renamed.
 - `rename-output` is applicable only when `<first ref>_x` is not itself declared (otherwise the Mutant would not be wrong). A check that throws leaves the Mutant a survivor. `sabotageFor` (mutants.ts) is the seam for "counterexample and error attempts have {0,0,[]}".
 - `actionProofName` keeps the literal rule (cut to 55, then `-` and 8 hex); an empty slug becomes `x`. `repoProofName` falls back to `repo`. `buildProofReport` takes the Action_Name and derives `package` itself. `candidate.source` is a line diff (`- old` / `+ new`, common head and tail trimmed, LCS on the middle).
+
+## 2026-11-15: exorcist-actions tasks 6.8 and 6.9 (batch 6, Kiro CLI, headless)
+
+- 6.8 done: `test-support/arbitraries/attempt.ts`, `test-support/properties/actions-p12.ts`, `proof/attempt.p12.test.ts` (Property 12) and Sabotage_List `sabotage/actions-p12.ts` (8 entries (a) to (h), all caught). Property 12 checks the real `appendAttempt` / `serializeProofReport` / `parseProofReport` round trip, `weak`, sabotage numbers, call sites against an independent model, the mapping-table fields, and both name functions.
+- 6.9 checkpoint (Phase 6 complete): `npm run typecheck` clean; `npx vitest run apps/exorcist-actions` green (18 files, 108 tests).
+- Stopped at the Phase 6 checkpoint as the batch rule says (2 tasks, fewer than 7). Phase 7 is next.
