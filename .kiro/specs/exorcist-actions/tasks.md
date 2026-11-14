@@ -105,19 +105,19 @@ Terminology: a *Mutant* belongs to the proof of this app (five of them, Requirem
 
 ### Phase 6: The proofs
 
-- [ ] 6.1 Create `src/proof/pin-check.ts`: `checkPin` written independently of `pinUse` (line table comparison, expected pinned line from the pieces, re-inventory, deterministic first violation).
+- [x] 6.1 Create `src/proof/pin-check.ts`: `checkPin` written independently of `pinUse` (line table comparison, expected pinned line from the pieces, re-inventory, deterministic first violation).
   - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.6_
-- [ ] 6.2 Write `src/proof/pin-check.p8.test.ts` for Property 8 (real `pinAll` for the passing side, the tamper list for the failing side, the reference model), exporting `build(impl)`, and the Sabotage_List `actions-p8.ts` with (a) to (g).
+- [x] 6.2 Write `src/proof/pin-check.p8.test.ts` for Property 8 (real `pinAll` for the passing side, the tamper list for the failing side, the reference model), exporting `build(impl)`, and the Sabotage_List `actions-p8.ts` with (a) to (g).
   - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.6, 17.1, 17.2_
-- [ ] 6.3 Create `src/proof/contract-check.ts`: `checkContract` per the design, with the fixed violation order and the `dropped`, `renamed` and `required` lists.
+- [x] 6.3 Create `src/proof/contract-check.ts`: `checkContract` per the design, with the fixed violation order and the `dropped`, `renamed` and `required` lists.
   - _Requirements: 13.1, 13.2, 13.3, 13.4, 13.5_
-- [ ] 6.4 Write `src/proof/contract-check.p9.test.ts` for Property 9 with the reference implementation, exporting `build(impl)`, and the Sabotage_List `actions-p9.ts` with (a) to (h).
+- [x] 6.4 Write `src/proof/contract-check.p9.test.ts` for Property 9 with the reference implementation, exporting `build(impl)`, and the Sabotage_List `actions-p9.ts` with (a) to (h).
   - _Requirements: 13.1, 13.2, 13.3, 13.4, 13.5, 17.1, 17.2_
-- [ ] 6.5 Create `src/proof/mutants.ts`: the five Mutants and `runSabotage`, producing the skeleton `SabotageSummary`.
+- [x] 6.5 Create `src/proof/mutants.ts`: the five Mutants and `runSabotage`, producing the skeleton `SabotageSummary`.
   - _Requirements: 14.1, 14.2, 14.3_
-- [ ] 6.6 Write `src/proof/mutants.p10.test.ts` for Property 10 (real checks on passing cases; a lax check for the survivor case), exporting `build(impl)`, and the Sabotage_List `actions-p10.ts` with (a) to (g).
+- [x] 6.6 Write `src/proof/mutants.p10.test.ts` for Property 10 (real checks on passing cases; a lax check for the survivor case), exporting `build(impl)`, and the Sabotage_List `actions-p10.ts` with (a) to (g).
   - _Requirements: 14.1, 14.2, 14.3, 17.1, 17.2_
-- [ ] 6.7 Create `src/proof/names.ts` (`actionProofName`, `repoProofName`) and `src/proof/attempt.ts` (`buildPinAttempt`, `buildContractAttempt`, `callSitesOf`, `buildProofReport`) per the mapping tables of the design; add `src/proof/index.ts`.
+- [x] 6.7 Create `src/proof/names.ts` (`actionProofName`, `repoProofName`) and `src/proof/attempt.ts` (`buildPinAttempt`, `buildContractAttempt`, `callSitesOf`, `buildProofReport`) per the mapping tables of the design; add `src/proof/index.ts`.
   - _Requirements: 14.4, 14.5, 14.6, 14.7, 14.8, 12.5, 13.6_
 - [ ] 6.8 Create `src/test-support/arbitraries/attempt.ts` and write `src/proof/attempt.p12.test.ts` for Property 12 (every outcome through `appendAttempt`, `serializeProofReport` and `parseProofReport`), exporting `build(impl)`, and the Sabotage_List `actions-p12.ts` with (a) to (h).
   - _Requirements: 14.3, 14.4, 14.5, 14.6, 14.7, 14.8, 17.1, 17.2_
