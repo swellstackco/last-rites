@@ -80,13 +80,7 @@ export function renderHeader(opts: HeaderOptions): HeaderHandle {
           "This file's summary disagrees with its dependencies. The counts shown are computed from the dependencies.",
         )
       : null,
-    header.rangesOnly
-      ? h(
-          "p",
-          { class: "note" },
-          "Versions come from declared ranges because no package-lock.json was read. Yarn and pnpm lockfiles are not read in v1.",
-        )
-      : null,
+    header.rangesOnly && header.lockfileNote !== undefined ? h("p", { class: "note" }, header.lockfileNote) : null,
     header.warnings.length > 0
       ? h(
           "div",

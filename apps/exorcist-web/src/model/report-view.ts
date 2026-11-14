@@ -1,4 +1,5 @@
 import type { GradeBand } from "@last-rites/skeleton";
+import type { Ecosystem } from "@last-rites/skeleton/proof";
 import { buildGraveyard } from "@last-rites/skeleton/graveyard";
 import type { GraveyardView } from "@last-rites/skeleton/graveyard";
 import type { ScanReport, ScannedDependency, SkippedEntry } from "@last-rites/exorcist-npm/report";
@@ -18,7 +19,14 @@ export interface SummaryHeader {
   rangesOnly: boolean;
   /** report.summary differs from the computed counts or total. */
   summaryDisagrees: boolean;
+  ecosystem: Ecosystem;
+  /** The Lockfile_Note for this ecosystem; present only when `rangesOnly`. */
+  lockfileNote?: string;
 }
+
+export const NPM_RANGES_NOTE =
+  "Versions come from declared ranges because no package-lock.json was read. Yarn and pnpm lockfiles are not read in v1.";
+export const ACTIONS_RANGES_NOTE = "Refs come from workflow uses: lines.";
 
 export interface ReportView {
   header: SummaryHeader;
@@ -48,6 +56,8 @@ export function buildSummaryHeader(
     s.ailing !== counts.ailing ||
     s.dying !== counts.dying ||
     s.dead !== counts.dead;
+  const ecosystem: Ecosystem = report.ecosystem ?? "npm";
+  const rangesOnly = report.dependencies.length > 0 && report.dependencies.every((d) => d.versionSource === "range");
   return {
     repo: report.repo,
     refLabel: report.ref === "HEAD" ? "default branch (HEAD)" : report.ref,
@@ -57,8 +67,10 @@ export function buildSummaryHeader(
     total: graveyard.total,
     skipped: report.skipped.length,
     warnings: [...report.warnings],
-    rangesOnly: report.dependencies.length > 0 && report.dependencies.every((d) => d.versionSource === "range"),
+    rangesOnly,
     summaryDisagrees,
+    ecosystem,
+    ...(rangesOnly ? { lockfileNote: ecosystem === "github-actions" ? ACTIONS_RANGES_NOTE : NPM_RANGES_NOTE } : {}),
   };
 }
 

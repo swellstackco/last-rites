@@ -4,7 +4,7 @@ import type { PackageSignals, SignalName, SignalValue } from "@last-rites/skelet
 import { hostileUrlArb } from "@last-rites/skeleton/graveyard/testing";
 import type { ScanReport } from "@last-rites/exorcist-npm/report";
 import type { ProofReport } from "@last-rites/skeleton/proof";
-import { buildProofReport } from "./build-proof-report.js";
+import { buildProofReport, buildProofText } from "./build-proof-report.js";
 import type { ProofKind } from "./build-proof-report.js";
 import { buildReport, tamperUrl } from "./build-report.js";
 import type { FixtureDependency } from "./build-report.js";
@@ -272,3 +272,48 @@ export const snapshotSetArb: fc.Arbitrary<{ snapshots: SnapshotCase[]; order: nu
   ),
   order: fc.shuffledSubarray([0, 1, 2, 3], { minLength: 4, maxLength: 4 }),
 });
+
+// ---- graveyard-ui-actions generators --------------------------------------------------------------------------
+
+const ACTION_SEGMENT = fc.oneof(
+  { weight: 3, arbitrary: fc.constantFrom("actions", "actions-rs", "docker", "DeterminateSystems", "Swatinem", "softprops", "peter-evans", "mikepenz") },
+  { weight: 3, arbitrary: fc.stringOf(fc.constantFrom(..."abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_."), { minLength: 1, maxLength: 12 }).filter((s) => /^[A-Za-z0-9]/.test(s)) },
+);
+
+/** Action_Names (`owner/repo[/sub/path]`) shaped like the real `uses:` values of demo/nixpacks-actions.json, plus upper case, dots and sub paths. */
+export const actionNameArb: fc.Arbitrary<string> = fc.oneof(
+  { weight: 3, arbitrary: fc.constantFrom("actions/checkout", "actions-rs/toolchain", "actions-rs/cargo", "DeterminateSystems/nix-installer-action", "Swatinem/rust-cache", "docker/build-push-action", "softprops/action-gh-release", "github/codeql-action/analyze", "owner/repo.name/sub/path") },
+  { weight: 4, arbitrary: fc.tuple(ACTION_SEGMENT, ACTION_SEGMENT).map(([o, r]) => `${o}/${r}`) },
+  { weight: 2, arbitrary: fc.tuple(ACTION_SEGMENT, ACTION_SEGMENT, fc.array(ACTION_SEGMENT, { minLength: 1, maxLength: 2 })).map(([o, r, p]) => [o, r, ...p].join("/")) },
+);
+
+export interface ActionsProofCase {
+  /** A github-actions Scan_Report (every version a range, as for refs read from `uses:` lines). */
+  report: ScanReport;
+  /** proof name -> report text, for the subset of dependencies that has a report. */
+  store: Record<string, string>;
+}
+
+/**
+ * github-actions reports of 1-8 distinct Action_Names with mixed grades and a random proof store keyed by `nameOf`
+ * (the Action_Proof_Name; the caller supplies an independent model, so the generator needs no Node built-in).
+ */
+export function actionsReportArb(nameOf: (actionName: string) => string): fc.Arbitrary<ActionsProofCase> {
+  return fc
+    .array(fc.tuple(actionNameArb, fc.constantFrom<GradeBand>("dead", "dying", "ailing", "alive"), fc.boolean()), { minLength: 1, maxLength: 8 })
+    .map((rows) => {
+      const seen = new Set<string>();
+      const names = new Set<string>();
+      const deps: FixtureDependency[] = [];
+      const store: Record<string, string> = {};
+      for (const [name, grade, present] of rows) {
+        const proofName = nameOf(name);
+        if (seen.has(name) || names.has(proofName)) continue;
+        seen.add(name);
+        names.add(proofName);
+        deps.push({ name, signals: GRADE_SIGNALS[grade], versionSource: "range" });
+        if (present) store[proofName] = buildProofText("proved", { repo: "nixpacks-actions", package: proofName });
+      }
+      return { report: { ...buildReport(deps, { repo: "owner/repo" }), ecosystem: "github-actions" as const }, store };
+    });
+}

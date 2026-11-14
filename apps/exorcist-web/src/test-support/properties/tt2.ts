@@ -50,15 +50,26 @@ export function expectedProofFacts(c: ProofCase): ProofFacts {
     headline: ` Attempt ${a.attempt}${a.candidateName !== undefined ? `: ${a.candidateName}` : ""}`.trim(),
     badge: a.badgeLabel,
     badgeKind: a.badge,
-    lines: [`${a.runsText}, ${a.seedText}`, a.sabotageLine, ...(a.errorText !== undefined ? [a.errorText] : [])],
+    lines: [
+      `${a.runsText}, ${a.seedText}`,
+      a.sabotageLine,
+      ...(a.kindLine !== undefined ? [a.kindLine] : []),
+      ...(a.coverageText !== undefined ? [a.coverageText] : []),
+      ...(a.errorText !== undefined ? [a.errorText] : []),
+    ],
     heading: a.counterexample ? COPY.proofCounterexampleHeading : null,
-    blocks: a.counterexample
+    blocks: [
+      ...(a.rewrite !== undefined
+        ? [{ label: "", text: a.rewrite.lines.join("\n") }]
+        : []),
+      ...(a.counterexample
       ? [
           { label: "Shrunk input", text: a.counterexample.input },
           { label: "Old output", text: a.counterexample.oldOutput },
           { label: "New output", text: a.counterexample.newOutput },
         ]
-      : [],
+      : []),
+    ],
   }));
   return {
     heading: "Proof",
@@ -108,12 +119,32 @@ export async function checkProofFacts(c: ProofCase, mutate?: ToeMutate): Promise
     const actual = toeFacts(page.document.body).proof;
     if (actual === null) fail("no Proof section in the open panel");
 
+    // Pin and contract attempts (graveyard-ui-actions B1) add a kind line, a coverage line and a rewrite block that the
+    // frozen Reference_Views do not have; they are checked against the report in `expectedProofFacts`, and removed here.
+    const shown = actual as ProofFacts;
+    const withoutKind: ProofFacts =
+      c.kind === "report"
+        ? {
+            ...shown,
+            attempts: shown.attempts.map((att, i) => {
+              const v = buildProofView(c.report).attempts[i];
+              if (v?.kind === undefined) return att;
+              const drop = new Set([v.kindLine, v.coverageText]);
+              const rewrite = v.rewrite?.lines.join("\n");
+              return {
+                ...att,
+                lines: att.lines.filter((l) => !drop.has(l)),
+                blocks: att.blocks.filter((b, j) => !(j === 0 && b.label === "" && b.text === rewrite)),
+              };
+            }),
+          }
+        : shown;
     const reference =
       c.kind === "report"
         ? renderReferenceProofFacts({ status: "report", view: buildProofView(c.report) })
         : renderReferenceProofFacts(c.kind === "invalid" ? { status: "unreadable" } : { status: "coming_soon" });
-    if (!same(actual, reference)) {
-      fail(`proof facts differ from the Reference_Views:\nactual=${JSON.stringify(actual)}\nreference=${JSON.stringify(reference)}`);
+    if (!same(withoutKind, reference)) {
+      fail(`proof facts differ from the Reference_Views:\nactual=${JSON.stringify(withoutKind)}\nreference=${JSON.stringify(reference)}`);
     }
     const want = expectedProofFacts(c);
     if (!same(actual, want)) {

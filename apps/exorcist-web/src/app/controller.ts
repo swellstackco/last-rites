@@ -1,7 +1,8 @@
 // Controller: the Phase state machine. Owns requests, the cooldown, focus on phase change,
 // the Detail_Panel and document.title. Every dependency (api, timers, clock, location) is injected.
 import type { GradeBand } from "@last-rites/skeleton";
-import { isProofName } from "@last-rites/skeleton/proof";
+import type { Ecosystem } from "@last-rites/skeleton/proof";
+import { isProofName, proofNameFor } from "@last-rites/skeleton/proof";
 import { buildProofView } from "@last-rites/skeleton/graveyard";
 import type { Grave } from "@last-rites/skeleton/graveyard";
 import type { ScannedDependency } from "@last-rites/exorcist-npm/report";
@@ -223,13 +224,17 @@ export function createController(deps: ControllerDeps): Controller {
   };
 
   /** The proof to show when a panel opens, starting the request on the first open. */
-  const proofFor = (source: Source, grave: Grave<ScannedDependency>): ProofShown | undefined => {
+  const proofFor = (
+    source: Source,
+    grave: Grave<ScannedDependency>,
+    ecosystem: Ecosystem,
+  ): ProofShown | undefined => {
     const grade = grave.record.death.grade;
     if (source.kind !== "demo") return undefined;
     // Ailing and alive packages show a Proof_Section only for a readable report (no placeholder, no loading line).
     const reportOnly = grade === "ailing" || grade === "alive";
-    const pkg = grave.record.name;
-    if (!isProofName(source.name) || !isProofName(pkg)) return undefined;
+    const pkg = proofNameFor(ecosystem, grave.record.name);
+    if (!isProofName(source.name) || pkg === undefined) return undefined;
     const key = `${source.name}/${pkg}`;
     const settled = proofsSettled.get(key);
     if (settled) return reportOnly && settled.state.status !== "report" ? undefined : settled;
@@ -300,8 +305,10 @@ export function createController(deps: ControllerDeps): Controller {
     const gy = graveyard;
     const heading = phaseHeading;
     current.openKey = pkg;
-    const proof = proofFor(current.source, grave);
+    const ecosystem = current.view.header.ecosystem;
+    const proof = proofFor(current.source, grave, ecosystem);
     detail.open(grave, {
+      ecosystem,
       ...(proof ? { proof } : {}),
       opener: gy.tombstoneFor(grave.key),
       fallbacks: () => [gy.groupHeading(grave.record.death.grade as GradeBand), heading],

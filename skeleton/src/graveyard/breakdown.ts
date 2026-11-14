@@ -1,5 +1,5 @@
 import { toGrade } from "../death-score/index.js";
-import type { DeathScoreCalibration, SignalPart } from "../death-score/index.js";
+import type { DeathScoreCalibration, SignalName, SignalPart } from "../death-score/index.js";
 import { safeHttpUrl, hostOf } from "./safe-url.js";
 import { formatRawValue, SIGNAL_INFO } from "./signal-info.js";
 import type {
@@ -27,12 +27,18 @@ function ownReason(record: GraveRecord, part: SignalPart): UnknownReasonView | u
   return reasons[part.signal];
 }
 
-function signalRow(record: GraveRecord, part: SignalPart): SignalRow {
+export interface BreakdownOptions {
+  /** Replaces the label of a signal row (default: SIGNAL_INFO). */
+  labels?: Partial<Record<SignalName, string>>;
+}
+
+function signalRow(record: GraveRecord, part: SignalPart, options?: BreakdownOptions): SignalRow {
   const info = SIGNAL_INFO[part.signal];
+  const override = options?.labels !== undefined && Object.hasOwn(options.labels, part.signal) ? options.labels[part.signal] : undefined;
   const row: SignalRow = {
     kind: "signal",
     signal: part.signal,
-    label: info.label,
+    label: override ?? info.label,
     explanation: info.explanation,
     rawValue: part.rawValue,
     rawDisplay: formatRawValue(part.signal, part.rawValue, part.status),
@@ -57,9 +63,9 @@ function signalRow(record: GraveRecord, part: SignalPart): SignalRow {
 }
 
 /** Shows what the record says and whether it adds up. Never adjusts a number. */
-export function buildBreakdown(record: GraveRecord): Breakdown {
+export function buildBreakdown(record: GraveRecord, options?: BreakdownOptions): Breakdown {
   const { death } = record;
-  const rows: BreakdownRow[] = death.parts.map((part) => signalRow(record, part));
+  const rows: BreakdownRow[] = death.parts.map((part) => signalRow(record, part, options));
   if (death.calibration !== undefined) {
     const calibrationRow: CalibrationRow = {
       kind: "calibration",

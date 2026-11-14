@@ -2,7 +2,9 @@
 import { GRADE_INFO, buildBreakdown, proofSlotFor } from "@last-rites/skeleton/graveyard";
 import type { Grave, ProofSlot, ProofState } from "@last-rites/skeleton/graveyard";
 import type { ScannedDependency } from "@last-rites/exorcist-npm/report";
-import { h } from "../dom/h.js";
+import type { Ecosystem } from "@last-rites/skeleton/proof";
+import { h, safeHref } from "../dom/h.js";
+import { packageHref } from "../model/package-link.js";
 import { restoreFocus, setInertAround, trapTab } from "../dom/focus.js";
 import { renderBreakdown } from "./breakdown.js";
 import { renderProofSlot } from "./proof-slot.js";
@@ -24,6 +26,8 @@ export interface ProofShown {
 }
 
 export interface OpenOptions {
+  /** The ecosystem of the report; absent means npm. */
+  ecosystem?: Ecosystem;
   /** Initial proof state for a dead or dying package; defaults to "Exorcism coming". */
   proof?: ProofShown;
   /** The control that opened the panel; focus returns to it. Defaults to the active element. */
@@ -59,12 +63,42 @@ function slotFor(grave: Grave<ScannedDependency>, proof?: ProofShown): ProofSlot
   return proof?.state.status === "report" ? { package: grave.record.name, state: proof.state } : undefined;
 }
 
-function renderContent(grave: Grave<ScannedDependency>, onClose: () => void, proof?: ProofShown): HTMLElement[] {
+function repositoryFact(ecosystem: Ecosystem | undefined, name: string): HTMLElement | null {
+  const link = packageHref(ecosystem, name);
+  const href = safeHref(link?.["href"]);
+  if (!link || !href) return null;
+  return h(
+    "div",
+    null,
+    h("p", { class: "muted" }, "Repository"),
+    h(
+      "p",
+      null,
+      h(
+        "a",
+        {
+          href,
+          target: "_blank",
+          rel: "noopener noreferrer",
+          "aria-label": `Repository for ${name}: ${link.host}, opens in a new tab`,
+        },
+        href.replace(/^https:\/\//, ""),
+      ),
+    ),
+  );
+}
+
+function renderContent(
+  grave: Grave<ScannedDependency>,
+  onClose: () => void,
+  proof?: ProofShown,
+  ecosystem?: Ecosystem,
+): HTMLElement[] {
   const dep = grave.record;
   const death = dep.death;
   const info = GRADE_INFO[death.grade];
   const id = graveId(grave);
-  const breakdown = buildBreakdown(dep);
+  const breakdown = buildBreakdown(dep, ecosystem === "github-actions" ? { labels: { deprecated: "Deprecated" } } : undefined);
   const slot = slotFor(grave, proof);
 
   const closeButton = h(
@@ -110,6 +144,7 @@ function renderContent(grave: Grave<ScannedDependency>, onClose: () => void, pro
               : dep.replacement.type,
           )
         : null,
+      repositoryFact(ecosystem, dep.name),
     ),
     renderBreakdown(breakdown, dep),
     dep.evidenceWarnings.length > 0
@@ -170,7 +205,7 @@ export function createDetail(options: DetailOptions): DetailHandle {
       }
       fallbacks = openOptions.fallbacks ?? fallbacks;
       grave = next;
-      panel.replaceChildren(...renderContent(next, request, openOptions.proof));
+      panel.replaceChildren(...renderContent(next, request, openOptions.proof, openOptions.ecosystem));
       panel.scrollTop = 0;
       setInertAround(options.appRoot, true);
       backdrop.hidden = false;

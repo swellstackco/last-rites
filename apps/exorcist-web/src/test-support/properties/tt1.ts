@@ -57,7 +57,11 @@ export function expectedFacts(report: ScanReport, openName: string): ExpectedFac
         ? ["This file's summary disagrees with its dependencies. The counts shown are computed from the dependencies."]
         : []),
       ...(rangesOnly
-        ? ["Versions come from declared ranges because no package-lock.json was read. Yarn and pnpm lockfiles are not read in v1."]
+        ? [
+            report.ecosystem === "github-actions"
+              ? "Refs come from workflow uses: lines."
+              : "Versions come from declared ranges because no package-lock.json was read. Yarn and pnpm lockfiles are not read in v1.",
+          ]
         : []),
     ],
     warnings: [...report.warnings],
@@ -148,7 +152,22 @@ export async function checkScanFacts(report: ScanReport, openIndex: number, muta
     const actual = toeFacts(page.document.body);
     if (actual.breakdown === null) fail("no breakdown in the open panel");
     const reference = renderReferenceToeFacts(report, dep.name);
+    // graveyard-ui-actions B2: a github-actions report has its own Lockfile_Note (checked in `expectedFacts` below);
+    // the frozen reference only knows the npm sentence, so the reference takes the note the page is expected to show.
     const a = { ...actual, proof: null };
+    if (report.ecosystem === "github-actions") {
+      const note = expectedFacts(report, dep.name).header.notices.filter((n) => n.startsWith("Refs come from"));
+      // graveyard-ui-actions B3: the "Deprecated on npm" label is "Deprecated" for a github-actions report.
+      if (reference.breakdown) {
+        reference.breakdown = JSON.parse(JSON.stringify(reference.breakdown).replaceAll("Deprecated on npm", "Deprecated"));
+      }
+      if (reference.header) {
+        reference.header.notices = [
+          ...reference.header.notices.filter((n) => !n.startsWith("Versions come from")),
+          ...note,
+        ];
+      }
+    }
     if (!same(a, reference)) {
       fail(`facts differ from the Reference_Views:\nactual=${JSON.stringify(a)}\nreference=${JSON.stringify(reference)}`);
     }

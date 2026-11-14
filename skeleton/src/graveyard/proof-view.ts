@@ -1,5 +1,5 @@
 // Requirement 12: the pure view model of a Proof_Report. No markup, no DOM, no I/O; the input is never modified.
-import type { ProofAttempt, ProofReport, Recommendation } from "../proof/types.js";
+import type { ProofAttempt, ProofReport, Recommendation, ShapeResult } from "../proof/types.js";
 
 export type ProofBadge = "proved" | "weak" | "counterexample" | "no_call_sites" | "error";
 
@@ -20,6 +20,11 @@ export interface AttemptView {
     newProjected: string;
   };
   errorText?: string;
+  /** Only for a Pin_Kind or Contract_Kind attempt (github-actions); absent for every other attempt. */
+  kind?: "pin" | "contract";
+  kindLine?: string;
+  coverageText?: string;
+  rewrite?: { lines: string[]; moreCount: number };
 }
 
 export interface ProofView {
@@ -36,6 +41,12 @@ export interface ProofView {
 }
 
 export const MAX_CALL_SITES_SHOWN = 50;
+export const MAX_REWRITE_LINES = 40;
+
+const KIND_LINES = {
+  pin: "Pin check: refs pinned to a commit",
+  contract: "Swap contract: inputs of the old action mapped to the replacement",
+} as const;
 
 export const BADGE_LABELS: Readonly<Record<ProofBadge, string>> = {
   proved: "Proved",
@@ -68,6 +79,18 @@ function badgeOf(a: ProofAttempt): ProofBadge {
 const sabotageLineOf = (a: ProofAttempt): string =>
   a.status === "proved" ? `Sabotage: ${a.sabotage.caught} of ${a.sabotage.applied} broken migrations caught` : NOT_RUN;
 
+function kindOf(a: ProofAttempt): "pin" | "contract" | undefined {
+  const only = a.shapes.length === 1 ? a.shapes[0] : undefined;
+  return only?.id === "pin" || only?.id === "contract" ? only.id : undefined;
+}
+
+function coverageTextOf(shape: ShapeResult, kind: "pin" | "contract"): string | undefined {
+  const parts = Object.entries(shape.coverage).map(([k, n]) =>
+    kind === "pin" && (k === "files" || k === "uses") ? `${n} ${k}` : `${k} ${n}`,
+  );
+  return parts.length === 0 ? undefined : parts.join(", ");
+}
+
 function attemptView(a: ProofAttempt): AttemptView {
   const badge = badgeOf(a);
   const v: AttemptView = {
@@ -89,6 +112,17 @@ function attemptView(a: ProofAttempt): AttemptView {
       oldProjected: c.oldProjected,
       newProjected: c.newProjected,
     };
+  }
+  const kind = kindOf(a);
+  if (kind !== undefined) {
+    v.kind = kind;
+    v.kindLine = KIND_LINES[kind];
+    const coverage = coverageTextOf(a.shapes[0] as ShapeResult, kind);
+    if (coverage !== undefined) v.coverageText = coverage;
+    if (a.candidate) {
+      const all = a.candidate.source.split("\n");
+      v.rewrite = { lines: all.slice(0, MAX_REWRITE_LINES), moreCount: Math.max(0, all.length - MAX_REWRITE_LINES) };
+    }
   }
   if (a.error) v.errorText = `${a.error.code}: ${a.error.message}`;
   return v;

@@ -16,6 +16,15 @@ function preBlock(label: string, text: string, cell = false, hot = false): HTMLE
   return h("div", { class: cls }, h("p", { class: "muted" }, label), h("pre", { class: "proof-pre", tabindex: 0 }, text));
 }
 
+function rewriteBlock(r: NonNullable<AttemptView["rewrite"]>): HTMLElement {
+  return h(
+    "div",
+    { class: "stack" },
+    h("pre", { class: "proof-pre", tabindex: 0 }, r.lines.join("\n")),
+    r.moreCount > 0 ? h("p", { class: "muted" }, `and ${r.moreCount} more lines`) : null,
+  );
+}
+
 function renderAttempt(a: AttemptView): HTMLElement {
   const c = a.counterexample;
   return h(
@@ -26,6 +35,9 @@ function renderAttempt(a: AttemptView): HTMLElement {
     a.candidateName !== undefined ? `: ${a.candidateName}` : "",
     h("p", { class: "muted" }, `${a.runsText}, ${a.seedText}`),
     h("p", { class: "muted" }, a.sabotageLine),
+    a.kindLine !== undefined ? h("p", null, a.kindLine) : null,
+    a.coverageText !== undefined ? h("p", { class: "muted" }, a.coverageText) : null,
+    a.rewrite !== undefined ? rewriteBlock(a.rewrite) : null,
     a.errorText !== undefined ? h("p", null, a.errorText) : null,
     c
       ? h(
