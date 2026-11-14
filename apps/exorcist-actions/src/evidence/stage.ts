@@ -41,7 +41,7 @@ function parseNow(now: unknown): Date {
 }
 
 /** All seven signals unknown with category `network_error`, and the warning of Requirement 6.6. */
-function allUnknown(name: unknown): EvidenceResult {
+export function allUnknownEvidence(name: unknown): EvidenceResult {
   const label = typeof name === "string" ? name : "unknown";
   const signals = {} as Record<SignalName, SignalValue<boolean> | SignalValue<number>>;
   const unknownReasons: EvidenceResult["unknownReasons"] = {};
@@ -102,7 +102,7 @@ export function createActionEvidenceStage(
         osv,
       });
     } catch {
-      return allUnknown(input?.name);
+      return allUnknownEvidence(input?.name);
     }
   };
 }

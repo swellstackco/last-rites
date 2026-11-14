@@ -706,3 +706,12 @@ The agent runs (11.3, 11.5, 11.8) were done by the operator (Claude Code) with t
 - Choices where the spec was silent: the specifier of an `unsupported_value` skip is the source text of the node (`*u`, `"a\x34"`, `123`); `withLine` is set only for a block `with:` whose key line holds nothing but the key and a comment; a `with` key's `line` is set only for a single-line block `key: value` entry whose value is not a block scalar.
 - `fc-runner.ts` and `sabotage-runner.ts` are async-capable (Property 1 has an async tree part), so `build(impl)` of Properties 1 and 2 returns a Promise.
 - Task 2.8 was started by mistake and removed again so that the plan state stays exact; it is still open.
+
+## 2026-11-15: exorcist-actions tasks 5.1 to 5.5 (batch 4, Kiro CLI, headless)
+
+- 5.1 to 5.4 done: `scan/report.ts` (`buildScanReport`, `groupByAction`), `scan/scan.ts` (`runScan`), `scan/cli-args.ts`, `scan/cli.ts`; Property 11 with its Sabotage_List `actions-p11.ts` (8 entries, all caught). 5.5 checkpoint: `npm run typecheck` clean, `npm test -- apps/exorcist-actions` green (14 files, 96 tests).
+- Choices where the spec was silent: `buildScanReport` scores with `scoreDeath` itself (its argument list has no death result) and falls back to the all-unknown evidence if scoring throws; the evidence map is keyed by the first use's casing (a differently-cased key is also found). `report.repo` is the label as given (spread over `assembleReport`'s output) so a label is never split and re-joined. Report warnings are the inventory warnings first, then one `<file>:<line>: skipped <reason>: <specifier>` per skipped use.
+- Small edit outside the plan's list: `evidence/stage.ts` now exports `allUnknownEvidence` (was the private `allUnknown`) and `evidence/index.ts` re-exports it, so the scan reuses the one all-unknown result. No behavior change.
+- Deviation: `--cache <dir>` is passed as the `cacheRoot` of the shared `CacheLayer`, which writes `<dir>/.cache/<hash>.json` (the npm layer is not changed), so with the default the files are at `.cache/actions/.cache/<hash>.json`, not `.cache/actions/<hash>.json` as the design says.
+- The default `--label` is `local/<basename>`; characters outside `[A-Za-z0-9._-]` in the basename become `-` so the default always matches the label pattern. `parseScanArgs(argv, cwd)` takes the working directory as a parameter to name a relative `--repo` such as `.`; the parser stays pure.
+- Not run: the scan CLI against a real checkout (needs the network; that is task 8.2). Only the unreadable-path exit (1) was tried by hand.

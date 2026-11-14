@@ -92,15 +92,15 @@ Terminology: a *Mutant* belongs to the proof of this app (five of them, Requirem
 
 ### Phase 5: The scan and its CLI
 
-- [ ] 5.1 Create `src/scan/report.ts`: `buildScanReport` (pure; per-Action_Name dependencies, `declaredRange`, skipped mapping and warnings, `assembleReport`, `ecosystem: "github-actions"`).
+- [x] 5.1 Create `src/scan/report.ts`: `buildScanReport` (pure; per-Action_Name dependencies, `declaredRange`, skipped mapping and warnings, `assembleReport`, `ecosystem: "github-actions"`).
   - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 8.6, 8.7_
-- [ ] 5.2 Write `src/scan/report.p11.test.ts` for Property 11 (with `reportArb` from `@graveyard-kit/exorcist-npm/programmatic/testing` for the npm byte-identity check and a generated evidence arbitrary), exporting `build(impl)`, and the Sabotage_List `actions-p11.ts` with (a) to (h).
+- [x] 5.2 Write `src/scan/report.p11.test.ts` for Property 11 (with `reportArb` from `@graveyard-kit/exorcist-npm/programmatic/testing` for the npm byte-identity check and a generated evidence arbitrary), exporting `build(impl)`, and the Sabotage_List `actions-p11.ts` with (a) to (h).
   - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5, 8.7, 17.1, 17.2_
-- [ ] 5.3 Create `src/scan/scan.ts` (`runScan`: one Clock reading, inventory, grouping, `Promise.all` over the Evidence_Stage, `scoreDeath`, `buildScanReport`; a rejecting stage becomes the all-unknown result) and `src/scan/index.ts`; write `src/scan/scan.test.ts` with a fake stage and an in-memory `SourceFs`: two uses of one repository with different refs give one dependency with `declaredRange` `v1, v2`; a repository with no uses gives a valid empty report; skipped uses appear; a rejecting stage keeps the other dependencies.
+- [x] 5.3 Create `src/scan/scan.ts` (`runScan`: one Clock reading, inventory, grouping, `Promise.all` over the Evidence_Stage, `scoreDeath`, `buildScanReport`; a rejecting stage becomes the all-unknown result) and `src/scan/index.ts`; write `src/scan/scan.test.ts` with a fake stage and an in-memory `SourceFs`: two uses of one repository with different refs give one dependency with `declaredRange` `v1, v2`; a repository with no uses gives a valid empty report; skipped uses appear; a rejecting stage keeps the other dependencies.
   - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.6, 8.7_
-- [ ] 5.4 Create `src/scan/cli-args.ts` (`parseScanArgs`, pure and total, usage line) and `src/scan/cli.ts` (the entry: reads `process.argv` and `process.env`, builds `configFromEnv`, `createFetchClient`, the real clock and sleep, `createNodeSourceFs`, `createNodeReportFs`; writes through `ReportFs` or prints; exit codes 0, 1, 2); write `src/scan/cli-args.test.ts` with examples for each rejection and each default.
+- [x] 5.4 Create `src/scan/cli-args.ts` (`parseScanArgs`, pure and total, usage line) and `src/scan/cli.ts` (the entry: reads `process.argv` and `process.env`, builds `configFromEnv`, `createFetchClient`, the real clock and sleep, `createNodeSourceFs`, `createNodeReportFs`; writes through `ReportFs` or prints; exit codes 0, 1, 2); write `src/scan/cli-args.test.ts` with examples for each rejection and each default.
   - _Requirements: 1.7, 1.9, 9.1, 9.2, 9.3, 9.4, 9.5, 9.6_
-- [ ] 5.5 Checkpoint after Phase 5 - Run `npm run typecheck` and `npm test -- apps/exorcist-actions`; ensure all tests pass, ask the user if questions arise.
+- [x] 5.5 Checkpoint after Phase 5 - Run `npm run typecheck` and `npm test -- apps/exorcist-actions`; ensure all tests pass, ask the user if questions arise.
   - _Requirements: 17.1_
 
 ### Phase 6: The proofs
