@@ -100,10 +100,17 @@ export function renderedAttemptText(view: ProofView): { text: string; elements: 
   return { text: el.textContent ?? "", elements: el.querySelectorAll("img, script, iframe, object, a").length };
 }
 
-export function checkCase(c: P4Case, rewriteLimit = MAX_REWRITE_LINES): void {
+/** Emulates a wrong implementation (4.3): rewrites the attempt view and/or the rendered result. Default: identity. */
+export interface P4Mutation {
+  view?: (a: AttemptViewK, c: P4Case) => AttemptViewK;
+  rendered?: (r: { text: string; elements: number }, a: AttemptViewK) => { text: string; elements: number };
+}
+
+export function checkCase(c: P4Case, rewriteLimit = MAX_REWRITE_LINES, mutation: P4Mutation = {}): void {
   const report = reportOf(c);
-  const view = buildProofView(report);
-  const a = view.attempts[0] as AttemptViewK;
+  const real = buildProofView(report);
+  const a = (mutation.view ? mutation.view(real.attempts[0] as AttemptViewK, c) : real.attempts[0]) as AttemptViewK;
+  const view: ProofView = { ...real, attempts: [a, ...real.attempts.slice(1)] };
   const attempt = report.attempts[0] as ProofAttempt;
   // Fields that exist today.
   if (a.runsText !== `${attempt.runs} runs` || a.seedText !== `seed ${attempt.seed}` || a.candidateName !== c.candidateName) {
@@ -129,7 +136,8 @@ export function checkCase(c: P4Case, rewriteLimit = MAX_REWRITE_LINES): void {
   if (a.rewrite.lines.length > rewriteLimit) fail(`more than ${rewriteLimit} rewrite lines shown`);
 
   // Rendering: every added string is text; a hostile line creates no element.
-  const { text, elements } = renderedAttemptText(view);
+  const shown = renderedAttemptText(view);
+  const { text, elements } = mutation.rendered ? mutation.rendered(shown, a) : shown;
   if (elements > 0) fail("an element was created from report text");
   for (const s of [line, ...(cov ? [cov] : []), want.join("\n")]) if (!text.includes(s)) fail(`the rendered proof lacks ${JSON.stringify(s)}`);
   const more = a.rewrite.moreCount;
@@ -137,8 +145,8 @@ export function checkCase(c: P4Case, rewriteLimit = MAX_REWRITE_LINES): void {
   if (more === 0 && /and \d+ more lines/.test(text)) fail("a 'more lines' line is shown for a short rewrite");
 }
 
-export function build(): fc.IAsyncProperty<[P4Case]> {
-  return fc.asyncProperty(p4CaseArb, async (c) => checkCase(c));
+export function build(mutation?: P4Mutation): fc.IAsyncProperty<[P4Case]> {
+  return fc.asyncProperty(p4CaseArb, async (c) => checkCase(c, MAX_REWRITE_LINES, mutation));
 }
 
 /** Only the "other shapes unchanged" half. */

@@ -50,6 +50,7 @@ describe("Property 1: proofs of github-actions demos are found (B1)", () => {
       expect(proofUrls(page)).toEqual([`/demo/proofs/nixpacks-actions/${file}.json`]);
       expect(proofSectionText(page)).toContain("Proved");
       expect(proofSectionText(page)).not.toContain("Exorcism coming");
+      expect(proofSectionText(page)).toMatch(/Sabotage: \d+ of \d+ broken migrations caught/);
     });
   }
 });

@@ -6,6 +6,8 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
 import { parseReport } from "@last-rites/exorcist-npm/report";
+import { buildReport } from "./test-support/build-report.js";
+import { DYING_SIGNALS } from "./test-support/signals.js";
 import { checkAsyncProperty, formatAsyncReport } from "./test-support/async-property.js";
 import { build as p6, checkActionsPage, checkHref, loadPackageHref } from "./test-support/properties/p-actions-6.js";
 
@@ -32,5 +34,12 @@ describe("Property 6: Package_Links and labels of an Action_Name (B3)", () => {
     const parsed = parseReport(demo("nixpacks-actions"));
     if (!parsed.ok) throw new Error("demo/nixpacks-actions.json does not parse");
     await checkActionsPage(parsed.report, "nixpacks-actions");
+  }, 60_000);
+
+  it("page examples: owner/repo/sub/path links to owner/repo, ./local stays text without a link", async () => {
+    const names = ["owner/repo/sub/path", "./local"];
+    const report = { ...buildReport(names.map((name) => ({ name, signals: DYING_SIGNALS, versionSource: "range" as const }))), ecosystem: "github-actions" as const };
+    // checkActionsPage asserts the Repository link of every opened package against the independent rule.
+    await checkActionsPage(report, "x");
   }, 60_000);
 });

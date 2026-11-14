@@ -55,6 +55,8 @@ export async function checkPageFacts(
   demo: string,
   serve: (page: ReturnType<typeof mountPage>) => void,
   proof: ProofLoadDraw["load"] | undefined,
+  /** Emulates a wrong page (4.3): called with the open page before the comparison. Default: none. */
+  tamper?: (page: ReturnType<typeof mountPage>) => void,
 ): Promise<void> {
   const page = mountPage({ route: `#/demo/${demo}`, fetchRoutes: { [`GET /api/demo/${demo}`]: { body: serializeReport(report) } } });
   try {
@@ -65,6 +67,7 @@ export async function checkPageFacts(
     if (!opener) fail(`no tombstone for ${openName}`);
     page.click(opener);
     await page.flush();
+    tamper?.(page);
     const actual = toeFacts(page.document.body);
     const reference = renderActionsReferenceFacts(report, openName, proof ? referenceShown(proof) : undefined);
     if (!same(actual, reference)) fail(`facts differ from the Reference_Views:\nactual=${JSON.stringify(actual)}\nreference=${JSON.stringify(reference)}`);
@@ -91,11 +94,11 @@ export const p7ScanArb: fc.Arbitrary<P7Scan> = fc.record({
   ecosystem: fc.constantFrom<"npm" | undefined>(undefined, "npm"),
 });
 
-export async function checkScan({ report, index, ecosystem }: P7Scan): Promise<void> {
+export async function checkScan({ report, index, ecosystem }: P7Scan, tamper?: (page: ReturnType<typeof mountPage>) => void): Promise<void> {
   const withEcosystem = ecosystem === undefined ? report : { ...report, ecosystem };
   const dep = withEcosystem.dependencies[index % withEcosystem.dependencies.length]!;
   // Every proof request of an unregistered path is a 404 ("Exorcism coming" or no section), as in the reference.
-  await checkPageFacts(withEcosystem, dep.name, "x", () => {}, undefined);
+  await checkPageFacts(withEcosystem, dep.name, "x", () => {}, undefined, tamper);
 }
 
 export async function checkProof(pkg: DemoPackageCase, draw: ProofLoadDraw): Promise<void> {
@@ -108,8 +111,8 @@ export async function checkProof(pkg: DemoPackageCase, draw: ProofLoadDraw): Pro
   );
 }
 
-export function buildScan(): fc.IAsyncProperty<[P7Scan]> {
-  return fc.asyncProperty(p7ScanArb, async (c) => checkScan(c));
+export function buildScan(tamper?: (page: ReturnType<typeof mountPage>) => void): fc.IAsyncProperty<[P7Scan]> {
+  return fc.asyncProperty(p7ScanArb, async (c) => checkScan(c, tamper));
 }
 
 export function buildProof(): fc.IAsyncProperty<[DemoPackageCase, ProofLoadDraw]> {

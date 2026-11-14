@@ -68,10 +68,28 @@ export interface P5Halves {
   npm: boolean;
 }
 
-export async function checkHeader(c: P5Case, halves: P5Halves = { actions: true, npm: true }): Promise<void> {
+/** Emulates a wrong header (4.3): rewrites the observed notes from the case. Default: identity. */
+export interface P5Context {
+  c: P5Case;
+  dependencies: number;
+  rangesOnly: boolean;
+  someRange: boolean;
+}
+export type P5Mutation = (notes: string[], ctx: P5Context) => string[];
+
+export async function checkHeader(c: P5Case, halves: P5Halves = { actions: true, npm: true }, mutate?: P5Mutation): Promise<void> {
   const report = reportOf(c);
   const rangesOnly = report.dependencies.length > 0 && report.dependencies.every((d) => d.versionSource === "range");
-  const { text, notes } = await headerOf(report);
+  const seen = await headerOf(report);
+  const notes = mutate
+    ? mutate(seen.notes, {
+        c,
+        dependencies: report.dependencies.length,
+        rangesOnly,
+        someRange: report.dependencies.some((d) => d.versionSource === "range"),
+      })
+    : seen.notes;
+  const text = mutate ? notes.join(" ") : seen.text;
   if (c.ecosystem === "github-actions") {
     if (!halves.actions) return;
     if (/package-lock\.json|pnpm|Yarn/.test(text)) fail(`the header of a github-actions report mentions a lockfile: ${JSON.stringify(notes)}`);
@@ -84,8 +102,8 @@ export async function checkHeader(c: P5Case, halves: P5Halves = { actions: true,
   }
 }
 
-export function build(halves?: P5Halves): fc.IAsyncProperty<[P5Case]> {
+export function build(halves?: P5Halves, mutate?: P5Mutation): fc.IAsyncProperty<[P5Case]> {
   return fc.asyncProperty(p5CaseArb, async (c) => {
-    await checkHeader(c, halves);
+    await checkHeader(c, halves, mutate);
   });
 }

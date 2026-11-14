@@ -91,7 +91,13 @@ export function repositoryLink(page: Page): HTMLAnchorElement | null {
 }
 
 /** Opens every package of a github-actions report in turn and checks every href, aria-label and label. */
-export async function checkActionsPage(report: ScanReport, demo: string, proofs: Record<string, string> = {}): Promise<void> {
+export async function checkActionsPage(
+  report: ScanReport,
+  demo: string,
+  proofs: Record<string, string> = {},
+  /** Emulates a wrong page (4.3): called with the open panel before the checks. Default: none. */
+  tamper?: (page: Page) => void,
+): Promise<void> {
   const fetchRoutes: Record<string, { body: string }> = { [`GET /api/demo/${demo}`]: { body: serializeReport(report) } };
   for (const [name, text] of Object.entries(proofs)) fetchRoutes[`GET /demo/proofs/${demo}/${name}.json`] = { body: text };
   const page = mountPage({ route: `#/demo/${demo}`, fetchRoutes });
@@ -104,6 +110,7 @@ export async function checkActionsPage(report: ScanReport, demo: string, proofs:
       if (!tombstone) fail(`no tombstone for ${dep.name}`);
       page.click(tombstone);
       await page.flush();
+      tamper?.(page);
 
       for (const el of Array.from(page.document.body.querySelectorAll("[href], [aria-label]"))) {
         const href = el.getAttribute("href") ?? "";

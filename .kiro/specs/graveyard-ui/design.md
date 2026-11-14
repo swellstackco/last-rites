@@ -712,3 +712,12 @@ Seven presentation defects were fixed without changing any data. See `.kiro/spec
 - The Breakdown Total_Row has no empty cells (`th` colspan 3 + `td[data-label=Total]` colspan 2).
 - The calibration row Source reads "Engine rule: <rule>".
 - Focus: `:focus:not(:focus-visible)` and `h1[tabindex="-1"]:focus` remove the outline for script focus; the `:focus-visible` ring is unchanged.
+
+## Actions (bugfix)
+
+The page handles github-actions reports through an ecosystem switch. See `.kiro/specs/graveyard-ui-actions/` (bugfix.md, design.md, tasks.md).
+
+- Proof_Key: the proof of a dependency is requested at `demo/proofs/<demo>/<proofNameFor(ecosystem, name)>.json`; for github-actions that is `actionProofName`, defined once in `skeleton/src/proof/names.ts`.
+- Header note: `ecosystem: "github-actions"` shows "Refs come from workflow uses: lines." instead of the npm lockfile sentence.
+- Package_Link: for an Action_Name the Detail_Panel shows a "Repository" link to `https://github.com/<owner>/<repo>` (`model/package-link.ts`); the `deprecated` row reads "Deprecated". The npm page is unchanged.
+- Proof view: Pin_Kind and Contract_Kind attempts show a kind line, coverage and the rewrite block.
