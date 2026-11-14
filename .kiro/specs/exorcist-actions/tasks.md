@@ -73,19 +73,19 @@ Terminology: a *Mutant* belongs to the proof of this app (five of them, Requirem
 
 ### Phase 4: Evidence
 
-- [ ] 4.1 Create `src/evidence/manifest.ts`: `parseActionManifest` and `runtimeSignal` per Requirements 5.2 and 5.6 and the design (`required` for `true` or `"true"`, `hasDefault` for a non-null `default`).
+- [x] 4.1 Create `src/evidence/manifest.ts`: `parseActionManifest` and `runtimeSignal` per Requirements 5.2 and 5.6 and the design (`required` for `true` or `"true"`, `hasDefault` for a non-null `default`).
   - _Requirements: 5.2, 5.4, 5.6_
-- [ ] 4.2 Create `src/test-support/arbitraries/manifest.ts` and write `src/evidence/manifest.p6.test.ts` for Property 6, exporting `build(impl)`, and the Sabotage_List `actions-p6.ts` with (a) to (g).
+- [x] 4.2 Create `src/test-support/arbitraries/manifest.ts` and write `src/evidence/manifest.p6.test.ts` for Property 6, exporting `build(impl)`, and the Sabotage_List `actions-p6.ts` with (a) to (g).
   - _Requirements: 5.2, 5.4, 5.6, 17.1, 17.2_
-- [ ] 4.3 Create `src/evidence/sources.ts`: `fetchPublish` (release, tag fallback, `not_found`), `fetchManifest` (`action.yml` then `action.yaml` on 404, no token, uses `cache.get` directly with `classifyStatus`), `resolveCommit` (through `createGithubGet`, `sha` must be 40 hexadecimal characters) and `fetchActionsOsv` (a call of `fetchOsv` with ecosystem `GitHub Actions` and no version). All return `Outcome<T>` and never throw.
+- [x] 4.3 Create `src/evidence/sources.ts`: `fetchPublish` (release, tag fallback, `not_found`), `fetchManifest` (`action.yml` then `action.yaml` on 404, no token, uses `cache.get` directly with `classifyStatus`), `resolveCommit` (through `createGithubGet`, `sha` must be 40 hexadecimal characters) and `fetchActionsOsv` (a call of `fetchOsv` with ecosystem `GitHub Actions` and no version). All return `Outcome<T>` and never throw.
   - _Requirements: 4.3, 4.5, 5.1, 5.4, 6.1, 12.1_
-- [ ] 4.4 Write `src/evidence/sources.test.ts` with tiny hand-written `FixtureEntry` lists and the fake clock and sleep: release found; release 404 then tag then commit date; no release and no tag; 403 rate limit; 401 with a token retried without it; malformed JSON; `action.yml` 404 then `action.yaml`; both 404; the token is never sent to `raw.githubusercontent.com`; `resolveCommit` rejects a 39-character sha; a temporary cache folder removed in `finally`.
+- [x] 4.4 Write `src/evidence/sources.test.ts` with tiny hand-written `FixtureEntry` lists and the fake clock and sleep: release found; release 404 then tag then commit date; no release and no tag; 403 rate limit; 401 with a token retried without it; malformed JSON; `action.yml` 404 then `action.yaml`; both 404; the token is never sent to `raw.githubusercontent.com`; `resolveCommit` rejects a 39-character sha; a temporary cache folder removed in `finally`.
   - _Requirements: 4.3, 4.5, 5.1, 5.4, 12.5_
-- [ ] 4.5 Create `src/evidence/assemble.ts`: `assembleActionEvidence` (pure; structure of the npm `assembleResult`, shared `reasonMessage`, `SIGNAL_NAMES` iteration), including the Site `job` rule, the `maintainerCount` rule and the replacement info.
+- [x] 4.5 Create `src/evidence/assemble.ts`: `assembleActionEvidence` (pure; structure of the npm `assembleResult`, shared `reasonMessage`, `SIGNAL_NAMES` iteration), including the Site `job` rule, the `maintainerCount` rule and the replacement info.
   - _Requirements: 4.4, 4.6, 5.3, 5.5, 6.2, 6.3, 6.4, 6.5, 6.7_
-- [ ] 4.6 Write `src/evidence/assemble.p7.test.ts` for Property 7 (including the score check with `scoreDeath`), exporting `build(impl)`, and the Sabotage_List `actions-p7.ts` with (a) to (i).
+- [x] 4.6 Write `src/evidence/assemble.p7.test.ts` for Property 7 (including the score check with `scoreDeath`), exporting `build(impl)`, and the Sabotage_List `actions-p7.ts` with (a) to (i).
   - _Requirements: 4.3, 4.4, 4.6, 5.3, 5.4, 5.5, 6.3, 6.4, 6.5, 6.7, 17.1, 17.2_
-- [ ] 4.7 Create `src/evidence/stage.ts` (`createActionEvidenceStage`: one `CacheLayer` over a `ResilientClient`, `Promise.all` over the sources, last-resort catch giving the all-unknown result with the warning `evidence failed for {owner}/{repo}`) and `src/evidence/index.ts`; write `src/evidence/stage.test.ts` with `FakeHttp` fixtures: all sources succeed; each source fails in turn (only its signals unknown); a stage whose source throws; two calls with the same inputs give equal results; a Site `job` use makes no manifest request.
+- [x] 4.7 Create `src/evidence/stage.ts` (`createActionEvidenceStage`: one `CacheLayer` over a `ResilientClient`, `Promise.all` over the sources, last-resort catch giving the all-unknown result with the warning `evidence failed for {owner}/{repo}`) and `src/evidence/index.ts`; write `src/evidence/stage.test.ts` with `FakeHttp` fixtures: all sources succeed; each source fails in turn (only its signals unknown); a stage whose source throws; two calls with the same inputs give equal results; a Site `job` use makes no manifest request.
   - _Requirements: 4.1, 4.2, 4.5, 6.5, 6.6, 6.7_
 - [ ] 4.8 Checkpoint after Phase 4 - Run `npm run typecheck` and `npm test -- apps/exorcist-actions`; ensure all tests pass, ask the user if questions arise.
   - _Requirements: 17.1_
