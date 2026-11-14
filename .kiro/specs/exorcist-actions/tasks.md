@@ -153,7 +153,7 @@ Terminology: a *Mutant* belongs to the proof of this app (five of them, Requirem
   - _Requirements: 16.7_
 - [x] 8.6 Write `src/hero-proofs.test.ts`: both hero proof reports pass `parseProofReport` and are canonical, `package` equals the file name and `isProofName` holds for the folder and file names (the existing `exorcise/demo-proofs.test.ts` also covers them and must stay green), the swap report's coverage shows `dropped.override` and `dropped.profile` (or the keys the manifest dictates), the statuses are asserted to equal the committed ones (recorded as they came out), and a copy of the fixture workflow tree in a temporary folder is exorcised with `--write` through the real node `ReportFs` only when the committed attempt is `proved` and not `weak` (otherwise the test asserts nothing is written); other files are byte-identical; the temporary folder is removed in `finally`.
   - _Requirements: 14.5, 14.7, 15.5, 16.6, 16.8_
-- [ ] 8.7 Checkpoint after Phase 8 - Run `npm run typecheck` and `npm test`; ensure all tests pass (including the existing `demo-proofs.test.ts` over the new proof folder), ask the user if questions arise.
+- [x] 8.7 Checkpoint after Phase 8 - Run `npm run typecheck` and `npm test`; ensure all tests pass (including the existing `demo-proofs.test.ts` over the new proof folder), ask the user if questions arise.
   - _Requirements: 16.7, 17.1_
 
 ### Phase 9: Wrap-up
