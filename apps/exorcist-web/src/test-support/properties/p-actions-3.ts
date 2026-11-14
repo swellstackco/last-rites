@@ -44,10 +44,13 @@ export async function proofUrlsFor(report: ScanReport, demo: string, names: read
   }
 }
 
-export async function checkNpmPaths(report: ScanReport, ecosystem: "npm" | undefined): Promise<void> {
+/** Rewrites the requested URLs to emulate a wrong page (4.2); `names` are the opened dependency names. */
+export type P3Mutation = (urls: string[], names: readonly string[]) => string[];
+
+export async function checkNpmPaths(report: ScanReport, ecosystem: "npm" | undefined, mutate: P3Mutation = (u) => u): Promise<void> {
   const withEcosystem = ecosystem === undefined ? report : { ...report, ecosystem };
   const names = withEcosystem.dependencies.map((d) => d.name);
-  const urls = await proofUrlsFor(withEcosystem, "pump", names);
+  const urls = mutate(await proofUrlsFor(withEcosystem, "pump", names), names);
   const want = names.map((n) => referenceProofPath("pump", n)).filter((u): u is string => u !== undefined);
   if (JSON.stringify(urls) !== JSON.stringify(want)) fail(`requested ${JSON.stringify(urls)}, the reference requests ${JSON.stringify(want)}`);
   for (const n of names) {
@@ -55,8 +58,8 @@ export async function checkNpmPaths(report: ScanReport, ecosystem: "npm" | undef
   }
 }
 
-export function build(): fc.IAsyncProperty<[ScanReport, "npm" | undefined]> {
+export function build(mutate?: P3Mutation): fc.IAsyncProperty<[ScanReport, "npm" | undefined]> {
   return fc.asyncProperty(scanReportArb, fc.constantFrom<"npm" | undefined>(undefined, "npm"), async (report, ecosystem) => {
-    await checkNpmPaths(report, ecosystem);
+    await checkNpmPaths(report, ecosystem, mutate);
   });
 }

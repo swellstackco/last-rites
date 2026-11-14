@@ -3,7 +3,8 @@
 // lone surrogates and multi-block input. The implementation under test is swappable (Sabotage_List, task 4.2).
 import { createHash } from "node:crypto";
 import fc from "fast-check";
-import { actionProofName, isProofName, sha256Hex } from "@last-rites/skeleton/proof";
+import { actionProofName, isProofName, proofNameFor, sha256Hex } from "@last-rites/skeleton/proof";
+import type { Ecosystem } from "@last-rites/skeleton/proof";
 import type { NamedProperty } from "../sabotage-runner.js";
 
 export interface NamesImpl {
@@ -13,6 +14,8 @@ export interface NamesImpl {
   sha256Hex(text: string): string;
   /** The name function the actions app exports under its public name. */
   exported(name: string): string;
+  /** The skeleton's proofNameFor (or a wrong one); Property 3, pure half. */
+  proofNameFor(ecosystem: Ecosystem | undefined, name: string): string | undefined;
 }
 
 /** Test-only model with `node:crypto`, independent of the code under test. */
@@ -58,6 +61,37 @@ export const namesProperties: ReadonlyArray<NamedProperty<NamesImpl>> = [
     name: "P-actions-2 the actions app exports the same function",
     build: (impl) => fc.property(nameArb, (s) => must(impl.exported(s) === impl.actionProofName(s), `the export differs for ${JSON.stringify(s.slice(0, 40))}`)),
   },
+  {
+    name: "P-actions-3 proofNameFor for npm returns the name when it is a Proof_Name, else undefined",
+    build: (impl) =>
+      fc.property(nameArb, fc.constantFrom<Ecosystem | undefined>(undefined, "npm"), (s, eco) =>
+        must(impl.proofNameFor(eco, s) === (isProofName(s) ? s : undefined), `proofNameFor(${String(eco)}, ${JSON.stringify(s.slice(0, 40))}) differs from the npm rule`),
+      ),
+  },
+  {
+    name: "P-actions-3 proofNameFor for npm accepts every Proof_Name unchanged",
+    build: (impl) =>
+      fc.property(fc.stringOf(fc.constantFrom("a", "b", "z", "0", "9", "-"), { minLength: 1, maxLength: 64 }), (s) => {
+        if (isProofName(s)) must(impl.proofNameFor("npm", s) === s, `${s} was changed`);
+      }),
+  },
+  {
+    name: "P-actions-3 proofNameFor for github-actions is actionProofName of a non-empty name",
+    build: (impl) =>
+      fc.property(nameArb, (s) => must(impl.proofNameFor("github-actions", s) === (s === "" ? undefined : modelName(s)), `github-actions name ${JSON.stringify(s.slice(0, 40))} differs`)),
+  },
 ];
 
-export const realNamesImpl = (exported: (name: string) => string): NamesImpl => ({ actionProofName, sha256Hex, exported });
+/** The static half of Property 2: a violation per breach, over `files` (path to text; test files already excluded). */
+export function staticViolations(files: Readonly<Record<string, string>>): string[] {
+  const out: string[] = [];
+  const defs = Object.keys(files).filter((f) => /\bfunction\s+actionProofName\b/.test(files[f] as string));
+  if (defs.length !== 1 || defs[0] !== "skeleton/src/proof/names.ts") out.push(`actionProofName is defined in: ${defs.join(", ") || "nowhere"}`);
+  for (const f of Object.keys(files)) {
+    const inBrowserCode = f.startsWith("skeleton/src/") || f.startsWith("apps/exorcist-web/src/");
+    if (inBrowserCode && /node:crypto|\bcreateHash\b|from "crypto"/.test(files[f] as string)) out.push(`${f} uses node crypto`);
+  }
+  return out;
+}
+
+export const realNamesImpl = (exported: (name: string) => string): NamesImpl => ({ actionProofName, sha256Hex, exported, proofNameFor });

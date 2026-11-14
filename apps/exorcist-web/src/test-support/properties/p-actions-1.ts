@@ -40,10 +40,24 @@ export function mountActions(report: ScanReport, store: Record<string, string>):
   return mountPage({ route: `#/demo/${DEMO}`, fetchRoutes });
 }
 
+/** What the page showed for one opened dependency; a sabotage rewrites it to emulate a wrong page (4.2). */
+export interface Observed {
+  grade: string;
+  /** The report exists in the store. */
+  has: boolean;
+  /** The settled Proof_Section text, null when there is no section. */
+  text: string | null;
+}
+export interface P1Mutation {
+  observed?: (o: Observed) => Observed;
+  urls?: (urls: string[]) => string[];
+}
+
 /** Opens every dependency in turn and checks the settled state and the requests. */
 export async function checkActionsProof(
   { report, store }: ActionsProofCase,
   nameOf: (actionName: string) => string,
+  mutation: P1Mutation = {},
 ): Promise<void> {
   const page = mountActions(report, store);
   try {
@@ -54,8 +68,8 @@ export async function checkActionsProof(
       const has = Object.hasOwn(store, proofName);
       await openPackage(page, dep.name);
       expectedUrls.push(`/demo/proofs/${DEMO}/${proofName}.json`);
-      const text = proofSectionText(page);
       const grade = dep.death.grade;
+      const text = (mutation.observed ?? ((o) => o))({ grade, has, text: proofSectionText(page) }).text;
       if (grade === "dead" || grade === "dying") {
         if (has && !(text ?? "").includes("Proved")) fail(`${dep.name} (${grade}) has a report but shows ${JSON.stringify(text)}`);
         if (!has && !(text ?? "").includes("Exorcism coming")) fail(`${dep.name} (${grade}) has no report but shows ${JSON.stringify(text)}`);
@@ -65,7 +79,7 @@ export async function checkActionsProof(
       page.press("Escape");
       await page.flush();
     }
-    const urls = proofUrls(page);
+    const urls = (mutation.urls ?? ((u) => u))(proofUrls(page));
     if (JSON.stringify(urls) !== JSON.stringify(expectedUrls)) {
       fail(`requested ${JSON.stringify(urls)}, expected one per name: ${JSON.stringify(expectedUrls)}`);
     }
@@ -74,8 +88,8 @@ export async function checkActionsProof(
   }
 }
 
-export function build(nameOf: (actionName: string) => string): fc.IAsyncProperty<[ActionsProofCase]> {
+export function build(nameOf: (actionName: string) => string, mutation?: P1Mutation): fc.IAsyncProperty<[ActionsProofCase]> {
   return fc.asyncProperty(actionsReportArb(nameOf), async (c) => {
-    await checkActionsProof(c, nameOf);
+    await checkActionsProof(c, nameOf, mutation);
   });
 }
