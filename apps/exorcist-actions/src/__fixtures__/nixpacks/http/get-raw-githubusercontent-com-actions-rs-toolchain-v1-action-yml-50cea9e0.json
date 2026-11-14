@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://raw.githubusercontent.com/actions-rs/toolchain/v1/action.yml",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/plain; charset=utf-8"
+    },
+    "body": "name: 'rust-toolchain'\ndescription: 'Install the Rust toolchain'\nauthor: 'actions-rs team'\nbranding:\n  icon: play-circle\n  color: black\ninputs:\n  toolchain:\n    description: |\n      Rust toolchain name.\n\n      See https://rust-lang.github.io/rustup/concepts/toolchains.html#toolchain-specification\n\n      If this is not given, the action will try and install the version specified in the `rust-toolchain` file.\n    required: false\n  target:\n    description: Target triple to install for this toolchain\n    required: false\n  default:\n    description: Set installed toolchain as default\n    default: false\n  override:\n    description: Set installed toolchain as an override for a directory\n    default: false\n  profile:\n    description: Name of the group of components to be installed for a new toolchain\n    required: false\n  components:\n    description: Comma-separated list of components to be additionally installed for a new toolchain\n    required: false\n\noutputs:\n  rustc:\n    description: Installed Rustc version\n  rustc_hash:\n    description: Installed Rustc version hash, can be used for caching purposes\n  cargo:\n    description: Installed Cargo version\n  rustup:\n    description: Installed rustup version\n\nruns:\n  using: 'node12'\n  main: 'dist/index.js'\n"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://raw.githubusercontent.com/styfle/cancel-workflow-action/0.12.1/action.yml",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/plain; charset=utf-8"
+    },
+    "body": "name: 'Cancel Workflow Action'\ndescription: 'This Action will cancel any previous runs that are not `completed` for a given workflow.'\nauthor: styfle\nbranding:\n  icon: 'stop-circle'\n  color: 'white'\ninputs:\n  workflow_id:\n    description: 'Optional - A single Workflow ID or a comma separated list of IDs'\n    required: false\n  ignore_sha:\n    description: 'Optional - Allow canceling other workflows with the same SHA. Useful for the `pull_request.closed` event.'\n    required: false\n    default: 'false'\n  access_token:\n    description: 'Your GitHub Access Token, defaults to: {{ github.token }}'\n    default: ${{ github.token }}\n    required: false\n  all_but_latest:\n    description: \"Optional - Cancel all actions but the most recent one.\"\n    required: false\n    default: 'false'\n  only_status:\n    description: \"Optional - Cancel runs with a specific status, such as `waiting`.\"\n    required: false\nruns:\n  using: 'node20'\n  main: 'dist/index.js'\n"
+  }
+}

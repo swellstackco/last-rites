@@ -1,0 +1,14 @@
+{
+  "method": "GET",
+  "url": "https://api.github.com/repos/actions-rs/cargo/releases/latest",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "50",
+      "x-ratelimit-reset": "1794621272"
+    },
+    "body": "{\"url\":\"https://api.github.com/repos/actions-rs/cargo/releases/19996418\",\"assets_url\":\"https://api.github.com/repos/actions-rs/cargo/releases/19996418/assets\",\"upload_url\":\"https://uploads.github.com/repos/actions-rs/cargo/releases/19996418/assets{?name,label}\",\"html_url\":\"https://github.com/actions-rs/cargo/releases/tag/v1.0.1\",\"id\":19996418,\"author\":{\"login\":\"svartalf\",\"id\":1279564,\"node_id\":\"MDQ6VXNlcjEyNzk1NjQ=\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/1279564?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/svartalf\",\"html_url\":\"https://github.com/svartalf\",\"followers_url\":\"https://api.github.com/users/svartalf/followers\",\"following_url\":\"https://api.github.com/users/svartalf/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/svartalf/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/svartalf/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/svartalf/subscriptions\",\"organizations_url\":\"https://api.github.com/users/svartalf/orgs\",\"repos_url\":\"https://api.github.com/users/svartalf/repos\",\"events_url\":\"https://api.github.com/users/svartalf/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/svartalf/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"node_id\":\"MDc6UmVsZWFzZTE5OTk2NDE4\",\"tag_name\":\"v1.0.1\",\"target_commitish\":\"master\",\"name\":\"\",\"draft\":false,\"immutable\":false,\"prerelease\":false,\"created_at\":\"2019-09-15T09:19:15Z\",\"updated_at\":\"2019-09-15T09:21:00Z\",\"published_at\":\"2019-09-15T09:21:00Z\",\"assets\":[],\"tarball_url\":\"https://api.github.com/repos/actions-rs/cargo/tarball/v1.0.1\",\"zipball_url\":\"https://api.github.com/repos/actions-rs/cargo/zipball/v1.0.1\",\"body\":\"\"}"
+  }
+}

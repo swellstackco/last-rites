@@ -1,0 +1,12 @@
+{
+  "method": "POST",
+  "url": "https://api.osv.dev/v1/query",
+  "body": "{\"package\":{\"name\":\"actions/stale\",\"ecosystem\":\"GitHub Actions\"}}",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json"
+    },
+    "body": "{}"
+  }
+}

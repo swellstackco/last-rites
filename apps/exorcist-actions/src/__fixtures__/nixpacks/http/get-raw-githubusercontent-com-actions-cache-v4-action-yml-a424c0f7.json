@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://raw.githubusercontent.com/actions/cache/v4/action.yml",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/plain; charset=utf-8"
+    },
+    "body": "name: 'Cache'\ndescription: 'Cache artifacts like dependencies and build outputs to improve workflow execution time'\nauthor: 'GitHub'\ninputs:\n  path:\n    description: 'A list of files, directories, and wildcard patterns to cache and restore'\n    required: true\n  key:\n    description: 'An explicit key for restoring and saving the cache'\n    required: true\n  restore-keys:\n    description: 'An ordered multiline string listing the prefix-matched keys, that are used for restoring stale cache if no cache hit occurred for key. Note `cache-hit` returns false in this case.'\n    required: false\n  upload-chunk-size:\n    description: 'The chunk size used to split up large files during upload, in bytes'\n    required: false\n  enableCrossOsArchive:\n    description: 'An optional boolean when enabled, allows windows runners to save or restore caches that can be restored or saved respectively on other platforms'\n    default: 'false'\n    required: false\n  fail-on-cache-miss:\n    description: 'Fail the workflow if cache entry is not found'\n    default: 'false'\n    required: false\n  lookup-only:\n    description: 'Check if a cache entry exists for the given input(s) (key, restore-keys) without downloading the cache'\n    default: 'false'\n    required: false\n  save-always:\n    description: 'Run the post step to save the cache even if another step before fails'\n    default: 'false'\n    required: false\n    deprecationMessage: |\n      save-always does not work as intended and will be removed in a future release.\n      A separate `actions/cache/restore` step should be used instead.\n      See https://github.com/actions/cache/tree/main/save#always-save-cache for more details.\noutputs:\n  cache-hit:\n    description: 'A boolean value to indicate an exact match was found for the primary key'\nruns:\n  using: 'node20'\n  main: 'dist/restore/index.js'\n  post: 'dist/save/index.js'\n  post-if: \"success()\"\nbranding:\n  icon: 'archive'\n  color: 'gray-dark'\n"
+  }
+}

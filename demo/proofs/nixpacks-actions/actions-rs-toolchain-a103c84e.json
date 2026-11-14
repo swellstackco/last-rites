@@ -1,0 +1,128 @@
+{
+  "repo": "railwayapp/nixpacks",
+  "commit": "144b4f9ab1c3943af4dfe76d3c79d91263f5b465",
+  "package": "actions-rs-toolchain-a103c84e",
+  "filesScanned": 7,
+  "callSites": [
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 30,
+      "column": 15,
+      "callee": "actions-rs/toolchain@v1",
+      "member": "",
+      "argCount": 3,
+      "argTexts": [
+        "profile: minimal",
+        "toolchain: stable",
+        "override: true"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 59,
+      "column": 15,
+      "callee": "actions-rs/toolchain@v1",
+      "member": "",
+      "argCount": 4,
+      "argTexts": [
+        "profile: minimal",
+        "toolchain: stable",
+        "override: true",
+        "components: rustfmt, clippy"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 103,
+      "column": 15,
+      "callee": "actions-rs/toolchain@v1",
+      "member": "",
+      "argCount": 3,
+      "argTexts": [
+        "profile: minimal",
+        "toolchain: stable",
+        "override: true"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 143,
+      "column": 15,
+      "callee": "actions-rs/toolchain@v1",
+      "member": "",
+      "argCount": 3,
+      "argTexts": [
+        "profile: minimal",
+        "toolchain: stable",
+        "override: true"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 184,
+      "column": 15,
+      "callee": "actions-rs/toolchain@v1",
+      "member": "",
+      "argCount": 3,
+      "argTexts": [
+        "profile: minimal",
+        "toolchain: 1.70.0",
+        "override: true"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/release.yml",
+      "line": 112,
+      "column": 13,
+      "callee": "actions-rs/toolchain@v1",
+      "member": "",
+      "argCount": 4,
+      "argTexts": [
+        "toolchain: stable",
+        "target: ${{ matrix.target }}",
+        "profile: minimal",
+        "override: true"
+      ],
+      "enclosing": "src"
+    }
+  ],
+  "importSites": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate": {
+        "name": "swap-actions-rs-toolchain-a103c84e",
+        "source": "-         uses: actions-rs/toolchain@v1\n+         uses: dtolnay/rust-toolchain@master # was actions-rs/toolchain@v1\n-           profile: minimal\n-           override: true\n-         uses: actions-rs/toolchain@v1\n+         uses: dtolnay/rust-toolchain@master # was actions-rs/toolchain@v1\n-           profile: minimal\n-           override: true\n-         uses: actions-rs/toolchain@v1\n+         uses: dtolnay/rust-toolchain@master # was actions-rs/toolchain@v1\n-           profile: minimal\n-           override: true\n-         uses: actions-rs/toolchain@v1\n+         uses: dtolnay/rust-toolchain@master # was actions-rs/toolchain@v1\n-           profile: minimal\n-           override: true\n-         uses: actions-rs/toolchain@v1\n+         uses: dtolnay/rust-toolchain@master # was actions-rs/toolchain@v1\n-           profile: minimal\n-           override: true\n-       uses: actions-rs/toolchain@v1\n+       uses: dtolnay/rust-toolchain@master # was actions-rs/toolchain@v1\n-         target: ${{ matrix.target }}\n-         profile: minimal\n-         override: true\n+         targets: ${{ matrix.target }}"
+      },
+      "status": "proved",
+      "weak": false,
+      "numRuns": 24,
+      "runs": 24,
+      "seed": 0,
+      "shapes": [
+        {
+          "id": "contract",
+          "status": "passed",
+          "runs": 24,
+          "coverage": {
+            "dropped.override": 6,
+            "dropped.profile": 6,
+            "renamed.target": 1,
+            "required.toolchain": 6,
+            "uses": 6
+          }
+        }
+      ],
+      "sabotage": {
+        "applied": 12,
+        "caught": 12,
+        "survivors": []
+      }
+    }
+  ]
+}

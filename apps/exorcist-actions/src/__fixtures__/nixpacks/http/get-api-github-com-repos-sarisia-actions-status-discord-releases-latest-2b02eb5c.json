@@ -1,0 +1,14 @@
+{
+  "method": "GET",
+  "url": "https://api.github.com/repos/sarisia/actions-status-discord/releases/latest",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "22",
+      "x-ratelimit-reset": "1794621272"
+    },
+    "body": "{\"url\":\"https://api.github.com/repos/sarisia/actions-status-discord/releases/275599121\",\"assets_url\":\"https://api.github.com/repos/sarisia/actions-status-discord/releases/275599121/assets\",\"upload_url\":\"https://uploads.github.com/repos/sarisia/actions-status-discord/releases/275599121/assets{?name,label}\",\"html_url\":\"https://github.com/sarisia/actions-status-discord/releases/tag/v1.16.0\",\"id\":275599121,\"author\":{\"login\":\"sarisia\",\"id\":33576079,\"node_id\":\"MDQ6VXNlcjMzNTc2MDc5\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/33576079?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/sarisia\",\"html_url\":\"https://github.com/sarisia\",\"followers_url\":\"https://api.github.com/users/sarisia/followers\",\"following_url\":\"https://api.github.com/users/sarisia/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/sarisia/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/sarisia/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/sarisia/subscriptions\",\"organizations_url\":\"https://api.github.com/users/sarisia/orgs\",\"repos_url\":\"https://api.github.com/users/sarisia/repos\",\"events_url\":\"https://api.github.com/users/sarisia/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/sarisia/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"node_id\":\"RE_kwDODVLAdM4QbU8R\",\"tag_name\":\"v1.16.0\",\"target_commitish\":\"main\",\"name\":\"v1.16.0\",\"draft\":false,\"immutable\":false,\"prerelease\":false,\"created_at\":\"2026-01-09T19:53:56Z\",\"updated_at\":\"2026-01-09T19:53:57Z\",\"published_at\":\"2026-01-09T19:52:58Z\",\"assets\":[],\"tarball_url\":\"https://api.github.com/repos/sarisia/actions-status-discord/tarball/v1.16.0\",\"zipball_url\":\"https://api.github.com/repos/sarisia/actions-status-discord/zipball/v1.16.0\",\"body\":\"## What's Changed\\r\\n\\r\\n- Updated to `node24` runtime\\r\\n- Update dependencies\\r\\n\\r\\n**Full Changelog**: https://github.com/sarisia/actions-status-discord/compare/v1.15.5-src...v1.16.0-src\"}"
+  }
+}

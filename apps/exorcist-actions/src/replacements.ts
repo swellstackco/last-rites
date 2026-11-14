@@ -1,12 +1,12 @@
 // The curated Replacement_Map (Requirement 7). Every claim has a source URL a reader can open.
-// The seed entries below were written with empty Input_Mappings on purpose: while `inputs` is empty
-// every swap of a use that has a `with` key refuses with `unmapped_input`, so nothing wrong can ship.
+// The Input_Mappings below were filled (task 8.3) from the action.yml manifests recorded on 2026-11-14 in
+// src/__fixtures__/nixpacks/http/, never from memory; src/replacements.data.test.ts checks them offline.
 
 export interface ActionReplacement {
   from: string;
   kind: "action";
   to: string;
-  /** The ref written by a swap. Provisional until task 8.3 checks it against the recording. */
+  /** The ref written by a swap (checked against the recorded manifest at that ref). */
   toRef: string;
   sourceUrl: string;
   replacementUrl: string;
@@ -31,8 +31,19 @@ export const REPLACEMENTS: readonly Replacement[] = [
     toRef: "v2",
     sourceUrl: "https://github.com/actions/create-release",
     replacementUrl: "https://github.com/softprops/action-gh-release",
-    // 8.3 fills `inputs` from the recorded action.yml manifests, never from memory.
-    inputs: {},
+    // From actions/create-release@v1 to softprops/action-gh-release@v2. `owner` and `repo` have no
+    // equivalent (`repository` takes `owner/repo` in one value), so they are dropped: a known limit.
+    inputs: {
+      tag_name: "tag_name",
+      release_name: "name",
+      body: "body",
+      body_path: "body_path",
+      draft: "draft",
+      prerelease: "prerelease",
+      commitish: "target_commitish",
+      owner: null,
+      repo: null,
+    },
   },
   {
     from: "actions/upload-release-asset",
@@ -41,18 +52,35 @@ export const REPLACEMENTS: readonly Replacement[] = [
     toRef: "v2",
     sourceUrl: "https://github.com/actions/upload-release-asset",
     replacementUrl: "https://github.com/softprops/action-gh-release",
-    // 8.3 fills `inputs` from the recorded action.yml manifests, never from memory.
-    inputs: {},
+    // softprops/action-gh-release uploads `files` to the release of the tag; it has no upload URL, asset
+    // name or content type input, so those are dropped (the asset keeps its file name): a known limit.
+    inputs: {
+      upload_url: null,
+      asset_path: "files",
+      asset_name: null,
+      asset_content_type: null,
+    },
   },
   {
     from: "actions-rs/toolchain",
     kind: "action",
     to: "dtolnay/rust-toolchain",
-    toRef: "stable",
+    // `master` is the ref whose manifest takes a `toolchain` input (required there); `@stable` pins the
+    // toolchain by ref instead. Every recorded use passes `toolchain`, so `master` is the faithful swap.
+    toRef: "master",
     sourceUrl: "https://github.com/actions-rs/toolchain",
     replacementUrl: "https://github.com/dtolnay/rust-toolchain",
-    // 8.3 fills `inputs` from the recorded action.yml manifests, never from memory.
-    inputs: {},
+    // actions-rs/toolchain@v1 declares toolchain, target, default, override, profile, components.
+    // dtolnay/rust-toolchain installs a minimal profile and sets no default or override, so those three
+    // are dropped.
+    inputs: {
+      toolchain: "toolchain",
+      target: "targets",
+      components: "components",
+      default: null,
+      override: null,
+      profile: null,
+    },
   },
   {
     from: "actions-rs/cargo",

@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://raw.githubusercontent.com/actions-rs/cargo/v1/action.yml",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/plain; charset=utf-8"
+    },
+    "body": "name: 'rust-cargo'\ndescription: 'Run cargo command'\nauthor: 'actions-rs team'\nbranding:\n  icon: play-circle\n  color: black\ninputs:\n  command:\n    description: Cargo command to run (ex. `check` or `build`)\n    required: true\n  toolchain:\n    description: Toolchain to use (without the `+` sign, ex. `nightly`)\n    required: false\n  args:\n    description: Arguments for the cargo command\n    required: false\n  use-cross:\n    description: Use cross instead of cargo\n    default: false\n\nruns:\n  using: 'node12'\n  main: 'dist/index.js'\n"
+  }
+}

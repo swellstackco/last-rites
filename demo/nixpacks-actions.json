@@ -1,0 +1,2312 @@
+{
+  "repo": "railwayapp/nixpacks",
+  "ref": "144b4f9",
+  "ecosystem": "github-actions",
+  "scannedAt": "2026-11-14T01:55:22.708Z",
+  "dependencies": [
+    {
+      "name": "actions-rs/cargo",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v1",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": true
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": true
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 85
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 64
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": true
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/actions-rs/cargo/blob/v1/action.yml",
+          "repoArchived": "https://github.com/actions-rs/cargo",
+          "monthsSinceLastPublish": "https://github.com/actions-rs/cargo/releases",
+          "monthsSinceLastCommit": "https://github.com/actions-rs/cargo",
+          "openVulnsNoFix": "https://osv.dev/list?q=actions-rs/cargo",
+          "knownReplacementExists": "https://github.com/actions-rs/cargo"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "replacement": {
+        "type": "run",
+        "replacement": "cargo",
+        "replacements": [
+          "cargo"
+        ]
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 81,
+        "grade": "dead",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "true",
+            "weight": 20,
+            "points": 20,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions-rs/cargo/blob/v1/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "true",
+            "weight": 25,
+            "points": 25,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions-rs/cargo"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "85",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions-rs/cargo/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "64",
+            "weight": 12,
+            "points": 12,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions-rs/cargo"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=actions-rs/cargo"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "true",
+            "weight": 3,
+            "points": 3,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions-rs/cargo"
+          }
+        ]
+      }
+    },
+    {
+      "name": "actions-rs/toolchain",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v1",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": true
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": true
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 79
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 71
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": true
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/actions-rs/toolchain/blob/v1/action.yml",
+          "repoArchived": "https://github.com/actions-rs/toolchain",
+          "monthsSinceLastPublish": "https://github.com/actions-rs/toolchain/releases",
+          "monthsSinceLastCommit": "https://github.com/actions-rs/toolchain",
+          "openVulnsNoFix": "https://osv.dev/list?q=actions-rs/toolchain",
+          "knownReplacementExists": "https://github.com/actions-rs/toolchain"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "replacement": {
+        "type": "action",
+        "replacement": "dtolnay/rust-toolchain",
+        "replacements": [
+          "dtolnay/rust-toolchain"
+        ]
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 81,
+        "grade": "dead",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "true",
+            "weight": 20,
+            "points": 20,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions-rs/toolchain/blob/v1/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "true",
+            "weight": 25,
+            "points": 25,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions-rs/toolchain"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "79",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions-rs/toolchain/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "71",
+            "weight": 12,
+            "points": 12,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions-rs/toolchain"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=actions-rs/toolchain"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "true",
+            "weight": 3,
+            "points": 3,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions-rs/toolchain"
+          }
+        ]
+      }
+    },
+    {
+      "name": "jesusvasquez333/verify-pr-label-action",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v1.4.0",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 68
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 34
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/jesusvasquez333/verify-pr-label-action/blob/v1.4.0/action.yml",
+          "repoArchived": "https://github.com/jesusvasquez333/verify-pr-label-action",
+          "monthsSinceLastPublish": "https://github.com/jesusvasquez333/verify-pr-label-action/releases",
+          "monthsSinceLastCommit": "https://github.com/jesusvasquez333/verify-pr-label-action",
+          "openVulnsNoFix": "https://osv.dev/list?q=jesusvasquez333/verify-pr-label-action",
+          "knownReplacementExists": "https://github.com/jesusvasquez333/verify-pr-label-action"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 32,
+        "grade": "ailing",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/jesusvasquez333/verify-pr-label-action/blob/v1.4.0/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/jesusvasquez333/verify-pr-label-action"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "68",
+            "weight": 15,
+            "points": 15,
+            "status": "known",
+            "sourceUrl": "https://github.com/jesusvasquez333/verify-pr-label-action/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "34",
+            "weight": 12,
+            "points": 11,
+            "status": "known",
+            "sourceUrl": "https://github.com/jesusvasquez333/verify-pr-label-action"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=jesusvasquez333/verify-pr-label-action"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/jesusvasquez333/verify-pr-label-action"
+          }
+        ]
+      }
+    },
+    {
+      "name": "sarisia/actions-status-discord",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v1",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 10
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 10
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/sarisia/actions-status-discord/blob/v1/action.yml",
+          "repoArchived": "https://github.com/sarisia/actions-status-discord",
+          "monthsSinceLastPublish": "https://github.com/sarisia/actions-status-discord/releases",
+          "monthsSinceLastCommit": "https://github.com/sarisia/actions-status-discord",
+          "openVulnsNoFix": "https://osv.dev/list?q=sarisia/actions-status-discord",
+          "knownReplacementExists": "https://github.com/sarisia/actions-status-discord"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 16,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/sarisia/actions-status-discord/blob/v1/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/sarisia/actions-status-discord"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "10",
+            "weight": 15,
+            "points": 6,
+            "status": "known",
+            "sourceUrl": "https://github.com/sarisia/actions-status-discord/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "10",
+            "weight": 12,
+            "points": 4,
+            "status": "known",
+            "sourceUrl": "https://github.com/sarisia/actions-status-discord"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=sarisia/actions-status-discord"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/sarisia/actions-status-discord"
+          }
+        ]
+      }
+    },
+    {
+      "name": "styfle/cancel-workflow-action",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "0.12.1",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 8
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 8
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/styfle/cancel-workflow-action/blob/0.12.1/action.yml",
+          "repoArchived": "https://github.com/styfle/cancel-workflow-action",
+          "monthsSinceLastPublish": "https://github.com/styfle/cancel-workflow-action/releases",
+          "monthsSinceLastCommit": "https://github.com/styfle/cancel-workflow-action",
+          "openVulnsNoFix": "https://osv.dev/list?q=styfle/cancel-workflow-action",
+          "knownReplacementExists": "https://github.com/styfle/cancel-workflow-action"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 14,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/styfle/cancel-workflow-action/blob/0.12.1/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/styfle/cancel-workflow-action"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "8",
+            "weight": 15,
+            "points": 5,
+            "status": "known",
+            "sourceUrl": "https://github.com/styfle/cancel-workflow-action/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "8",
+            "weight": 12,
+            "points": 3,
+            "status": "known",
+            "sourceUrl": "https://github.com/styfle/cancel-workflow-action"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=styfle/cancel-workflow-action"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/styfle/cancel-workflow-action"
+          }
+        ]
+      }
+    },
+    {
+      "name": "svenstaro/upload-release-action",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v2",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 7
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 7
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/svenstaro/upload-release-action/blob/v2/action.yml",
+          "repoArchived": "https://github.com/svenstaro/upload-release-action",
+          "monthsSinceLastPublish": "https://github.com/svenstaro/upload-release-action/releases",
+          "monthsSinceLastCommit": "https://github.com/svenstaro/upload-release-action",
+          "openVulnsNoFix": "https://osv.dev/list?q=svenstaro/upload-release-action",
+          "knownReplacementExists": "https://github.com/svenstaro/upload-release-action"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 13,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/svenstaro/upload-release-action/blob/v2/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/svenstaro/upload-release-action"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "7",
+            "weight": 15,
+            "points": 5,
+            "status": "known",
+            "sourceUrl": "https://github.com/svenstaro/upload-release-action/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "7",
+            "weight": 12,
+            "points": 2,
+            "status": "known",
+            "sourceUrl": "https://github.com/svenstaro/upload-release-action"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=svenstaro/upload-release-action"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/svenstaro/upload-release-action"
+          }
+        ]
+      }
+    },
+    {
+      "name": "actions/cache",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v4",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 4
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 3
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/actions/cache/blob/v4/action.yml",
+          "repoArchived": "https://github.com/actions/cache",
+          "monthsSinceLastPublish": "https://github.com/actions/cache/releases",
+          "monthsSinceLastCommit": "https://github.com/actions/cache",
+          "openVulnsNoFix": "https://osv.dev/list?q=actions/cache",
+          "knownReplacementExists": "https://github.com/actions/cache"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 10,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/cache/blob/v4/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/cache"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "4",
+            "weight": 15,
+            "points": 3,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/cache/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "3",
+            "weight": 12,
+            "points": 1,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/cache"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=actions/cache"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/cache"
+          }
+        ]
+      }
+    },
+    {
+      "name": "actions/checkout",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v4",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 3
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 3
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/actions/checkout/blob/v4/action.yml",
+          "repoArchived": "https://github.com/actions/checkout",
+          "monthsSinceLastPublish": "https://github.com/actions/checkout/releases",
+          "monthsSinceLastCommit": "https://github.com/actions/checkout",
+          "openVulnsNoFix": "https://osv.dev/list?q=actions/checkout",
+          "knownReplacementExists": "https://github.com/actions/checkout"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 9,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/checkout/blob/v4/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/checkout"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "3",
+            "weight": 15,
+            "points": 2,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/checkout/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "3",
+            "weight": 12,
+            "points": 1,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/checkout"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=actions/checkout"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/checkout"
+          }
+        ]
+      }
+    },
+    {
+      "name": "mislav/bump-homebrew-formula-action",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v3",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 4
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 2
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/mislav/bump-homebrew-formula-action/blob/v3/action.yml",
+          "repoArchived": "https://github.com/mislav/bump-homebrew-formula-action",
+          "monthsSinceLastPublish": "https://github.com/mislav/bump-homebrew-formula-action/releases",
+          "monthsSinceLastCommit": "https://github.com/mislav/bump-homebrew-formula-action",
+          "openVulnsNoFix": "https://osv.dev/list?q=mislav/bump-homebrew-formula-action",
+          "knownReplacementExists": "https://github.com/mislav/bump-homebrew-formula-action"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 9,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/mislav/bump-homebrew-formula-action/blob/v3/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/mislav/bump-homebrew-formula-action"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "4",
+            "weight": 15,
+            "points": 2,
+            "status": "known",
+            "sourceUrl": "https://github.com/mislav/bump-homebrew-formula-action/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "2",
+            "weight": 12,
+            "points": 1,
+            "status": "known",
+            "sourceUrl": "https://github.com/mislav/bump-homebrew-formula-action"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=mislav/bump-homebrew-formula-action"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/mislav/bump-homebrew-formula-action"
+          }
+        ]
+      }
+    },
+    {
+      "name": "actions/stale",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v10",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 3
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 0
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/actions/stale/blob/v10/action.yml",
+          "repoArchived": "https://github.com/actions/stale",
+          "monthsSinceLastPublish": "https://github.com/actions/stale/releases",
+          "monthsSinceLastCommit": "https://github.com/actions/stale",
+          "openVulnsNoFix": "https://osv.dev/list?q=actions/stale",
+          "knownReplacementExists": "https://github.com/actions/stale"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 8,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/stale/blob/v10/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/stale"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "3",
+            "weight": 15,
+            "points": 2,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/stale/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "0",
+            "weight": 12,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/stale"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=actions/stale"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/stale"
+          }
+        ]
+      }
+    },
+    {
+      "name": "DeterminateSystems/nix-installer-action",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "main",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 2
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 0
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/DeterminateSystems/nix-installer-action/blob/main/action.yml",
+          "repoArchived": "https://github.com/DeterminateSystems/nix-installer-action",
+          "monthsSinceLastPublish": "https://github.com/DeterminateSystems/nix-installer-action/releases",
+          "monthsSinceLastCommit": "https://github.com/DeterminateSystems/nix-installer-action",
+          "openVulnsNoFix": "https://osv.dev/list?q=DeterminateSystems/nix-installer-action",
+          "knownReplacementExists": "https://github.com/DeterminateSystems/nix-installer-action"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 7,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/DeterminateSystems/nix-installer-action/blob/main/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/DeterminateSystems/nix-installer-action"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "2",
+            "weight": 15,
+            "points": 1,
+            "status": "known",
+            "sourceUrl": "https://github.com/DeterminateSystems/nix-installer-action/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "0",
+            "weight": 12,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/DeterminateSystems/nix-installer-action"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=DeterminateSystems/nix-installer-action"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/DeterminateSystems/nix-installer-action"
+          }
+        ]
+      }
+    },
+    {
+      "name": "actions/setup-node",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v5",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 1
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 0
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/actions/setup-node/blob/v5/action.yml",
+          "repoArchived": "https://github.com/actions/setup-node",
+          "monthsSinceLastPublish": "https://github.com/actions/setup-node/releases",
+          "monthsSinceLastCommit": "https://github.com/actions/setup-node",
+          "openVulnsNoFix": "https://osv.dev/list?q=actions/setup-node",
+          "knownReplacementExists": "https://github.com/actions/setup-node"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 7,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/setup-node/blob/v5/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/setup-node"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "1",
+            "weight": 15,
+            "points": 1,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/setup-node/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "0",
+            "weight": 12,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/setup-node"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=actions/setup-node"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/actions/setup-node"
+          }
+        ]
+      }
+    },
+    {
+      "name": "docker/build-push-action",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v5, v6",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 1
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 0
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/docker/build-push-action/blob/v6/action.yml",
+          "repoArchived": "https://github.com/docker/build-push-action",
+          "monthsSinceLastPublish": "https://github.com/docker/build-push-action/releases",
+          "monthsSinceLastCommit": "https://github.com/docker/build-push-action",
+          "openVulnsNoFix": "https://osv.dev/list?q=docker/build-push-action",
+          "knownReplacementExists": "https://github.com/docker/build-push-action"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 7,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/build-push-action/blob/v6/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/build-push-action"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "1",
+            "weight": 15,
+            "points": 1,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/build-push-action/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "0",
+            "weight": 12,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/build-push-action"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=docker/build-push-action"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/build-push-action"
+          }
+        ]
+      }
+    },
+    {
+      "name": "docker/setup-buildx-action",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v3",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 1
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 0
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/docker/setup-buildx-action/blob/v3/action.yml",
+          "repoArchived": "https://github.com/docker/setup-buildx-action",
+          "monthsSinceLastPublish": "https://github.com/docker/setup-buildx-action/releases",
+          "monthsSinceLastCommit": "https://github.com/docker/setup-buildx-action",
+          "openVulnsNoFix": "https://osv.dev/list?q=docker/setup-buildx-action",
+          "knownReplacementExists": "https://github.com/docker/setup-buildx-action"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 7,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/setup-buildx-action/blob/v3/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/setup-buildx-action"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "1",
+            "weight": 15,
+            "points": 1,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/setup-buildx-action/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "0",
+            "weight": 12,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/setup-buildx-action"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=docker/setup-buildx-action"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/setup-buildx-action"
+          }
+        ]
+      }
+    },
+    {
+      "name": "docker/setup-qemu-action",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v3",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 1
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 0
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/docker/setup-qemu-action/blob/v3/action.yml",
+          "repoArchived": "https://github.com/docker/setup-qemu-action",
+          "monthsSinceLastPublish": "https://github.com/docker/setup-qemu-action/releases",
+          "monthsSinceLastCommit": "https://github.com/docker/setup-qemu-action",
+          "openVulnsNoFix": "https://osv.dev/list?q=docker/setup-qemu-action",
+          "knownReplacementExists": "https://github.com/docker/setup-qemu-action"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 7,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/setup-qemu-action/blob/v3/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/setup-qemu-action"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "1",
+            "weight": 15,
+            "points": 1,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/setup-qemu-action/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "0",
+            "weight": 12,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/setup-qemu-action"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=docker/setup-qemu-action"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/setup-qemu-action"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Swatinem/rust-cache",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v2",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 0
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 0
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/Swatinem/rust-cache/blob/v2/action.yml",
+          "repoArchived": "https://github.com/Swatinem/rust-cache",
+          "monthsSinceLastPublish": "https://github.com/Swatinem/rust-cache/releases",
+          "monthsSinceLastCommit": "https://github.com/Swatinem/rust-cache",
+          "openVulnsNoFix": "https://osv.dev/list?q=Swatinem/rust-cache",
+          "knownReplacementExists": "https://github.com/Swatinem/rust-cache"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 6,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/Swatinem/rust-cache/blob/v2/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/Swatinem/rust-cache"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "0",
+            "weight": 15,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/Swatinem/rust-cache/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "0",
+            "weight": 12,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/Swatinem/rust-cache"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=Swatinem/rust-cache"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/Swatinem/rust-cache"
+          }
+        ]
+      }
+    },
+    {
+      "name": "docker/login-action",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v3",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 0
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 0
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/docker/login-action/blob/v3/action.yml",
+          "repoArchived": "https://github.com/docker/login-action",
+          "monthsSinceLastPublish": "https://github.com/docker/login-action/releases",
+          "monthsSinceLastCommit": "https://github.com/docker/login-action",
+          "openVulnsNoFix": "https://osv.dev/list?q=docker/login-action",
+          "knownReplacementExists": "https://github.com/docker/login-action"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 6,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/login-action/blob/v3/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/login-action"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "0",
+            "weight": 15,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/login-action/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "0",
+            "weight": 12,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/login-action"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=docker/login-action"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/docker/login-action"
+          }
+        ]
+      }
+    },
+    {
+      "name": "mikepenz/release-changelog-builder-action",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v5",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 0
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 0
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/mikepenz/release-changelog-builder-action/blob/v5/action.yml",
+          "repoArchived": "https://github.com/mikepenz/release-changelog-builder-action",
+          "monthsSinceLastPublish": "https://github.com/mikepenz/release-changelog-builder-action/releases",
+          "monthsSinceLastCommit": "https://github.com/mikepenz/release-changelog-builder-action",
+          "openVulnsNoFix": "https://osv.dev/list?q=mikepenz/release-changelog-builder-action",
+          "knownReplacementExists": "https://github.com/mikepenz/release-changelog-builder-action"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 6,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/mikepenz/release-changelog-builder-action/blob/v5/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/mikepenz/release-changelog-builder-action"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "0",
+            "weight": 15,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/mikepenz/release-changelog-builder-action/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "0",
+            "weight": 12,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/mikepenz/release-changelog-builder-action"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=mikepenz/release-changelog-builder-action"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/mikepenz/release-changelog-builder-action"
+          }
+        ]
+      }
+    },
+    {
+      "name": "peter-evans/create-pull-request",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v7",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 0
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 0
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/peter-evans/create-pull-request/blob/v7/action.yml",
+          "repoArchived": "https://github.com/peter-evans/create-pull-request",
+          "monthsSinceLastPublish": "https://github.com/peter-evans/create-pull-request/releases",
+          "monthsSinceLastCommit": "https://github.com/peter-evans/create-pull-request",
+          "openVulnsNoFix": "https://osv.dev/list?q=peter-evans/create-pull-request",
+          "knownReplacementExists": "https://github.com/peter-evans/create-pull-request"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 6,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/peter-evans/create-pull-request/blob/v7/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/peter-evans/create-pull-request"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "0",
+            "weight": 15,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/peter-evans/create-pull-request/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "0",
+            "weight": 12,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/peter-evans/create-pull-request"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=peter-evans/create-pull-request"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/peter-evans/create-pull-request"
+          }
+        ]
+      }
+    },
+    {
+      "name": "softprops/action-gh-release",
+      "kinds": [
+        "dependencies"
+      ],
+      "declaredRange": "v2",
+      "versionSource": "range",
+      "signals": {
+        "deprecated": {
+          "kind": "known",
+          "value": false
+        },
+        "repoArchived": {
+          "kind": "known",
+          "value": false
+        },
+        "monthsSinceLastPublish": {
+          "kind": "known",
+          "value": 0
+        },
+        "monthsSinceLastCommit": {
+          "kind": "known",
+          "value": 0
+        },
+        "maintainerCount": {
+          "kind": "unknown"
+        },
+        "openVulnsNoFix": {
+          "kind": "known",
+          "value": 0
+        },
+        "knownReplacementExists": {
+          "kind": "known",
+          "value": false
+        },
+        "sourceUrls": {
+          "deprecated": "https://github.com/softprops/action-gh-release/blob/v2/action.yml",
+          "repoArchived": "https://github.com/softprops/action-gh-release",
+          "monthsSinceLastPublish": "https://github.com/softprops/action-gh-release/releases",
+          "monthsSinceLastCommit": "https://github.com/softprops/action-gh-release",
+          "openVulnsNoFix": "https://osv.dev/list?q=softprops/action-gh-release",
+          "knownReplacementExists": "https://github.com/softprops/action-gh-release"
+        }
+      },
+      "unknownReasons": {
+        "maintainerCount": {
+          "source": "github",
+          "category": "not_applicable",
+          "message": "github: not_applicable (GitHub exposes no maintainer count for an action)"
+        }
+      },
+      "evidenceWarnings": [],
+      "death": {
+        "score": 6,
+        "grade": "alive",
+        "parts": [
+          {
+            "signal": "deprecated",
+            "rawValue": "false",
+            "weight": 20,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/softprops/action-gh-release/blob/v2/action.yml"
+          },
+          {
+            "signal": "repoArchived",
+            "rawValue": "false",
+            "weight": 25,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/softprops/action-gh-release"
+          },
+          {
+            "signal": "monthsSinceLastPublish",
+            "rawValue": "0",
+            "weight": 15,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/softprops/action-gh-release/releases"
+          },
+          {
+            "signal": "monthsSinceLastCommit",
+            "rawValue": "0",
+            "weight": 12,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/softprops/action-gh-release"
+          },
+          {
+            "signal": "maintainerCount",
+            "rawValue": "unknown",
+            "weight": 12,
+            "points": 6,
+            "status": "unknown"
+          },
+          {
+            "signal": "openVulnsNoFix",
+            "rawValue": "0",
+            "weight": 13,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://osv.dev/list?q=softprops/action-gh-release"
+          },
+          {
+            "signal": "knownReplacementExists",
+            "rawValue": "false",
+            "weight": 3,
+            "points": 0,
+            "status": "known",
+            "sourceUrl": "https://github.com/softprops/action-gh-release"
+          }
+        ]
+      }
+    }
+  ],
+  "skipped": [],
+  "warnings": [],
+  "summary": {
+    "total": 20,
+    "skipped": 0,
+    "alive": 17,
+    "ailing": 1,
+    "dying": 0,
+    "dead": 2
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://raw.githubusercontent.com/docker/login-action/v3/action.yml",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/plain; charset=utf-8"
+    },
+    "body": "# https://help.github.com/en/articles/metadata-syntax-for-github-actions\nname: 'Docker Login'\ndescription: 'GitHub Action to login against a Docker registry'\nauthor: 'docker'\nbranding:\n  icon: 'anchor'\n  color: 'blue'\n\ninputs:\n  registry:\n    description: 'Server address of Docker registry. If not set then will default to Docker Hub'\n    required: false\n  username:\n    description: 'Username used to log against the Docker registry'\n    required: false\n  password:\n    description: 'Password or personal access token used to log against the Docker registry'\n    required: false\n  ecr:\n    description: 'Specifies whether the given registry is ECR (auto, true or false)'\n    required: false\n  scope:\n    description: 'Scope for the authentication token'\n    required: false\n  logout:\n    description: 'Log out from the Docker registry at the end of a job'\n    default: 'true'\n    required: false\n  registry-auth:\n    description: 'Raw authentication to registries, defined as YAML objects'\n    required: false\n\nruns:\n  using: 'node20'\n  main: 'dist/index.js'\n  post: 'dist/index.js'\n"
+  }
+}

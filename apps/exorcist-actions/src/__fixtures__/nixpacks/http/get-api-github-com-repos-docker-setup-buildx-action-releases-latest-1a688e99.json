@@ -1,0 +1,14 @@
+{
+  "method": "GET",
+  "url": "https://api.github.com/repos/docker/setup-buildx-action/releases/latest",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "39",
+      "x-ratelimit-reset": "1794621272"
+    },
+    "body": "{\"url\":\"https://api.github.com/repos/docker/setup-buildx-action/releases/389724962\",\"assets_url\":\"https://api.github.com/repos/docker/setup-buildx-action/releases/389724962/assets\",\"upload_url\":\"https://uploads.github.com/repos/docker/setup-buildx-action/releases/389724962/assets{?name,label}\",\"html_url\":\"https://github.com/docker/setup-buildx-action/releases/tag/v4.4.1\",\"id\":389724962,\"author\":{\"login\":\"crazy-max\",\"id\":1951866,\"node_id\":\"MDQ6VXNlcjE5NTE4NjY=\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/1951866?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/crazy-max\",\"html_url\":\"https://github.com/crazy-max\",\"followers_url\":\"https://api.github.com/users/crazy-max/followers\",\"following_url\":\"https://api.github.com/users/crazy-max/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/crazy-max/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/crazy-max/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/crazy-max/subscriptions\",\"organizations_url\":\"https://api.github.com/users/crazy-max/orgs\",\"repos_url\":\"https://api.github.com/users/crazy-max/repos\",\"events_url\":\"https://api.github.com/users/crazy-max/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/crazy-max/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"node_id\":\"RE_kwDOETHxjc4XOrsi\",\"tag_name\":\"v4.4.1\",\"target_commitish\":\"master\",\"name\":\"v4.4.1\",\"draft\":false,\"immutable\":true,\"prerelease\":false,\"created_at\":\"2026-09-16T07:47:45Z\",\"updated_at\":\"2026-09-16T07:50:21Z\",\"published_at\":\"2026-09-16T07:50:21Z\",\"assets\":[],\"tarball_url\":\"https://api.github.com/repos/docker/setup-buildx-action/tarball/v4.4.1\",\"zipball_url\":\"https://api.github.com/repos/docker/setup-buildx-action/zipball/v4.4.1\",\"body\":\"* Skip BuildKit image pre-pulls for explicit endpoints by @crazy-max in https://github.com/docker/setup-buildx-action/pull/624\\r\\n\\r\\n**Full Changelog**: https://github.com/docker/setup-buildx-action/compare/v4.4.0...v4.4.1\",\"mentions_count\":1}"
+  }
+}

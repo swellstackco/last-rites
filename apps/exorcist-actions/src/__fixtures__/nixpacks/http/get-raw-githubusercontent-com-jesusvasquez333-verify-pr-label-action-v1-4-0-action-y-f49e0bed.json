@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://raw.githubusercontent.com/jesusvasquez333/verify-pr-label-action/v1.4.0/action.yml",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/plain; charset=utf-8"
+    },
+    "body": "name: 'Verify Pull Request Labels'\nauthor: 'Jesus Vasquez'\ndescription: 'Verify that the PR has a valid label'\nbranding:\n  icon: 'check'\n  color: 'gray-dark'\ninputs:\n  github-token:\n    description: 'The GitHub token'\n    required: true\n  valid-labels:\n    description: 'List of valid labels'\n    required: true\n  invalid-labels:\n    description: 'List of invalid labels'\n    required: false\n    default: ''\n  pull-request-number:\n    description: 'The Pull Request number'\n    required: false\n  disable-reviews:\n    description: 'Should the action post reviews on PRs'\n    required: false\nruns:\n  using: 'docker'\n  image: 'Dockerfile'\n  args:\n    - ${{ inputs.github-token }}\n    - ${{ inputs.valid-labels }}\n    - ${{ inputs.invalid-labels }}\n    - ${{ inputs.pull-request-number }}\n    - ${{ inputs.disable-reviews }}\n"
+  }
+}

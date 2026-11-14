@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://raw.githubusercontent.com/actions/create-release/v1/action.yml",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/plain; charset=utf-8"
+    },
+    "body": "name: 'Create a Release'\ndescription: 'Create a release for a tag in your repository'\nauthor: 'GitHub'\ninputs:\n  tag_name:\n    description: 'The name of the tag. This should come from the webhook payload, `github.GITHUB_REF` when a user pushes a new tag'\n    required: true\n  release_name:\n    description: 'The name of the release. For example, `Release v1.0.1`'\n    required: true\n  body:\n    description: 'Text describing the contents of the tag.'\n    required: false\n  body_path:\n    description: 'Path to file with information about the tag.'\n    required: false\n  draft:\n    description: '`true` to create a draft (unpublished) release, `false` to create a published one. Default: `false`'\n    required: false\n    default: false\n  prerelease:\n    description: '`true` to identify the release as a prerelease. `false` to identify the release as a full release. Default: `false`'\n    required: false\n    default: false\n  commitish:\n    description: 'Any branch or commit SHA the Git tag is created from, unused if the Git tag already exists. Default: SHA of current commit'\n    required: false\n  owner:\n    description: 'Owner of the repository if it is not the current one'\n    required: false\n  repo:\n    description: 'Repository on which to release.  Used only if you want to create the release on another repo'\n    required: false\noutputs:\n  id:\n    description: 'The ID of the created Release'\n  html_url:\n    description: 'The URL users can navigate to in order to view the release'\n  upload_url:\n    description: 'The URL for uploading assets to the release'\nruns:\n  using: 'node12'\n  main: 'dist/index.js'\nbranding:\n  icon: 'tag'\n  color: 'gray-dark'\n"
+  }
+}

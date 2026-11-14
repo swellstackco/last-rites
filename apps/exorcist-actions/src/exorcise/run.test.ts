@@ -12,7 +12,7 @@ const CI =
   "jobs:\n  b:\n    steps:\n      - uses: actions/checkout@v3\n      - uses: actions-rs/toolchain@v1\n      - uses: actions/cache@" +
   "c".repeat(40) +
   "\n";
-const WITH = "jobs:\n  b:\n    steps:\n      - uses: actions-rs/toolchain@v1\n        with:\n          toolchain: stable\n";
+const WITH = "jobs:\n  b:\n    steps:\n      - uses: actions-rs/toolchain@v1\n        with:\n          toolchain: stable\n          cache-key: x\n";
 const CI_PINNED = CI.replace("actions/checkout@v3", `actions/checkout@${SHA} # v3`);
 
 const fail: Outcome<never> = { ok: false, reason: { source: "github", category: "not_found" } };
@@ -99,7 +99,7 @@ describe("runExorcise examples", () => {
     const t = setup({ "ci.yml": CI });
     const r = await runExorcise(args({ action: "actions-rs/toolchain", fix: "swap", write: true }), t.deps);
     expect(r.exit).toBe(0);
-    expect(t.store.get(F)).toContain("- uses: dtolnay/rust-toolchain@stable # was actions-rs/toolchain@v1");
+    expect(t.store.get(F)).toContain("- uses: dtolnay/rust-toolchain@master # was actions-rs/toolchain@v1");
   });
 
   it("exits 1 with the messages of Requirement 15.2", async () => {
@@ -124,7 +124,7 @@ describe("runExorcise examples", () => {
     const t = setup({ "ci.yml": WITH });
     const r = await runExorcise(args({ action: "actions-rs/toolchain", fix: "swap", write: true, out: OUT }), t.deps);
     expect(r.exit).toBe(1);
-    expect(t.printed).toEqual(["refused: unmapped_input (toolchain)"]);
+    expect(t.printed).toEqual(["refused: unmapped_input (cache-key)"]);
     expect(t.writes).toEqual([]);
   });
 

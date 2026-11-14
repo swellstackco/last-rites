@@ -1,0 +1,173 @@
+{
+  "repo": "railwayapp/nixpacks",
+  "commit": "144b4f9ab1c3943af4dfe76d3c79d91263f5b465",
+  "package": "actions-checkout-728eabd6",
+  "filesScanned": 7,
+  "callSites": [
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 25,
+      "column": 15,
+      "callee": "actions/checkout@v4",
+      "member": "",
+      "argCount": 1,
+      "argTexts": [
+        "persist-credentials: false"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 54,
+      "column": 15,
+      "callee": "actions/checkout@v4",
+      "member": "",
+      "argCount": 1,
+      "argTexts": [
+        "persist-credentials: false"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 98,
+      "column": 15,
+      "callee": "actions/checkout@v4",
+      "member": "",
+      "argCount": 1,
+      "argTexts": [
+        "persist-credentials: false"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 138,
+      "column": 15,
+      "callee": "actions/checkout@v4",
+      "member": "",
+      "argCount": 1,
+      "argTexts": [
+        "persist-credentials: false"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 179,
+      "column": 15,
+      "callee": "actions/checkout@v4",
+      "member": "",
+      "argCount": 1,
+      "argTexts": [
+        "persist-credentials: false"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/ci.yml",
+      "line": 209,
+      "column": 15,
+      "callee": "actions/checkout@v4",
+      "member": "",
+      "argCount": 1,
+      "argTexts": [
+        "persist-credentials: false"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/docs.yml",
+      "line": 23,
+      "column": 15,
+      "callee": "actions/checkout@v4",
+      "member": "",
+      "argCount": 1,
+      "argTexts": [
+        "persist-credentials: false"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/publish.yml",
+      "line": 29,
+      "column": 15,
+      "callee": "actions/checkout@v4",
+      "member": "",
+      "argCount": 1,
+      "argTexts": [
+        "persist-credentials: false"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/release.yml",
+      "line": 32,
+      "column": 15,
+      "callee": "actions/checkout@v4",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "fetch-depth: 1",
+        "persist-credentials: false"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/release.yml",
+      "line": 106,
+      "column": 13,
+      "callee": "actions/checkout@v4",
+      "member": "",
+      "argCount": 2,
+      "argTexts": [
+        "fetch-depth: 1",
+        "persist-credentials: false"
+      ],
+      "enclosing": "src"
+    },
+    {
+      "file": ".github/workflows/update-nixpkgs-archive.yml",
+      "line": 19,
+      "column": 15,
+      "callee": "actions/checkout@v4",
+      "member": "",
+      "argCount": 1,
+      "argTexts": [
+        "persist-credentials: false"
+      ],
+      "enclosing": "src"
+    }
+  ],
+  "importSites": [],
+  "attempts": [
+    {
+      "attempt": 1,
+      "candidate": {
+        "name": "pin-actions-checkout-728eabd6",
+        "source": "-         uses: actions/checkout@v4\n+         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4\n-         uses: actions/checkout@v4\n+         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4\n-         uses: actions/checkout@v4\n+         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4\n-         uses: actions/checkout@v4\n+         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4\n-         uses: actions/checkout@v4\n+         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4\n-         uses: actions/checkout@v4\n+         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4\n-         uses: actions/checkout@v4\n+         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4\n-         uses: actions/checkout@v4\n+         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4\n-         uses: actions/checkout@v4\n+         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4\n-       uses: actions/checkout@v4\n+       uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4\n-         uses: actions/checkout@v4\n+         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4"
+      },
+      "status": "proved",
+      "weak": false,
+      "numRuns": 679,
+      "runs": 679,
+      "seed": 0,
+      "shapes": [
+        {
+          "id": "pin",
+          "status": "passed",
+          "runs": 679,
+          "coverage": {
+            "files": 5,
+            "uses": 11
+          }
+        }
+      ],
+      "sabotage": {
+        "applied": 2,
+        "caught": 2,
+        "survivors": []
+      }
+    }
+  ]
+}

@@ -21,7 +21,7 @@ describe("DEMO_REPOS", () => {
   });
 
   it("is in the documented order", () => {
-    expect(DEMO_REPOS.map((d) => d.name)).toEqual(["parse-server", "prettier", "jest", "pump"]);
+    expect(DEMO_REPOS.map((d) => d.name)).toEqual(["parse-server", "prettier", "jest", "pump", "nixpacks-actions"]);
   });
 
   it("blurbs contain no digits", () => {

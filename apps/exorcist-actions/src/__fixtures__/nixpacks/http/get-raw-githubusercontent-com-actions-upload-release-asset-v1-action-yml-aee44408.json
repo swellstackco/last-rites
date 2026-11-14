@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://raw.githubusercontent.com/actions/upload-release-asset/v1/action.yml",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/plain; charset=utf-8"
+    },
+    "body": "name: 'Upload a Release Asset'\ndescription: 'Upload a release asset to an existing release on your repository'\nauthor: 'GitHub'\ninputs:\n  upload_url:\n    description: 'The URL for uploading assets to the release'\n    required: true\n  asset_path:\n    description: 'The path to the asset you want to upload'\n    required: true\n  asset_name:\n    description: 'The name of the asset you want to upload'\n    required: true\n  asset_content_type:\n    description: 'The content-type of the asset you want to upload. See the supported Media Types here: https://www.iana.org/assignments/media-types/media-types.xhtml for more information'\n    required: true\noutputs:\n  browser_download_url:\n    description: 'The URL users can navigate to in order to download the uploaded asset'\nruns:\n  using: 'node12'\n  main: 'dist/index.js'\nbranding:\n  icon: 'package'\n  color: 'gray-dark'\n"
+  }
+}

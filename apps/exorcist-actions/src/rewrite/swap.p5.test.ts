@@ -72,9 +72,11 @@ describe("Property 5: swap rewrite and the input mapping", () => {
     expect(r.ok && r.text).toContain("uses: dtolnay/rust-toolchain@stable # was actions-rs/toolchain@v1\n\n      - uses: Swatinem");
   });
 
-  it("example: the seed entries have empty mappings, so a use with inputs is refused by name", () => {
+  it("example: the seed mapping refuses an input it does not map, by name", () => {
     const seed = findReplacement("actions-rs/toolchain")!;
-    expect(swapUse(CI, useOf(CI), seed)).toEqual({ ok: false, reason: "unmapped_input", detail: "profile" });
+    const text = CI.replace("          override: true\n", "          override: true\n          cache-key: x\n");
+    expect(text).not.toBe(CI);
+    expect(swapUse(text, useOf(text), seed)).toEqual({ ok: false, reason: "unmapped_input", detail: "cache-key" });
   });
 
   it("example: a use without a with map swaps with an empty mapping", () => {

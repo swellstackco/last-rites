@@ -13,4 +13,5 @@ export const DEMO_REPOS: readonly DemoRepo[] = [
   { name: "prettier", repo: "prettier/prettier", blurb: "A famous tool with one dead dependency." },
   { name: "jest", repo: "jestjs/jest", blurb: "Healthy on the surface: ranges only, no lockfile." },
   { name: "pump", repo: "mafintosh/pump", blurb: "A tiny repo. A quiet baseline." },
+  { name: "nixpacks-actions", repo: "railwayapp/nixpacks", blurb: "Archived GitHub Actions in a build tool's workflows." },
 ];

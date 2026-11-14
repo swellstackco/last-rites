@@ -153,9 +153,9 @@ const HEAD = "name: ci\njobs:\n  build:\n    runs-on: ubuntu-latest\n    steps:\
 const step = (k: Kind, fix: Scenario["fix"], hit: boolean, pinChanges: boolean): string => {
   const base = k === "checkout" ? ["actions/checkout", "v3"] : ["actions-rs/toolchain", "v1"];
   if (k === "other") return "      - uses: actions/cache@v4\n";
-  const withLines = k === "toolchainWith" ? "        with:\n          toolchain: stable\n" : "";
+  const withLines = k === "toolchainWith" ? "        with:\n          cache-key: x\n" : "";
   let name = `${base[0]}@${base[1]}`;
-  if (hit && pinChanges) name = fix === "pin" ? `${base[0]}@${SHAS[base[1]!]} # ${base[1]}` : `dtolnay/rust-toolchain@stable # was ${base[0]}@${base[1]}`;
+  if (hit && pinChanges) name = fix === "pin" ? `${base[0]}@${SHAS[base[1]!]} # ${base[1]}` : `dtolnay/rust-toolchain@master # was ${base[0]}@${base[1]}`;
   return `      - uses: ${name}\n${withLines}`;
 };
 const renderFile = (kinds: Kind[], s: Scenario, changed: boolean): string =>

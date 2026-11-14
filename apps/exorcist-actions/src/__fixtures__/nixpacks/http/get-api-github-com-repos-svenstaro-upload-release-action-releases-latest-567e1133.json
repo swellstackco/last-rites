@@ -1,0 +1,14 @@
+{
+  "method": "GET",
+  "url": "https://api.github.com/repos/svenstaro/upload-release-action/releases/latest",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "26",
+      "x-ratelimit-reset": "1794621272"
+    },
+    "body": "{\"url\":\"https://api.github.com/repos/svenstaro/upload-release-action/releases/297581617\",\"assets_url\":\"https://api.github.com/repos/svenstaro/upload-release-action/releases/297581617/assets\",\"upload_url\":\"https://uploads.github.com/repos/svenstaro/upload-release-action/releases/297581617/assets{?name,label}\",\"html_url\":\"https://github.com/svenstaro/upload-release-action/releases/tag/2.11.5\",\"id\":297581617,\"author\":{\"login\":\"yairm210\",\"id\":8366208,\"node_id\":\"MDQ6VXNlcjgzNjYyMDg=\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/8366208?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/yairm210\",\"html_url\":\"https://github.com/yairm210\",\"followers_url\":\"https://api.github.com/users/yairm210/followers\",\"following_url\":\"https://api.github.com/users/yairm210/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/yairm210/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/yairm210/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/yairm210/subscriptions\",\"organizations_url\":\"https://api.github.com/users/yairm210/orgs\",\"repos_url\":\"https://api.github.com/users/yairm210/repos\",\"events_url\":\"https://api.github.com/users/yairm210/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/yairm210/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"node_id\":\"RE_kwDODCQu0c4RvLwx\",\"tag_name\":\"2.11.5\",\"target_commitish\":\"master\",\"name\":\"2.11.5\",\"draft\":false,\"immutable\":false,\"prerelease\":false,\"created_at\":\"2026-03-16T16:56:53Z\",\"updated_at\":\"2026-03-16T17:01:13Z\",\"published_at\":\"2026-03-16T17:01:13Z\",\"assets\":[],\"tarball_url\":\"https://api.github.com/repos/svenstaro/upload-release-action/tarball/2.11.5\",\"zipball_url\":\"https://api.github.com/repos/svenstaro/upload-release-action/zipball/2.11.5\",\"body\":\"Update to ESM; Bump github-related npm libraries\"}"
+  }
+}

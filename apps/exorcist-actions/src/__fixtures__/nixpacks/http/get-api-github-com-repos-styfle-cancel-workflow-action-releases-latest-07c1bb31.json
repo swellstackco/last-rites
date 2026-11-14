@@ -1,0 +1,14 @@
+{
+  "method": "GET",
+  "url": "https://api.github.com/repos/styfle/cancel-workflow-action/releases/latest",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "58",
+      "x-ratelimit-reset": "1794621272"
+    },
+    "body": "{\"url\":\"https://api.github.com/repos/styfle/cancel-workflow-action/releases/295706543\",\"assets_url\":\"https://api.github.com/repos/styfle/cancel-workflow-action/releases/295706543/assets\",\"upload_url\":\"https://uploads.github.com/repos/styfle/cancel-workflow-action/releases/295706543/assets{?name,label}\",\"html_url\":\"https://github.com/styfle/cancel-workflow-action/releases/tag/0.13.1\",\"id\":295706543,\"author\":{\"login\":\"styfle\",\"id\":229881,\"node_id\":\"MDQ6VXNlcjIyOTg4MQ==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/229881?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/styfle\",\"html_url\":\"https://github.com/styfle\",\"followers_url\":\"https://api.github.com/users/styfle/followers\",\"following_url\":\"https://api.github.com/users/styfle/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/styfle/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/styfle/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/styfle/subscriptions\",\"organizations_url\":\"https://api.github.com/users/styfle/orgs\",\"repos_url\":\"https://api.github.com/users/styfle/repos\",\"events_url\":\"https://api.github.com/users/styfle/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/styfle/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"node_id\":\"RE_kwDODiryKM4RoB-v\",\"tag_name\":\"0.13.1\",\"target_commitish\":\"d07a454dad7609a92316b57b23c9ccfd4f59af66\",\"name\":\"0.13.1\",\"draft\":false,\"immutable\":false,\"prerelease\":false,\"created_at\":\"2026-03-11T14:56:30Z\",\"updated_at\":\"2026-03-11T14:57:15Z\",\"published_at\":\"2026-03-11T14:57:15Z\",\"assets\":[],\"tarball_url\":\"https://api.github.com/repos/styfle/cancel-workflow-action/tarball/0.13.1\",\"zipball_url\":\"https://api.github.com/repos/styfle/cancel-workflow-action/zipball/0.13.1\",\"body\":\"### Patches \\r\\n\\r\\n- Fix: update Node.js runtime from 20 to 24: #217\\r\\n\"}"
+  }
+}

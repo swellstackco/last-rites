@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://raw.githubusercontent.com/mislav/bump-homebrew-formula-action/v3/action.yml",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/plain; charset=utf-8"
+    },
+    "body": "name: bump-homebrew-formula\ndescription: \"Bump Homebrew formula after a new release\"\nauthor: \"@mislav\"\nruns:\n  using: node20\n  main: \"./lib/index.js\"\ninputs:\n  formula-name:\n    description: The name of the Homebrew formula (defaults to lower-cased repository name)\n  formula-path:\n    description: The path to the Homebrew formula file (defaults to `Formula/<formula-name>.rb`)\n  tag-name:\n    description: The git tag name to bump the formula to (defaults to the currently pushed tag)\n  download-url:\n    description: The package download URL for the Homebrew formula (defaults to the release tarball)\n  download-sha256:\n    description: The SHA256 checksum of the archive at download-url (defaults to calculating it)\n  homebrew-tap:\n    description: The repository where the formula should be updated\n    default: Homebrew/homebrew-core\n  push-to:\n    description: An existing fork of the homebrew-tap repository where the edit should be pushed to (defaults to creating or reusing a personal fork)\n  base-branch:\n    description: The branch name in the homebrew-tap repository to update the formula in\n  create-pullrequest:\n    description: Set to a boolean value to either force or prohibit making a pull request to homebrew-tap\n  create-branch:\n    description: Set to a boolean value to either force or prohibit creating a separate branch on homebrew-tap\n  commit-message:\n    description: The git commit message template to use when updating the formula\n    default: |\n      {{formulaName}} {{version}}\n\n      Created by https://github.com/mislav/bump-homebrew-formula-action\nbranding:\n  icon: box\n  color: orange\n"
+  }
+}

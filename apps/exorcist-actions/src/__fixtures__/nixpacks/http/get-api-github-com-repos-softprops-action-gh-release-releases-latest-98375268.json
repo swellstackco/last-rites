@@ -1,0 +1,14 @@
+{
+  "method": "GET",
+  "url": "https://api.github.com/repos/softprops/action-gh-release/releases/latest",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "28",
+      "x-ratelimit-reset": "1794621272"
+    },
+    "body": "{\"url\":\"https://api.github.com/repos/softprops/action-gh-release/releases/435305478\",\"assets_url\":\"https://api.github.com/repos/softprops/action-gh-release/releases/435305478/assets\",\"upload_url\":\"https://uploads.github.com/repos/softprops/action-gh-release/releases/435305478/assets{?name,label}\",\"html_url\":\"https://github.com/softprops/action-gh-release/releases/tag/v3.0.4\",\"id\":435305478,\"author\":{\"login\":\"chenrui333\",\"id\":1580956,\"node_id\":\"MDQ6VXNlcjE1ODA5NTY=\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/1580956?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/chenrui333\",\"html_url\":\"https://github.com/chenrui333\",\"followers_url\":\"https://api.github.com/users/chenrui333/followers\",\"following_url\":\"https://api.github.com/users/chenrui333/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/chenrui333/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/chenrui333/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/chenrui333/subscriptions\",\"organizations_url\":\"https://api.github.com/users/chenrui333/orgs\",\"repos_url\":\"https://api.github.com/users/chenrui333/repos\",\"events_url\":\"https://api.github.com/users/chenrui333/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/chenrui333/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"node_id\":\"RE_kwDODCyqcM4Z8jwG\",\"tag_name\":\"v3.0.4\",\"target_commitish\":\"master\",\"name\":\"v3.0.4\",\"draft\":false,\"immutable\":false,\"prerelease\":false,\"created_at\":\"2026-11-05T14:25:13Z\",\"updated_at\":\"2026-11-05T14:26:38Z\",\"published_at\":\"2026-11-05T14:26:38Z\",\"assets\":[],\"tarball_url\":\"https://api.github.com/repos/softprops/action-gh-release/tarball/v3.0.4\",\"zipball_url\":\"https://api.github.com/repos/softprops/action-gh-release/zipball/v3.0.4\",\"body\":\"- maintenance release with updated dependencies\\n\",\"reactions\":{\"url\":\"https://api.github.com/repos/softprops/action-gh-release/releases/435305478/reactions\",\"total_count\":1,\"+1\":1,\"-1\":0,\"laugh\":0,\"hooray\":0,\"confused\":0,\"heart\":0,\"rocket\":0,\"eyes\":0}}"
+  }
+}

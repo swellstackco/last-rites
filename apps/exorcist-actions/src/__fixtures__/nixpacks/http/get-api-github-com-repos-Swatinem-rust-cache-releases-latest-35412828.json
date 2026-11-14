@@ -1,0 +1,14 @@
+{
+  "method": "GET",
+  "url": "https://api.github.com/repos/Swatinem/rust-cache/releases/latest",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "application/json; charset=utf-8",
+      "x-ratelimit-limit": "60",
+      "x-ratelimit-remaining": "52",
+      "x-ratelimit-reset": "1794621272"
+    },
+    "body": "{\"url\":\"https://api.github.com/repos/Swatinem/rust-cache/releases/418453345\",\"assets_url\":\"https://api.github.com/repos/Swatinem/rust-cache/releases/418453345/assets\",\"upload_url\":\"https://uploads.github.com/repos/Swatinem/rust-cache/releases/418453345/assets{?name,label}\",\"html_url\":\"https://github.com/Swatinem/rust-cache/releases/tag/v2.9.3\",\"id\":418453345,\"author\":{\"login\":\"Swatinem\",\"id\":580492,\"node_id\":\"MDQ6VXNlcjU4MDQ5Mg==\",\"avatar_url\":\"https://avatars.githubusercontent.com/u/580492?v=4\",\"gravatar_id\":\"\",\"url\":\"https://api.github.com/users/Swatinem\",\"html_url\":\"https://github.com/Swatinem\",\"followers_url\":\"https://api.github.com/users/Swatinem/followers\",\"following_url\":\"https://api.github.com/users/Swatinem/following{/other_user}\",\"gists_url\":\"https://api.github.com/users/Swatinem/gists{/gist_id}\",\"starred_url\":\"https://api.github.com/users/Swatinem/starred{/owner}{/repo}\",\"subscriptions_url\":\"https://api.github.com/users/Swatinem/subscriptions\",\"organizations_url\":\"https://api.github.com/users/Swatinem/orgs\",\"repos_url\":\"https://api.github.com/users/Swatinem/repos\",\"events_url\":\"https://api.github.com/users/Swatinem/events{/privacy}\",\"received_events_url\":\"https://api.github.com/users/Swatinem/received_events\",\"type\":\"User\",\"user_view_type\":\"public\",\"site_admin\":false},\"node_id\":\"RE_kwDOEcvBY84Y8Rdh\",\"tag_name\":\"v2.9.3\",\"target_commitish\":\"master\",\"name\":\"v2.9.3\",\"draft\":false,\"immutable\":false,\"prerelease\":false,\"created_at\":\"2026-10-20T13:45:46Z\",\"updated_at\":\"2026-10-20T13:47:43Z\",\"published_at\":\"2026-10-20T13:47:43Z\",\"assets\":[],\"tarball_url\":\"https://api.github.com/repos/Swatinem/rust-cache/tarball/v2.9.3\",\"zipball_url\":\"https://api.github.com/repos/Swatinem/rust-cache/zipball/v2.9.3\",\"body\":\"## What's Changed\\r\\n* Issue-375: stop cleanup timestamp pruning after the first entry by @TethysSvensson in https://github.com/Swatinem/rust-cache/pull/377\\r\\n* fix: log rustup toolchain list failure as info instead of warning by @SDAChess in https://github.com/Swatinem/rust-cache/pull/394\\r\\n\\r\\n## New Contributors\\r\\n* @TethysSvensson made their first contribution in https://github.com/Swatinem/rust-cache/pull/377\\r\\n* @SDAChess made their first contribution in https://github.com/Swatinem/rust-cache/pull/394\\r\\n\\r\\n**Full Changelog**: https://github.com/Swatinem/rust-cache/compare/v2.9.2...v2.9.3\",\"mentions_count\":2}"
+  }
+}

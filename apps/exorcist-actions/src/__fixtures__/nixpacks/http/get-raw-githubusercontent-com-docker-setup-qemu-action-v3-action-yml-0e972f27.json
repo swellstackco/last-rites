@@ -1,0 +1,11 @@
+{
+  "method": "GET",
+  "url": "https://raw.githubusercontent.com/docker/setup-qemu-action/v3/action.yml",
+  "response": {
+    "status": 200,
+    "headers": {
+      "content-type": "text/plain; charset=utf-8"
+    },
+    "body": "# https://help.github.com/en/articles/metadata-syntax-for-github-actions\nname: 'Docker Setup QEMU'\ndescription: 'Install QEMU static binaries'\nauthor: 'docker'\nbranding:\n  icon: 'anchor'\n  color: 'blue'\n\ninputs:\n  image:\n    description: 'QEMU static binaries Docker image (e.g. tonistiigi/binfmt:latest)'\n    default: 'docker.io/tonistiigi/binfmt:latest'\n    required: false\n  platforms:\n    description: 'Platforms to install (e.g. arm64,riscv64,arm)'\n    default: 'all'\n    required: false\n  cache-image:\n    description: 'Cache binfmt image to GitHub Actions cache backend'\n    default: 'true'\n    required: false\n\noutputs:\n  platforms:\n    description: 'Available platforms (comma separated)'\n\nruns:\n  using: 'node20'\n  main: 'dist/index.js'\n  post: 'dist/index.js'\n"
+  }
+}
