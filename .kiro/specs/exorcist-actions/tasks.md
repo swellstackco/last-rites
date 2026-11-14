@@ -87,7 +87,7 @@ Terminology: a *Mutant* belongs to the proof of this app (five of them, Requirem
   - _Requirements: 4.3, 4.4, 4.6, 5.3, 5.4, 5.5, 6.3, 6.4, 6.5, 6.7, 17.1, 17.2_
 - [x] 4.7 Create `src/evidence/stage.ts` (`createActionEvidenceStage`: one `CacheLayer` over a `ResilientClient`, `Promise.all` over the sources, last-resort catch giving the all-unknown result with the warning `evidence failed for {owner}/{repo}`) and `src/evidence/index.ts`; write `src/evidence/stage.test.ts` with `FakeHttp` fixtures: all sources succeed; each source fails in turn (only its signals unknown); a stage whose source throws; two calls with the same inputs give equal results; a Site `job` use makes no manifest request.
   - _Requirements: 4.1, 4.2, 4.5, 6.5, 6.6, 6.7_
-- [ ] 4.8 Checkpoint after Phase 4 - Run `npm run typecheck` and `npm test -- apps/exorcist-actions`; ensure all tests pass, ask the user if questions arise.
+- [x] 4.8 Checkpoint after Phase 4 - Run `npm run typecheck` and `npm test -- apps/exorcist-actions`; ensure all tests pass, ask the user if questions arise.
   - _Requirements: 17.1_
 
 ### Phase 5: The scan and its CLI
