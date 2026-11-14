@@ -4,6 +4,8 @@
 
 Last Rites finds the dead dependencies in a repo, scores how dead each one is (0 to 100, every point shown with its source), and proves with property-based tests that a replacement behaves the same **at your real call sites** before anything changes.
 
+**Demo video (2:20):** https://www.youtube.com/watch?v=RIGBw5_gc2I
+
 **Live:** https://lastrites.swellstackco.com → open `parse-server` → click `intersect` → scroll to Proof.
 
 ## The moment it's built for
