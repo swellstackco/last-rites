@@ -126,17 +126,17 @@ Terminology: a *Mutant* belongs to the proof of this app (five of them, Requirem
 
 ### Phase 7: The exorcise command
 
-- [ ] 7.1 Create `src/exorcise/cli-args.ts`: `parseExorciseArgs` (pure and total; `--fix` exactly `pin` or `swap`; `--out` checked with `isProofOutPath`; same flag rules as the scan parser; `--write` and `--fresh` are switches).
+- [x] 7.1 Create `src/exorcise/cli-args.ts`: `parseExorciseArgs` (pure and total; `--fix` exactly `pin` or `swap`; `--out` checked with `isProofOutPath`; same flag rules as the scan parser; `--write` and `--fresh` are switches).
   - _Requirements: 15.1, 15.6_
-- [ ] 7.2 Create `src/exorcise/run.ts`: `runExorcise` per Requirement 15 (selection, resolution or manifest fetch, rewrite, proof, sabotage, attempt, report append with the callSites check and `--fresh`, `--write` gate, printed diff and status), never rejecting, the only writes being `reports.writeAtomic`.
+- [x] 7.2 Create `src/exorcise/run.ts`: `runExorcise` per Requirement 15 (selection, resolution or manifest fetch, rewrite, proof, sabotage, attempt, report append with the callSites check and `--fresh`, `--write` gate, printed diff and status), never rejecting, the only writes being `reports.writeAtomic`.
   - _Requirements: 15.1, 15.2, 15.3, 15.4, 15.5, 15.6, 15.7, 15.8_
-- [ ] 7.3 Create `src/exorcise/cli.ts` (the entry that wires `createNodeSourceFs`, `createNodeReportFs`, the cache stack and the evidence functions of 4.3 into `ExorciseDeps`, reads `process.argv` and `process.env`, sets the exit code) and `src/exorcise/index.ts`.
+- [x] 7.3 Create `src/exorcise/cli.ts` (the entry that wires `createNodeSourceFs`, `createNodeReportFs`, the cache stack and the evidence functions of 4.3 into `ExorciseDeps`, reads `process.argv` and `process.env`, sets the exit code) and `src/exorcise/index.ts`.
   - _Requirements: 1.9, 15.1, 15.8_
-- [ ] 7.4 Write `src/exorcise/run.p13.test.ts` for Property 13 (both parsers over random `argv`; the write-confinement part over an in-memory file system and a recording `ReportFs`, with fake evidence functions that produce proved, counterexample, weak and error outcomes), exporting `build(impl)`, and the Sabotage_List `actions-p13.ts` with (a) to (h).
+- [x] 7.4 Write `src/exorcise/run.p13.test.ts` for Property 13 (both parsers over random `argv`; the write-confinement part over an in-memory file system and a recording `ReportFs`, with fake evidence functions that produce proved, counterexample, weak and error outcomes), exporting `build(impl)`, and the Sabotage_List `actions-p13.ts` with (a) to (h).
   - _Requirements: 9.2, 15.1, 15.3, 15.4, 15.5, 15.6, 15.7, 15.8, 17.1, 17.2_
-- [ ] 7.5 Write `src/exorcise/run.test.ts` examples: pin dry run prints `- old` / `+ new` and writes nothing; `--write` on a proved attempt writes the files and no other; `--write` on a counterexample prints `not written: counterexample` and exits 1; `no uses of`, `nothing to pin`, `no swap available` (the `run` entry) exits; a Rewrite_Refusal exits 1 with nothing written; `--out` appends attempt 2 to an existing report; a report with other call sites exits 1 and `--fresh` replaces it; a resolution failure is an `error` attempt with `recipe_failure`.
+- [x] 7.5 Write `src/exorcise/run.test.ts` examples: pin dry run prints `- old` / `+ new` and writes nothing; `--write` on a proved attempt writes the files and no other; `--write` on a counterexample prints `not written: counterexample` and exits 1; `no uses of`, `nothing to pin`, `no swap available` (the `run` entry) exits; a Rewrite_Refusal exits 1 with nothing written; `--out` appends attempt 2 to an existing report; a report with other call sites exits 1 and `--fresh` replaces it; a resolution failure is an `error` attempt with `recipe_failure`.
   - _Requirements: 15.2, 15.3, 15.4, 15.5, 15.6, 15.7, 12.5, 13.6_
-- [ ] 7.6 Checkpoint after Phase 7 - Run `npm run typecheck` and `npm test -- apps/exorcist-actions`; ensure all tests pass, ask the user if questions arise.
+- [x] 7.6 Checkpoint after Phase 7 - Run `npm run typecheck` and `npm test -- apps/exorcist-actions`; ensure all tests pass, ask the user if questions arise.
   - _Requirements: 17.1_
 
 ### Phase 8: Recording, the demo snapshot and the hero proofs

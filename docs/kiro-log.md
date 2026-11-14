@@ -730,3 +730,10 @@ The agent runs (11.3, 11.5, 11.8) were done by the operator (Claude Code) with t
 - 6.8 done: `test-support/arbitraries/attempt.ts`, `test-support/properties/actions-p12.ts`, `proof/attempt.p12.test.ts` (Property 12) and Sabotage_List `sabotage/actions-p12.ts` (8 entries (a) to (h), all caught). Property 12 checks the real `appendAttempt` / `serializeProofReport` / `parseProofReport` round trip, `weak`, sabotage numbers, call sites against an independent model, the mapping-table fields, and both name functions.
 - 6.9 checkpoint (Phase 6 complete): `npm run typecheck` clean; `npx vitest run apps/exorcist-actions` green (18 files, 108 tests).
 - Stopped at the Phase 6 checkpoint as the batch rule says (2 tasks, fewer than 7). Phase 7 is next.
+
+## 2026-11-14: exorcist-actions tasks 7.1 to 7.6 (batch 7, Kiro CLI, headless)
+
+- Added `src/exorcise/` (`cli-args.ts`, `run.ts`, `cli.ts`, `index.ts`), Property 13 (`run.p13.test.ts`, properties and Sabotage_List `actions-p13.ts`) and `run.test.ts` examples. Typecheck and all `apps/exorcist-actions` tests are green.
+- Deviation: `ExorciseDeps` gained an optional `mutants` test seam (default: the five real Mutants). Without it a weak proof is unreachable with the real Mutants (`add-unmapped-input` always applies), so the "no write on weak" rule and Sabotage (b) could not be tested. It adds no way to spawn a process or write.
+- Behavior notes: the replacement manifest is fetched before any swap rewrite, so a manifest failure is an `error` attempt even when the rewrite would have refused. A written `--out` report is produced for `error` and `counterexample` attempts too (exit 0 without `--write`).
+- Weighted the scenario generator so `toolchainWith` (which makes the swap refuse) is rare; otherwise the counterexample and weak outcomes were too rare for Sabotage (a) and (b) to be caught at 100 runs.
