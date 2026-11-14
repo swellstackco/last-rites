@@ -56,19 +56,19 @@ Terminology: a *Mutant* belongs to the proof of this app (five of them, Requirem
 
 ### Phase 3: The Replacement_Map and the rewrites
 
-- [ ] 3.1 Create `src/replacements.ts`: the types, `REPLACEMENTS` with the four seed entries (`from`, `kind`, `to` and `toRef` or `command`, `sourceUrl`, `replacementUrl`, and `inputs: {}` for the two kinds that have inputs; `toRef` provisional until 8.3), and `findReplacement` (case-insensitive, total). Add a comment above `inputs` saying 8.3 fills them from the recorded manifests.
+- [x] 3.1 Create `src/replacements.ts`: the types, `REPLACEMENTS` with the four seed entries (`from`, `kind`, `to` and `toRef` or `command`, `sourceUrl`, `replacementUrl`, and `inputs: {}` for the two kinds that have inputs; `toRef` provisional until 8.3), and `findReplacement` (case-insensitive, total). Add a comment above `inputs` saying 8.3 fills them from the recorded manifests.
   - _Requirements: 7.1, 7.2, 7.3, 7.5_
-- [ ] 3.2 Create `src/rewrite/lines.ts` (`lineOf`, `tailOk`) and `src/rewrite/pin.ts` (`pinUse`, `pinAll`) per the design; add `src/rewrite/index.ts`.
+- [x] 3.2 Create `src/rewrite/lines.ts` (`lineOf`, `tailOk`) and `src/rewrite/pin.ts` (`pinUse`, `pinAll`) per the design; add `src/rewrite/index.ts`.
   - _Requirements: 10.1, 10.2, 10.3, 10.4, 10.5_
-- [ ] 3.3 Write `src/rewrite/pin.p3.test.ts` for Property 3 over the workflow arbitrary (re-inventory of the result included), exporting `build(impl)`, and the Sabotage_List `actions-p3.ts` with (a) to (h).
+- [x] 3.3 Write `src/rewrite/pin.p3.test.ts` for Property 3 over the workflow arbitrary (re-inventory of the result included), exporting `build(impl)`, and the Sabotage_List `actions-p3.ts` with (a) to (h).
   - _Requirements: 10.1, 10.2, 10.6, 17.1, 17.2_
-- [ ] 3.4 Write `src/rewrite/pin.p4.test.ts` for Property 4 (idempotence, refusals, `pinAll`), exporting `build(impl)`, and the Sabotage_List `actions-p4.ts` with (a) to (f). Add examples for each refusal reason on small hand-written text.
+- [x] 3.4 Write `src/rewrite/pin.p4.test.ts` for Property 4 (idempotence, refusals, `pinAll`), exporting `build(impl)`, and the Sabotage_List `actions-p4.ts` with (a) to (f). Add examples for each refusal reason on small hand-written text.
   - _Requirements: 10.1, 10.3, 10.4, 10.5, 17.1, 17.2_
-- [ ] 3.5 Create `src/rewrite/swap.ts` (`swapUse`) per the design: refusals first, then one edit list applied from the last offset to the first; export it from `src/rewrite/index.ts`.
+- [x] 3.5 Create `src/rewrite/swap.ts` (`swapUse`) per the design: refusals first, then one edit list applied from the last offset to the first; export it from `src/rewrite/index.ts`.
   - _Requirements: 11.1, 11.2, 11.3, 11.4, 11.5, 11.6_
-- [ ] 3.6 Create `src/test-support/arbitraries/replacement.ts` (generated `ActionReplacement` with renamed, kept and dropped entries, and a matching `with` map generator) and write `src/rewrite/swap.p5.test.ts` for Property 5 (including `findReplacement`), exporting `build(impl)`, and the Sabotage_List `actions-p5.ts` with (a) to (i). Add examples with the `actions-rs/toolchain` shape of the nixpacks `ci.yml` (`profile`, `toolchain`, `override` lines) against a test-local replacement.
+- [x] 3.6 Create `src/test-support/arbitraries/replacement.ts` (generated `ActionReplacement` with renamed, kept and dropped entries, and a matching `with` map generator) and write `src/rewrite/swap.p5.test.ts` for Property 5 (including `findReplacement`), exporting `build(impl)`, and the Sabotage_List `actions-p5.ts` with (a) to (i). Add examples with the `actions-rs/toolchain` shape of the nixpacks `ci.yml` (`profile`, `toolchain`, `override` lines) against a test-local replacement.
   - _Requirements: 7.1, 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 17.1, 17.2_
-- [ ] 3.7 Checkpoint after Phase 3 - Run `npm run typecheck` and `npm test -- apps/exorcist-actions`; ensure all tests pass, ask the user if questions arise.
+- [x] 3.7 Checkpoint after Phase 3 - Run `npm run typecheck` and `npm test -- apps/exorcist-actions`; ensure all tests pass, ask the user if questions arise.
   - _Requirements: 17.1_
 
 ### Phase 4: Evidence
