@@ -14,7 +14,8 @@
   },
   "dependencies": {
     "@graveyard-kit/exorcist-npm": "*",
-    "@graveyard-kit/skeleton": "*"
+    "@graveyard-kit/skeleton": "*",
+    "yaml": "2.9.1"
   },
   "devDependencies": {
     "@types/node": "22.10.2",
