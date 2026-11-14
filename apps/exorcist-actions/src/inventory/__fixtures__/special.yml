@@ -1,0 +1,11 @@
+jobs:
+  a:
+    steps:
+      - uses: docker://alpine:3
+      - uses: ./local-action
+      - uses: actions/checkout
+      - uses: actions/checkout@${{ github.sha }}
+  b:
+    uses: octo/repo/.github/workflows/w.yml@v1
+    with:
+      x: y

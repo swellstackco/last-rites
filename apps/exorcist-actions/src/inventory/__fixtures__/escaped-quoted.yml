@@ -1,0 +1,4 @@
+jobs:
+  a:
+    steps:
+      - uses: "actions/check\x6Fut@v4"

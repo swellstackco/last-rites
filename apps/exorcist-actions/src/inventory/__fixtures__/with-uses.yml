@@ -1,0 +1,7 @@
+jobs:
+  a:
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          uses: actions/not-a-use@v1
+          script: "x"

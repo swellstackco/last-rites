@@ -1,0 +1,9 @@
+jobs:
+  a:
+    steps:
+      - uses: actions/checkout@v4
+---
+jobs:
+  b:
+    steps:
+      - uses: actions/cache@v3

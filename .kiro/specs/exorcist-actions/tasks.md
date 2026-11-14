@@ -47,11 +47,11 @@ Terminology: a *Mutant* belongs to the proof of this app (five of them, Requirem
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3.3, 3.4, 3.5, 3.6_
 - [x] 2.7 Write `src/inventory/inventory.p1.test.ts` for Property 1 over `inventoryText` and `inventoryWorkflows` (in-memory `SourceFs`, shuffled listing), exporting `build(impl)`, and the Sabotage_List `actions-p1.ts` with (a) to (i).
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 2.6, 2.7, 2.8, 2.9, 3.3, 3.5, 3.6, 17.1, 17.2_
-- [ ] 2.8 Write example tests `src/inventory/inventory.test.ts` over small hand-written files in `src/inventory/__fixtures__/`: quoted values, CRLF, no final newline, flow-style step, anchor and alias, block scalar, escaped quoted scalar, `docker://`, `./`, no `@ref`, `${{ }}`, a reusable-workflow `uses`, a symlink entry ignored, an unreadable directory, a 2 MiB file, two documents in one file, a `uses` under `with:`.
+- [x] 2.8 Write example tests `src/inventory/inventory.test.ts` over small hand-written files in `src/inventory/__fixtures__/`: quoted values, CRLF, no final newline, flow-style step, anchor and alias, block scalar, escaped quoted scalar, `docker://`, `./`, no `@ref`, `${{ }}`, a reusable-workflow `uses`, a symlink entry ignored, an unreadable directory, a 2 MiB file, two documents in one file, a `uses` under `with:`.
   - _Requirements: 2.1, 2.2, 2.7, 3.3, 3.4, 3.5_
-- [ ] 2.9 Copy the seven files of `../lastrites-work/nixpacks/.github/workflows/` (at `144b4f9`, read locally, no request) to `src/__fixtures__/nixpacks/repo/.github/workflows/` byte for byte, and write `src/inventory/nixpacks.test.ts`: six `actions-rs/toolchain` and seven `actions-rs/cargo` uses, every other Action_Name count equal to a line-based counter written in the test, `ci.yml` positions of the first toolchain use (line and column from the file), and no skipped uses.
+- [x] 2.9 Copy the seven files of `../lastrites-work/nixpacks/.github/workflows/` (at `144b4f9`, read locally, no request) to `src/__fixtures__/nixpacks/repo/.github/workflows/` byte for byte, and write `src/inventory/nixpacks.test.ts`: six `actions-rs/toolchain` and seven `actions-rs/cargo` uses, every other Action_Name count equal to a line-based counter written in the test, `ci.yml` positions of the first toolchain use (line and column from the file), and no skipped uses.
   - _Requirements: 16.4_
-- [ ] 2.10 Checkpoint after Phase 2 - Run `npm run typecheck` and `npm test -- apps/exorcist-actions`; ensure all tests pass, ask the user if questions arise.
+- [x] 2.10 Checkpoint after Phase 2 - Run `npm run typecheck` and `npm test -- apps/exorcist-actions`; ensure all tests pass, ask the user if questions arise.
   - _Requirements: 17.1_
 
 ### Phase 3: The Replacement_Map and the rewrites

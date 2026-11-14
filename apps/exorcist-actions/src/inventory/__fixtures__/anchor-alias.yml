@@ -1,0 +1,6 @@
+jobs:
+  a:
+    steps:
+      - &co
+        uses: actions/checkout@v4
+      - *co
