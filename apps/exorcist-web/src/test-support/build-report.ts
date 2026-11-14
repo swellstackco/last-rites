@@ -1,6 +1,6 @@
-import { scoreDeath, toGrade } from "@graveyard-kit/skeleton";
-import type { GradeBand, PackageSignals, SignalName, WeightConfig } from "@graveyard-kit/skeleton";
-import type { ScanReport, ScannedDependency } from "@graveyard-kit/exorcist-npm/report";
+import { scoreDeath, toGrade } from "@last-rites/skeleton";
+import type { GradeBand, PackageSignals, SignalName, WeightConfig } from "@last-rites/skeleton";
+import type { ScanReport, ScannedDependency } from "@last-rites/exorcist-npm/report";
 
 export interface FixtureDependency {
   name: string;

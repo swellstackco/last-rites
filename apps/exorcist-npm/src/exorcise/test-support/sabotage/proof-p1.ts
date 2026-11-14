@@ -1,6 +1,6 @@
 // Sabotage_List for Property 1 (differential soundness). Each entry is runProof with one comparison defect added,
 // built by rewriting the input (projection, or the functions of the two modules) before the real runProof runs.
-import { runProof, type CallShape, type ProofInput } from "@graveyard-kit/skeleton/proof/runner";
+import { runProof, type CallShape, type ProofInput } from "@last-rites/skeleton/proof/runner";
 import type { Sabotage } from "../../../evidence/test-support/sabotage-runner.js";
 import type { DifferentialImpl } from "../../recipes.p1.test.js";
 

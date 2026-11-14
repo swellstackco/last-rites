@@ -1,7 +1,7 @@
 import fc from "fast-check";
 import { describe, it, expect } from "vitest";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import type { ScanPipeline } from "@graveyard-kit/exorcist-npm/programmatic";
+import type { ScanPipeline } from "@last-rites/exorcist-npm/programmatic";
 import { ERROR_CODES, UNEXPECTED_MESSAGE } from "../errors.js";
 import { assertPropertyAsync } from "../test-support/fc-runner.js";
 import { assertAllSabotagesCaughtAsync, type NamedAsyncProperty } from "../test-support/sabotage-runner.js";

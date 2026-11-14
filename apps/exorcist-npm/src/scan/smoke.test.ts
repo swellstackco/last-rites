@@ -30,12 +30,12 @@ const isSupport = (f: string): boolean => f.includes("/test-support/");
 const rel = (f: string): string => relative(APP, f);
 
 describe("scanner static smoke checks", () => {
-  it("imports /skeleton only through @graveyard-kit/skeleton", () => {
+  it("imports /skeleton only through @last-rites/skeleton", () => {
     const bad: string[] = [];
     for (const f of tsFiles(SCAN)) {
       for (const s of specifiers(f)) {
-        if (s === "@graveyard-kit/skeleton") continue;
-        if (s.startsWith("@graveyard-kit/skeleton/") || /(^|\/)skeleton(\/|$)/.test(s)) bad.push(`${rel(f)}: ${s}`);
+        if (s === "@last-rites/skeleton") continue;
+        if (s.startsWith("@last-rites/skeleton/") || /(^|\/)skeleton(\/|$)/.test(s)) bad.push(`${rel(f)}: ${s}`);
       }
     }
     expect(bad).toEqual([]);
@@ -85,7 +85,7 @@ describe("scanner static smoke checks", () => {
   it("runtime dependencies of the app are exact-pinned (workspace links excepted)", () => {
     const pkg = JSON.parse(readFileSync(join(APP, "package.json"), "utf8")) as { dependencies?: Record<string, string> };
     for (const [name, v] of Object.entries(pkg.dependencies ?? {})) {
-      if (name.startsWith("@graveyard-kit/")) continue;
+      if (name.startsWith("@last-rites/")) continue;
       expect(v, name).toMatch(/^[0-9]+(\.[0-9]+)*$/);
     }
   });

@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Exorcist_Actions (`apps/exorcist-actions`, package `@graveyard-kit/exorcist-actions`) is the second, deliberately thin app on the kit. It has a different input, different evidence, a different fix and a different proof from Exorcist for npm, and it uses the same death-score engine, the same report format and the same graveyard. It scans the third-party GitHub Actions a repository uses, scores how dead each one is, and for a dead or risky action produces a fix and a proof:
+Exorcist_Actions (`apps/exorcist-actions`, package `@last-rites/exorcist-actions`) is the second, deliberately thin app on the kit. It has a different input, different evidence, a different fix and a different proof from Exorcist for npm, and it uses the same death-score engine, the same report format and the same graveyard. It scans the third-party GitHub Actions a repository uses, scores how dead each one is, and for a dead or risky action produces a fix and a proof:
 
 1. **Inventory**: every `uses:` in `.github/workflows/*.yml|yaml` (steps and reusable workflows), with exact source positions.
 2. **Evidence**: the seven skeleton signals per `owner/repo`, from GitHub, the action's own `action.yml`, OSV (ecosystem `GitHub Actions`) and a curated replacement map.
@@ -56,7 +56,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 - **Recorder**: the manual script of Requirement 16.2.
 - **Hero_Repo**: `railwayapp/nixpacks` at commit `144b4f9ab1c3943af4dfe76d3c79d91263f5b465`, cloned at `../lastrites-work/nixpacks`.
 - **Demo_Snapshot**: `demo/nixpacks-actions.json`.
-- **Programmatic_Entry**: `@graveyard-kit/exorcist-npm/programmatic` (`apps/exorcist-npm/src/programmatic.ts`), re-exports only.
+- **Programmatic_Entry**: `@last-rites/exorcist-npm/programmatic` (`apps/exorcist-npm/src/programmatic.ts`), re-exports only.
 
 ## Requirements
 
@@ -66,10 +66,10 @@ Behavioral decisions fixed here, so design does not have to guess:
 
 #### Acceptance Criteria
 
-1. THE package SHALL be `@graveyard-kit/exorcist-actions` in `apps/exorcist-actions` (private, `type` module, TypeScript strict, ESM), covered by the existing root `workspaces` entry `apps/*` and the existing root `vitest.config.ts` pattern `apps/*/src/**/*.test.ts`; THE root `package.json` and `vitest.config.ts` SHALL NOT change.
+1. THE package SHALL be `@last-rites/exorcist-actions` in `apps/exorcist-actions` (private, `type` module, TypeScript strict, ESM), covered by the existing root `workspaces` entry `apps/*` and the existing root `vitest.config.ts` pattern `apps/*/src/**/*.test.ts`; THE root `package.json` and `vitest.config.ts` SHALL NOT change.
 2. THE `package.json` SHALL declare the scripts `typecheck` (`tsc --noEmit`), `scan`, `exorcise` and `record-fixtures` (the last three through `vite-node`, as in `exorcist-npm`).
-3. THE dependencies SHALL be `@graveyard-kit/skeleton` and `@graveyard-kit/exorcist-npm` (both `*`) and `yaml` as an exact version; THE dev dependencies (`fast-check`, `vitest`, `typescript`, `@types/node`) SHALL be written as the exact versions that the lockfile already resolves for the sibling packages, so that no second copy is installed; no dependency SHALL be an LLM client.
-4. THE app SHALL import from `exorcist-npm` only through `@graveyard-kit/exorcist-npm/programmatic`, `@graveyard-kit/exorcist-npm/programmatic/testing` and `@graveyard-kit/exorcist-npm/report`, and from `skeleton` only through its package exports; THE `skeleton` package SHALL NOT import anything from an app.
+3. THE dependencies SHALL be `@last-rites/skeleton` and `@last-rites/exorcist-npm` (both `*`) and `yaml` as an exact version; THE dev dependencies (`fast-check`, `vitest`, `typescript`, `@types/node`) SHALL be written as the exact versions that the lockfile already resolves for the sibling packages, so that no second copy is installed; no dependency SHALL be an LLM client.
+4. THE app SHALL import from `exorcist-npm` only through `@last-rites/exorcist-npm/programmatic`, `@last-rites/exorcist-npm/programmatic/testing` and `@last-rites/exorcist-npm/report`, and from `skeleton` only through its package exports; THE `skeleton` package SHALL NOT import anything from an app.
 5. THE only changes to existing code SHALL be these five, each leaving every npm behavior byte-identical (the existing tests stay unchanged and green, and each change has a new test):
    1. `scan/types.ts` and `scan/report.ts`: the optional `ecosystem` field (Requirement 8.5);
    2. `evidence/osv-count.ts` and `evidence/sources/osv.ts`: an `ecosystem` parameter defaulting to `"npm"`, and an optional version (Requirement 6.1);
@@ -183,7 +183,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 
 #### Acceptance Criteria
 
-1. THE command `npm run scan -w @graveyard-kit/exorcist-actions -- --repo <path> [--out <file>] [--label <owner/name>] [--ref <text>] [--cache <dir>]` SHALL scan the checkout at `<path>`.
+1. THE command `npm run scan -w @last-rites/exorcist-actions -- --repo <path> [--out <file>] [--label <owner/name>] [--ref <text>] [--cache <dir>]` SHALL scan the checkout at `<path>`.
 2. THE argument parser SHALL be pure and total: it SHALL reject a missing `--repo`, an unknown flag, a repeated flag, a flag without a value and any positional argument, with exit code 2 and a usage line, and SHALL never throw.
 3. THE `--label` SHALL match `^[A-Za-z0-9][A-Za-z0-9-]{0,38}/[A-Za-z0-9._-]{1,100}$` and default to `local/<basename of the path>`; THE `--ref` SHALL match `^[A-Za-z0-9._/-]{1,255}$` and default to `local`; THE `--cache` SHALL default to `.cache/actions` under the working directory.
 4. WHEN `--out` is given, THE report SHALL be written there atomically through the existing `ReportFs` and one summary line (`<n> actions, <d> dead, <u> skipped`) printed; otherwise the canonical report SHALL be printed to standard output and nothing else.
@@ -263,7 +263,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 
 #### Acceptance Criteria
 
-1. THE command `npm run exorcise -w @graveyard-kit/exorcist-actions -- --repo <path> --action <owner/repo> --fix pin|swap [--write] [--out <file>] [--label <owner/name>] [--commit <text>] [--cache <dir>] [--fresh]` SHALL run the inventory, select the uses whose Action_Name equals `--action` (case-insensitive), build the rewrite, prove it, record the attempt and, with `--write`, edit the files; the parser SHALL follow Requirement 9.2, and `--fix` SHALL be exactly `pin` or `swap`.
+1. THE command `npm run exorcise -w @last-rites/exorcist-actions -- --repo <path> --action <owner/repo> --fix pin|swap [--write] [--out <file>] [--label <owner/name>] [--commit <text>] [--cache <dir>] [--fresh]` SHALL run the inventory, select the uses whose Action_Name equals `--action` (case-insensitive), build the rewrite, prove it, record the attempt and, with `--write`, edit the files; the parser SHALL follow Requirement 9.2, and `--fix` SHALL be exactly `pin` or `swap`.
 2. WHEN no use of the action exists, THE command SHALL print `no uses of <action>` and exit 1; WHEN `--fix pin` finds no mutable use, it SHALL print `nothing to pin` and exit 1; WHEN `--fix swap` finds no Replacement of kind `action`, it SHALL print `no swap available for <action>` and exit 1.
 3. FOR `--fix pin`, THE command SHALL resolve every distinct `owner/repo@ref` through the cache, apply `pinAll` per file and run the Pin_Proof; FOR `--fix swap`, it SHALL fetch the replacement manifest at `toRef`, apply `swapUse` to every use of the action and run the Contract_Proof; a Rewrite_Refusal SHALL print its reason and exit 1 with nothing written.
 4. THE command SHALL print the changed lines as `- old` and `+ new`, the status line (`status`, `weak`, sabotage `caught of applied`) and the counterexample when there is one; without `--write` it SHALL write no workflow file.
@@ -279,7 +279,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 #### Acceptance Criteria
 
 1. THE fixtures SHALL live next to the tests that use them under `apps/exorcist-actions/src/__fixtures__/` (format of the existing `FixtureEntry`; request headers never recorded; recording unauthenticated); a `README.md` there SHALL say how they were recorded and on what date.
-2. THE Recorder (`npm run record-fixtures -w @graveyard-kit/exorcist-actions`) SHALL be a manual script, never run by `npm test`, that runs the real scan and the real exorcise runs through an `HttpClient` decorator which writes every exchange; THE URLs it requests SHALL come from the same builders as production code, so that the fixtures cannot drift from the code.
+2. THE Recorder (`npm run record-fixtures -w @last-rites/exorcist-actions`) SHALL be a manual script, never run by `npm test`, that runs the real scan and the real exorcise runs through an `HttpClient` decorator which writes every exchange; THE URLs it requests SHALL come from the same builders as production code, so that the fixtures cannot drift from the code.
 3. THE Recorder run SHALL be the only task that makes requests to GitHub, raw.githubusercontent.com and OSV, and SHALL, in that one run, record the Hero_Repo scan exchanges, the pin resolutions for the hero pins, the manifests of every Replacement `from` and `to`, and write the Demo_Snapshot and the hero proof reports from those same responses.
 4. THE recorded workflow files of the Hero_Repo (all files of `.github/workflows` at the pinned commit, copied from the local clone, no request) SHALL be committed as a fixture tree; THE tests SHALL assert, from that tree, six uses of `actions-rs/toolchain` and seven of `actions-rs/cargo` (checked on the clone on 2026-11-14), and a count of every other Action_Name that equals the count measured by an independent line-based counter in the test.
 5. THE Demo_Snapshot `demo/nixpacks-actions.json` SHALL be a Scan_Report with `ecosystem` `github-actions`, `repo` `railwayapp/nixpacks`, `ref` `144b4f9`, valid, canonical and accepted by the skeleton `buildGraveyard`, and it SHALL list `actions-rs/toolchain` and `actions-rs/cargo` with `repoArchived` known and true.

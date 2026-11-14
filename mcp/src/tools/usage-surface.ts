@@ -1,5 +1,5 @@
 import { basename } from "node:path";
-import { serializeProofReport } from "@graveyard-kit/skeleton/proof";
+import { serializeProofReport } from "@last-rites/skeleton/proof";
 import { z } from "zod";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import type { ExorcistDeps } from "../deps.js";

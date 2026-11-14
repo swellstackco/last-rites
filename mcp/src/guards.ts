@@ -1,6 +1,6 @@
 import { resolve } from "node:path";
-import { isProofName } from "@graveyard-kit/skeleton/proof";
-import { DEMO_REPOS, REPO_PATTERN, isProofOutPath, parseRepoTarget } from "@graveyard-kit/exorcist-npm/programmatic";
+import { isProofName } from "@last-rites/skeleton/proof";
+import { DEMO_REPOS, REPO_PATTERN, isProofOutPath, parseRepoTarget } from "@last-rites/exorcist-npm/programmatic";
 import { type ToolErrorValue, toolError } from "./errors.js";
 
 // Argument guards of the tools (Requirement 3). All are decided before any Dep is called.

@@ -1,4 +1,4 @@
-import { DEMO_REPOS, parseRepoTarget, REPO_PATTERN } from "@graveyard-kit/exorcist-npm/programmatic";
+import { DEMO_REPOS, parseRepoTarget, REPO_PATTERN } from "@last-rites/exorcist-npm/programmatic";
 import { REAL_GUARDS, type Guards } from "../validators.js";
 import type { Sabotage } from "../sabotage-runner.js";
 

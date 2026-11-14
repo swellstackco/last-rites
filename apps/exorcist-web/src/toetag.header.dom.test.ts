@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 // toe-tag-redesign 4.1: the masthead wraps the heading and meta line; text, labels and clicks are unchanged.
 import { describe, expect, it } from "vitest";
-import { GRADE_INFO, GRADE_ORDER } from "@graveyard-kit/skeleton/graveyard";
-import type { GradeBand } from "@graveyard-kit/skeleton";
+import { GRADE_INFO, GRADE_ORDER } from "@last-rites/skeleton/graveyard";
+import type { GradeBand } from "@last-rites/skeleton";
 import { FORM_SUBTITLE, PRODUCT_NAME, SCREEN_NAME } from "./constants.js";
 import { buildReportView } from "./model/report-view.js";
 import { buildReport } from "./test-support/build-report.js";

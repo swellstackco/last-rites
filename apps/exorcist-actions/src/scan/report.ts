@@ -1,8 +1,8 @@
 // buildScanReport (Requirements 8.1 to 8.7): a pure mapping from an inventory and the evidence of each
 // Action_Name to the ordinary Scan_Report of the npm app, with `ecosystem: "github-actions"`.
-import { scoreDeath } from "@graveyard-kit/skeleton";
-import { assembleReport } from "@graveyard-kit/exorcist-npm/programmatic";
-import type { ScanReport, ScannedDependency } from "@graveyard-kit/exorcist-npm/programmatic";
+import { scoreDeath } from "@last-rites/skeleton";
+import { assembleReport } from "@last-rites/exorcist-npm/programmatic";
+import type { ScanReport, ScannedDependency } from "@last-rites/exorcist-npm/programmatic";
 import type { EvidenceResult } from "../evidence/assemble.js";
 import { allUnknownEvidence } from "../evidence/stage.js";
 import type { ActionUse, InventoryResult } from "../inventory/types.js";

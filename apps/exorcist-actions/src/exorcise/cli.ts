@@ -7,8 +7,8 @@ import {
   createFetchClient,
   createNodeReportFs,
   createNodeSourceFs,
-} from "@graveyard-kit/exorcist-npm/programmatic";
-import type { ReportFs, SourceContext, SourceFs } from "@graveyard-kit/exorcist-npm/programmatic";
+} from "@last-rites/exorcist-npm/programmatic";
+import type { ReportFs, SourceContext, SourceFs } from "@last-rites/exorcist-npm/programmatic";
 import { fetchManifest, resolveCommit } from "../evidence/sources.js";
 import { EXORCISE_USAGE, parseExorciseArgs } from "./cli-args.js";
 import { runExorcise } from "./run.js";

@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { SIGNAL_NAMES, type SignalName } from "@graveyard-kit/skeleton";
+import { SIGNAL_NAMES, type SignalName } from "@last-rites/skeleton";
 import fc from "fast-check";
 import { cachePath } from "../../http/cache.js";
 import { monthsSince } from "../../months-since.js";

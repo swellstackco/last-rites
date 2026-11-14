@@ -1,8 +1,8 @@
 import fc from "fast-check";
-import type { GradeBand } from "@graveyard-kit/skeleton";
-import { buildGraveyard } from "@graveyard-kit/skeleton/graveyard";
-import { ensure, graveRecordsArb } from "@graveyard-kit/skeleton/graveyard/testing";
-import type { ScanReport, ScannedDependency, SkippedEntry } from "@graveyard-kit/exorcist-npm/report";
+import type { GradeBand } from "@last-rites/skeleton";
+import { buildGraveyard } from "@last-rites/skeleton/graveyard";
+import { ensure, graveRecordsArb } from "@last-rites/skeleton/graveyard/testing";
+import type { ScanReport, ScannedDependency, SkippedEntry } from "@last-rites/exorcist-npm/report";
 import { buildReportView } from "../../model/report-view.js";
 
 export type BuildReportViewFn = typeof buildReportView;

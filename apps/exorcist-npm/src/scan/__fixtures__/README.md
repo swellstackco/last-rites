@@ -1,6 +1,6 @@
 # Scan fixtures
 
-Recorded 2026-11-13 by `npm run record-scan-fixtures -w @graveyard-kit/exorcist-npm -- pump mafintosh/pump`
+Recorded 2026-11-13 by `npm run record-scan-fixtures -w @last-rites/exorcist-npm -- pump mafintosh/pump`
 (`test-support/record-scan-fixtures.ts`), unauthenticated (no GitHub token). One `FixtureEntry` per file; request headers are never stored.
 
 | Item | Value |

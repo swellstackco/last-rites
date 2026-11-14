@@ -34,7 +34,7 @@ Only presentation changes. The Scan_Report, the view model in `skeleton/src/grav
 - **Stylesheet**: the concatenation of `src/styles/{tokens,base,graveyard,detail}.css` with comments stripped, parsed by the declaration parser in `theme/` (task 2.2).
 - **Rendered_Facts**: the facts a page shows about a Scan_Report, extracted from the DOM: the set of packages (Tombstone `data-key`), each package's score and grade (accessible name and `data-grade`), each Breakdown row's signal, raw display, status, points and weight, the calibration points, and the Total.
 - **Reference_Renderer**: the frozen copy of the original, unfixed `renderTombstone`, `renderBreakdown` and `renderHeader`, at `apps/exorcist-web/src/__reference__/views-v1/`, used only by tests.
-- **Scan_Report**: the parsed report type from `@graveyard-kit/exorcist-npm/report`.
+- **Scan_Report**: the parsed report type from `@last-rites/exorcist-npm/report`.
 
 ## Bug Analysis
 

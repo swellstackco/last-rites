@@ -12,10 +12,10 @@ import {
   type CliArgs,
   type ReportFs,
   type ScanOutcome,
-} from "@graveyard-kit/exorcist-npm/programmatic";
-import { createFakeClock, createMemoryFs } from "@graveyard-kit/exorcist-npm/programmatic/testing";
-import { serializeProofReport } from "@graveyard-kit/skeleton/proof";
-import { SIGNAL_NAMES } from "@graveyard-kit/skeleton";
+} from "@last-rites/exorcist-npm/programmatic";
+import { createFakeClock, createMemoryFs } from "@last-rites/exorcist-npm/programmatic/testing";
+import { serializeProofReport } from "@last-rites/skeleton/proof";
+import { SIGNAL_NAMES } from "@last-rites/skeleton";
 import { createLocalRepoFiles } from "../local-files.js";
 import { assertPropertyAsync } from "../test-support/fc-runner.js";
 import { assertAllSabotagesCaughtAsync, type NamedAsyncProperty } from "../test-support/sabotage-runner.js";

@@ -2,8 +2,8 @@
 // Byte copy of src/views/header.ts as it was at 6f860b4 (2026-11-13, before toe-tag-polish); imports adjusted to ../../.
 // Used only by the toe-tag-polish preservation properties (TP6, TP1) as the Reference_Renderer.
 // Summary_Header: repo facts, four count controls, legend, warnings, notes, skip link.
-import type { GradeBand } from "@graveyard-kit/skeleton";
-import { GRADE_INFO, GRADE_ORDER } from "@graveyard-kit/skeleton/graveyard";
+import type { GradeBand } from "@last-rites/skeleton";
+import { GRADE_INFO, GRADE_ORDER } from "@last-rites/skeleton/graveyard";
 import { COPY, FORM_SUBTITLE, PRODUCT_NAME, SCREEN_NAME } from "../../constants.js";
 import { constantHref, h } from "../../dom/h.js";
 import type { ClassName } from "../../dom/h.js";

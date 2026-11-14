@@ -1,5 +1,5 @@
 // Requirements 3.2-3.5, 3.9: call sites whose callee is rooted at a binding of the package.
-import type { CallSite, Enclosing } from "@graveyard-kit/skeleton/proof";
+import type { CallSite, Enclosing } from "@last-rites/skeleton/proof";
 import ts from "typescript";
 import { joinMember, literalText, requireSpecifier, specifierPrefix, type BindingMap } from "./bindings.js";
 import { detectConsumedAs } from "./consumption.js";

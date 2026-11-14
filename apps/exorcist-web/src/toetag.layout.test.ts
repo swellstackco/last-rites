@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 // toe-tag-redesign 10.4: Property 6, narrow-viewport layout rules from the Stylesheet text.
-import { assertProperty } from "@graveyard-kit/skeleton/graveyard/testing";
+import { assertProperty } from "@last-rites/skeleton/graveyard/testing";
 import { describe, expect, it } from "vitest";
 import { sheetsFrom } from "./test-support/properties/tt4.js";
 import { build, layoutViolations } from "./test-support/properties/tt6.js";

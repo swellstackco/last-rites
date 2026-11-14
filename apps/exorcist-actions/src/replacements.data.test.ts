@@ -1,8 +1,8 @@
 // Requirement 7.4: the Replacement_Map is checked offline against the exchanges recorded on 2026-11-14.
 // An entry that fails here is removed from REPLACEMENTS, never adjusted to pass.
 import { describe, expect, it } from "vitest";
-import { loadFixtureCase } from "@graveyard-kit/exorcist-npm/programmatic/testing";
-import type { FixtureEntry } from "@graveyard-kit/exorcist-npm/programmatic/testing";
+import { loadFixtureCase } from "@last-rites/exorcist-npm/programmatic/testing";
+import type { FixtureEntry } from "@last-rites/exorcist-npm/programmatic/testing";
 import { parseActionManifest } from "./evidence/manifest.js";
 import type { ActionManifest } from "./evidence/manifest.js";
 import { rawManifestUrl } from "./evidence/urls.js";

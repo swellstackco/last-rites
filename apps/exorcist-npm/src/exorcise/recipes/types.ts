@@ -1,4 +1,4 @@
-import type { Recipe } from "@graveyard-kit/skeleton/proof/runner";
+import type { Recipe } from "@last-rites/skeleton/proof/runner";
 
 /** A skeleton Recipe plus the npm-specific Oracle loader. */
 export type AppRecipe = Recipe & {

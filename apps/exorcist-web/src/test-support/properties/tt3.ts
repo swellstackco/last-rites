@@ -1,11 +1,11 @@
 // Property 3 (toe-tag-redesign): report strings stay text and links stay safe. Hostile strings in every free-text
 // field of generated Scan_Reports and Proof_Reports; page mounted, package opened.
 import fc from "fast-check";
-import { serializeProofReport } from "@graveyard-kit/skeleton/proof";
-import type { ProofReport } from "@graveyard-kit/skeleton/proof";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
-import { isProofName } from "@graveyard-kit/skeleton/proof";
+import { serializeProofReport } from "@last-rites/skeleton/proof";
+import type { ProofReport } from "@last-rites/skeleton/proof";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
+import { isProofName } from "@last-rites/skeleton/proof";
 import { openPackageArb, proofReportArb, scanReportArb } from "../arbitraries.js";
 import { mountPage } from "../dom-harness.js";
 import type { ToeMutate } from "../sabotage/toe.js";

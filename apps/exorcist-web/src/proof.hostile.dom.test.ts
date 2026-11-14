@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
 import { buildProofText, HOSTILE_STRINGS } from "./test-support/build-proof-report.js";
 import type { ProofKind } from "./test-support/build-proof-report.js";
 import { buildReport } from "./test-support/build-report.js";

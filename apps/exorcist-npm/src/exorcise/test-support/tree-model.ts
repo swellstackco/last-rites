@@ -1,7 +1,7 @@
 // Property 6 generator: a small source tree built from a model, plus the result the usage surface must
 // return for it. The expected result comes from the model itself (positions are recorded while the text is
 // assembled), so no second TypeScript parser exists in the tests.
-import type { CallSite, Enclosing, ImportForm, ImportSite, UsageSurfaceResult } from "@graveyard-kit/skeleton/proof";
+import type { CallSite, Enclosing, ImportForm, ImportSite, UsageSurfaceResult } from "@last-rites/skeleton/proof";
 import fc from "fast-check";
 
 export const PACKAGE = "P";

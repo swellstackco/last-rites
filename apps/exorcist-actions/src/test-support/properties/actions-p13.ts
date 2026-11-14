@@ -1,7 +1,7 @@
 // Property 13: argument parsers, exit codes and write confinement (Requirements 9.2 to 9.6, 15.1 to 15.8).
 import fc from "fast-check";
-import { parseProofReport } from "@graveyard-kit/skeleton/proof";
-import type { ReportFs, SourceFs } from "@graveyard-kit/exorcist-npm/programmatic";
+import { parseProofReport } from "@last-rites/skeleton/proof";
+import type { ReportFs, SourceFs } from "@last-rites/exorcist-npm/programmatic";
 import { parseExorciseArgs } from "../../exorcise/cli-args.js";
 import type { ExorciseArgs } from "../../exorcise/cli-args.js";
 import { runExorcise } from "../../exorcise/run.js";

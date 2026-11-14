@@ -11,9 +11,9 @@ import {
   configFromEnv,
   createNodeSourceFs,
   serializeReport,
-} from "@graveyard-kit/exorcist-npm/programmatic";
-import type { Clock, HttpClient, ReportFs, Sleep, SourceContext, SourceFs } from "@graveyard-kit/exorcist-npm/programmatic";
-import { FakeHttp, createFakeClock, createFakeSleep, loadFixtureCase } from "@graveyard-kit/exorcist-npm/programmatic/testing";
+} from "@last-rites/exorcist-npm/programmatic";
+import type { Clock, HttpClient, ReportFs, Sleep, SourceContext, SourceFs } from "@last-rites/exorcist-npm/programmatic";
+import { FakeHttp, createFakeClock, createFakeSleep, loadFixtureCase } from "@last-rites/exorcist-npm/programmatic/testing";
 import { fetchManifest, resolveCommit } from "../evidence/sources.js";
 import { createActionEvidenceStage } from "../evidence/stage.js";
 import { runExorcise } from "../exorcise/run.js";

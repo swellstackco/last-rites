@@ -113,7 +113,7 @@ Tasks 1.1-1.3 turn these into evidence: the exploratory tests must fail on the u
 
 ## Correctness Properties
 
-All run with fast-check `numRuns: 100`, the `fc-runner` seed policy from `@graveyard-kit/skeleton/graveyard/testing` (`FC_SEED` wins, `CI` fixes seed 20261113, otherwise random and recorded on failure), via `assertProperty` / `checkProperty`. Each has sabotage variants per `proof-rules.md`; the property builders live in `src/test-support/properties/p9.ts` and `p10.ts` and export `build(impl)`, wrong implementations in `src/test-support/sabotage/p9.ts` and `p10.ts`. Properties 6-8 already exist in this app.
+All run with fast-check `numRuns: 100`, the `fc-runner` seed policy from `@last-rites/skeleton/graveyard/testing` (`FC_SEED` wins, `CI` fixes seed 20261113, otherwise random and recorded on failure), via `assertProperty` / `checkProperty`. Each has sabotage variants per `proof-rules.md`; the property builders live in `src/test-support/properties/p9.ts` and `p10.ts` and export `build(impl)`, wrong implementations in `src/test-support/sabotage/p9.ts` and `p10.ts`. Properties 6-8 already exist in this app.
 
 New generators (`test-support/arbitraries.ts`):
 - `scanReportArb`: a Scan_Report built with `buildReport` from `packageSignalsArb` (skeleton testing subpath), 1-12 dependencies; biased to include declared-abandoned packages (calibration present), packages with unknown signals, all four grades, `file:` skipped entries, hostile and long names (`hostileUrlArb`, 47-char scoped names), and tampered `sourceUrl`s. Names are unique; the duplicate-name case is covered by an example test.
@@ -188,6 +188,6 @@ CSS sabotages: string mutations of the real Stylesheet, applied before `checkSty
 - **Preservation checking:** Property 10 and S7 on the fixed code (PASS, same seed as the baseline).
 - **Example tests:** the ldapjs panel (calibration `+3`, Total `75 / 100`, source text "Engine rule: declared_abandoned") from the existing `parse-server.trim.json` fixture; a long scoped name (47 chars); duplicate names; a report with no calibration; hostile name; a lockfile-less (range) report.
 - **Existing tests:** update the assertions that pinned defects (6.2).
-- **Integration:** `npm run typecheck` and `npm test` green across the repo; `npm run build -w @graveyard-kit/exorcist-web` succeeds.
+- **Integration:** `npm run typecheck` and `npm test` green across the repo; `npm run build -w @last-rites/exorcist-web` succeeds.
 - **Not covered by automation (reported, not claimed):** the actual look of the arch (full outline, no line), the real word breaks in the table at 1352px, the Stacked_Layout total at 375px, the absence of the focus box in Chrome, the D1 gutter at 1352px. These are checked by hand (6.4) with the same viewports as the review, or reported as unverified.
 - Tests never touch the network; fixtures are inline or under `__fixtures__/`.

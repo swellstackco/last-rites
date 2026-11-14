@@ -2,10 +2,10 @@
 // Byte copy of src/views/breakdown.ts as it was at 6f860b4 (2026-11-13, before toe-tag-polish); imports adjusted to ../../.
 // Used only by the toe-tag-polish preservation properties (TP6, TP1) as the Reference_Renderer.
 // Breakdown table: one row per signal, the calibration row in its own <tbody>, a total in <tfoot>.
-import { toGrade } from "@graveyard-kit/skeleton";
-import type { DeathScoreResult } from "@graveyard-kit/skeleton";
-import { GRADE_INFO } from "@graveyard-kit/skeleton/graveyard";
-import type { Breakdown, CalibrationRow, SignalRow } from "@graveyard-kit/skeleton/graveyard";
+import { toGrade } from "@last-rites/skeleton";
+import type { DeathScoreResult } from "@last-rites/skeleton";
+import { GRADE_INFO } from "@last-rites/skeleton/graveyard";
+import type { Breakdown, CalibrationRow, SignalRow } from "@last-rites/skeleton/graveyard";
 import { h, safeHref } from "../../dom/h.js";
 import type { Child } from "../../dom/h.js";
 

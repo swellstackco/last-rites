@@ -1,5 +1,5 @@
 import fc from "fast-check";
-import { SIGNAL_NAMES, scoreDeath } from "@graveyard-kit/skeleton";
+import { SIGNAL_NAMES, scoreDeath } from "@last-rites/skeleton";
 import type { NamedAsyncProperty } from "../../../evidence/test-support/sabotage-runner.js";
 import { REAL_PARTS } from "../../pipeline.js";
 import type { PipelineParts } from "../../pipeline.js";

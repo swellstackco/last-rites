@@ -1,5 +1,5 @@
 import fc from "fast-check";
-import { ensure } from "@graveyard-kit/skeleton/graveyard/testing";
+import { ensure } from "@last-rites/skeleton/graveyard/testing";
 import { KNOWN_ERROR_CODES, describeError } from "../../api/errors.js";
 import type { DescribeErrorInput } from "../../api/errors.js";
 

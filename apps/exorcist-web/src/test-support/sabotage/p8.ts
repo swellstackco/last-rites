@@ -1,4 +1,4 @@
-import type { Sabotage } from "@graveyard-kit/skeleton/graveyard/testing";
+import type { Sabotage } from "@last-rites/skeleton/graveyard/testing";
 import { KNOWN_ERROR_CODES, describeError } from "../../api/errors.js";
 import type { UiError } from "../../api/errors.js";
 import type { DescribeErrorFn } from "../properties/p8.js";

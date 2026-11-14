@@ -1,5 +1,5 @@
 import { describe, it } from "vitest";
-import { assertProperty } from "@graveyard-kit/skeleton/graveyard/testing";
+import { assertProperty } from "@last-rites/skeleton/graveyard/testing";
 import { build } from "../test-support/properties/p6.js";
 
 describe("Property 6: route codec round trip and totality", () => {

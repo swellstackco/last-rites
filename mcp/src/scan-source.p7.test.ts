@@ -1,7 +1,7 @@
 import fc from "fast-check";
 import { readFileSync, readdirSync } from "node:fs";
 import { describe, it, expect } from "vitest";
-import { DEMO_REPOS, parseReport, type DemoStore, type ScanOutcome, type ScanPipeline } from "@graveyard-kit/exorcist-npm/programmatic";
+import { DEMO_REPOS, parseReport, type DemoStore, type ScanOutcome, type ScanPipeline } from "@last-rites/exorcist-npm/programmatic";
 import { assertPropertyAsync } from "./test-support/fc-runner.js";
 import { assertAllSabotagesCaughtAsync, type NamedAsyncProperty } from "./test-support/sabotage-runner.js";
 import { REAL_SCAN_SOURCE, type ScanSource } from "./test-support/validators.js";

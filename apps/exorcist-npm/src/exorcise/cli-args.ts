@@ -1,5 +1,5 @@
 // Requirements 10.1-10.3: the argument parser of the proof CLI. Pure and total: it never throws and never reads process.
-import { isProofName } from "@graveyard-kit/skeleton/proof";
+import { isProofName } from "@last-rites/skeleton/proof";
 
 export interface CliArgs {
   repo: string;
@@ -21,7 +21,7 @@ export const MIN_RUNS = 100;
 export const MAX_RUNS = 100000;
 
 export const USAGE =
-  "usage: npm run exorcise -w @graveyard-kit/exorcist-npm -- --repo <path> --package <name> " +
+  "usage: npm run exorcise -w @last-rites/exorcist-npm -- --repo <path> --package <name> " +
   "[--candidate <file>] [--runs <100..100000>] [--seed <n>] [--out <proofs/repo/package.json>] " +
   "[--label <owner/repo>] [--commit <text>] [--fresh]";
 

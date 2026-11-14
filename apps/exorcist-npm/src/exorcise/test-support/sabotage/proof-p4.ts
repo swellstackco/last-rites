@@ -1,6 +1,6 @@
 // Sabotage_List for Property 4 (sabotage completeness). Each entry is a subject (recipes + Mutators) with one defect,
 // so that some applicable Mutator survives or the applicability table is wrong.
-import type { CallShape, Mutator } from "@graveyard-kit/skeleton/proof/runner";
+import type { CallShape, Mutator } from "@last-rites/skeleton/proof/runner";
 import type { Sabotage } from "../../../evidence/test-support/sabotage-runner.js";
 import { REAL_P4_SUBJECT, type P4Subject } from "../../recipes.p4.test.js";
 

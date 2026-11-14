@@ -1,5 +1,5 @@
 // Requirement 2.7: classify a file path (already relative to the scan root) as test or source code.
-import type { Enclosing } from "@graveyard-kit/skeleton/proof";
+import type { Enclosing } from "@last-rites/skeleton/proof";
 
 const TEST_SEGMENTS: ReadonlySet<string> = new Set(["spec", "test", "tests", "__tests__", "__mocks__"]);
 

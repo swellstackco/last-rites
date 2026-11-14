@@ -1,9 +1,9 @@
 // runExorcise (Requirement 15): select the uses of one action, build the rewrite, prove it, record the
 // attempt and, only for a solid proof and with --write, edit the workflow files. Never rejects. The only
 // writes are `reports.writeAtomic` of changed Workflow_Files and of the --out report. No process, no git.
-import { appendAttempt, parseProofReport, serializeProofReport } from "@graveyard-kit/skeleton/proof";
-import type { ProofAttempt, ProofReport, SabotageSummary } from "@graveyard-kit/skeleton/proof";
-import type { Outcome, ReportFs, SourceFs } from "@graveyard-kit/exorcist-npm/programmatic";
+import { appendAttempt, parseProofReport, serializeProofReport } from "@last-rites/skeleton/proof";
+import type { ProofAttempt, ProofReport, SabotageSummary } from "@last-rites/skeleton/proof";
+import type { Outcome, ReportFs, SourceFs } from "@last-rites/exorcist-npm/programmatic";
 import type { ActionManifest } from "../evidence/manifest.js";
 import { inventoryWorkflows } from "../inventory/inventory.js";
 import type { ActionUse } from "../inventory/types.js";

@@ -1,4 +1,4 @@
-import type { SourceFs } from "@graveyard-kit/exorcist-npm/programmatic";
+import type { SourceFs } from "@last-rites/exorcist-npm/programmatic";
 import { parseUses } from "../../inventory/uses.js";
 import type { TextInventory } from "../../inventory/inventory.js";
 import type { ActionUse, InventoryResult } from "../../inventory/types.js";

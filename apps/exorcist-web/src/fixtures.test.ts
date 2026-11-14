@@ -1,9 +1,9 @@
 import { readdirSync, readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { parseReport } from "@graveyard-kit/exorcist-npm/report";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
-import { toGrade } from "@graveyard-kit/skeleton";
-import { GRADE_ORDER, buildBreakdown, buildGraveyard, compareGraves, safeHttpUrl } from "@graveyard-kit/skeleton/graveyard";
+import { parseReport } from "@last-rites/exorcist-npm/report";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
+import { toGrade } from "@last-rites/skeleton";
+import { GRADE_ORDER, buildBreakdown, buildGraveyard, compareGraves, safeHttpUrl } from "@last-rites/skeleton/graveyard";
 import { DEMO_REPOS } from "./model/demo-repos.js";
 
 const fixture = (name: string): string => readFileSync(new URL(`./__fixtures__/${name}`, import.meta.url), "utf8");

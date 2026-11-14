@@ -6,7 +6,7 @@ import {
   type RepoInput,
   type ScanOutcome,
   type ScanReport,
-} from "@graveyard-kit/exorcist-npm/programmatic";
+} from "@last-rites/exorcist-npm/programmatic";
 import type { ExorcistDeps } from "./deps.js";
 import { toolError, type ToolErrorValue } from "./errors.js";
 import { guardedScan } from "./guards.js";

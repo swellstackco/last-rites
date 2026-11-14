@@ -1,8 +1,8 @@
 // Breakdown table: one row per signal, the calibration row in its own <tbody>, a total in <tfoot>.
-import { toGrade } from "@graveyard-kit/skeleton";
-import type { DeathScoreResult } from "@graveyard-kit/skeleton";
-import { GRADE_INFO } from "@graveyard-kit/skeleton/graveyard";
-import type { Breakdown, CalibrationRow, SignalRow } from "@graveyard-kit/skeleton/graveyard";
+import { toGrade } from "@last-rites/skeleton";
+import type { DeathScoreResult } from "@last-rites/skeleton";
+import { GRADE_INFO } from "@last-rites/skeleton/graveyard";
+import type { Breakdown, CalibrationRow, SignalRow } from "@last-rites/skeleton/graveyard";
 import { h, safeHref } from "../dom/h.js";
 import type { Child } from "../dom/h.js";
 

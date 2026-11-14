@@ -1,5 +1,5 @@
 // Sabotage_List for Property 11 (names, paths and CLI arguments). Each entry is the real implementation with one defect.
-import { isProofName, parseProofReportPath, proofReportPath } from "@graveyard-kit/skeleton/proof";
+import { isProofName, parseProofReportPath, proofReportPath } from "@last-rites/skeleton/proof";
 import type { Sabotage } from "../../../evidence/test-support/sabotage-runner.js";
 import { parseCliArgs, type CliArgs, type CliParse } from "../../cli-args.js";
 import type { NamesCliImpl } from "../../names-cli.p11.test.js";

@@ -51,7 +51,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 - **Weak**: a proved attempt whose Sabotage_Check had `applied` 0 or at least one Survivor.
 - **Proof_Attempt**: one entry of `attempts` in a Proof_Report: the Candidate name and source text, the status, the seed and runs, the Call_Shape results, the counterexample if any, and the sabotage result.
 - **Proof_Report**: the canonical JSON file for one (repository, package) pair.
-- **Proof_Cli**: `npm run exorcise -w @graveyard-kit/exorcist-npm -- ...`.
+- **Proof_Cli**: `npm run exorcise -w @last-rites/exorcist-npm -- ...`.
 - **Proof_Name**: a string matching `^[a-z0-9][a-z0-9-]{0,63}$`, used for the repository directory and the package file name under `demo/proofs/`.
 - **Proof_View**: the pure view model built from a Proof_Report for the page.
 - **Proof_Section**: the `section.proof` element in the Detail_Panel.
@@ -67,7 +67,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 
 #### Acceptance Criteria
 
-1. THE skeleton SHALL export from `@graveyard-kit/skeleton/proof` the types `CallSite`, `ImportSite`, `UsageSurfaceInput`, `UsageSurfaceResult` and `UsageSurface`, and SHALL NOT import `fast-check`, a Node module or any file under `apps/` in that entry point.
+1. THE skeleton SHALL export from `@last-rites/skeleton/proof` the types `CallSite`, `ImportSite`, `UsageSurfaceInput`, `UsageSurfaceResult` and `UsageSurface`, and SHALL NOT import `fast-check`, a Node module or any file under `apps/` in that entry point.
 2. THE Call_Site SHALL carry `file` (relative to the root, `/` separators), `line` and `column` (1-based, of the start of the call expression), `callee` (source text of the callee expression), `member` (the Member_Path), `argCount`, `argTexts` (the source text of each argument with each whitespace run collapsed to one space and cut to 200 UTF-16 code units followed by `…` when longer), `enclosing`, and optionally `consumedAs` and `new` (only when true).
 3. THE Import_Site SHALL carry `file`, `line`, `column` and a `form` that is one of `import-default`, `import-named`, `import-namespace`, `import-side-effect`, `import-type`, `import-equals`, `re-export`, `require`, `require-unbound` or `dynamic-import`.
 4. THE UsageSurfaceResult SHALL carry `package`, `filesScanned`, `callSites`, `importSites` and `warnings` (strings).
@@ -190,7 +190,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 
 #### Acceptance Criteria
 
-1. THE skeleton SHALL export `serializeProofReport(report)` and `parseProofReport(text)` from `@graveyard-kit/skeleton/proof`, with the Canonical_Json format: fixed key order from the design table, two-space indent, one trailing newline, absent optional fields omitted.
+1. THE skeleton SHALL export `serializeProofReport(report)` and `parseProofReport(text)` from `@last-rites/skeleton/proof`, with the Canonical_Json format: fixed key order from the design table, two-space indent, one trailing newline, absent optional fields omitted.
 2. THE Proof_Report SHALL hold `repo` (a label such as `parse-community/parse-server`), optional `commit`, `package`, optional `oracleVersion`, `filesScanned`, `callSites`, `importSites`, and `attempts` in the order they were made.
 3. EACH Proof_Attempt SHALL hold `attempt` (1-based, consecutive), optional `candidate { name, source }` (the base name and full source text of the Candidate file), `status`, `weak`, `numRuns`, `runs`, `seed`, `shapes` (per Call_Shape `id`, `status` of `passed`, `failed`, `skipped` or `error`, `runs`, and `coverage` counts), optional `counterexample`, optional `recommendation`, optional `error { code, message }`, and `sabotage { applied, caught, survivors }`.
 4. THE Proof_Report SHALL NOT contain a timestamp, an absolute path or an environment value.
@@ -225,7 +225,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 1. THE `apps/exorcist-npm/package.json` SHALL declare `intersect` `1.0.1` and `deep-diff` `1.0.2` as exact devDependencies, and SHALL declare `typescript` as an exact dependency at the version already installed in the workspace.
 2. THE `skeleton/package.json` SHALL declare `fast-check` as a dependency at the version already installed, and SHALL add the exports `./proof` (pure entry), `./proof/runner` and `./proof/testing`.
 3. THE `apps/exorcist-npm/package.json` SHALL add the script `exorcise` and SHALL leave `scan` exports unchanged.
-4. THE `@graveyard-kit/skeleton/proof` entry point SHALL NOT, directly or transitively, import `fast-check`, so that the page bundle does not include it.
+4. THE `@last-rites/skeleton/proof` entry point SHALL NOT, directly or transitively, import `fast-check`, so that the page bundle does not include it.
 5. THE Oracle loader SHALL load the pinned package with `createRequire`, SHALL read its installed version from its `package.json`, and SHALL make no network request.
 6. THE Proof_Harness SHALL declare no LLM client dependency, and any dependency it adds SHALL be pinned to an exact version.
 
@@ -235,7 +235,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 
 #### Acceptance Criteria
 
-1. THE `ProofState` of `@graveyard-kit/skeleton/graveyard` SHALL be `{ status: "coming_soon" }`, `{ status: "loading" }` or `{ status: "report", view: ProofView }`, and the earlier placeholder variants and their helper types SHALL be removed, with every consumer updated.
+1. THE `ProofState` of `@last-rites/skeleton/graveyard` SHALL be `{ status: "coming_soon" }`, `{ status: "loading" }` or `{ status: "report", view: ProofView }`, and the earlier placeholder variants and their helper types SHALL be removed, with every consumer updated.
 2. THE `buildProofView(report)` function SHALL return a Proof_View with `badge` (`proved`, `weak`, `counterexample`, `no_call_sites` or `error`) and its `badgeLabel` (`Proved`, `Weak`, `Counterexample`, `No call sites`, `Proof error`), taken from the last attempt (`weak` when the last attempt is proved and weak).
 3. THE Proof_View SHALL carry `runsText` (`<runs> runs`), `seedText` (`seed <seed>`), the Call_Sites as `file:line` labels in report order (at most 50 shown, with the total count and a `moreCount`), the attempt history in report order, and the sabotage line.
 4. THE sabotage line for a proved attempt SHALL be exactly `Sabotage: <caught> of <applied> broken migrations caught`; for an attempt that is not proved it SHALL be `Sabotage: not run`.

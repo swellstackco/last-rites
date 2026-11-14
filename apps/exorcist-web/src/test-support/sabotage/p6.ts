@@ -1,4 +1,4 @@
-import type { Sabotage } from "@graveyard-kit/skeleton/graveyard/testing";
+import type { Sabotage } from "@last-rites/skeleton/graveyard/testing";
 import { REAL_CODEC } from "../properties/p6.js";
 import type { RouteCodec } from "../properties/p6.js";
 

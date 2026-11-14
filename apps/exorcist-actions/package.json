@@ -1,5 +1,5 @@
 {
-  "name": "@graveyard-kit/exorcist-actions",
+  "name": "@last-rites/exorcist-actions",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -13,8 +13,8 @@
     "record-fixtures": "vite-node src/test-support/record-fixtures.ts --"
   },
   "dependencies": {
-    "@graveyard-kit/exorcist-npm": "*",
-    "@graveyard-kit/skeleton": "*",
+    "@last-rites/exorcist-npm": "*",
+    "@last-rites/skeleton": "*",
     "yaml": "2.9.1"
   },
   "devDependencies": {

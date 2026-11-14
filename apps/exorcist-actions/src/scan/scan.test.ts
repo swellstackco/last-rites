@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { parseReport, serializeReport } from "@graveyard-kit/exorcist-npm/programmatic";
+import { parseReport, serializeReport } from "@last-rites/exorcist-npm/programmatic";
 import type { ActionEvidenceInput, ActionEvidenceStage } from "../evidence/stage.js";
 import { allUnknownEvidence } from "../evidence/stage.js";
 import { memorySourceFs } from "../test-support/memory-source-fs.js";

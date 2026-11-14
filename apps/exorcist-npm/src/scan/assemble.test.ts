@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { scoreDeath } from "@graveyard-kit/skeleton";
-import type { GradeBand } from "@graveyard-kit/skeleton";
+import { scoreDeath } from "@last-rites/skeleton";
+import type { GradeBand } from "@last-rites/skeleton";
 import { assembleReport, compareScanned } from "./assemble.js";
 import { evidenceFor } from "./test-support/gated-evidence.js";
 import type { RepoTarget, ScannedDependency, SkippedEntry } from "./types.js";

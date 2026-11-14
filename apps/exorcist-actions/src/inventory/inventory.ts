@@ -1,6 +1,6 @@
 import { LineCounter, isAlias, isMap, isScalar, isSeq, parseDocument } from "yaml";
 import type { Node, Scalar, YAMLMap } from "yaml";
-import type { SourceFs } from "@graveyard-kit/exorcist-npm/programmatic";
+import type { SourceFs } from "@last-rites/exorcist-npm/programmatic";
 import type { ActionUse, InventoryResult, LineRange, SkippedUse, WithKey } from "./types.js";
 import { parseUses } from "./uses.js";
 import { outputRefsFor } from "./output-refs.js";

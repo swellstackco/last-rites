@@ -1,15 +1,15 @@
 // Generators for the graveyard-ui-polish properties: whole Scan_Reports and the package to open.
 import fc from "fast-check";
-import type { PackageSignals, SignalName, SignalValue } from "@graveyard-kit/skeleton";
-import { hostileUrlArb } from "@graveyard-kit/skeleton/graveyard/testing";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
-import type { ProofReport } from "@graveyard-kit/skeleton/proof";
+import type { PackageSignals, SignalName, SignalValue } from "@last-rites/skeleton";
+import { hostileUrlArb } from "@last-rites/skeleton/graveyard/testing";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
+import type { ProofReport } from "@last-rites/skeleton/proof";
 import { buildProofReport } from "./build-proof-report.js";
 import type { ProofKind } from "./build-proof-report.js";
 import { buildReport, tamperUrl } from "./build-report.js";
 import type { FixtureDependency } from "./build-report.js";
 import { AILING_SIGNALS, ALIVE_SIGNALS, DEAD_SIGNALS, DYING_SIGNALS } from "./signals.js";
-import type { GradeBand } from "@graveyard-kit/skeleton";
+import type { GradeBand } from "@last-rites/skeleton";
 
 /** Names shaped like the real ones plus long scoped, hostile and grade-word names. */
 const NAMES: readonly string[] = [

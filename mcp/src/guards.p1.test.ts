@@ -1,7 +1,7 @@
 import fc from "fast-check";
 import { describe, it, expect } from "vitest";
 import { resolve } from "node:path";
-import { DEMO_REPOS, REPO_PATTERN, isProofOutPath } from "@graveyard-kit/exorcist-npm/programmatic";
+import { DEMO_REPOS, REPO_PATTERN, isProofOutPath } from "@last-rites/exorcist-npm/programmatic";
 import { assertPropertyAsync } from "./test-support/fc-runner.js";
 import { assertAllSabotagesCaughtAsync, type NamedAsyncProperty } from "./test-support/sabotage-runner.js";
 import { REAL_GUARDS, type Guards } from "./test-support/validators.js";

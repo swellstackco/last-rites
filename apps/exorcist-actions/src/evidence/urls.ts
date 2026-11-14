@@ -1,6 +1,6 @@
 // One builder per request of the design. Every argument must already have passed `parseUses`;
 // every segment is still percent-encoded (Requirement 3.7).
-import { repoPageUrl } from "@graveyard-kit/exorcist-npm/programmatic";
+import { repoPageUrl } from "@last-rites/exorcist-npm/programmatic";
 
 export { repoPageUrl };
 

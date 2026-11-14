@@ -2,9 +2,9 @@
 // Byte copy of src/views/detail.ts as it was at 6f860b4 (2026-11-13, before toe-tag-polish); imports adjusted to ../../.
 // Used only by the toe-tag-polish preservation properties (TP6, TP1) as the Reference_Renderer.
 // Detail_Panel: a hand-written modal dialog (role="dialog") with focus trap and restore.
-import { GRADE_INFO, buildBreakdown, proofSlotFor } from "@graveyard-kit/skeleton/graveyard";
-import type { Grave, ProofState } from "@graveyard-kit/skeleton/graveyard";
-import type { ScannedDependency } from "@graveyard-kit/exorcist-npm/report";
+import { GRADE_INFO, buildBreakdown, proofSlotFor } from "@last-rites/skeleton/graveyard";
+import type { Grave, ProofState } from "@last-rites/skeleton/graveyard";
+import type { ScannedDependency } from "@last-rites/exorcist-npm/report";
 import { h } from "../../dom/h.js";
 import { restoreFocus, setInertAround, trapTab } from "../../dom/focus.js";
 import { renderBreakdown } from "./breakdown.js";

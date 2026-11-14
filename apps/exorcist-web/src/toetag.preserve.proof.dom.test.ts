@@ -4,7 +4,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { parseProofReport } from "@graveyard-kit/skeleton/proof";
+import { parseProofReport } from "@last-rites/skeleton/proof";
 import { checkAsyncProperty, formatAsyncReport } from "./test-support/async-property.js";
 import { build as tt2, checkProofFacts } from "./test-support/properties/tt2.js";
 

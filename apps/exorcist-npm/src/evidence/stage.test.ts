@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it } from "vitest";
-import { scoreDeath } from "@graveyard-kit/skeleton";
+import { scoreDeath } from "@last-rites/skeleton";
 import { DEFAULT_CONFIG, type EvidenceConfig } from "./config.js";
 import { createEvidenceStage } from "./stage.js";
 import { EvidenceConfigError, EvidenceInputError, type EvidenceResult } from "./types.js";

@@ -1,6 +1,6 @@
 // DOM sabotages for Property 1 (toe-tag-redesign): each is a "wrong page" applied after the package is opened.
-import { toGrade } from "@graveyard-kit/skeleton";
-import { GRADE_INFO } from "@graveyard-kit/skeleton/graveyard";
+import { toGrade } from "@last-rites/skeleton";
+import { GRADE_INFO } from "@last-rites/skeleton/graveyard";
 import { each } from "./toe.js";
 import type { ToeSabotage } from "./toe.js";
 

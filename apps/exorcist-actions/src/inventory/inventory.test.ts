@@ -3,7 +3,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { createNodeSourceFs } from "@graveyard-kit/exorcist-npm/programmatic";
+import { createNodeSourceFs } from "@last-rites/exorcist-npm/programmatic";
 import { inventoryText, inventoryWorkflows } from "./inventory.js";
 
 const fixture = (name: string): Promise<string> =>

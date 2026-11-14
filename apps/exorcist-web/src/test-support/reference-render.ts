@@ -1,8 +1,8 @@
 // Test-only harness option: renders a report with the frozen Reference_Renderer (views-v1)
 // instead of the production views. Production controller.ts is not changed; the reference pieces
 // (header, tombstones, one breakdown) are assembled here and read with renderedFacts.
-import { buildBreakdown } from "@graveyard-kit/skeleton/graveyard";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import { buildBreakdown } from "@last-rites/skeleton/graveyard";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
 import { buildReportView } from "../model/report-view.js";
 import { renderBreakdown } from "../__reference__/views-v1/breakdown.js";
 import { renderHeader } from "../__reference__/views-v1/header.js";

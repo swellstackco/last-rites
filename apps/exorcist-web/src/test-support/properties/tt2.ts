@@ -1,10 +1,10 @@
 // Property 2 (toe-tag-redesign): Proof_Report facts are preserved. The Proof section of an open dead package shows
 // the same Proof facts as the frozen Reference_Views and as the facts computed through the skeleton's proof view.
 import fc from "fast-check";
-import { buildProofView } from "@graveyard-kit/skeleton/graveyard";
-import { serializeProofReport } from "@graveyard-kit/skeleton/proof";
-import type { ProofReport } from "@graveyard-kit/skeleton/proof";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
+import { buildProofView } from "@last-rites/skeleton/graveyard";
+import { serializeProofReport } from "@last-rites/skeleton/proof";
+import type { ProofReport } from "@last-rites/skeleton/proof";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
 import { COPY } from "../../constants.js";
 import { proofReportArb } from "../arbitraries.js";
 import { buildReport } from "../build-report.js";

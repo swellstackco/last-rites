@@ -2,8 +2,8 @@
 // snapshots are served by the fake fetch (each readable, failing or unreadable, answered in a random order). The
 // expected texts are written here (not imported) so the property does not depend on the code under test.
 import fc from "fast-check";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
 import { DEMO_REPOS } from "../../model/demo-repos.js";
 import { snapshotSetArb } from "../arbitraries.js";
 import type { SnapshotCase } from "../arbitraries.js";

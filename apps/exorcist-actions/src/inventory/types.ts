@@ -1,4 +1,4 @@
-import type { SourceFs } from "@graveyard-kit/exorcist-npm/programmatic";
+import type { SourceFs } from "@last-rites/exorcist-npm/programmatic";
 
 export type RefKind = "sha" | "mutable";
 

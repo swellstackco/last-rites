@@ -1,8 +1,8 @@
 // Property 7 (toe-tag-redesign): motion is gated, finite and not blocking.
 // Static part reads the Stylesheet declarations; the DOM part (jsdom) opens a package and checks the panel at once.
 import fc from "fast-check";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
 import { declarations, stripComments } from "../../theme/css-parse.js";
 import type { Decl } from "../../theme/css-parse.js";
 import { openPackageArb, scanReportArb } from "../arbitraries.js";

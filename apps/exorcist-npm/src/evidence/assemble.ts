@@ -3,7 +3,7 @@
  * outcomes to an Evidence_Result. No I/O, no clock: Months_Since is computed from the injected `now`.
  * Everything is built by iterating SIGNAL_NAMES, so output order never depends on completion order.
  */
-import { SIGNAL_NAMES, type PackageSignals, type SignalName, type SignalValue } from "@graveyard-kit/skeleton";
+import { SIGNAL_NAMES, type PackageSignals, type SignalName, type SignalValue } from "@last-rites/skeleton";
 import { monthsSince } from "./months-since.js";
 import type { RepoRef } from "./repo-url.js";
 import { depsDevPageUrl, type DepsDevEvidence } from "./sources/depsdev.js";

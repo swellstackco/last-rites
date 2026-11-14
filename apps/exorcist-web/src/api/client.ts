@@ -1,7 +1,7 @@
-import { parseReport } from "@graveyard-kit/exorcist-npm/report";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
-import { isProofName, parseProofReport } from "@graveyard-kit/skeleton/proof";
-import type { ProofReport } from "@graveyard-kit/skeleton/proof";
+import { parseReport } from "@last-rites/exorcist-npm/report";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
+import { isProofName, parseProofReport } from "@last-rites/skeleton/proof";
+import type { ProofReport } from "@last-rites/skeleton/proof";
 import { DEMO_TIMEOUT_MS, LIVE_TIMEOUT_MS, MAX_ERROR_BODY_BYTES } from "../constants.js";
 import { describeError } from "./errors.js";
 import type { UiError } from "./errors.js";

@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 // toe-tag-redesign 10.1 / 10.2: Property 4, contrast from the tokens and registry-only color pairs in the Stylesheet.
-import { assertProperty } from "@graveyard-kit/skeleton/graveyard/testing";
+import { assertProperty } from "@last-rites/skeleton/graveyard/testing";
 import { describe, expect, it } from "vitest";
 import { PAIRS, pairRatio } from "./theme/pairs.js";
 import { build, check, rulesOf, sheetsFrom, tokenMap } from "./test-support/properties/tt4.js";

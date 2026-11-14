@@ -18,7 +18,7 @@ export const DEFAULT_REF = "local";
 export const DEFAULT_CACHE = ".cache/actions";
 
 export const SCAN_USAGE =
-  "usage: npm run scan -w @graveyard-kit/exorcist-actions -- --repo <path> [--out <file>] " +
+  "usage: npm run scan -w @last-rites/exorcist-actions -- --repo <path> [--out <file>] " +
   "[--label <owner/name>] [--ref <text>] [--cache <dir>]";
 
 const VALUE_FLAGS = ["--repo", "--out", "--label", "--ref", "--cache"] as const;

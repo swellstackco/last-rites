@@ -1,6 +1,6 @@
 // Sabotage_List for Property 6 (usage surface). Each entry is the real usage surface with one defect added,
 // either by filtering/rewriting what the SourceFs returns or by post-processing the result.
-import type { CallSite, UsageSurfaceResult } from "@graveyard-kit/skeleton/proof";
+import type { CallSite, UsageSurfaceResult } from "@last-rites/skeleton/proof";
 import type { Sabotage } from "../../../evidence/test-support/sabotage-runner.js";
 import type { SourceFs } from "../../source-fs.js";
 import type { UsageSurfaceFactory } from "../../usage-surface.p6.test.js";

@@ -1,5 +1,5 @@
 // The five Mutants of the sabotage check (Requirement 14.1 to 14.3) and `runSabotage`.
-import type { SabotageSummary } from "@graveyard-kit/skeleton/proof";
+import type { SabotageSummary } from "@last-rites/skeleton/proof";
 import type { ContractInput } from "./contract-check.js";
 import type { PinCheckInput } from "./pin-check.js";
 

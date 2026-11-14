@@ -1,7 +1,7 @@
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
-import type { CallSite } from "@graveyard-kit/skeleton/proof";
-import type { Outcome } from "@graveyard-kit/skeleton/proof/runner";
+import type { CallSite } from "@last-rites/skeleton/proof";
+import type { Outcome } from "@last-rites/skeleton/proof/runner";
 import { loadOracle } from "../oracles.js";
 import { intersectRecipe } from "./intersect.js";
 

@@ -1,7 +1,7 @@
 // toe-tag-redesign 10.6: Property 8, the focus ring is never clipped or lost.
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { assertProperty } from "@graveyard-kit/skeleton/graveyard/testing";
+import { assertProperty } from "@last-rites/skeleton/graveyard/testing";
 import { describe, expect, it } from "vitest";
 import { sheetsFrom } from "./test-support/properties/tt4.js";
 import { build, focusViolations } from "./test-support/properties/tt8.js";

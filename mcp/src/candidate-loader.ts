@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { readFile } from "node:fs/promises";
 import { resolve } from "node:path";
-import { loadCandidate, type LoadedCandidate } from "@graveyard-kit/exorcist-npm/programmatic";
+import { loadCandidate, type LoadedCandidate } from "@last-rites/exorcist-npm/programmatic";
 
 /**
  * Load a Candidate so that an edited file is evaluated again in a long-lived process (Requirement 8.8):

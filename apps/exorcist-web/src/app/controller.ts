@@ -1,10 +1,10 @@
 // Controller: the Phase state machine. Owns requests, the cooldown, focus on phase change,
 // the Detail_Panel and document.title. Every dependency (api, timers, clock, location) is injected.
-import type { GradeBand } from "@graveyard-kit/skeleton";
-import { isProofName } from "@graveyard-kit/skeleton/proof";
-import { buildProofView } from "@graveyard-kit/skeleton/graveyard";
-import type { Grave } from "@graveyard-kit/skeleton/graveyard";
-import type { ScannedDependency } from "@graveyard-kit/exorcist-npm/report";
+import type { GradeBand } from "@last-rites/skeleton";
+import { isProofName } from "@last-rites/skeleton/proof";
+import { buildProofView } from "@last-rites/skeleton/graveyard";
+import type { Grave } from "@last-rites/skeleton/graveyard";
+import type { ScannedDependency } from "@last-rites/exorcist-npm/report";
 import type { ApiClient, ProofLoad } from "../api/client.js";
 import { describeError } from "../api/errors.js";
 import type { UiError } from "../api/errors.js";

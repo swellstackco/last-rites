@@ -1,5 +1,5 @@
-import { SIGNAL_NAMES, scoreDeath } from "@graveyard-kit/skeleton";
-import type { PackageSignals } from "@graveyard-kit/skeleton";
+import { SIGNAL_NAMES, scoreDeath } from "@last-rites/skeleton";
+import type { PackageSignals } from "@last-rites/skeleton";
 import type { Sabotage } from "../../../evidence/test-support/sabotage-runner.js";
 import type { EvidenceStage } from "../../../evidence/index.js";
 import { assembleReport } from "../../assemble.js";

@@ -3,7 +3,7 @@
 // Used only by the Toe Tag preservation properties (tt1 to tt3) as the Reference_Views.
 // Proof section. The switch is exhaustive
 // so a new ProofState is a compile error until it is rendered.
-import type { AttemptView, ProofSlot, ProofState, ProofView } from "@graveyard-kit/skeleton/graveyard";
+import type { AttemptView, ProofSlot, ProofState, ProofView } from "@last-rites/skeleton/graveyard";
 import { COPY } from "../../constants.js";
 import { h } from "../../dom/h.js";
 

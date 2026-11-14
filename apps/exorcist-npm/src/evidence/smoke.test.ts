@@ -3,7 +3,7 @@ import { readFileSync, readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import type { PackageSignals } from "@graveyard-kit/skeleton";
+import type { PackageSignals } from "@last-rites/skeleton";
 import * as api from "./index.js";
 import type { EvidenceResult } from "./types.js";
 
@@ -31,10 +31,10 @@ describe("static smoke checks", () => {
     const bad: string[] = [];
     for (const f of tsFiles(join(APP, "src"))) {
       for (const s of specifiers(f)) {
-        if (s === "@graveyard-kit/skeleton") continue;
+        if (s === "@last-rites/skeleton") continue;
         // Declared package exports (skeleton/package.json) are allowed; paths into src are not.
-        if (/^@graveyard-kit\/skeleton\/(death-score|graveyard|proof)(\/(runner|testing))?$/.test(s)) continue;
-        if (s.startsWith("@graveyard-kit/skeleton/") || /(^|\/)skeleton(\/|$)/.test(s)) bad.push(`${f}: ${s}`);
+        if (/^@last-rites\/skeleton\/(death-score|graveyard|proof)(\/(runner|testing))?$/.test(s)) continue;
+        if (s.startsWith("@last-rites/skeleton/") || /(^|\/)skeleton(\/|$)/.test(s)) bad.push(`${f}: ${s}`);
       }
     }
     expect(bad).toEqual([]);

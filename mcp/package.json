@@ -1,5 +1,5 @@
 {
-  "name": "@graveyard-kit/exorcist-mcp",
+  "name": "@last-rites/exorcist-mcp",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -13,8 +13,8 @@
     "hook:candidate-proof": "vite-node src/hooks/candidate-proof.ts --"
   },
   "dependencies": {
-    "@graveyard-kit/exorcist-npm": "*",
-    "@graveyard-kit/skeleton": "*",
+    "@last-rites/exorcist-npm": "*",
+    "@last-rites/skeleton": "*",
     "@modelcontextprotocol/sdk": "1.32.2",
     "deep-diff": "1.0.2",
     "intersect": "1.0.1",

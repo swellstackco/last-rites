@@ -1,5 +1,5 @@
 // Hand-picked signal sets for DOM tests (scores checked against the real scoreDeath by the tests).
-import type { PackageSignals } from "@graveyard-kit/skeleton";
+import type { PackageSignals } from "@last-rites/skeleton";
 
 const known = <T>(value: T) => ({ kind: "known" as const, value });
 const unknown = { kind: "unknown" as const };

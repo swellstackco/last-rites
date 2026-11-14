@@ -2,7 +2,7 @@ import { mkdtemp, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, it, expect } from "vitest";
-import { parseProofReport } from "@graveyard-kit/skeleton/proof";
+import { parseProofReport } from "@last-rites/skeleton/proof";
 import { loadCandidateBusted } from "../candidate-loader.js";
 import { proofDeps } from "../test-support/proof-deps.js";
 import { generatePinTestsImpl } from "./generate-pin-tests.js";

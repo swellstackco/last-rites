@@ -1,4 +1,4 @@
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/programmatic";
+import type { ScanReport } from "@last-rites/exorcist-npm/programmatic";
 
 /** Sorted by UTF-16 code unit (the default string order), no duplicates. */
 const sortedUnique = (names: Iterable<string>): string[] => [...new Set(names)].sort();

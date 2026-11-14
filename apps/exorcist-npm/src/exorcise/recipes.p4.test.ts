@@ -1,7 +1,7 @@
 // Feature: proof-harness, Property 4: Sabotage completeness
 // Property 4 drives the differential runner directly, as the sabotage check does.
-import { SYNTHETIC_CASES, moduleFor, resolveMember, runShape } from "@graveyard-kit/skeleton/proof/testing";
-import { BUILT_IN_MUTATORS, type CallShape, type Mutator } from "@graveyard-kit/skeleton/proof/runner";
+import { SYNTHETIC_CASES, moduleFor, resolveMember, runShape } from "@last-rites/skeleton/proof/testing";
+import { BUILT_IN_MUTATORS, type CallShape, type Mutator } from "@last-rites/skeleton/proof/runner";
 import fc from "fast-check";
 import { describe, it } from "vitest";
 import { assertProperty } from "../evidence/test-support/fc-runner.js";

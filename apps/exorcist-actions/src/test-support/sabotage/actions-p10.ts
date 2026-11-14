@@ -1,4 +1,4 @@
-import type { SabotageSummary } from "@graveyard-kit/skeleton/proof";
+import type { SabotageSummary } from "@last-rites/skeleton/proof";
 import { isWeak } from "../../proof/attempt.js";
 import { CONTRACT_MUTANTS, PIN_MUTANTS, runSabotage, sabotageFor } from "../../proof/mutants.js";
 import type { Mutant } from "../../proof/mutants.js";

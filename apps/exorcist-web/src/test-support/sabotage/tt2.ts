@@ -1,5 +1,5 @@
 // DOM sabotages for Property 2 (toe-tag-redesign): wrong Proof sections.
-import { buildProofView } from "@graveyard-kit/skeleton/graveyard";
+import { buildProofView } from "@last-rites/skeleton/graveyard";
 import type { ToeSabotage } from "./toe.js";
 
 const topLines = (doc: Document): HTMLElement[] =>

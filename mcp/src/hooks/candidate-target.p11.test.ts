@@ -1,6 +1,6 @@
 import fc from "fast-check";
 import { describe, it, expect } from "vitest";
-import { proofReportPath } from "@graveyard-kit/skeleton/proof";
+import { proofReportPath } from "@last-rites/skeleton/proof";
 import { assertProperty } from "../test-support/fc-runner.js";
 import { assertAllSabotagesCaught, type NamedProperty } from "../test-support/sabotage-runner.js";
 import { REAL_CANDIDATE_MAP, type CandidateMap } from "../test-support/validators.js";

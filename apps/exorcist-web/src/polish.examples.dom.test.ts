@@ -4,13 +4,13 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { afterEach, describe, expect, it } from "vitest";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
 import { buildReport } from "./test-support/build-report.js";
 import { mountPage } from "./test-support/dom-harness.js";
 import type { Page } from "./test-support/dom-harness.js";
 import { ALIVE_SIGNALS, DYING_SIGNALS } from "./test-support/signals.js";
 import { gradeLabels } from "./test-support/properties/p9.js";
-import { GRADE_INFO } from "@graveyard-kit/skeleton/graveyard";
+import { GRADE_INFO } from "@last-rites/skeleton/graveyard";
 
 const parseServer = readFileSync(join(dirname(fileURLToPath(import.meta.url)), "__fixtures__", "parse-server.trim.json"), "utf8");
 let page: Page | undefined;

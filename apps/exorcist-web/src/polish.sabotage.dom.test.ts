@@ -2,7 +2,7 @@
 // graveyard-ui-polish: DOM sabotage checks for Properties 9 and 10 (proof-rules.md). Own file because the
 // DOM needs jsdom while sabotage.test.ts runs in node. No network.
 import { describe, expect, it } from "vitest";
-import { FIXED_SEED } from "@graveyard-kit/skeleton/graveyard/testing";
+import { FIXED_SEED } from "@last-rites/skeleton/graveyard/testing";
 import { checkAsyncProperty, formatAsyncReport } from "./test-support/async-property.js";
 import { build as p9 } from "./test-support/properties/p9.js";
 import { build as p10 } from "./test-support/properties/p10.js";

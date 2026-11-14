@@ -1,5 +1,5 @@
 {
-  "name": "@graveyard-kit/exorcist-npm",
+  "name": "@last-rites/exorcist-npm",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -17,7 +17,7 @@
     "exorcise": "vite-node src/exorcise/cli.ts --"
   },
   "dependencies": {
-    "@graveyard-kit/skeleton": "*",
+    "@last-rites/skeleton": "*",
     "semver": "7.6.3",
     "typescript": "5.9.3"
   },

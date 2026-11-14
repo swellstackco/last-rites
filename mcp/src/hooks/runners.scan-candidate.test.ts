@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import type { ScanOutcome, ScanReport } from "@graveyard-kit/exorcist-npm/programmatic";
+import type { ScanOutcome, ScanReport } from "@last-rites/exorcist-npm/programmatic";
 import { runHook, type EntryEnv } from "./entry.js";
 import { BASELINE_REL, parseBaseline, runScanDeps, type ScanDepsDeps } from "./run-scan-deps.js";
 import { extractSavedPath, runCandidateProof } from "./run-candidate-proof.js";

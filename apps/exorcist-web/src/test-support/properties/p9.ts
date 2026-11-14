@@ -1,9 +1,9 @@
 // Property 9 (graveyard-ui-polish): fix checking, DOM half. Mounts the page for a generated report,
 // opens one package and asserts the single grade label, calibration source, one clean Total_Row and kept focus.
 import fc from "fast-check";
-import { GRADE_INFO } from "@graveyard-kit/skeleton/graveyard";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import { GRADE_INFO } from "@last-rites/skeleton/graveyard";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
 import { mountPage } from "../dom-harness.js";
 import type { Mutate } from "../sabotage/dom.js";
 import { openPackageArb, scanReportArb } from "../arbitraries.js";

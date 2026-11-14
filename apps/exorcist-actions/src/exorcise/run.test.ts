@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { parseProofReport } from "@graveyard-kit/skeleton/proof";
-import type { Outcome, ReportFs } from "@graveyard-kit/exorcist-npm/programmatic";
+import { parseProofReport } from "@last-rites/skeleton/proof";
+import type { Outcome, ReportFs } from "@last-rites/exorcist-npm/programmatic";
 import type { ActionManifest } from "../evidence/manifest.js";
 import { memorySourceFs } from "../test-support/memory-source-fs.js";
 import type { ExorciseArgs } from "./cli-args.js";

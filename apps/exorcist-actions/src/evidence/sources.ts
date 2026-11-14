@@ -8,8 +8,8 @@ import {
   fetchOsv,
   isRecord,
   ok,
-} from "@graveyard-kit/exorcist-npm/programmatic";
-import type { Outcome, SourceContext } from "@graveyard-kit/exorcist-npm/programmatic";
+} from "@last-rites/exorcist-npm/programmatic";
+import type { Outcome, SourceContext } from "@last-rites/exorcist-npm/programmatic";
 import { parseActionManifest } from "./manifest.js";
 import type { ActionManifest } from "./manifest.js";
 import { commitUrl, rawManifestUrl, releasesLatestUrl, tagsUrl } from "./urls.js";

@@ -1,6 +1,6 @@
 // Feature: proof-harness, Property 6: Usage-surface determinism and completeness
 import { deepStrictEqual } from "node:assert/strict";
-import type { UsageSurface } from "@graveyard-kit/skeleton/proof";
+import type { UsageSurface } from "@last-rites/skeleton/proof";
 import fc from "fast-check";
 import { describe, it } from "vitest";
 import { assertPropertyAsync } from "../evidence/test-support/fc-runner.js";

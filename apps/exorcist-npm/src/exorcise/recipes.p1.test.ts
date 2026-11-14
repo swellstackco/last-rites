@@ -1,7 +1,7 @@
 // Feature: proof-harness, Property 1: Differential soundness
-import { SYNTHETIC_CASES, moduleFor, usageFor } from "@graveyard-kit/skeleton/proof/testing";
-import type { CallSite, UsageSurfaceResult } from "@graveyard-kit/skeleton/proof";
-import { runProof, type CallShape, type ProofInput, type ProofResult, type Recipe } from "@graveyard-kit/skeleton/proof/runner";
+import { SYNTHETIC_CASES, moduleFor, usageFor } from "@last-rites/skeleton/proof/testing";
+import type { CallSite, UsageSurfaceResult } from "@last-rites/skeleton/proof";
+import { runProof, type CallShape, type ProofInput, type ProofResult, type Recipe } from "@last-rites/skeleton/proof/runner";
 import fc from "fast-check";
 import { describe, it } from "vitest";
 import { assertProperty } from "../evidence/test-support/fc-runner.js";

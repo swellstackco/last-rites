@@ -1,5 +1,5 @@
-import type { DemoStore, ReportFs, ScanPipeline, Watchdog } from "@graveyard-kit/exorcist-npm/programmatic";
-import { createFakeClock } from "@graveyard-kit/exorcist-npm/programmatic/testing";
+import type { DemoStore, ReportFs, ScanPipeline, Watchdog } from "@last-rites/exorcist-npm/programmatic";
+import { createFakeClock } from "@last-rites/exorcist-npm/programmatic/testing";
 import type { ExorcistDeps } from "../deps.js";
 import type { FsProbe } from "../guards.js";
 

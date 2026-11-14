@@ -1,8 +1,8 @@
 // The Graveyard screen body: four group sections in Grade_Order, lazy alive group, skipped list.
-import type { GradeBand } from "@graveyard-kit/skeleton";
-import { GRADE_INFO, GRADE_ORDER } from "@graveyard-kit/skeleton/graveyard";
-import type { Grave, GradeGroup, GraveyardView } from "@graveyard-kit/skeleton/graveyard";
-import type { ScannedDependency, SkippedEntry } from "@graveyard-kit/exorcist-npm/report";
+import type { GradeBand } from "@last-rites/skeleton";
+import { GRADE_INFO, GRADE_ORDER } from "@last-rites/skeleton/graveyard";
+import type { Grave, GradeGroup, GraveyardView } from "@last-rites/skeleton/graveyard";
+import type { ScannedDependency, SkippedEntry } from "@last-rites/exorcist-npm/report";
 import { h } from "../dom/h.js";
 import type { ClassName } from "../dom/h.js";
 import { renderSkipped } from "./skipped.js";

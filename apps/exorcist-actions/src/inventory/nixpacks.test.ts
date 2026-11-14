@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { createNodeSourceFs } from "@graveyard-kit/exorcist-npm/programmatic";
+import { createNodeSourceFs } from "@last-rites/exorcist-npm/programmatic";
 import { inventoryWorkflows } from "./inventory.js";
 
 const REPO = fileURLToPath(new URL("../__fixtures__/nixpacks/repo", import.meta.url));

@@ -2,8 +2,8 @@ import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join, relative } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import * as programmatic from "@graveyard-kit/exorcist-npm/programmatic";
-import * as testing from "@graveyard-kit/exorcist-npm/programmatic/testing";
+import * as programmatic from "@last-rites/exorcist-npm/programmatic";
+import * as testing from "@last-rites/exorcist-npm/programmatic/testing";
 
 // Static smoke checks over this app's own sources (Requirements 1.4, 1.6, 1.8, 1.9).
 
@@ -48,13 +48,13 @@ describe("smoke: boundaries of the app", () => {
     let checked = 0;
     for (const f of appFiles) {
       const text = read(f);
-      for (const imp of packageImports(text, "@graveyard-kit/exorcist-npm/programmatic")) {
+      for (const imp of packageImports(text, "@last-rites/exorcist-npm/programmatic")) {
         for (const n of imp.names) {
           checked++;
           expect(Object.keys(programmatic), `${rel(f)} imports ${n}`).toContain(n);
         }
       }
-      for (const imp of packageImports(text, "@graveyard-kit/exorcist-npm/programmatic/testing")) {
+      for (const imp of packageImports(text, "@last-rites/exorcist-npm/programmatic/testing")) {
         for (const n of imp.names) {
           checked++;
           expect(Object.keys(testing), `${rel(f)} imports ${n}`).toContain(n);
@@ -66,12 +66,12 @@ describe("smoke: boundaries of the app", () => {
 
   it("imports from exorcist-npm only through its three allowed entries", () => {
     const allowed = new Set([
-      "@graveyard-kit/exorcist-npm/programmatic",
-      "@graveyard-kit/exorcist-npm/programmatic/testing",
-      "@graveyard-kit/exorcist-npm/report",
+      "@last-rites/exorcist-npm/programmatic",
+      "@last-rites/exorcist-npm/programmatic/testing",
+      "@last-rites/exorcist-npm/report",
     ]);
     for (const f of appFiles) {
-      for (const m of read(f).matchAll(/from\s+"(@graveyard-kit\/exorcist-npm[^"]*)"/g)) {
+      for (const m of read(f).matchAll(/from\s+"(@last-rites\/exorcist-npm[^"]*)"/g)) {
         expect(allowed.has(m[1]!), `${rel(f)} imports ${m[1]}`).toBe(true);
       }
     }
@@ -83,7 +83,7 @@ describe("smoke: boundaries of the app", () => {
     for (const f of files) {
       for (const m of read(f).matchAll(/(?:from|import)\s*\(?\s*"([^"]+)"/g)) {
         const spec = m[1]!;
-        expect(spec, `${f} imports ${spec}`).not.toMatch(/exorcist-|\/apps\/|\/mcp\b|\/power\b|@graveyard-kit\/(mcp|power)/);
+        expect(spec, `${f} imports ${spec}`).not.toMatch(/exorcist-|\/apps\/|\/mcp\b|\/power\b|@last-rites\/(mcp|power)/);
         expect(spec, `${f} imports ${spec}`).not.toMatch(/^(\.\.\/)+(apps|mcp|power)\//);
       }
     }

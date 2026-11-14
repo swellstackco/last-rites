@@ -1,7 +1,7 @@
 // Small builders for Proof_Reports used by the page tests. Reports are consistent by construction
 // and serialized with the real `serializeProofReport`, so the page parses exactly what a file holds.
-import { serializeProofReport } from "@graveyard-kit/skeleton/proof";
-import type { CallSite, ImportSite, ProofAttempt, ProofReport } from "@graveyard-kit/skeleton/proof";
+import { serializeProofReport } from "@last-rites/skeleton/proof";
+import type { CallSite, ImportSite, ProofAttempt, ProofReport } from "@last-rites/skeleton/proof";
 
 export type ProofKind = "proved" | "weak" | "counterexample" | "no_call_sites" | "error";
 

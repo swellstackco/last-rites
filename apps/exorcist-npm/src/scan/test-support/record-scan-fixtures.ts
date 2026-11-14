@@ -1,7 +1,7 @@
 /**
  * Manual scan fixture recorder (task 3.1). NEVER run by `npm test`.
  *
- *   npm run record-scan-fixtures -w @graveyard-kit/exorcist-npm -- <case> <owner/repo> [ref]
+ *   npm run record-scan-fixtures -w @last-rites/exorcist-npm -- <case> <owner/repo> [ref]
  *
  * Records a public MIT repository's `package.json` and `package-lock.json` (pinned to a commit SHA)
  * plus one evidence fixture directory per registry dependency, under `scan/__fixtures__/<case>/`.

@@ -1,5 +1,5 @@
 // Feature: proof-harness, Property 11: Proof names, paths and CLI arguments
-import { isProofName, parseProofReportPath, proofReportPath } from "@graveyard-kit/skeleton/proof";
+import { isProofName, parseProofReportPath, proofReportPath } from "@last-rites/skeleton/proof";
 import fc from "fast-check";
 import { describe, it } from "vitest";
 import { assertProperty } from "../evidence/test-support/fc-runner.js";

@@ -1,10 +1,10 @@
 // The Evidence_Stage of the actions app (Requirements 4.1, 4.2, 4.5, 6.5 to 6.7). One CacheLayer over a
 // ResilientClient (as the npm runtime builds it); the sources run with Promise.all and each is wrapped in a
 // last-resort catch. The stage never rejects.
-import { SIGNAL_NAMES } from "@graveyard-kit/skeleton";
-import type { SignalName, SignalValue } from "@graveyard-kit/skeleton";
-import { CacheLayer, ResilientClient, fail, fetchGithub, parseIsoTimestamp } from "@graveyard-kit/exorcist-npm/programmatic";
-import type { Clock, EvidenceConfig, HttpClient, Outcome, Sleep, SourceContext } from "@graveyard-kit/exorcist-npm/programmatic";
+import { SIGNAL_NAMES } from "@last-rites/skeleton";
+import type { SignalName, SignalValue } from "@last-rites/skeleton";
+import { CacheLayer, ResilientClient, fail, fetchGithub, parseIsoTimestamp } from "@last-rites/exorcist-npm/programmatic";
+import type { Clock, EvidenceConfig, HttpClient, Outcome, Sleep, SourceContext } from "@last-rites/exorcist-npm/programmatic";
 import { assembleActionEvidence } from "./assemble.js";
 import type { EvidenceResult } from "./assemble.js";
 import { fetchActionsOsv, fetchManifest, fetchPublish } from "./sources.js";

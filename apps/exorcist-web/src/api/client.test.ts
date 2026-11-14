@@ -1,13 +1,13 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it, vi } from "vitest";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
 import { createApiClient } from "./client.js";
 import { createFakeFetch } from "../test-support/fake-fetch.js";
 import { createFakeTimers } from "../test-support/fake-timers.js";
 import { buildReport } from "../test-support/build-report.js";
 import { DEMO_TIMEOUT_MS, LIVE_TIMEOUT_MS } from "../constants.js";
 import { buildProofReport, buildProofText } from "../test-support/build-proof-report.js";
-import type { PackageSignals } from "@graveyard-kit/skeleton";
+import type { PackageSignals } from "@last-rites/skeleton";
 
 const unknown = { kind: "unknown" } as const;
 const SIGNALS: PackageSignals = {

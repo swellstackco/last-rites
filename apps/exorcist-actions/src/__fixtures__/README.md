@@ -14,7 +14,7 @@ Each file is one recorded HTTP exchange in the `FixtureEntry` format of the npm 
 (`method`, `url`, optional exact `body`, `response`). Request headers are never recorded. The only
 response headers kept are `content-type`, `link`, `retry-after` and the `x-ratelimit-*` headers.
 
-How they were recorded: `npm run record-fixtures -w @graveyard-kit/exorcist-actions -- --clone <clone path>`
+How they were recorded: `npm run record-fixtures -w @last-rites/exorcist-actions -- --clone <clone path>`
 (`src/test-support/record-fixtures.ts`), run from the workspace with the path of the local clone. The script runs the real pipeline (`runScan` on the clone with
 `--label railwayapp/nixpacks --ref 144b4f9`, then `runExorcise --fix swap --action actions-rs/toolchain`
 and `--fix pin --action actions/checkout`, without `--write`) over a recording `HttpClient`. After that it
@@ -34,7 +34,7 @@ writes `demo/nixpacks-actions.json` and `demo/proofs/nixpacks-actions/*.json`.
 - 112 exchanges.
 
 To rebuild the demo files from these fixtures without the network (same pipeline, a fake clock at the
-committed `scannedAt`), run `npm run record-fixtures -w @graveyard-kit/exorcist-actions -- --regenerate`.
+committed `scannedAt`), run `npm run record-fixtures -w @last-rites/exorcist-actions -- --regenerate`.
 `src/replay.test.ts` asserts that this gives the committed bytes.
 
 ## Tag ordering note

@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 // toe-tag-polish Property TP6: preservation against the frozen v3 views. No network.
 import { describe, expect, it } from "vitest";
-import { buildProofView } from "@graveyard-kit/skeleton/graveyard";
+import { buildProofView } from "@last-rites/skeleton/graveyard";
 import { checkAsyncProperty, formatAsyncReport } from "./test-support/async-property.js";
 import { buildReport } from "./test-support/build-report.js";
 import { build as tp6, checkCase } from "./test-support/properties/tp6.js";

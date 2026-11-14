@@ -1,10 +1,10 @@
 import { deepStrictEqual, ok as assert, strictEqual } from "node:assert";
 import fc from "fast-check";
-import { SIGNAL_NAMES, scoreDeath } from "@graveyard-kit/skeleton";
-import type { PackageSignals, SignalName } from "@graveyard-kit/skeleton";
-import { parseReport, serializeReport } from "@graveyard-kit/exorcist-npm/programmatic";
-import { reportArb } from "@graveyard-kit/exorcist-npm/programmatic/testing";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/programmatic";
+import { SIGNAL_NAMES, scoreDeath } from "@last-rites/skeleton";
+import type { PackageSignals, SignalName } from "@last-rites/skeleton";
+import { parseReport, serializeReport } from "@last-rites/exorcist-npm/programmatic";
+import { reportArb } from "@last-rites/exorcist-npm/programmatic/testing";
+import type { ScanReport } from "@last-rites/exorcist-npm/programmatic";
 import type { EvidenceResult } from "../../evidence/assemble.js";
 import type { ActionUse, InventoryResult, SkippedUse } from "../../inventory/types.js";
 import { buildScanReport } from "../../scan/report.js";

@@ -8,7 +8,7 @@
       "matcher": "skeleton/src/death-score/(weights|severity|grade)\\.ts$",
       "action": {
         "type": "command",
-        "command": "npm run hook:monotonic -w @graveyard-kit/exorcist-mcp --silent"
+        "command": "npm run hook:monotonic -w @last-rites/exorcist-mcp --silent"
       },
       "timeout": 120
     }

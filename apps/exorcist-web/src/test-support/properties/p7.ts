@@ -1,5 +1,5 @@
 import fc from "fast-check";
-import { ensure } from "@graveyard-kit/skeleton/graveyard/testing";
+import { ensure } from "@last-rites/skeleton/graveyard/testing";
 import { parseRepoInput } from "../../model/repo-input.js";
 
 export type ParseRepoInputFn = typeof parseRepoInput;

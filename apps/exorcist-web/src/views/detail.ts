@@ -1,7 +1,7 @@
 // Detail_Panel: a hand-written modal dialog (role="dialog") with focus trap and restore.
-import { GRADE_INFO, buildBreakdown, proofSlotFor } from "@graveyard-kit/skeleton/graveyard";
-import type { Grave, ProofSlot, ProofState } from "@graveyard-kit/skeleton/graveyard";
-import type { ScannedDependency } from "@graveyard-kit/exorcist-npm/report";
+import { GRADE_INFO, buildBreakdown, proofSlotFor } from "@last-rites/skeleton/graveyard";
+import type { Grave, ProofSlot, ProofState } from "@last-rites/skeleton/graveyard";
+import type { ScannedDependency } from "@last-rites/exorcist-npm/report";
 import { h } from "../dom/h.js";
 import { restoreFocus, setInertAround, trapTab } from "../dom/focus.js";
 import { renderBreakdown } from "./breakdown.js";

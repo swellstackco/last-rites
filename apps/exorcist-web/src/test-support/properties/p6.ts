@@ -1,5 +1,5 @@
 import fc from "fast-check";
-import { ensure } from "@graveyard-kit/skeleton/graveyard/testing";
+import { ensure } from "@last-rites/skeleton/graveyard/testing";
 import { formatRoute, parseRoute } from "../../app/router.js";
 import type { Route } from "../../app/router.js";
 import { parseRepoInput } from "../../model/repo-input.js";

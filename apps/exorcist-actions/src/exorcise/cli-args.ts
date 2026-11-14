@@ -1,6 +1,6 @@
 // Requirement 15.1: the argument parser of the exorcise CLI. Pure and total: it never throws and never
 // reads process or the file system. Same flag rules as the scan parser (Requirement 9.2).
-import { isProofOutPath } from "@graveyard-kit/exorcist-npm/programmatic";
+import { isProofOutPath } from "@last-rites/exorcist-npm/programmatic";
 import { DEFAULT_CACHE, defaultLabel, LABEL_PATTERN } from "../scan/cli-args.js";
 
 export type ExorciseFix = "pin" | "swap";
@@ -21,7 +21,7 @@ export interface ExorciseArgs {
 export type ExorciseArgsParse = { ok: true; args: ExorciseArgs } | { ok: false; message: string };
 
 export const EXORCISE_USAGE =
-  "usage: npm run exorcise -w @graveyard-kit/exorcist-actions -- --repo <path> --action <owner/repo> " +
+  "usage: npm run exorcise -w @last-rites/exorcist-actions -- --repo <path> --action <owner/repo> " +
   "--fix pin|swap [--write] [--out <proofs/repo/file.json>] [--label <owner/name>] [--commit <text>] " +
   "[--cache <dir>] [--fresh]";
 

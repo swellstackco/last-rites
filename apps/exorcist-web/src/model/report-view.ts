@@ -1,7 +1,7 @@
-import type { GradeBand } from "@graveyard-kit/skeleton";
-import { buildGraveyard } from "@graveyard-kit/skeleton/graveyard";
-import type { GraveyardView } from "@graveyard-kit/skeleton/graveyard";
-import type { ScanReport, ScannedDependency, SkippedEntry } from "@graveyard-kit/exorcist-npm/report";
+import type { GradeBand } from "@last-rites/skeleton";
+import { buildGraveyard } from "@last-rites/skeleton/graveyard";
+import type { GraveyardView } from "@last-rites/skeleton/graveyard";
+import type { ScanReport, ScannedDependency, SkippedEntry } from "@last-rites/exorcist-npm/report";
 
 export interface SummaryHeader {
   repo: string;

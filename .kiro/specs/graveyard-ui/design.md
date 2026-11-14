@@ -6,7 +6,7 @@ The Graveyard_Ui is the first screen of "Last Rites". It turns one Scan_Report i
 
 It has two parts, split along the rule in `structure.md` ("an app may import from `/skeleton`; `/skeleton` never imports from an app"):
 
-1. **Graveyard_View_Model** in `skeleton/src/graveyard/`. Pure TypeScript, no DOM types, no I/O, no clock. It groups and orders Graves, counts them, builds the Breakdown (signal rows, the calibration row, the total), validates source links, explains signals and grades in words, and defines the ProofSlot data shape. It is generic over a structural `GraveRecord`, so a future adapter (GitHub Actions) reuses it unchanged. It is exported as `@graveyard-kit/skeleton/graveyard`; a test-only subpath `@graveyard-kit/skeleton/graveyard/testing` exports the arbitraries and the property runner for the page's tests.
+1. **Graveyard_View_Model** in `skeleton/src/graveyard/`. Pure TypeScript, no DOM types, no I/O, no clock. It groups and orders Graves, counts them, builds the Breakdown (signal rows, the calibration row, the total), validates source links, explains signals and grades in words, and defines the ProofSlot data shape. It is generic over a structural `GraveRecord`, so a future adapter (GitHub Actions) reuses it unchanged. It is exported as `@last-rites/skeleton/graveyard`; a test-only subpath `@last-rites/skeleton/graveyard/testing` exports the arbitraries and the property runner for the page's tests.
 2. **Graveyard_Page** in the new workspace package `apps/exorcist-web`. Vite + TypeScript, no framework. It holds the Api_Client, the hash router, the state machine, the pure page models (Repo_Input parser, route codec, Ui_Error builder, report header), the DOM views, the night theme CSS and the DOM tests.
 
 The page reads reports from the existing Scan_Api (`GET /api/demo/:name`, `POST /api/scan`), validates every body with the existing `parseReport`, and falls back to static copies of the demo JSON when the API is unreachable. It changes nothing in the scanner, the API or the engine.
@@ -88,9 +88,9 @@ Facts checked in the repository while writing this spec:
 ### Sharing and layering
 
 ```
-apps/exorcist-web  ──imports──►  @graveyard-kit/skeleton/graveyard     (view model, pure)
-                   ──imports──►  @graveyard-kit/skeleton               (toGrade, SIGNAL_NAMES, types)
-                   ──imports──►  @graveyard-kit/exorcist-npm/report    (parseReport, report types)
+apps/exorcist-web  ──imports──►  @last-rites/skeleton/graveyard     (view model, pure)
+                   ──imports──►  @last-rites/skeleton               (toGrade, SIGNAL_NAMES, types)
+                   ──imports──►  @last-rites/exorcist-npm/report    (parseReport, report types)
 skeleton           ──imports──►  nothing under /apps
 ```
 
@@ -463,7 +463,7 @@ Rules:
 
 ### scripts/dev.ts and root script
 
-`apps/exorcist-web/scripts/dev.ts` (run with `vite-node`, like the existing `serve` script) spawns `npm run serve -w @graveyard-kit/exorcist-npm` and `vite`, prefixes their output lines, forwards SIGINT/SIGTERM to both, exits non-zero if either exits non-zero, and prints `Last Rites: http://127.0.0.1:5173/`. The root `dev` script is `npm run dev -w @graveyard-kit/exorcist-web`. Vite binds `127.0.0.1` (`server.host`), port 5173, `strictPort: true`.
+`apps/exorcist-web/scripts/dev.ts` (run with `vite-node`, like the existing `serve` script) spawns `npm run serve -w @last-rites/exorcist-npm` and `vite`, prefixes their output lines, forwards SIGINT/SIGTERM to both, exits non-zero if either exits non-zero, and prints `Last Rites: http://127.0.0.1:5173/`. The root `dev` script is `npm run dev -w @last-rites/exorcist-web`. Vite binds `127.0.0.1` (`server.host`), port 5173, `strictPort: true`.
 
 ## Data Models
 
@@ -532,7 +532,7 @@ Blurbs contain no counts, so a re-snapshot cannot make them wrong. A test checks
 - **`aria-disabled` rather than `disabled` for the Proof control and the cooldown button.** Disabled buttons leave the tab order; the point is that a keyboard user can find the placeholder and read why it does nothing.
 - **Native `title` plus visible text.** `title` alone fails on touch and for keyboard users, so every explanation also exists as visible text (rows) or as accessible name/description (tombstones, scores).
 - **Contrast is tested from the CSS file, not from memory.** `tokens.css` is the single source; `theme.test.ts` parses it.
-- **Type-only imports across packages.** `@graveyard-kit/exorcist-npm/report` re-exports `parseReport` and the report types. The web `tsconfig` leaves `types` unset so the hoisted `@types/node` that `evidence/index.ts` needs is found during typecheck; the page's own code does not use Node APIs, and Vite bundles only `report.ts` and `types.ts` of the scanner.
+- **Type-only imports across packages.** `@last-rites/exorcist-npm/report` re-exports `parseReport` and the report types. The web `tsconfig` leaves `types` unset so the hoisted `@types/node` that `evidence/index.ts` needs is found during typecheck; the page's own code does not use Node APIs, and Vite bundles only `report.ts` and `types.ts` of the scanner.
 
 ## Correctness Properties
 
@@ -672,9 +672,9 @@ Sabotages: throws on an unknown code; empty `detail` for unknown codes; unclampe
 
 - **jsdom focus and `inert`**: jsdom handles `focus()` and `document.activeElement` but ignores `inert`. Mitigation: assert attributes and test the trap logic by dispatching Tab key events; real behavior is in the manual check.
 - **Vite and `.js` suffixes**: the repo uses NodeNext-style `.js` import suffixes in `.ts` files. Vite 5 resolves them to `.ts`; if a case fails, the build task fixes the import, not the convention.
-- **Cross-package typecheck**: importing `@graveyard-kit/exorcist-npm/report` pulls `evidence/index.ts` types into the web typecheck. If `@types/node` is not auto-discovered, the fix is `types: ["node"]` in the web tsconfig, not a copy of the types.
+- **Cross-package typecheck**: importing `@last-rites/exorcist-npm/report` pulls `evidence/index.ts` types into the web typecheck. If `@types/node` is not auto-discovered, the fix is `types: ["node"]` in the web tsconfig, not a copy of the types.
 - **Contrast of glow and bars**: decorative glows are not counted for contrast; bars carry the text "n / m" so meaning does not depend on them.
-- **Bundle of `report.ts`**: it must stay browser-safe. A smoke test checks that its runtime imports are only `@graveyard-kit/skeleton` and `./types.js`.
+- **Bundle of `report.ts`**: it must stay browser-safe. A smoke test checks that its runtime imports are only `@last-rites/skeleton` and `./types.js`.
 - **Hard-coded rate-limit text**: the "10 per minute" copy could drift from the server config; a test compares the constant with `DEFAULT_SCAN_API_CONFIG` (a deployment that overrides the config will still show the default; acceptable for v1).
 - **Large demo (490 KB)**: parse and render are expected to be well under a second; alive tombstones are lazy.
 
@@ -682,14 +682,14 @@ Sabotages: throws on an unknown code; empty `detail` for unknown codes; unclampe
 
 Decisions made without asking, for the owner to confirm or reverse:
 
-1. **Package name and place**: `apps/exorcist-web` (`@graveyard-kit/exorcist-web`), the web front end of the flagship app. The spec dir is `graveyard-ui`; the package name follows the existing `exorcist-*` apps. Renaming to Last Rites happens later with everything else.
+1. **Package name and place**: `apps/exorcist-web` (`@last-rites/exorcist-web`), the web front end of the flagship app. The spec dir is `graveyard-ui`; the package name follows the existing `exorcist-*` apps. Renaming to Last Rites happens later with everything else.
 2. **Skeleton ships the pure view model only**, not DOM components. `structure.md` mentions a "graveyard UI component" in `/skeleton`; this spec treats the reusable part as the view model, the labels and the ProofSlot shape, and keeps DOM rendering in the app. Lifting the views into the skeleton later is possible because they take only view-model data.
 3. **No framework**: vanilla TypeScript with a `textContent`-only `h()` helper.
 4. **Vite 5.4.21 (already hoisted) and an exact-pinned `jsdom`** (the version is chosen at install time, compatible with Vitest 2.1.x and Node 22, and recorded in `docs/kiro-log.md`). `jsdom` over `happy-dom` because focus, keyboard events and ARIA attributes are more faithfully implemented.
 5. **Custom dialog instead of `<dialog>`**, because jsdom's `showModal` is unreliable and the keyboard flow must be testable.
 6. **Demo list is a constant in the page**, with a test that it equals `/demo/*.json`; no new list endpoint, because the API is out of scope. The demo cards show no counts, to avoid stale numbers.
 7. **Static demo fallback** (`/demo/<name>.json`) copied into the build and served in dev, used only for network error, 5xx and 404 of the demo endpoint.
-8. **`@graveyard-kit/exorcist-npm/report` subpath export** added to `exorcist-npm/package.json` so the page reuses `parseReport` and the report types instead of redeclaring them.
+8. **`@last-rites/exorcist-npm/report` subpath export** added to `exorcist-npm/package.json` so the page reuses `parseReport` and the report types instead of redeclaring them.
 9. **Hash routing with `pkg=<key>` deep links**; live routes never auto-scan on load.
 10. **Rate-limit text** shows "10 per minute per visitor" from a constant checked against the server default, plus the exact `retry-after` seconds on a 429. A missing header means 60 seconds.
 11. **Repo input accepts** `owner/repo`, `github.com/owner/repo`, `http(s)://github.com/owner/repo` (optional `/`, `.git`); it does not parse `/tree/<ref>` URLs. The ref is a separate optional field.

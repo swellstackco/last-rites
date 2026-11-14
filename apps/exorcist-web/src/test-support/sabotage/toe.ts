@@ -1,8 +1,8 @@
 // Shared types for the Toe Tag DOM sabotages (toe-tag-redesign tt1 to tt3). A sabotage is a "wrong page":
 // a transform of the real page DOM applied inside the property after the package is opened.
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
 import type { RecordedCall } from "../fake-fetch.js";
-import type { ProofReport } from "@graveyard-kit/skeleton/proof";
+import type { ProofReport } from "@last-rites/skeleton/proof";
 
 export interface ToeContext {
   report?: ScanReport;

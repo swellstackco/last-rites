@@ -4,7 +4,7 @@ import { fileURLToPath } from "node:url";
 import { skillFromSteering } from "./skill-from-steering.js";
 import { SKILLS } from "./skills.js";
 
-// Script entry of `npm run power:sync -w @graveyard-kit/exorcist-mcp`: steering files -> power/skills/<name>/SKILL.md.
+// Script entry of `npm run power:sync -w @last-rites/exorcist-mcp`: steering files -> power/skills/<name>/SKILL.md.
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 for (const skill of SKILLS) {
   const out = join(root, "power", "skills", skill.name, "SKILL.md");

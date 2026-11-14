@@ -1,5 +1,5 @@
 // Task 6.8: the orchestration of one proof run, in process, over an in-memory ReportFs and the fixture trees.
-import { parseProofReport } from "@graveyard-kit/skeleton/proof";
+import { parseProofReport } from "@last-rites/skeleton/proof";
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";

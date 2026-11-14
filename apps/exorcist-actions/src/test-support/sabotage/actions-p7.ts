@@ -1,6 +1,6 @@
-import { SIGNAL_NAMES } from "@graveyard-kit/skeleton";
-import type { SignalName } from "@graveyard-kit/skeleton";
-import { monthsSince } from "@graveyard-kit/exorcist-npm/programmatic";
+import { SIGNAL_NAMES } from "@last-rites/skeleton";
+import type { SignalName } from "@last-rites/skeleton";
+import { monthsSince } from "@last-rites/exorcist-npm/programmatic";
 import { assembleActionEvidence } from "../../evidence/assemble.js";
 import type { ActionEvidenceAssembleInput, EvidenceResult } from "../../evidence/assemble.js";
 import { createActionEvidenceStage } from "../../evidence/stage.js";

@@ -4,7 +4,7 @@ Written by Claude (planning) as input for the Kiro spec `.kiro/specs/exorcist-ac
 
 ## Goal
 
-`apps/exorcist-actions` (package `@graveyard-kit/exorcist-actions`): scan a repo's `.github/workflows/*.yml|yaml` for third-party GitHub Actions (`uses: owner/repo[/path]@ref`), score how dead each action is with the skeleton death-score engine, and for a dead or risky action produce a fix plus a proof:
+`apps/exorcist-actions` (package `@last-rites/exorcist-actions`): scan a repo's `.github/workflows/*.yml|yaml` for third-party GitHub Actions (`uses: owner/repo[/path]@ref`), score how dead each action is with the skeleton death-score engine, and for a dead or risky action produce a fix plus a proof:
 - **Fix A, swap:** a dead action with a known replacement (curated map) is swapped for the replacement.
 - **Fix B, pin:** a mutable ref (tag or branch, e.g. `@v3`, `@main`) is pinned to the full 40-char commit SHA it points to today, with the old ref kept as a trailing comment (`uses: owner/repo@<sha> # v3`).
 
@@ -24,7 +24,7 @@ Written by Claude (planning) as input for the Kiro spec `.kiro/specs/exorcist-ac
    - **Pin proof:** the pinned SHA equals the commit the mutable ref resolves to via the GitHub API (`/repos/{o}/{r}/commits/{ref}`), AND the rewritten workflow differs from the original only in the `uses:` value plus the trailing comment on that line (byte-for-byte everywhere else).
    - **Swap contract proof:** every input the workflow passes in `with:` maps to an input declared in the replacement's `action.yml` (via the curated mapping), every `required: true` input of the replacement without a default is supplied, and every `steps.<id>.outputs.<name>` referenced later in the same job exists in the replacement's declared `outputs`. A violation is a counterexample naming the input/output.
    - **Sabotage** (mandatory, per proof-rules.md): mutants that must be caught: pin to a different SHA, rewrite an extra line, drop a required input, rename a referenced output. A survivor marks the proof weak.
-5. **CLI**: `npm run scan -w @graveyard-kit/exorcist-actions -- --repo <path> [--out ...]` and `npm run exorcise -w @graveyard-kit/exorcist-actions -- --repo <path> --action <owner/repo> --fix pin|swap [--write]` (`--write` edits the local checkout only; never commits or pushes).
+5. **CLI**: `npm run scan -w @last-rites/exorcist-actions -- --repo <path> [--out ...]` and `npm run exorcise -w @last-rites/exorcist-actions -- --repo <path> --action <owner/repo> --fix pin|swap [--write]` (`--write` edits the local checkout only; never commits or pushes).
 
 ## Correctness properties (fast-check, for the design)
 

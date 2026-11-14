@@ -8,9 +8,9 @@ This plan implements the Npm_Evidence_Stage in `/apps/exorcist-npm/src/evidence/
 
 ### Phase 1: Scaffold, types and test support
 
-- [x] 1.1 Create `apps/exorcist-npm/package.json` (name, ESM, dependency on `@graveyard-kit/skeleton`, exact-pinned `semver`, no LLM client dependency), `tsconfig.json` extending `tsconfig.base.json`, and a Vitest setup file that replaces `globalThis.fetch` with a function that fails the test. Remove `.gitkeep` once real files exist.
+- [x] 1.1 Create `apps/exorcist-npm/package.json` (name, ESM, dependency on `@last-rites/skeleton`, exact-pinned `semver`, no LLM client dependency), `tsconfig.json` extending `tsconfig.base.json`, and a Vitest setup file that replaces `globalThis.fetch` with a function that fails the test. Remove `.gitkeep` once real files exist.
   - _Requirements: 1.2, 12.1, 14.1, 14.3_
-- [x] 1.2 Create `src/evidence/types.ts`, `src/evidence/http/types.ts` and `src/evidence/config.ts`: `Source`, `FailureCategory`, `UnknownReason`, `ReplacementInfo`, `EvidenceInput`, `EvidenceResult`, `EvidenceStage`, `EvidenceInputError`, `EvidenceConfigError`, `HttpClient`, `HttpRequest`, `HttpResponse`, `HttpClientError`, `Clock`, `Sleep`, `EvidenceConfig`, `DEFAULT_CONFIG` (TTLs 3600/3600/21600/86400/86400, timeout 10000, concurrency 4, retries 3, GitHub max wait 60, deps.dev off), `validateConfig` and `configFromEnv`. Import `PackageSignals`, `SignalValue` and `SignalName` from `@graveyard-kit/skeleton`; never redeclare them.
+- [x] 1.2 Create `src/evidence/types.ts`, `src/evidence/http/types.ts` and `src/evidence/config.ts`: `Source`, `FailureCategory`, `UnknownReason`, `ReplacementInfo`, `EvidenceInput`, `EvidenceResult`, `EvidenceStage`, `EvidenceInputError`, `EvidenceConfigError`, `HttpClient`, `HttpRequest`, `HttpResponse`, `HttpClientError`, `Clock`, `Sleep`, `EvidenceConfig`, `DEFAULT_CONFIG` (TTLs 3600/3600/21600/86400/86400, timeout 10000, concurrency 4, retries 3, GitHub max wait 60, deps.dev off), `validateConfig` and `configFromEnv`. Import `PackageSignals`, `SignalValue` and `SignalName` from `@last-rites/skeleton`; never redeclare them.
   - _Requirements: 1.2, 8.6, 10.1, 10.2, 10.7, 10.10, 14.1_
 - [x] 1.3 Create `src/evidence/test-support/fc-runner.ts` (resolve seed from `FC_SEED` or fixed seed when `CI` is set, `checkProperty`, `assertProperty`, `formatReport` printing seed and shrunk counterexample, default `numRuns: 100`) and `test-support/sabotage-runner.ts` (`runAgainst`, `runSabotageChecks` that fails with `Sabotage "<name>" stayed green for "<property>"`), mirroring the skeleton helpers without deep-importing them.
   - _Requirements: 13.7, 13.8, 13.9, 13.10, 14.1_
@@ -116,7 +116,7 @@ This plan implements the Npm_Evidence_Stage in `/apps/exorcist-npm/src/evidence/
 
 ### Phase 7: Integration and documentation
 
-- [x] 7.1 Write static smoke tests: the app imports `/skeleton` only through `@graveyard-kit/skeleton`, no file under `/skeleton` resolves an import under `apps/exorcist-npm`, `package.json` declares no LLM client dependency, the module exports `createEvidenceStage` and no `inventory`, `replacement` or `proof`, and a type-level test assigns `EvidenceResult["signals"]` to `PackageSignals`.
+- [x] 7.1 Write static smoke tests: the app imports `/skeleton` only through `@last-rites/skeleton`, no file under `/skeleton` resolves an import under `apps/exorcist-npm`, `package.json` declares no LLM client dependency, the module exports `createEvidenceStage` and no `inventory`, `replacement` or `proof`, and a type-level test assigns `EvidenceResult["signals"]` to `PackageSignals`.
   - _Requirements: 1.2, 12.10, 14.1, 14.2, 14.3, 14.7_
 - [x] 7.2 Run `npm run typecheck` across workspaces and `npm test`; fix strict-mode errors and confirm every property runs with `numRuns: 100` and every sabotage check fails its property as intended.
   - _Requirements: 12.1, 12.10, 13.1, 13.9, 13.10_

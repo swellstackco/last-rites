@@ -1,5 +1,5 @@
 import fc from "fast-check";
-import type { SabotageSummary } from "@graveyard-kit/skeleton/proof";
+import type { SabotageSummary } from "@last-rites/skeleton/proof";
 import type { ActionUse, WithKey } from "../../inventory/types.js";
 import type { ContractCheck, ContractViolationKind } from "../../proof/contract-check.js";
 import type { PinCheck } from "../../proof/pin-check.js";

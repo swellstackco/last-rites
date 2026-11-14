@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, it, expect } from "vitest";
-import { SIGNAL_NAMES } from "@graveyard-kit/skeleton";
-import { createScanPipeline, parseReport, type ScanOutcome, type ScanPipeline, type Watchdog } from "@graveyard-kit/exorcist-npm/programmatic";
+import { SIGNAL_NAMES } from "@last-rites/skeleton";
+import { createScanPipeline, parseReport, type ScanOutcome, type ScanPipeline, type Watchdog } from "@last-rites/exorcist-npm/programmatic";
 import { obtainScanReport } from "./scan-source.js";
 import { createLocalRepoFiles } from "./local-files.js";
 import { fakeDemoStore, makeDeps, memoryProbe, counting } from "./test-support/fakes.js";

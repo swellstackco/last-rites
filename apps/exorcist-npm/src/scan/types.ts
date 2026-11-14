@@ -1,4 +1,4 @@
-import type { DeathScoreResult, GradeBand, PackageSignals } from "@graveyard-kit/skeleton";
+import type { DeathScoreResult, GradeBand, PackageSignals } from "@last-rites/skeleton";
 import type { EvidenceResult, FailureCategory, ReplacementInfo } from "../evidence/index.js";
 
 export type DependencyKind = "dependencies" | "devDependencies" | "optionalDependencies" | "peerDependencies";

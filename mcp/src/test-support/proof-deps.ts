@@ -1,5 +1,5 @@
-import { RECIPES, createUsageSurface } from "@graveyard-kit/exorcist-npm/programmatic";
-import { createMemoryFs } from "@graveyard-kit/exorcist-npm/programmatic/testing";
+import { RECIPES, createUsageSurface } from "@last-rites/exorcist-npm/programmatic";
+import { createMemoryFs } from "@last-rites/exorcist-npm/programmatic/testing";
 import type { ExorcistDeps } from "../deps.js";
 import { loadOracle } from "../oracles-static.js";
 import { makeDeps, memoryProbe, recordingReportFs } from "./fakes.js";

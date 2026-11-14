@@ -32,7 +32,7 @@ The hosted app and tests make no LLM calls, and no API key is needed. `GITHUB_TO
 These findings shaped the design. Several differ from what the requirements assume and are flagged under "Decisions and Requirement Clarifications".
 
 - **e18e data shape.** The `es-tooling`/`e18e` `module-replacements` repository ships three manifests, `native.json`, `micro-utilities.json` and `preferred.json`, under `manifests/` and no single combined file. Each file has the shape `{ "mappings": { "<module>": { "type": "module", "moduleName": "<module>", "replacements": ["a", "b"], "url": { ... } } } }`. Replacements are an array (`replacements`), not a single name. Because `mappings` is a JSON object keyed by module name, duplicate entries cannot survive `JSON.parse`. Sources: [module-replacements README](https://raw.githubusercontent.com/es-tooling/module-replacements/main/README.md), [preferred.json](https://raw.githubusercontent.com/es-tooling/module-replacements/main/manifests/preferred.json), [native.json](https://raw.githubusercontent.com/es-tooling/module-replacements/main/manifests/native.json), [manifests directory listing](https://api.github.com/repos/es-tooling/module-replacements/contents/manifests).
-- **Skeleton public surface.** `skeleton/src/death-score/index.ts` exports `scoreDeath`, `SIGNAL_NAMES` and the types `SignalValue`, `SignalName`, `PackageSignals` through the package export `@graveyard-kit/skeleton`. It does not export the test helpers (`fc-runner`, `sabotage`). Requirement 14.1 forbids deep imports, so the app carries its own small property-test runner, mirroring the skeleton one.
+- **Skeleton public surface.** `skeleton/src/death-score/index.ts` exports `scoreDeath`, `SIGNAL_NAMES` and the types `SignalValue`, `SignalName`, `PackageSignals` through the package export `@last-rites/skeleton`. It does not export the test helpers (`fc-runner`, `sabotage`). Requirement 14.1 forbids deep imports, so the app carries its own small property-test runner, mirroring the skeleton one.
 - **No adapter interface yet.** `/skeleton` contains only `death-score`. The adapter interface named in Requirement 14.7 does not exist yet, so this design defines a local `EvidenceStage` function type that the future interface can adopt.
 - **Existing test conventions.** The death-score spec uses a `NamedProperty { name, build(impl) }` pattern, a `FIXED_SEED` in CI, `FC_SEED` replay, and a sabotage list where each wrong implementation must be caught. This design reuses that pattern.
 - **npm workspace state.** `apps/exorcist-npm` contains only `.gitkeep`. The root `vitest.config.ts` already includes `apps/*/src/**/*.test.ts`, and the root `workspaces` already includes `apps/*`, so the app needs a `package.json` and `tsconfig.json` and nothing else at the root.
@@ -60,7 +60,7 @@ flowchart TD
 
 Layering rule: the cache wraps the resilient client, which wraps the raw client. A cache hit costs zero client calls. On a miss the cache calls the resilient client exactly once; the resilient client may call the raw client several times (retries). This is what makes Requirement 8 ("call the Http_Client exactly once") and Requirement 10 (retries) consistent.
 
-`/skeleton` never imports from the app. The app imports only from `@graveyard-kit/skeleton`.
+`/skeleton` never imports from the app. The app imports only from `@last-rites/skeleton`.
 
 ### Evidence flow
 
@@ -97,7 +97,7 @@ sequenceDiagram
 
 ## Components and Interfaces
 
-Layout under `apps/exorcist-npm/` (new `package.json` and `tsconfig.json` extending `tsconfig.base.json`, dependency on `@graveyard-kit/skeleton`, exact-pinned `semver`, dev dependencies `vitest` and `fast-check` already used by the workspace):
+Layout under `apps/exorcist-npm/` (new `package.json` and `tsconfig.json` extending `tsconfig.base.json`, dependency on `@last-rites/skeleton`, exact-pinned `semver`, dev dependencies `vitest` and `fast-check` already used by the workspace):
 
 ```
 src/evidence/
@@ -124,7 +124,7 @@ src/evidence/
 ### Public types
 
 ```ts
-import type { PackageSignals, SignalName } from "@graveyard-kit/skeleton";
+import type { PackageSignals, SignalName } from "@last-rites/skeleton";
 
 export type Source = "npm" | "github" | "osv" | "e18e" | "depsdev";
 
@@ -507,6 +507,6 @@ PBT applies to this feature: the parser, Months_Since, OSV counting, cache behav
   - Cache: second run makes zero client calls, corrupt files, failure does not overwrite an existing entry.
   - Resilience: `retry-after` honored, exponential backoff capped at 30, retries bounded, timeout not retried.
   - Input: whitespace names, invalid `now`, invalid configuration, each with zero client calls.
-  - Static smoke checks: the app imports `/skeleton` only through `@graveyard-kit/skeleton`; `/skeleton` has no import resolving under `apps/exorcist-npm`; `package.json` has no LLM client dependency; the module exports `evidence` and no `inventory`, `replacement` or `proof`; `npm run typecheck` proves `EvidenceResult["signals"]` is assignable to `PackageSignals`.
+  - Static smoke checks: the app imports `/skeleton` only through `@last-rites/skeleton`; `/skeleton` has no import resolving under `apps/exorcist-npm`; `package.json` has no LLM client dependency; the module exports `evidence` and no `inventory`, `replacement` or `proof`; `npm run typecheck` proves `EvidenceResult["signals"]` is assignable to `PackageSignals`.
 - **No network:** a Vitest setup file replaces `globalThis.fetch` with a function that fails the test, so an accidental real request cannot pass.
 - **Fixture recording:** fixtures are recorded once by a script in `test-support/record-fixtures.ts` (run manually, never in `npm test`) and committed.

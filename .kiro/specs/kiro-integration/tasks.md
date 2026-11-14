@@ -16,9 +16,9 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
 
 - [x] 1.1 Edit the root `package.json`: `workspaces` becomes `["skeleton", "apps/*", "mcp", "power"]`. Change nothing else in it. (Done while writing this spec, as the request asked; `npm run typecheck` still passes with the two folders not yet created.)
   - _Requirements: 1.1_
-- [x] 1.2 Create `mcp/package.json` (`@graveyard-kit/exorcist-mcp`, private, `type` module, dependencies `@graveyard-kit/skeleton` and `@graveyard-kit/exorcist-npm` as `*`, scripts `typecheck` (`tsc --noEmit`), `build`, `power:sync`, `hook:scan-deps`, `hook:monotonic`, `hook:stop-check`, `hook:candidate-proof` using `vite-node src/... --` style; the scripts may point at files that later tasks create), `mcp/tsconfig.json` (copy the shape of `skeleton/tsconfig.json`, extends `../tsconfig.base.json`), a stub `mcp/src/index.ts` containing `export {};`, and `power/package.json` (`@graveyard-kit/exorcist-power`, private, no dependencies, no scripts).
+- [x] 1.2 Create `mcp/package.json` (`@last-rites/exorcist-mcp`, private, `type` module, dependencies `@last-rites/skeleton` and `@last-rites/exorcist-npm` as `*`, scripts `typecheck` (`tsc --noEmit`), `build`, `power:sync`, `hook:scan-deps`, `hook:monotonic`, `hook:stop-check`, `hook:candidate-proof` using `vite-node src/... --` style; the scripts may point at files that later tasks create), `mcp/tsconfig.json` (copy the shape of `skeleton/tsconfig.json`, extends `../tsconfig.base.json`), a stub `mcp/src/index.ts` containing `export {};`, and `power/package.json` (`@last-rites/exorcist-power`, private, no dependencies, no scripts).
   - _Requirements: 1.2, 1.5_
-- [x] 1.3 Run `npm install --save-exact @modelcontextprotocol/sdk@1.32.2 zod@4.6.7 intersect@1.0.1 deep-diff@1.0.2 -w @graveyard-kit/exorcist-mcp` and `npm install --save-dev --save-exact esbuild@0.28.2 -w @graveyard-kit/exorcist-mcp` (the only task that needs the network; it updates `package-lock.json`). Confirm `mcp/package.json` lists exact versions, `npm ls zod @modelcontextprotocol/sdk` shows one hoisted copy each, and that `intersect` and `deep-diff` are the same versions as in `apps/exorcist-npm`. Write a throwaway script that registers one tool with a zod 4 raw shape on `McpServer`, confirm it type-checks and starts, then delete the script.
+- [x] 1.3 Run `npm install --save-exact @modelcontextprotocol/sdk@1.32.2 zod@4.6.7 intersect@1.0.1 deep-diff@1.0.2 -w @last-rites/exorcist-mcp` and `npm install --save-dev --save-exact esbuild@0.28.2 -w @last-rites/exorcist-mcp` (the only task that needs the network; it updates `package-lock.json`). Confirm `mcp/package.json` lists exact versions, `npm ls zod @modelcontextprotocol/sdk` shows one hoisted copy each, and that `intersect` and `deep-diff` are the same versions as in `apps/exorcist-npm`. Write a throwaway script that registers one tool with a zod 4 raw shape on `McpServer`, confirm it type-checks and starts, then delete the script.
   - _Requirements: 1.3_
 - [x] 1.4 Edit `vitest.config.ts`: add `"mcp/src/**/*.test.ts"` to `include`, keeping every existing pattern and the `setupFiles` entry. Add the line `power/server/` to `.gitignore`.
   - _Requirements: 1.4, 1.9_
@@ -109,7 +109,7 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - _Requirements: 12.1, 12.3, 12.4_
 - [x] 3.15 Write `mcp/src/hooks/hook-files.test.ts` for these two files: each passes `validateHookFile`; the `matcher` of the monotonic hook matches `skeleton/src/death-score/weights.ts`, `severity.ts`, `grade.ts` and an absolute path ending in them, and does not match `weights.test.ts`, `score.ts`, `skeleton/src/graveyard/grade.ts`; the Stop hook has no `matcher`; each `description` is non-empty and at most 120 characters.
   - _Requirements: 12.1, 12.7_
-- [x] 3.16 Run both hooks' scripts by hand once from the repository root (`npm run hook:monotonic -w @graveyard-kit/exorcist-mcp --silent`, `npm run hook:stop-check -w @graveyard-kit/exorcist-mcp --silent`), read the output and `.cache/hooks/fired.log`, and note in the task notes what each printed. From this point the two hooks are expected to fire on saves and when an agent turn stops; Phase 11 reads the log.
+- [x] 3.16 Run both hooks' scripts by hand once from the repository root (`npm run hook:monotonic -w @last-rites/exorcist-mcp --silent`, `npm run hook:stop-check -w @last-rites/exorcist-mcp --silent`), read the output and `.cache/hooks/fired.log`, and note in the task notes what each printed. From this point the two hooks are expected to fire on saves and when an agent turn stops; Phase 11 reads the log.
   - _Requirements: 12.6, 17.8_
 - [x] 3.17 Checkpoint after Phase 3 - Ensure all tests pass, ask the user if questions arise.
 
@@ -171,7 +171,7 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - _Requirements: 8.8_
 - [x] 5.9 Create `mcp/src/tools/index.ts`: `registerTools(server, deps)` registering the five tools with name, title, description, zod shape, annotations and the `safely`-wrapped handler; export `TOOL_NAMES`.
   - _Requirements: 2.1, 2.2_
-- [x] 5.10 Create `mcp/src/test-support/arbitraries/tool-outcomes.ts`: generators of fake pipeline outcomes (success from `reportArb`, each error code), Usage_Surface results, e18e outcomes, and `exorcise` outcomes through the real `runProof` on the synthetic recipes of `@graveyard-kit/skeleton/proof/testing`.
+- [x] 5.10 Create `mcp/src/test-support/arbitraries/tool-outcomes.ts`: generators of fake pipeline outcomes (success from `reportArb`, each error code), Usage_Surface results, e18e outcomes, and `exorcise` outcomes through the real `runProof` on the synthetic recipes of `@last-rites/skeleton/proof/testing`.
   - _Requirements: 18.1_
 - [x] 5.11 Write the Property 2 test in `mcp/src/tools/output.p2.test.ts` (exporting `build(impl)` over the five tool `impl` functions).
   - **Property 2: Output contract with the existing validators**
@@ -214,7 +214,7 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - _Requirements: 2.3, 2.4, 10.5_
 - [x] 6.6 Create `mcp/src/build/build.ts`: `BUNDLE_REL`, `POWER_SERVER_REL`, `buildServer({ outFile, demoOut, root })` with the esbuild options and the banner shim of the design, and the demo copy of the top-level `demo/*.json` files only.
   - _Requirements: 10.1, 10.6_
-- [x] 6.7 Create `mcp/src/build/run-build.ts` (the script entry) and wire the `build` script of `mcp/package.json`: builds `mcp/dist/server.mjs` and `mcp/dist/demo/`, then copies both to `power/server/exorcist-mcp.mjs` and `power/server/demo/`. Run `npm run build -w @graveyard-kit/exorcist-mcp` and note the file size.
+- [x] 6.7 Create `mcp/src/build/run-build.ts` (the script entry) and wire the `build` script of `mcp/package.json`: builds `mcp/dist/server.mjs` and `mcp/dist/demo/`, then copies both to `power/server/exorcist-mcp.mjs` and `power/server/demo/`. Run `npm run build -w @last-rites/exorcist-mcp` and note the file size.
   - _Requirements: 10.1_
 - [x] 6.8 Write `mcp/src/stdio.test.ts` part 1: build the bundle into a temporary directory (outside the repository) with the demo snapshots, spawn `node <tmp>/server.mjs` with an empty environment, send `initialize` and `tools/list`, call `scan_repo` for a demo name and `usage_surface` over the `intersect-like` fixture, assert the five tools, valid results, and that every stdout line is JSON-RPC. Remove the temporary directory in `finally`. Timeout 60 s.
   - _Requirements: 10.2, 18.6_
@@ -242,7 +242,7 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - _Requirements: 12.5, 13.4_
 - [x] 7.5 Write `mcp/src/hooks/runners.scan-candidate.test.ts` examples with fakes: no new dead, one new dead (warning line text, baseline rewritten sorted), absent and corrupt baseline, scan failure keeps the baseline and prints `scan failed`, candidate saved for each field name variant, a non-candidate path, a missing checkout, a proved result line, a counterexample line with the shrunk input, exit code 0 always.
   - _Requirements: 12.2, 12.5, 12.6, 13.2, 13.4_
-- [x] 7.6 Confirm the four `hook:*` scripts in `mcp/package.json` point at existing entry files; run `npm run hook:scan-deps -w @graveyard-kit/exorcist-mcp --silent` once by hand (needs the network; if offline, record that it printed `scan failed` and exited 0) and note the output and `.cache/hooks/dead-baseline.json` in the task notes.
+- [x] 7.6 Confirm the four `hook:*` scripts in `mcp/package.json` point at existing entry files; run `npm run hook:scan-deps -w @last-rites/exorcist-mcp --silent` once by hand (needs the network; if offline, record that it printed `scan failed` and exited 0) and note the output and `.cache/hooks/dead-baseline.json` in the task notes.
   - _Requirements: 12.2, 12.6_
 - [x] 7.7 Create the Hook_Files `.kiro/hooks/scan-deps-on-save.json` and `.kiro/hooks/candidate-proof-on-save.json` as in the design table, then delete `.kiro/hooks/.gitkeep`.
   - _Requirements: 12.1, 12.2, 12.5_
@@ -273,7 +273,7 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - **Validates: Requirements 15.4, 15.5**
 - [x] 9.3 Create the Sabotage_List `kiro-p13.ts` (keep the steering frontmatter; drop a body line equal to `---`; `description` before `name`; CRLF output; truncate at 4000 characters).
   - _Requirements: 18.3_
-- [x] 9.4 Create `mcp/src/power/sync.ts` and wire `power:sync`: reads `.kiro/steering/migration-rules.md` and `proof-rules.md`, writes `power/skills/migration-rules/SKILL.md` and `power/skills/proof-rules/SKILL.md` with the descriptions of the design. Run `npm run power:sync -w @graveyard-kit/exorcist-mcp` and check the two files.
+- [x] 9.4 Create `mcp/src/power/sync.ts` and wire `power:sync`: reads `.kiro/steering/migration-rules.md` and `proof-rules.md`, writes `power/skills/migration-rules/SKILL.md` and `power/skills/proof-rules/SKILL.md` with the descriptions of the design. Run `npm run power:sync -w @last-rites/exorcist-mcp` and check the two files.
   - _Requirements: 15.4, 15.5_
 - [x] 9.5 Create `power/plugin.json` as in the design; read the repository `LICENSE` and set `license` to its SPDX id (drop the field if the file has none).
   - _Requirements: 15.2_
@@ -293,7 +293,7 @@ Terminology: a *Mutator* belongs to the proof harness; a *Sabotage_List* is the 
   - _Requirements: 1.1, 1.4, 1.9, 12.1, 14.1_
 - [x] 10.2 Run `npm run typecheck` and `npm test` plain and with `CI=1`; fix strict-mode errors; confirm every property runs with `numRuns` 100, `FC_SEED` replays, every Sabotage_List entry fails its property, and the stdio test passes offline.
   - _Requirements: 18.2, 18.3, 18.4, 18.7_
-- [x] 10.3 Run `npm run build -w @graveyard-kit/exorcist-mcp`, confirm `mcp/dist/server.mjs`, `mcp/dist/demo/`, `power/server/exorcist-mcp.mjs` and `power/server/demo/` exist, and `git status --short` shows none of them (ignored).
+- [x] 10.3 Run `npm run build -w @last-rites/exorcist-mcp`, confirm `mcp/dist/server.mjs`, `mcp/dist/demo/`, `power/server/exorcist-mcp.mjs` and `power/server/demo/` exist, and `git status --short` shows none of them (ignored).
   - _Requirements: 10.1, 1.9_
 - [x] 10.4 Append a dated entry to `docs/kiro-log.md` for the build of tasks 1 to 10: the thirteen properties, sabotage results and any shrunk counterexample found during development, the added dependencies and versions, the decisions worth recording (Kiro format divergences from the brief, static oracles, cache busting, dry-run by default, hook scripts always exit 0, `death_report` as a one-dependency Scan_Report), the bundle size and the 6.11 outcome, and the test counts.
   - _Requirements: 17.9_

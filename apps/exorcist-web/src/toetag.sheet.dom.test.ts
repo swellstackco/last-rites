@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 // toe-tag-redesign 7.1: the sheet head is a Sheet_Tag around the h2; dialog behavior and Close are unchanged.
 import { afterEach, describe, expect, it } from "vitest";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
 import { buildReport } from "./test-support/build-report.js";
 import { mountPage } from "./test-support/dom-harness.js";
 import type { Page } from "./test-support/dom-harness.js";

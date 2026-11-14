@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { parseProofReport } from "@graveyard-kit/skeleton/proof";
+import { parseProofReport } from "@last-rites/skeleton/proof";
 import { dedupCandidate, oracleModule, proofDeps } from "../test-support/proof-deps.js";
 import { generatePinTestsImpl } from "./generate-pin-tests.js";
 

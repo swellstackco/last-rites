@@ -1,7 +1,7 @@
 // toe-tag-polish 1.2: the new generators produce what the properties assume. Node, no network.
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
-import { isProofName, parseProofReport, serializeProofReport } from "@graveyard-kit/skeleton/proof";
+import { isProofName, parseProofReport, serializeProofReport } from "@last-rites/skeleton/proof";
 import { MAX_TOMBSTONE_TEXT } from "./constants.js";
 import { demoPackageArb, packageNameArb, proofLoadArb, snapshotSetArb } from "./test-support/arbitraries.js";
 

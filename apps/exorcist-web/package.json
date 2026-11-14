@@ -1,5 +1,5 @@
 {
-  "name": "@graveyard-kit/exorcist-web",
+  "name": "@last-rites/exorcist-web",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -9,8 +9,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@graveyard-kit/skeleton": "*",
-    "@graveyard-kit/exorcist-npm": "*"
+    "@last-rites/skeleton": "*",
+    "@last-rites/exorcist-npm": "*"
   },
   "devDependencies": {
     "fast-check": "^3.23.2",

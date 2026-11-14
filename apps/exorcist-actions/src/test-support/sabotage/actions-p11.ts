@@ -1,5 +1,5 @@
-import { parseReport, serializeReport } from "@graveyard-kit/exorcist-npm/programmatic";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/programmatic";
+import { parseReport, serializeReport } from "@last-rites/exorcist-npm/programmatic";
+import type { ScanReport } from "@last-rites/exorcist-npm/programmatic";
 import { buildScanReport } from "../../scan/report.js";
 import { runScan } from "../../scan/scan.js";
 import { realScanImpl, type ScanImpl } from "../properties/actions-p11.js";

@@ -3,7 +3,7 @@
 // Used only by the toe-tag-polish preservation properties (TP6, TP1) as the Reference_Renderer.
 // Proof section. The switch is exhaustive
 // so a new ProofState is a compile error until it is rendered.
-import type { AttemptView, ProofSlot, ProofState, ProofView } from "@graveyard-kit/skeleton/graveyard";
+import type { AttemptView, ProofSlot, ProofState, ProofView } from "@last-rites/skeleton/graveyard";
 import { COPY } from "../../constants.js";
 import { h } from "../../dom/h.js";
 import type { ClassName } from "../../dom/h.js";

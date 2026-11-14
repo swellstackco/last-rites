@@ -8,7 +8,7 @@
       "matcher": "^(?!.*node_modules/).*(^|/)package(-lock)?\\.json$",
       "action": {
         "type": "command",
-        "command": "npm run hook:scan-deps -w @graveyard-kit/exorcist-mcp --silent"
+        "command": "npm run hook:scan-deps -w @last-rites/exorcist-mcp --silent"
       },
       "timeout": 120
     }

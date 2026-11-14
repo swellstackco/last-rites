@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { parseProofReport } from "@graveyard-kit/skeleton/proof";
+import { parseProofReport } from "@last-rites/skeleton/proof";
 import type { ExorcistDeps } from "../deps.js";
 import { generatePinTestsImpl } from "../tools/generate-pin-tests.js";
 import { candidateTarget } from "./candidate-target.js";

@@ -1,5 +1,5 @@
 import { join } from "node:path";
-import type { RepoFileSource } from "@graveyard-kit/exorcist-npm/programmatic";
+import type { RepoFileSource } from "@last-rites/exorcist-npm/programmatic";
 import type { FsProbe } from "./guards.js";
 
 /**

@@ -363,7 +363,7 @@ Behavioral decisions fixed here so design does not have to guess:
 
 #### Acceptance Criteria
 
-1. WHEN all tasks are complete, `npm run typecheck` SHALL pass with zero errors and `npm test` SHALL pass, and `npm run build -w @graveyard-kit/exorcist-web` SHALL produce `dist/` with `dist/fonts/*.woff2` and the unchanged CSP meta.
+1. WHEN all tasks are complete, `npm run typecheck` SHALL pass with zero errors and `npm test` SHALL pass, and `npm run build -w @last-rites/exorcist-web` SHALL produce `dist/` with `dist/fonts/*.woff2` and the unchanged CSP meta.
 2. THE final task SHALL be a manual browser check performed by Claude at 1352 by 761 and at 375 by 812: home, loading (a slow or fake request, or the loading state forced), an error (a 429 or a network failure), The Graveyard of the parse-server demo with all four groups, one dead tag opened (Sheet_Tag, Form_Grid with the calibration row, Proof with a Stamp and a Compare_Box), keyboard Tab through the page, `prefers-reduced-motion: reduce` emulated, and `forced-colors: active` if the browser supports emulation.
 3. THE check SHALL assert, per size: no horizontal scroll (`scrollWidth <= clientWidth` on `documentElement` for every screen), the fonts actually loaded (`document.fonts.check` for the four families, and no request to another origin in the network log), the Tag_Swing visible once and absent under Reduced_Motion, the focus ring visible on a Toe_Tag, and a visual comparison with the mockup.
 4. THE check SHALL write `docs/review/<date>-toe-tag-check.md` listing every check as pass, fail or not run, with screenshot paths, and SHALL NOT claim a check that was not run; a browser that cannot be driven SHALL be reported as "not run", not skipped silently.

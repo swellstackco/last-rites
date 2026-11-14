@@ -58,7 +58,7 @@ describe("graveyard-ui wiring (static)", () => {
     const hits: string[] = [];
     for (const file of files) {
       for (const { spec } of specifiers(readFileSync(file, "utf8"))) {
-        const isApp = /(^|\/)apps(\/|$)/.test(spec) || spec.startsWith("@graveyard-kit/exorcist");
+        const isApp = /(^|\/)apps(\/|$)/.test(spec) || spec.startsWith("@last-rites/exorcist");
         if (isApp) hits.push(`${relative(repoRoot, file)} -> ${spec}`);
       }
     }
@@ -90,7 +90,7 @@ describe("graveyard-ui wiring (static)", () => {
     it("pin every dependency added to exorcist-web to an exact version", () => {
       const skeletonDeps = depsOf(manifests.skeleton);
       for (const [dep, version] of Object.entries(depsOf(manifests.web))) {
-        if (dep.startsWith("@graveyard-kit/")) {
+        if (dep.startsWith("@last-rites/")) {
           expect({ dep, version }).toEqual({ dep, version: "*" }); // workspace links
         } else if (dep === "vitest" || dep === "fast-check") {
           // "as in the other packages"; proof-harness 1.1 pinned skeleton's fast-check exactly, so compare without a range prefix
@@ -106,8 +106,8 @@ describe("graveyard-ui wiring (static)", () => {
 
     it("exorcist-web has no runtime dependency beyond the two workspace packages", () => {
       expect(Object.keys((manifests.web["dependencies"] as Record<string, string> | undefined) ?? {}).sort()).toEqual([
-        "@graveyard-kit/exorcist-npm",
-        "@graveyard-kit/skeleton",
+        "@last-rites/exorcist-npm",
+        "@last-rites/skeleton",
       ]);
     });
 
@@ -133,13 +133,13 @@ describe("graveyard-ui wiring (static)", () => {
     });
   });
 
-  it("report.ts has runtime imports only from @graveyard-kit/skeleton and ./types.js", () => {
+  it("report.ts has runtime imports only from @last-rites/skeleton and ./types.js", () => {
     const text = readFileSync(join(repoRoot, "apps", "exorcist-npm", "src", "scan", "report.ts"), "utf8");
     const runtime = specifiers(text)
       .filter((s) => !s.typeOnly)
       .map((s) => s.spec);
     expect(runtime.length).toBeGreaterThan(0);
-    for (const spec of runtime) expect(["@graveyard-kit/skeleton", "./types.js"]).toContain(spec);
+    for (const spec of runtime) expect(["@last-rites/skeleton", "./types.js"]).toContain(spec);
   });
 
   it("the web src imports no Node built-in outside test files", () => {

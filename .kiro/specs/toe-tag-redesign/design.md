@@ -497,7 +497,7 @@ This spec adds no run-time error path. Presentation failure modes:
 - **Static (Node):** Properties 4 to 8 plus the font checks (files exist, `wOF2` magic bytes, size budget, license files, README hashes match, `@font-face` targets exist, no remote URL) and the "no color literal outside tokens" check.
 - **Updated old tests:** only those listed in Requirement 22.
 - **Unchanged old tests:** everything else, in particular the keyboard, focus, states, proof and safety suites.
-- **Build:** `npm run build -w @graveyard-kit/exorcist-web` once, to confirm `dist/fonts/` and the unchanged CSP.
+- **Build:** `npm run build -w @last-rites/exorcist-web` once, to confirm `dist/fonts/` and the unchanged CSP.
 - **Not covered by automated tests:** real layout and overflow, real focus ring rendering on chamfered tags, whether the swing is visible and stays inside the sheet, font rendering, forced-colors rendering. The final task checks these in a browser and reports honestly.
 - **No network:** the fake `fetch` and `no-network.setup.ts` stay.
 

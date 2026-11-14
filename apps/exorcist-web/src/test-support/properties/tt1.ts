@@ -1,10 +1,10 @@
 // Property 1 (toe-tag-redesign): Scan_Report facts are preserved. The page shows the same Rendered_Facts as the
 // frozen Reference_Views and as the facts computed from the report by an independent function.
 import fc from "fast-check";
-import { toGrade } from "@graveyard-kit/skeleton";
-import { GRADE_INFO, GRADE_ORDER, buildGraveyard, summaryLine } from "@graveyard-kit/skeleton/graveyard";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import { toGrade } from "@last-rites/skeleton";
+import { GRADE_INFO, GRADE_ORDER, buildGraveyard, summaryLine } from "@last-rites/skeleton/graveyard";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
 import { SCREEN_NAME } from "../../constants.js";
 import { openPackageArb, scanReportArb } from "../arbitraries.js";
 import { tamperGrade } from "../build-report.js";

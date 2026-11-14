@@ -1,4 +1,4 @@
-import { scoreDeath } from "@graveyard-kit/skeleton";
+import { scoreDeath } from "@last-rites/skeleton";
 import type { Sabotage } from "../../../evidence/test-support/sabotage-runner.js";
 import { assembleReport } from "../../assemble.js";
 import type { AssembleReport } from "../../assemble.js";

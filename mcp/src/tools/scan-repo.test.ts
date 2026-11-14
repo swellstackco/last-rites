@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { describe, it, expect } from "vitest";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { parseReport, type ScanOutcome, type ScanPipeline } from "@graveyard-kit/exorcist-npm/programmatic";
+import { parseReport, type ScanOutcome, type ScanPipeline } from "@last-rites/exorcist-npm/programmatic";
 import { ERROR_CODES } from "../errors.js";
 import { fakeDemoStore, makeDeps, counting } from "../test-support/fakes.js";
 import { scanRepoImpl } from "./scan-repo.js";

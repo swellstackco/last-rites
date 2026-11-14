@@ -1,6 +1,6 @@
 import fc from "fast-check";
 import { describe, it, expect } from "vitest";
-import { reportArb } from "@graveyard-kit/exorcist-npm/programmatic/testing";
+import { reportArb } from "@last-rites/exorcist-npm/programmatic/testing";
 import { assertProperty } from "../test-support/fc-runner.js";
 import { assertAllSabotagesCaught, type NamedProperty } from "../test-support/sabotage-runner.js";
 import { REAL_NEW_DEAD, type NewDead } from "../test-support/validators.js";

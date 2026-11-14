@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
 import { buildReport } from "./test-support/build-report.js";
 import { mountPage } from "./test-support/dom-harness.js";
 import type { Page } from "./test-support/dom-harness.js";

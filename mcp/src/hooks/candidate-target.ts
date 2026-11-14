@@ -1,4 +1,4 @@
-import { isProofName } from "@graveyard-kit/skeleton/proof";
+import { isProofName } from "@last-rites/skeleton/proof";
 
 const MARKER = ["demo", "proofs", "candidates"] as const;
 

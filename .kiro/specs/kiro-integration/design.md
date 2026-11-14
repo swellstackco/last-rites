@@ -340,7 +340,7 @@ export const POWER_SERVER_REL = "server/exorcist-mcp.mjs";          // inside /p
 export async function buildServer(opts: { outFile: string; demoOut: string; root: string }): Promise<void>;
 ```
 
-`esbuild.build({ entryPoints: [mcp/src/server.ts], bundle: true, platform: "node", format: "esm", target: "node22", outfile, banner: { js: SHIM }, legalComments: "none" })` where `SHIM` defines `require` (`createRequire(import.meta.url)`), `__filename` and `__dirname`. Workspace packages (TypeScript sources behind `exports`) are bundled because esbuild resolves them through `node_modules/@graveyard-kit/*` symlinks; `intersect` and `deep-diff` are bundled through `oracles-static.ts`. `copyDemos` copies `demo/*.json` (top-level files only, not `proofs/`) to `<outFile dir>/demo/`. The `build` script runs `buildServer` for `mcp/dist/server.mjs` and copies the file and `demo/` to `power/server/` (`exorcist-mcp.mjs`, `demo/`). The tests call `buildServer` into a temporary directory.
+`esbuild.build({ entryPoints: [mcp/src/server.ts], bundle: true, platform: "node", format: "esm", target: "node22", outfile, banner: { js: SHIM }, legalComments: "none" })` where `SHIM` defines `require` (`createRequire(import.meta.url)`), `__filename` and `__dirname`. Workspace packages (TypeScript sources behind `exports`) are bundled because esbuild resolves them through `node_modules/@last-rites/*` symlinks; `intersect` and `deep-diff` are bundled through `oracles-static.ts`. `copyDemos` copies `demo/*.json` (top-level files only, not `proofs/`) to `<outFile dir>/demo/`. The `build` script runs `buildServer` for `mcp/dist/server.mjs` and copies the file and `demo/` to `power/server/` (`exorcist-mcp.mjs`, `demo/`). The tests call `buildServer` into a temporary directory.
 
 ### Hook files
 
@@ -348,10 +348,10 @@ All with `"version": "v1"`, one hook each, command run from the workspace root, 
 
 | File | `trigger` | `matcher` | `action.command` | `timeout` |
 |---|---|---|---|---|
-| `scan-deps-on-save.json` | `PostFileSave` | `^(?!.*node_modules/).*(^\|/)package(-lock)?\.json$` | `npm run hook:scan-deps -w @graveyard-kit/exorcist-mcp --silent` | 120 |
-| `death-score-monotonic-on-save.json` | `PostFileSave` | `skeleton/src/death-score/(weights\|severity\|grade)\.ts$` | `npm run hook:monotonic -w @graveyard-kit/exorcist-mcp --silent` | 120 |
-| `check-on-stop.json` | `Stop` | (none) | `npm run hook:stop-check -w @graveyard-kit/exorcist-mcp --silent` | 300 |
-| `candidate-proof-on-save.json` | `PostFileSave` | `demo/proofs/candidates/[^/]+/[^/]+\.js$` | `npm run hook:candidate-proof -w @graveyard-kit/exorcist-mcp --silent` | 180 |
+| `scan-deps-on-save.json` | `PostFileSave` | `^(?!.*node_modules/).*(^\|/)package(-lock)?\.json$` | `npm run hook:scan-deps -w @last-rites/exorcist-mcp --silent` | 120 |
+| `death-score-monotonic-on-save.json` | `PostFileSave` | `skeleton/src/death-score/(weights\|severity\|grade)\.ts$` | `npm run hook:monotonic -w @last-rites/exorcist-mcp --silent` | 120 |
+| `check-on-stop.json` | `Stop` | (none) | `npm run hook:stop-check -w @last-rites/exorcist-mcp --silent` | 300 |
+| `candidate-proof-on-save.json` | `PostFileSave` | `demo/proofs/candidates/[^/]+/[^/]+\.js$` | `npm run hook:candidate-proof -w @last-rites/exorcist-mcp --silent` | 180 |
 
 Descriptions (short): "Scan this repository's dependencies when a manifest or lockfile is saved and warn about new dead packages."; "Re-run the death-score monotonicity property when weights, severity or grade change."; "After an agent turn, run typecheck and the tests of changed files."; "Re-run the proof for a candidate file when it is saved and show the status." The matchers are tested against the lists in Requirement 12.7 (paths that must match and paths that must not, such as `skeleton/src/death-score/weights.test.ts`, `node_modules/x/package.json`, `demo/proofs/candidates/parse-server/README.md`, `demo/proofs/candidates/x.js`).
 

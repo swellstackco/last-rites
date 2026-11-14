@@ -3,7 +3,7 @@
 import { readFileSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { parseReport } from "@graveyard-kit/exorcist-npm/programmatic";
+import { parseReport } from "@last-rites/exorcist-npm/programmatic";
 import { actionProofName } from "./proof/names.js";
 import { DEMO_PROOFS_DIR, DEMO_SNAPSHOT_PATH, HERO, replayHero } from "./test-support/harness.js";
 

@@ -1,4 +1,4 @@
-import type { Sabotage } from "@graveyard-kit/skeleton/graveyard/testing";
+import type { Sabotage } from "@last-rites/skeleton/graveyard/testing";
 import { parseRepoInput } from "../../model/repo-input.js";
 import type { RepoInputResult } from "../../model/repo-input.js";
 import type { ParseRepoInputFn } from "../properties/p7.js";

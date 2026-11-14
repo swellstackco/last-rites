@@ -2,7 +2,7 @@
 // toe-tag-polish Property TP4 (T7): a Toe_Tag name breaks only after "/" or "-". No network.
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
-import { assertProperty } from "@graveyard-kit/skeleton/graveyard/testing";
+import { assertProperty } from "@last-rites/skeleton/graveyard/testing";
 import { build, checkName, checkRoundTrip, expectedPieces, roundTripArb } from "./test-support/properties/tp4.js";
 import { TP4_SABOTAGES } from "./test-support/sabotage/tp4.js";
 import { renderTombstone } from "./views/tombstone.js";

@@ -1,8 +1,8 @@
 import { describe, it, expect } from "vitest";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import { createMemoryFs } from "@graveyard-kit/exorcist-npm/programmatic/testing";
-import { createUsageSurface } from "@graveyard-kit/exorcist-npm/programmatic";
-import { parseProofReport } from "@graveyard-kit/skeleton/proof";
+import { createMemoryFs } from "@last-rites/exorcist-npm/programmatic/testing";
+import { createUsageSurface } from "@last-rites/exorcist-npm/programmatic";
+import { parseProofReport } from "@last-rites/skeleton/proof";
 import { makeDeps, memoryProbe } from "../test-support/fakes.js";
 import { loadTree } from "../test-support/trees.js";
 import { usageSurfaceImpl } from "./usage-surface.js";

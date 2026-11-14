@@ -2,7 +2,7 @@
 // whenever it is valid, whether it arrives before or after the panel opens. Without a readable report an ailing or
 // alive panel has no Proof_Section and no placeholder; a dead or dying panel is exactly as before.
 import fc from "fast-check";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
 import { COPY } from "../../constants.js";
 import { demoPackageArb, proofLoadArb } from "../arbitraries.js";
 import type { DemoPackageCase, ProofLoadDraw } from "../arbitraries.js";

@@ -1,8 +1,8 @@
 // Test-only: renders facts with the frozen Reference_Renderer (views-v3, today's views at 6f860b4) for the
 // toe-tag-polish preservation properties. The pieces are assembled here from the view model; the production
 // controller is not changed and not used. Rendering happens in detached nodes (no focus, no document writes).
-import { GRADE_INFO } from "@graveyard-kit/skeleton/graveyard";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import { GRADE_INFO } from "@last-rites/skeleton/graveyard";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
 import { h } from "../dom/h.js";
 import { buildReportView } from "../model/report-view.js";
 import { renderSkipped } from "../views/skipped.js";

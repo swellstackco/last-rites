@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import fc from "fast-check";
-import { assertProperty } from "@graveyard-kit/skeleton/graveyard/testing";
+import { assertProperty } from "@last-rites/skeleton/graveyard/testing";
 import { describe, expect, it } from "vitest";
 import { declarations, stripComments, type Decl } from "./css-parse.js";
 import { contrastRatio, hueOf, lightnessOf, parseHex, saturationOf, type Rgb } from "./contrast.js";

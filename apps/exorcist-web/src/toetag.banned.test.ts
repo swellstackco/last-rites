@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 // toe-tag-redesign 10.3: Property 5, the six Banned_Looks are absent from the Token_File and the Stylesheet.
-import { assertProperty } from "@graveyard-kit/skeleton/graveyard/testing";
+import { assertProperty } from "@last-rites/skeleton/graveyard/testing";
 import { describe, expect, it } from "vitest";
 import { sheetsFrom } from "./test-support/properties/tt4.js";
 import { LABEL_FONT_ALLOWLIST, build, bannedViolations } from "./test-support/properties/tt5.js";

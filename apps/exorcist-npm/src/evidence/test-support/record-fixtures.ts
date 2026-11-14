@@ -1,7 +1,7 @@
 /**
  * Manual fixture recorder (task 4.1). NEVER run by `npm test`.
  *
- *   npm run record-fixtures -w @graveyard-kit/exorcist-npm -- <case|all>
+ *   npm run record-fixtures -w @last-rites/exorcist-npm -- <case|all>
  *
  * Cases: picocolors, request, left-pad, archived-repo, no-repository, shared.
  *
@@ -45,7 +45,7 @@ export const fetchClient: HttpClient = {
         method: req.method,
         headers: {
           accept: "application/json",
-          "user-agent": "graveyard-kit-fixture-recorder",
+          "user-agent": "last-rites-fixture-recorder",
           ...(req.body !== undefined ? { "content-type": "application/json" } : {}),
         },
         ...(req.body !== undefined ? { body: req.body } : {}),

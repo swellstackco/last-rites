@@ -1,9 +1,9 @@
 // Requirement 16.5: the committed Demo_Snapshot is an ordinary, canonical Scan_Report the graveyard accepts.
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { SIGNAL_NAMES } from "@graveyard-kit/skeleton";
-import { buildGraveyard } from "@graveyard-kit/skeleton/graveyard";
-import { parseReport, serializeReport } from "@graveyard-kit/exorcist-npm/programmatic";
+import { SIGNAL_NAMES } from "@last-rites/skeleton";
+import { buildGraveyard } from "@last-rites/skeleton/graveyard";
+import { parseReport, serializeReport } from "@last-rites/exorcist-npm/programmatic";
 import { DEMO_SNAPSHOT_PATH } from "./test-support/harness.js";
 
 const text = readFileSync(DEMO_SNAPSHOT_PATH, "utf8");

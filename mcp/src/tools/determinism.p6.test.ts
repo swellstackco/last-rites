@@ -2,7 +2,7 @@ import { tmpdir } from "node:os";
 import fc from "fast-check";
 import { describe, it, expect } from "vitest";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
-import type { ScanOutcome } from "@graveyard-kit/exorcist-npm/programmatic";
+import type { ScanOutcome } from "@last-rites/exorcist-npm/programmatic";
 import { assertPropertyAsync } from "../test-support/fc-runner.js";
 import { assertAllSabotagesCaughtAsync, type NamedAsyncProperty } from "../test-support/sabotage-runner.js";
 import { REAL_TOOLS, type Tools } from "../test-support/validators.js";

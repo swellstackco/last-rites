@@ -1,4 +1,4 @@
-import { DEMO_REPOS } from "@graveyard-kit/exorcist-npm/programmatic";
+import { DEMO_REPOS } from "@last-rites/exorcist-npm/programmatic";
 import { REAL_SCAN_SOURCE, type ScanSource } from "../validators.js";
 import type { Sabotage } from "../sabotage-runner.js";
 

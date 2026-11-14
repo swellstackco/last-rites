@@ -1,5 +1,5 @@
 import fc from "fast-check";
-import { scoreDeath } from "@graveyard-kit/skeleton";
+import { scoreDeath } from "@last-rites/skeleton";
 import type { NamedAsyncProperty } from "../../../evidence/test-support/sabotage-runner.js";
 import type { EvidenceStage } from "../../../evidence/index.js";
 import type { PipelineParts } from "../../pipeline.js";

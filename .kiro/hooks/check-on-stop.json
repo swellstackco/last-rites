@@ -7,7 +7,7 @@
       "description": "After an agent turn, run typecheck and the tests of changed files.",
       "action": {
         "type": "command",
-        "command": "npm run hook:stop-check -w @graveyard-kit/exorcist-mcp --silent"
+        "command": "npm run hook:stop-check -w @last-rites/exorcist-mcp --silent"
       },
       "timeout": 300
     }

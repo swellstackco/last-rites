@@ -2,7 +2,7 @@
 // toe-tag-redesign 10.5: Property 7, motion is gated, finite and not blocking (static part + DOM part).
 import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
-import { assertProperty } from "@graveyard-kit/skeleton/graveyard/testing";
+import { assertProperty } from "@last-rites/skeleton/graveyard/testing";
 import { describe, expect, it } from "vitest";
 import { checkAsyncProperty, formatAsyncReport } from "./test-support/async-property.js";
 import { sheetsFrom } from "./test-support/properties/tt4.js";

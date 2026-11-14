@@ -1,8 +1,8 @@
 // Test-only: renders facts with the frozen Reference_Views (views-v2) instead of the production views.
 // Groups and the skipped list are assembled here from the view model (those views are not frozen).
-import { buildBreakdown, GRADE_INFO } from "@graveyard-kit/skeleton/graveyard";
-import type { ProofState } from "@graveyard-kit/skeleton/graveyard";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import { buildBreakdown, GRADE_INFO } from "@last-rites/skeleton/graveyard";
+import type { ProofState } from "@last-rites/skeleton/graveyard";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
 import { h } from "../dom/h.js";
 import { buildReportView } from "../model/report-view.js";
 import { renderSkipped } from "../views/skipped.js";

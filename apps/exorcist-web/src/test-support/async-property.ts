@@ -1,6 +1,6 @@
 // Runs an async fast-check property with the repo's seed policy (FC_SEED, CI fixed seed, else random).
 import fc from "fast-check";
-import { NUM_RUNS, resolveSeed } from "@graveyard-kit/skeleton/graveyard/testing";
+import { NUM_RUNS, resolveSeed } from "@last-rites/skeleton/graveyard/testing";
 
 export interface AsyncReport {
   property: string;

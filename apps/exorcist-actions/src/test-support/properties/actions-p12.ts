@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import fc from "fast-check";
-import { appendAttempt, isProofName, parseProofReport, serializeProofReport } from "@graveyard-kit/skeleton/proof";
-import type { ProofAttempt } from "@graveyard-kit/skeleton/proof";
+import { appendAttempt, isProofName, parseProofReport, serializeProofReport } from "@last-rites/skeleton/proof";
+import type { ProofAttempt } from "@last-rites/skeleton/proof";
 import type { ActionUse } from "../../inventory/types.js";
 import { buildContractAttempt, buildErrorAttempt, buildPinAttempt, buildProofReport } from "../../proof/attempt.js";
 import { actionProofName, repoProofName } from "../../proof/names.js";

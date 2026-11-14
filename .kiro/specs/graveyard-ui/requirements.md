@@ -26,7 +26,7 @@ Behavioral decisions fixed here so design does not have to guess:
 ## Glossary
 
 - **Graveyard_Ui**: the system specified here, made of the Graveyard_View_Model and the Graveyard_Page.
-- **Graveyard_View_Model**: the pure module in `skeleton/src/graveyard/` (exported as `@graveyard-kit/skeleton/graveyard`) that turns a list of Grave_Records into a Graveyard_View, builds Breakdowns, validates links and defines the Proof_Slot shape.
+- **Graveyard_View_Model**: the pure module in `skeleton/src/graveyard/` (exported as `@last-rites/skeleton/graveyard`) that turns a list of Grave_Records into a Graveyard_View, builds Breakdowns, validates links and defines the Proof_Slot shape.
 - **Graveyard_Page**: the Vite + TypeScript page in `apps/exorcist-web`.
 - **The_Graveyard**: the screen that shows one loaded Scan_Report as Tombstones.
 - **Last_Rites**: the product name, shown as `PRODUCT_NAME` in the page title and header only.
@@ -74,10 +74,10 @@ Behavioral decisions fixed here so design does not have to guess:
 
 #### Acceptance Criteria
 
-1. THE Graveyard_Ui SHALL place the Graveyard_View_Model in `skeleton/src/graveyard/`, exported through the subpath `@graveyard-kit/skeleton/graveyard`, and SHALL place the Graveyard_Page in the new workspace package `apps/exorcist-web` (name `@graveyard-kit/exorcist-web`), so that `npm run typecheck` and `npm test` pick it up through the existing workspace globs.
+1. THE Graveyard_Ui SHALL place the Graveyard_View_Model in `skeleton/src/graveyard/`, exported through the subpath `@last-rites/skeleton/graveyard`, and SHALL place the Graveyard_Page in the new workspace package `apps/exorcist-web` (name `@last-rites/exorcist-web`), so that `npm run typecheck` and `npm test` pick it up through the existing workspace globs.
 2. THE `/skeleton` package SHALL contain zero import statements that resolve under `/apps`, and the Graveyard_View_Model SHALL use no DOM type, no I/O, no environment variable, no random value and no clock value.
-3. THE Graveyard_Page SHALL use no UI framework. Its runtime dependencies SHALL be none beyond `@graveyard-kit/skeleton` and the `parseReport` subpath of `@graveyard-kit/exorcist-npm`; Vite and the DOM test environment SHALL be dev dependencies; every added dependency SHALL be declared with an exact version string.
-4. THE Graveyard_Page SHALL import `DeathScoreResult`, `GradeBand`, `SignalName`, `toGrade` and `SIGNAL_NAMES` from `@graveyard-kit/skeleton`, and `ScanReport`, `ScannedDependency` and `parseReport` from `@graveyard-kit/exorcist-npm/report`, and SHALL NOT redeclare them.
+3. THE Graveyard_Page SHALL use no UI framework. Its runtime dependencies SHALL be none beyond `@last-rites/skeleton` and the `parseReport` subpath of `@last-rites/exorcist-npm`; Vite and the DOM test environment SHALL be dev dependencies; every added dependency SHALL be declared with an exact version string.
+4. THE Graveyard_Page SHALL import `DeathScoreResult`, `GradeBand`, `SignalName`, `toGrade` and `SIGNAL_NAMES` from `@last-rites/skeleton`, and `ScanReport`, `ScannedDependency` and `parseReport` from `@last-rites/exorcist-npm/report`, and SHALL NOT redeclare them.
 5. THE Graveyard_Ui SHALL show the product name "Last Rites" only through one constant `PRODUCT_NAME` and SHALL name the screen "The Graveyard"; THE Graveyard_Ui SHALL NOT rename any package, directory, npm scope or identifier.
 6. THE Graveyard_Ui SHALL make zero LLM calls, SHALL use no paid service, and SHALL load no remote script, style, font, image or analytics; at run time the page SHALL contact only its own origin (`/api/...` and `/demo/...`).
 7. THE Graveyard_Ui SHALL NOT change the behavior of the Scan_Api, the scanner pipeline, the evidence stage or the death-score engine.

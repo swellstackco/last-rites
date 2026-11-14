@@ -2,10 +2,10 @@ import { mkdtempSync, rmSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
-import { CacheLayer, configFromEnv } from "@graveyard-kit/exorcist-npm/programmatic";
-import type { SourceContext } from "@graveyard-kit/exorcist-npm/programmatic";
-import { FakeHttp, createFakeClock } from "@graveyard-kit/exorcist-npm/programmatic/testing";
-import type { FixtureEntry } from "@graveyard-kit/exorcist-npm/programmatic/testing";
+import { CacheLayer, configFromEnv } from "@last-rites/exorcist-npm/programmatic";
+import type { SourceContext } from "@last-rites/exorcist-npm/programmatic";
+import { FakeHttp, createFakeClock } from "@last-rites/exorcist-npm/programmatic/testing";
+import type { FixtureEntry } from "@last-rites/exorcist-npm/programmatic/testing";
 import { fetchActionsOsv, fetchManifest, fetchPublish, resolveCommit } from "./sources.js";
 import { commitUrl, rawManifestUrl, releasesLatestUrl, tagsUrl } from "./urls.js";
 

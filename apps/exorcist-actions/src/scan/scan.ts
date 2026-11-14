@@ -1,6 +1,6 @@
 // runScan (Requirements 8.1 to 8.7): one Clock reading, the inventory, one Evidence_Stage call per
 // Action_Name, scoring and the pure buildScanReport. Never rejects.
-import type { Clock, ScanReport, SourceFs } from "@graveyard-kit/exorcist-npm/programmatic";
+import type { Clock, ScanReport, SourceFs } from "@last-rites/exorcist-npm/programmatic";
 import type { ActionEvidenceStage } from "../evidence/stage.js";
 import { allUnknownEvidence } from "../evidence/stage.js";
 import type { EvidenceResult } from "../evidence/assemble.js";

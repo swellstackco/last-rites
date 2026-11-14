@@ -1,4 +1,4 @@
-import { SIGNAL_NAMES, type SignalName } from "@graveyard-kit/skeleton";
+import { SIGNAL_NAMES, type SignalName } from "@last-rites/skeleton";
 import type { EvidenceResult, FailureCategory, Source } from "../types.js";
 
 const CATEGORIES: readonly FailureCategory[] = [

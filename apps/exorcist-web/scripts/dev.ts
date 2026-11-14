@@ -9,7 +9,7 @@ interface Job {
 }
 
 const JOBS: Job[] = [
-  { label: "api", command: "npm", args: ["run", "serve", "-w", "@graveyard-kit/exorcist-npm"] },
+  { label: "api", command: "npm", args: ["run", "serve", "-w", "@last-rites/exorcist-npm"] },
   { label: "web", command: "npx", args: ["vite"] },
 ];
 

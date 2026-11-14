@@ -1,8 +1,8 @@
 // Property 10 (graveyard-ui-polish): preservation. The fixed page shows the same Rendered_Facts as the
 // frozen Reference_Renderer and as the report itself; unsafe URLs stay withheld; names stay text.
 import fc from "fast-check";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
 import { mountPage } from "../dom-harness.js";
 import type { Mutate } from "../sabotage/dom.js";
 import { openPackageArb, scanReportArb } from "../arbitraries.js";

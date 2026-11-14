@@ -28,7 +28,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 
 ## Glossary
 
-- **Exorcist_Mcp**: the MCP server in `/mcp`, workspace `@graveyard-kit/exorcist-mcp`, server name `exorcist`.
+- **Exorcist_Mcp**: the MCP server in `/mcp`, workspace `@last-rites/exorcist-mcp`, server name `exorcist`.
 - **Tool**: one MCP tool of the server.
 - **Tool_Result**: the MCP result of a tool call: `content` (text items) and `isError`.
 - **Tool_Error**: a Tool_Result with `isError` true whose single text item is `{"error":{"code":"<code>","message":"<text>"}}`.
@@ -40,7 +40,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 - **Proof_Report**: the canonical JSON of `serializeProofReport`, valid for `parseProofReport` (`skeleton/src/proof/report.ts`).
 - **Proof_Name**: a string matching `^[a-z0-9][a-z0-9-]{0,63}$` (`PROOF_NAME_PATTERN`).
 - **Npm_Name**: a string matching the npm package-name guard defined in `design.md` (lower case, optional `@scope/`, at most 214 characters).
-- **Programmatic_Entry**: the new file `apps/exorcist-npm/src/programmatic.ts`, exported as `@graveyard-kit/exorcist-npm/programmatic`; it only re-exports existing functions, types and constants.
+- **Programmatic_Entry**: the new file `apps/exorcist-npm/src/programmatic.ts`, exported as `@last-rites/exorcist-npm/programmatic`; it only re-exports existing functions, types and constants.
 - **Deps**: the injected seams of the server: HTTP client, clock, sleep, file system probes, the demo store, the pipelines, the usage surface, the proof runner, the e18e source.
 - **Workspace_Settings**: the file `.kiro/settings/mcp.json`.
 - **Hook_File**: one JSON v1 file in `.kiro/hooks/`.
@@ -64,10 +64,10 @@ Behavioral decisions fixed here, so design does not have to guess:
 #### Acceptance Criteria
 
 1. THE root `package.json` `workspaces` array SHALL be `["skeleton", "apps/*", "mcp", "power"]`, and no other field of it SHALL change except what Requirement 1.4 adds.
-2. THE `mcp/package.json` SHALL declare the package `@graveyard-kit/exorcist-mcp` (private, `type` module) with the scripts `typecheck`, `build`, `power:sync` and the four Hook_Script scripts of Requirement 12, and SHALL depend on `@graveyard-kit/skeleton` and `@graveyard-kit/exorcist-npm`.
+2. THE `mcp/package.json` SHALL declare the package `@last-rites/exorcist-mcp` (private, `type` module) with the scripts `typecheck`, `build`, `power:sync` and the four Hook_Script scripts of Requirement 12, and SHALL depend on `@last-rites/skeleton` and `@last-rites/exorcist-npm`.
 3. THE `mcp/package.json` SHALL pin, as exact versions, `@modelcontextprotocol/sdk` `1.32.2`, `zod` `4.6.7` and (dev) `esbuild` `0.28.2`; no dependency of the new packages SHALL be an LLM client; any later dependency SHALL be an exact version.
 4. THE root `vitest.config.ts` `include` SHALL gain `mcp/src/**/*.test.ts` and keep every existing pattern and its `setupFiles` entry, so the no-network guard also covers the new tests.
-5. THE `power/package.json` SHALL declare the private package `@graveyard-kit/exorcist-power` with no dependency and no script that is required by `npm run typecheck`.
+5. THE `power/package.json` SHALL declare the private package `@last-rites/exorcist-power` with no dependency and no script that is required by `npm run typecheck`.
 6. THE `apps/exorcist-npm/package.json` `exports` SHALL gain `./programmatic` (the Programmatic_Entry) and `./programmatic/testing`, and SHALL keep `./report`; THE `scan/index.ts` and `evidence/index.ts` exports SHALL stay unchanged.
 7. THE Programmatic_Entry SHALL only re-export existing symbols and add no logic, and SHALL include everything the Exorcist_Mcp imports from the app.
 8. THE `skeleton` package SHALL NOT import anything from `mcp`, `power` or `apps`.

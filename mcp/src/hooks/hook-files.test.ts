@@ -63,7 +63,7 @@ describe("all four hook files", () => {
     const { text, hook } = load(id);
     expect(validateHookFile(text)).toEqual({ ok: true });
     expect(hook.description.length).toBeGreaterThan(0);
-    const m = /^npm run (hook:[a-z-]+) -w @graveyard-kit\/exorcist-mcp --silent$/.exec(hook.action.command);
+    const m = /^npm run (hook:[a-z-]+) -w @last-rites\/exorcist-mcp --silent$/.exec(hook.action.command);
     expect(m, hook.action.command).not.toBeNull();
     const pkg = JSON.parse(readFileSync(resolve(ROOT, "mcp/package.json"), "utf8")) as { scripts: Record<string, string> };
     const script = pkg.scripts[m![1]!];

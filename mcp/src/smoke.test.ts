@@ -52,7 +52,7 @@ describe("kiro-integration static checks", () => {
     const pkg = JSON.parse(read(join(ROOT, "mcp/package.json"))) as Record<string, Record<string, string>>;
     for (const group of ["dependencies", "devDependencies"]) {
       for (const [name, version] of Object.entries(pkg[group] ?? {})) {
-        if (name.startsWith("@graveyard-kit/")) continue;
+        if (name.startsWith("@last-rites/")) continue;
         expect(version, `${name} version`).toMatch(/^\d+\.\d+\.\d+$/);
       }
     }

@@ -2,7 +2,7 @@
 
 Find dead npm packages, swap each for a living replacement, and prove with property tests that behavior did not change. This power gives Kiro five tools (a local stdio MCP server) and two skills (the migration and proof rules). It makes no LLM calls and is not published to any registry.
 
-Contents: `plugin.json`, `mcp.json`, `skills/migration-rules/SKILL.md`, `skills/proof-rules/SKILL.md`, this README. The server `server/exorcist-mcp.mjs` is build output and is ignored by git. The skills are generated from `.kiro/steering/` by `npm run power:sync -w @graveyard-kit/exorcist-mcp`; a test fails if they drift.
+Contents: `plugin.json`, `mcp.json`, `skills/migration-rules/SKILL.md`, `skills/proof-rules/SKILL.md`, this README. The server `server/exorcist-mcp.mjs` is build output and is ignored by git. The skills are generated from `.kiro/steering/` by `npm run power:sync -w @last-rites/exorcist-mcp`; a test fails if they drift.
 
 ## Build the server
 
@@ -10,7 +10,7 @@ From the repository root:
 
 ```
 npm install
-npm run build -w @graveyard-kit/exorcist-mcp
+npm run build -w @last-rites/exorcist-mcp
 ```
 
 This writes `mcp/dist/server.mjs` and copies it, with the demo snapshots, to `power/server/exorcist-mcp.mjs` and `power/server/demo/`. Run it again after any change to `mcp/src`.

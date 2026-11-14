@@ -11,7 +11,7 @@ The Npm_Scanner is the scan component of `/apps/exorcist-npm`. Given a public Gi
 
 v1 scans the root `package.json` only. Workspaces and monorepo packages are out of scope: a `workspaces` field is ignored and produces a warning. Yarn and pnpm lockfiles, private repositories, transitive dependencies, the UI, and the MCP server are also out of scope.
 
-This spec reuses and never redeclares these existing types and functions: `PackageSignals`, `SignalName`, `GradeBand`, `DeathScoreResult`, and `scoreDeath` from `@graveyard-kit/skeleton`; and `createEvidenceStage`, `EvidenceResult`, `EvidenceConfig`, `ReplacementInfo`, `UnknownReason`, `HttpClient`, `ResilientClient`, `CacheLayer`, and `Clock` from `apps/exorcist-npm/src/evidence`. The evidence spec exports no `inventory` stage; this spec adds it. The hosted app and the tests make no LLM calls, and the tests make no network requests.
+This spec reuses and never redeclares these existing types and functions: `PackageSignals`, `SignalName`, `GradeBand`, `DeathScoreResult`, and `scoreDeath` from `@last-rites/skeleton`; and `createEvidenceStage`, `EvidenceResult`, `EvidenceConfig`, `ReplacementInfo`, `UnknownReason`, `HttpClient`, `ResilientClient`, `CacheLayer`, and `Clock` from `apps/exorcist-npm/src/evidence`. The evidence spec exports no `inventory` stage; this spec adds it. The hosted app and the tests make no LLM calls, and the tests make no network requests.
 
 Behavioral decisions fixed here, so design does not have to guess:
 
@@ -227,7 +227,7 @@ Behavioral decisions fixed here, so design does not have to guess:
 
 #### Acceptance Criteria
 
-1. THE Npm_Scanner SHALL import `PackageSignals`, `SignalName`, `GradeBand`, `DeathScoreResult`, and `scoreDeath` from the public exports of `@graveyard-kit/skeleton` and SHALL NOT redeclare them.
+1. THE Npm_Scanner SHALL import `PackageSignals`, `SignalName`, `GradeBand`, `DeathScoreResult`, and `scoreDeath` from the public exports of `@last-rites/skeleton` and SHALL NOT redeclare them.
 2. THE Npm_Scanner SHALL import `createEvidenceStage`, `EvidenceResult`, `EvidenceConfig`, `ReplacementInfo`, `UnknownReason`, `HttpClient`, `ResilientClient`, `CacheLayer`, and `Clock` from `apps/exorcist-npm/src/evidence` and SHALL NOT redeclare them.
 3. THE Npm_Scanner SHALL export an implementation of the `inventory` stage of the npm adapter and SHALL NOT export an implementation of the `replacement` or `proof` stage.
 4. THE `/skeleton` package SHALL contain zero import statements that resolve to a module under `/apps/exorcist-npm`.

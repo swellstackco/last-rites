@@ -1,6 +1,6 @@
 // DOM sabotages for TP6 (toe-tag-polish): a fix that drops or changes a fact the polish must not touch.
-import { toGrade } from "@graveyard-kit/skeleton";
-import { GRADE_INFO } from "@graveyard-kit/skeleton/graveyard";
+import { toGrade } from "@last-rites/skeleton";
+import { GRADE_INFO } from "@last-rites/skeleton/graveyard";
 import { each } from "./toe.js";
 import type { ToeSabotage } from "./toe.js";
 

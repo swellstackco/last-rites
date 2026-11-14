@@ -1,9 +1,9 @@
 import fc from "fast-check";
-import { type E18eEvidence, type Outcome, type ScanOutcome } from "@graveyard-kit/exorcist-npm/programmatic";
-import { reportArb } from "@graveyard-kit/exorcist-npm/programmatic/testing";
-import { callSiteArb, importSiteArb, SYNTHETIC_CASES, FAULT_FAMILY, moduleFor, usageResultFor } from "@graveyard-kit/skeleton/proof/testing";
-import type { UsageSurfaceResult } from "@graveyard-kit/skeleton/proof";
-import type { SyntheticCase, Fault } from "@graveyard-kit/skeleton/proof/testing";
+import { type E18eEvidence, type Outcome, type ScanOutcome } from "@last-rites/exorcist-npm/programmatic";
+import { reportArb } from "@last-rites/exorcist-npm/programmatic/testing";
+import { callSiteArb, importSiteArb, SYNTHETIC_CASES, FAULT_FAMILY, moduleFor, usageResultFor } from "@last-rites/skeleton/proof/testing";
+import type { UsageSurfaceResult } from "@last-rites/skeleton/proof";
+import type { SyntheticCase, Fault } from "@last-rites/skeleton/proof/testing";
 import type { ExorcistDeps } from "../../deps.js";
 
 // Generators of the outcomes of the wrapped code (fake pipelines, usage surfaces, e18e, exorcise through the real runProof).

@@ -2,8 +2,8 @@
 // two Subtitle_Phrases, and "Form LR-1" is one element with no child element. The expected parts are written here
 // (not imported) so the property does not depend on the code under test. Home page: added by task 5.1.
 import fc from "fast-check";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
 import { FORM_SUBTITLE } from "../../constants.js";
 import { mountPage } from "../dom-harness.js";
 import type { ToeMutate } from "../sabotage/toe.js";

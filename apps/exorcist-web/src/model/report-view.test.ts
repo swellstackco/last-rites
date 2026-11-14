@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import { parseReport } from "@graveyard-kit/exorcist-npm/report";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
-import type { PackageSignals } from "@graveyard-kit/skeleton";
+import { parseReport } from "@last-rites/exorcist-npm/report";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
+import type { PackageSignals } from "@last-rites/skeleton";
 import { buildReportView, formatScannedAt } from "./report-view.js";
 import { buildReport, tamperSummary } from "../test-support/build-report.js";
 

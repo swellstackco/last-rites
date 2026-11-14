@@ -1,9 +1,9 @@
 // @vitest-environment jsdom
 // toe-tag-redesign 5.2: the Toe_Tag's structure, labels, accessible name and unknown/range band.
 import { afterEach, describe, expect, it } from "vitest";
-import type { PackageSignals } from "@graveyard-kit/skeleton";
-import { GRADE_INFO } from "@graveyard-kit/skeleton/graveyard";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
+import type { PackageSignals } from "@last-rites/skeleton";
+import { GRADE_INFO } from "@last-rites/skeleton/graveyard";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
 import { TAG_LABELS } from "./constants.js";
 import { buildReport } from "./test-support/build-report.js";
 import { mountPage } from "./test-support/dom-harness.js";

@@ -4,10 +4,10 @@ import { cpSync, mkdtempSync, readFileSync, readdirSync, rmSync } from "node:fs"
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { describe, expect, it } from "vitest";
-import { isProofName, parseProofReport, serializeProofReport } from "@graveyard-kit/skeleton/proof";
-import type { ProofAttempt } from "@graveyard-kit/skeleton/proof";
-import { createNodeReportFs, createNodeSourceFs, parseReport } from "@graveyard-kit/exorcist-npm/programmatic";
-import { FakeHttp, createFakeClock, createFakeSleep, loadFixtureCase } from "@graveyard-kit/exorcist-npm/programmatic/testing";
+import { isProofName, parseProofReport, serializeProofReport } from "@last-rites/skeleton/proof";
+import type { ProofAttempt } from "@last-rites/skeleton/proof";
+import { createNodeReportFs, createNodeSourceFs, parseReport } from "@last-rites/exorcist-npm/programmatic";
+import { FakeHttp, createFakeClock, createFakeSleep, loadFixtureCase } from "@last-rites/exorcist-npm/programmatic/testing";
 import { fetchManifest, resolveCommit } from "./evidence/sources.js";
 import { runExorcise } from "./exorcise/run.js";
 import type { ExorciseFix } from "./exorcise/cli-args.js";

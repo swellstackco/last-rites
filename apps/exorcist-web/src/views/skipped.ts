@@ -1,5 +1,5 @@
 // Collapsed "Skipped (n)" disclosure. Text only.
-import type { SkippedEntry } from "@graveyard-kit/exorcist-npm/report";
+import type { SkippedEntry } from "@last-rites/exorcist-npm/report";
 import { h } from "../dom/h.js";
 
 export function renderSkipped(skipped: readonly SkippedEntry[]): HTMLElement | null {

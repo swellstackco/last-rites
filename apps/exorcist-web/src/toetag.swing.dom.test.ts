@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 // toe-tag-redesign 9.2: the swing is CSS-only; the DOM facts it relies on (one fresh .sheet-tag per open, none on proof update).
 import { afterEach, describe, expect, it } from "vitest";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
 import { buildProofText } from "./test-support/build-proof-report.js";
 import { buildReport } from "./test-support/build-report.js";
 import { mountPage } from "./test-support/dom-harness.js";

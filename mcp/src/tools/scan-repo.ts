@@ -1,4 +1,4 @@
-import { serializeReport } from "@graveyard-kit/exorcist-npm/programmatic";
+import { serializeReport } from "@last-rites/exorcist-npm/programmatic";
 import { z } from "zod";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import type { ExorcistDeps } from "../deps.js";

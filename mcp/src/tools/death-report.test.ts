@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, it, expect } from "vitest";
-import { parseReport, type ScanOutcome, type ScanPipeline } from "@graveyard-kit/exorcist-npm/programmatic";
+import { parseReport, type ScanOutcome, type ScanPipeline } from "@last-rites/exorcist-npm/programmatic";
 import { makeDeps } from "../test-support/fakes.js";
 import { deathReportImpl } from "./death-report.js";
 

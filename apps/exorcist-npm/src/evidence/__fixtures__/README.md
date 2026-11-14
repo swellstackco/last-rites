@@ -1,6 +1,6 @@
 # Fixtures
 
-Recorded 2026-11-13 by `npm run record-fixtures -w @graveyard-kit/exorcist-npm -- all`
+Recorded 2026-11-13 by `npm run record-fixtures -w @last-rites/exorcist-npm -- all`
 (`test-support/record-fixtures.ts`), unauthenticated (no GitHub token). One `FixtureEntry` per file; request headers are never stored.
 
 | Case | Package | Files |

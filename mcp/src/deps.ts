@@ -1,4 +1,4 @@
-import type { UsageSurface } from "@graveyard-kit/skeleton/proof";
+import type { UsageSurface } from "@last-rites/skeleton/proof";
 import type {
   AppRecipe,
   Clock,
@@ -9,7 +9,7 @@ import type {
   ReportFs,
   ScanPipeline,
   Watchdog,
-} from "@graveyard-kit/exorcist-npm/programmatic";
+} from "@last-rites/exorcist-npm/programmatic";
 import type { FsProbe } from "./guards.js";
 
 export type { FsProbe } from "./guards.js";

@@ -8,8 +8,8 @@ import {
   type ProofReport,
   type UsageSurface,
   type UsageSurfaceResult,
-} from "@graveyard-kit/skeleton/proof";
-import { runProof, type ProofInput, type ProofResult } from "@graveyard-kit/skeleton/proof/runner";
+} from "@last-rites/skeleton/proof";
+import { runProof, type ProofInput, type ProofResult } from "@last-rites/skeleton/proof/runner";
 import { basename, join } from "node:path";
 import type { CliArgs } from "./cli-args.js";
 import type { AppRecipe } from "./recipes/types.js";

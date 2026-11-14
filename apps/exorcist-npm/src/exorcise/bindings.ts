@@ -1,5 +1,5 @@
 // Requirements 3.1, 3.5-3.8: bindings of a package inside one file, and its import sites. No scope model.
-import type { ImportForm, ImportSite } from "@graveyard-kit/skeleton/proof";
+import type { ImportForm, ImportSite } from "@last-rites/skeleton/proof";
 import ts from "typescript";
 
 /** local name -> member prefix ("" for the whole module, "big" for a named import, "./sub.a" for a subpath). */

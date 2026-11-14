@@ -1,4 +1,4 @@
-import { SIGNAL_NAMES, type SignalName } from "@graveyard-kit/skeleton";
+import { SIGNAL_NAMES, type SignalName } from "@last-rites/skeleton";
 import type { Sabotage } from "../sabotage-runner.js";
 import type { StageFactory } from "../stage-harness.js";
 import type { EvidenceResult } from "../../types.js";

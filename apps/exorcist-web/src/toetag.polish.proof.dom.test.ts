@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
-import { parseReport } from "@graveyard-kit/exorcist-npm/report";
+import { parseReport } from "@last-rites/exorcist-npm/report";
 import { checkAsyncProperty, formatAsyncReport } from "./test-support/async-property.js";
 import { mountPage } from "./test-support/dom-harness.js";
 import { build as tp1, buildLive } from "./test-support/properties/tp1.js";

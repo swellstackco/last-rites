@@ -1,8 +1,8 @@
 // @vitest-environment jsdom
 // toe-tag-polish 3.1: the Toe_Tag DOM the T2/T3 fix relies on (no DOM change is made by the fix; this must pass before and after).
 import { afterEach, describe, expect, it } from "vitest";
-import { GRADE_INFO } from "@graveyard-kit/skeleton/graveyard";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
+import { GRADE_INFO } from "@last-rites/skeleton/graveyard";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
 import { TAG_LABELS } from "./constants.js";
 import { buildReport } from "./test-support/build-report.js";
 import { mountPage } from "./test-support/dom-harness.js";

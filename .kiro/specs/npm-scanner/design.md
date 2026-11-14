@@ -4,7 +4,7 @@
 
 The Npm_Scanner is the scan component of `/apps/exorcist-npm`. Given a public GitHub repository (`owner/repo`, optional ref) it returns one deterministic Scan_Report: every direct npm dependency of the root `package.json`, each with its evidence, death score, grade and replacement info, sorted most-dead first. It sits on top of two things that already exist:
 
-- `scoreDeath` and its types from `@graveyard-kit/skeleton` (pure, no I/O).
+- `scoreDeath` and its types from `@last-rites/skeleton` (pure, no I/O).
 - `createEvidenceStage` and the `http/` stack (`CacheLayer`, `ResilientClient`) in `apps/exorcist-npm/src/evidence`.
 
 It adds five parts under `apps/exorcist-npm/src/scan/`:
@@ -41,7 +41,7 @@ The hosted app and the tests make no LLM calls. Tests make no network requests: 
 - **`classifyStatus(response)`** in `evidence/http/fetch-json.ts` maps 404/410 to `not_found`, 429 and 403-with-`x-ratelimit-remaining: 0` to `rate_limited`, everything else to `network_error`.
 - **There is no production `HttpClient` yet.** The only `fetch`-based client is `fetchClient` in `test-support/record-fixtures.ts`, which hard-codes recorder headers. The scanner adds a small production client (`scan/fetch-client.ts`) for the server and the demo script.
 - **Test-support to reuse:** `FakeHttp` and `loadFixtureCase` (`fake-http.ts`, with the `hold`/`release` mechanism for controlling completion order), `createFakeClock`, `createFakeSleep`, `createTempCache`, `fc-runner.ts` (`NUM_RUNS` 100, `FIXED_SEED` 20261113, `FC_SEED` and `CI` seed policy, `assertPropertyAsync`), `sabotage-runner.ts` (`NamedProperty`, `NamedAsyncProperty`, `assertAllSabotagesCaught[Async]`), the `createRecorder` and `recordPackageCase` recorder in `record-fixtures.ts`, and `no-network.setup.ts` (already loaded by the root `vitest.config.ts` for every test file).
-- **Skeleton surface.** `@graveyard-kit/skeleton` exports `scoreDeath`, `SIGNAL_NAMES`, and the types `PackageSignals`, `SignalName`, `GradeBand` (`"alive" | "ailing" | "dying" | "dead"`), `DeathScoreResult` (`score`, `grade`, `parts[]`). `scoreDeath` is pure.
+- **Skeleton surface.** `@last-rites/skeleton` exports `scoreDeath`, `SIGNAL_NAMES`, and the types `PackageSignals`, `SignalName`, `GradeBand` (`"alive" | "ailing" | "dying" | "dead"`), `DeathScoreResult` (`score`, `grade`, `parts[]`). `scoreDeath` is pure.
 - **Workspace.** Root `vitest.config.ts` already includes `apps/*/src/**/*.test.ts`. `apps/exorcist-npm/package.json` already has `semver` (exact `7.6.3`), `@types/node`, `fast-check`, `vitest`, and a `record-fixtures` script that uses `vite-node`. The scanner needs no new runtime dependency.
 - **raw.githubusercontent.com.** It serves file bytes for `/<owner>/<repo>/<ref>/<path>` where `<ref>` is a branch, tag, SHA or `HEAD`, and answers 404 for private and nonexistent repos alike. It is not part of the REST API quota (60 requests per hour unauthenticated, [GitHub REST rate limits](https://docs.github.com/en/rest/overview/rate-limits-for-the-rest-api)), but GitHub has tightened unauthenticated limits on raw and other static endpoints, and clients see HTTP 429 when throttled ([community discussion](https://github.com/orgs/community/discussions/158445)). The existing `ResilientClient` already retries 429 with backoff. Content was rephrased for compliance with licensing restrictions.
 - **npm lockfiles.** `lockfileVersion` 2 and 3 carry a `packages` map keyed by install path: the root project at `""`, and a hoisted dependency at `node_modules/<name>` (scoped names keep their slash: `node_modules/@scope/pkg`). Entries may carry `version`, `link: true` (a workspace or `file:` link) and `name` (set when the install name differs from the real name, as with `npm:` aliases). Version 1 has no `packages` map. See the [npm package-lock.json docs](https://docs.npmjs.com/cli/v7/configuring-npm/package-lock-json/).
@@ -75,7 +75,7 @@ flowchart TD
 
 Layering rules:
 
-- `/skeleton` never imports from the app. The scanner imports skeleton only through `@graveyard-kit/skeleton` (Requirement 12.1, 12.4).
+- `/skeleton` never imports from the app. The scanner imports skeleton only through `@last-rites/skeleton` (Requirement 12.1, 12.4).
 - The cache wraps the resilient client, which wraps the raw client. A cache hit costs zero client calls.
 - Pure modules (`inventory.ts`, `repo-target.ts`, `assemble.ts`, `report.ts`, `rate-limit.ts` given a clock) do no I/O. The pipeline, the file source, the demo store and the server are the only modules that touch the outside world, and each receives its I/O as an injected value.
 
@@ -173,8 +173,8 @@ apps/exorcist-npm/src/scan/
 ### Imports, never redeclarations (Requirement 12)
 
 ```ts
-import { scoreDeath, SIGNAL_NAMES } from "@graveyard-kit/skeleton";
-import type { DeathScoreResult, GradeBand, PackageSignals, SignalName } from "@graveyard-kit/skeleton";
+import { scoreDeath, SIGNAL_NAMES } from "@last-rites/skeleton";
+import type { DeathScoreResult, GradeBand, PackageSignals, SignalName } from "@last-rites/skeleton";
 import { createEvidenceStage, configFromEnv, DEFAULT_CONFIG } from "../evidence/index.js";
 import type {
   Clock, EvidenceConfig, EvidenceResult, EvidenceStage, FailureCategory,
@@ -737,7 +737,7 @@ The e18e manifests come from the existing `evidence/__fixtures__/shared/` direct
 
 ### Fixture recording
 
-A new manual script `scan/test-support/record-scan-fixtures.ts` (`npm run record-scan-fixtures -w @graveyard-kit/exorcist-npm -- <case> <owner/repo> [ref]`) reuses `createRecorder` and `recordPackageCase` from `evidence/test-support/record-fixtures.ts`. It is unauthenticated, never reads `GITHUB_TOKEN`, stores no request headers, and never runs under Vitest. Steps:
+A new manual script `scan/test-support/record-scan-fixtures.ts` (`npm run record-scan-fixtures -w @last-rites/exorcist-npm -- <case> <owner/repo> [ref]`) reuses `createRecorder` and `recordPackageCase` from `evidence/test-support/record-fixtures.ts`. It is unauthenticated, never reads `GITHUB_TOKEN`, stores no request headers, and never runs under Vitest. Steps:
 
 1. **Check the repository** with `GET https://api.github.com/repos/<owner>/<repo>` through a plain `ResilientClient(fetchClient, ...)` (not recorded): refuse unless it is public and `license.spdx_id` is `MIT`.
 2. **Pin the commit.** `GET https://api.github.com/repos/<owner>/<repo>/commits/<ref or HEAD>` and keep the 40-character `sha`. Everything below uses the SHA, never a branch name, so the recorded raw URLs are reproducible.
@@ -1022,4 +1022,4 @@ PBT applies to this feature: the inventory, the pool-and-assemble pipeline, the 
   - *Static smoke checks:* `scan/index.ts` exports `inventory` and no `replacement` or `proof`; no scan module imports `evidence` internals other than `http/cache`, `http/resilient-client` and `http/fetch-json`; `/skeleton` has no import resolving under `apps/exorcist-npm`; no LLM client dependency in any `package.json`; any new runtime dependency is pinned to an exact version (none expected); `process.env` is read only in the two `main()` functions, and `PORT` only through `parsePortEnv`; `demo-snapshot` is an npm script and is not imported by any test as an entry point; the two default demo directories resolve to the same path; `ScanSummary` grade keys equal `GradeBand`; `npm run typecheck` passes.
 - **Fixtures:** the recorded repository (Fixture layout and Fixture recording above), plus synthetic bodies where a case needs a shape the real repo does not have. The fixture `README.md` names the chosen repository and commit SHA. Every fixture file is a `FixtureEntry` loaded with `loadFixtureCase`; a test fails on any unmatched request, naming its method and URL (the harness asserts `FakeHttp.unmatched` is empty in `afterEach`).
 - **No network:** the root `vitest.config.ts` already loads `no-network.setup.ts` for every test file, so a stray `fetch` fails the test. `fetch-client.ts` and the recorder are never imported by a test.
-- **Dev commands:** `npm test` (all workspaces, `vitest --run`), `npm run typecheck`. `npm run dev` for the API and UI belongs to the later web spec; this spec adds `npm run serve -w @graveyard-kit/exorcist-npm` for the API alone, which the user starts manually.
+- **Dev commands:** `npm test` (all workspaces, `vitest --run`), `npm run typecheck`. `npm run dev` for the API and UI belongs to the later web spec; this spec adds `npm run serve -w @last-rites/exorcist-npm` for the API alone, which the user starts manually.

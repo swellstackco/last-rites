@@ -1,5 +1,5 @@
 {
-  "name": "graveyard-kit",
+  "name": "last-rites",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -11,7 +11,7 @@
   "scripts": {
     "test": "vitest --run",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "dev": "npm run dev -w @graveyard-kit/exorcist-web"
+    "dev": "npm run dev -w @last-rites/exorcist-web"
   },
   "devDependencies": {
     "typescript": "^5.7.2"

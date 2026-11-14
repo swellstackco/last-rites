@@ -1,7 +1,7 @@
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
-import type { CallSite } from "@graveyard-kit/skeleton/proof";
-import { structuralEqual } from "@graveyard-kit/skeleton/proof/runner";
+import type { CallSite } from "@last-rites/skeleton/proof";
+import { structuralEqual } from "@last-rites/skeleton/proof/runner";
 import { loadOracle } from "../oracles.js";
 import { KEYS, cloneReordered, cloneWithOneChange, deepDiffRecipe, treeArb } from "./deep-diff.js";
 

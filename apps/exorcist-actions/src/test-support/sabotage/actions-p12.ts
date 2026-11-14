@@ -1,4 +1,4 @@
-import type { ProofAttempt, ProofReport } from "@graveyard-kit/skeleton/proof";
+import type { ProofAttempt, ProofReport } from "@last-rites/skeleton/proof";
 import { buildContractAttempt, buildErrorAttempt, buildPinAttempt, buildProofReport, callSitesOf } from "../../proof/attempt.js";
 import { actionProofName, repoProofName } from "../../proof/names.js";
 import type { AttemptImpl } from "../properties/actions-p12.js";

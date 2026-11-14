@@ -1,9 +1,9 @@
 /**
  * Manual fixture recorder (Requirement 16.2). NEVER run by `npm test`.
  *
- *   npm run record-fixtures -w @graveyard-kit/exorcist-actions -- --clone <path of the Hero_Repo clone>
+ *   npm run record-fixtures -w @last-rites/exorcist-actions -- --clone <path of the Hero_Repo clone>
  *       live run (the only task with requests); the clone must hold the fixture workflow files byte for byte
- *   npm run record-fixtures -w @graveyard-kit/exorcist-actions -- --regenerate
+ *   npm run record-fixtures -w @last-rites/exorcist-actions -- --regenerate
  *       offline: rewrite the demo files from the committed fixtures
  *
  * The live run puts a recording HttpClient under the real pipeline (scan, swap, pin) and under the
@@ -20,10 +20,10 @@ import { createHash } from "node:crypto";
 import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join, resolve } from "node:path";
-import { createFetchClient, createGithubGet, parseReport } from "@graveyard-kit/exorcist-npm/programmatic";
-import type { HttpClient } from "@graveyard-kit/exorcist-npm/programmatic";
-import { FakeHttp, createFakeClock, createFakeSleep, loadFixtureCase } from "@graveyard-kit/exorcist-npm/programmatic/testing";
-import type { FixtureEntry } from "@graveyard-kit/exorcist-npm/programmatic/testing";
+import { createFetchClient, createGithubGet, parseReport } from "@last-rites/exorcist-npm/programmatic";
+import type { HttpClient } from "@last-rites/exorcist-npm/programmatic";
+import { FakeHttp, createFakeClock, createFakeSleep, loadFixtureCase } from "@last-rites/exorcist-npm/programmatic/testing";
+import type { FixtureEntry } from "@last-rites/exorcist-npm/programmatic/testing";
 import { fetchManifest } from "../evidence/sources.js";
 import { REPLACEMENTS } from "../replacements.js";
 import {

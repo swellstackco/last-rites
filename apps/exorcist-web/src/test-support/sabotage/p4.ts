@@ -1,4 +1,4 @@
-import type { Sabotage } from "@graveyard-kit/skeleton/graveyard/testing";
+import type { Sabotage } from "@last-rites/skeleton/graveyard/testing";
 import { buildReportView } from "../../model/report-view.js";
 import type { ReportView } from "../../model/report-view.js";
 import type { BuildReportViewFn } from "../properties/p4.js";

@@ -1,6 +1,6 @@
 // Maps check results and sabotage summaries to the existing ProofAttempt / ProofReport (Requirement 14.4 to 14.6).
-import type { CallSite, CounterexampleRecord, ProofAttempt, ProofReport, SabotageSummary } from "@graveyard-kit/skeleton/proof";
-import { sortSites } from "@graveyard-kit/skeleton/proof";
+import type { CallSite, CounterexampleRecord, ProofAttempt, ProofReport, SabotageSummary } from "@last-rites/skeleton/proof";
+import { sortSites } from "@last-rites/skeleton/proof";
 import type { ActionUse } from "../inventory/types.js";
 import { formatUses } from "../inventory/uses.js";
 import type { ContractCheck, ContractViolationKind } from "./contract-check.js";

@@ -3,9 +3,9 @@
 // proof state, and the Repo_Picker. The allowed differences are listed in ALLOWED; the list starts empty and is
 // extended only by the group that makes the difference on purpose.
 import fc from "fast-check";
-import { buildProofView } from "@graveyard-kit/skeleton/graveyard";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import { buildProofView } from "@last-rites/skeleton/graveyard";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
 import { demoPackageArb, openPackageArb, proofLoadArb } from "../arbitraries.js";
 import type { DemoPackageCase, ProofLoadDraw } from "../arbitraries.js";
 import { mountPage } from "../dom-harness.js";

@@ -1,7 +1,7 @@
 // Tiny hyperscript helper with a closed prop vocabulary.
 // Text is always written with createTextNode; there is no HTML option at all.
 // `href` only accepts a SafeHref, which only safeHref() and constantHref() produce.
-import { safeHttpUrl } from "@graveyard-kit/skeleton/graveyard";
+import { safeHttpUrl } from "@last-rites/skeleton/graveyard";
 
 declare const safeHrefBrand: unique symbol;
 export type SafeHref = string & { readonly [safeHrefBrand]: true };

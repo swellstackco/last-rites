@@ -1,4 +1,4 @@
-import type { PackageSignals, SignalName } from "@graveyard-kit/skeleton";
+import type { PackageSignals, SignalName } from "@last-rites/skeleton";
 
 export type Source = "npm" | "github" | "osv" | "e18e" | "depsdev";
 

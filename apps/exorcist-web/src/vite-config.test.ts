@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { PROOF_NAME_PATTERN as SKELETON_PATTERN } from "@graveyard-kit/skeleton/proof";
+import { PROOF_NAME_PATTERN as SKELETON_PATTERN } from "@last-rites/skeleton/proof";
 import config, {
   API_TARGET,
   CSP,

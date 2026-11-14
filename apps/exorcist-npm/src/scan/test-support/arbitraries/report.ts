@@ -1,6 +1,6 @@
 import fc from "fast-check";
-import { SIGNAL_NAMES } from "@graveyard-kit/skeleton";
-import type { GradeBand, PackageSignals, SignalName } from "@graveyard-kit/skeleton";
+import { SIGNAL_NAMES } from "@last-rites/skeleton";
+import type { GradeBand, PackageSignals, SignalName } from "@last-rites/skeleton";
 import type { ReplacementInfo, UnknownReason } from "../../../evidence/index.js";
 import { KIND_PRECEDENCE } from "../../types.js";
 import type { ScanReport, ScanSummary, ScannedDependency, SkippedEntry, SkipReason } from "../../types.js";

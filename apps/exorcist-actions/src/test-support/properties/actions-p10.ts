@@ -1,5 +1,5 @@
 import fc from "fast-check";
-import type { SabotageSummary } from "@graveyard-kit/skeleton/proof";
+import type { SabotageSummary } from "@last-rites/skeleton/proof";
 import { isWeak } from "../../proof/attempt.js";
 import { checkContract } from "../../proof/contract-check.js";
 import type { ContractInput } from "../../proof/contract-check.js";

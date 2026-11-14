@@ -1,6 +1,6 @@
 import fc from "fast-check";
-import type { CallShape, Outcome, Projection } from "@graveyard-kit/skeleton/proof/runner";
-import type { CallSite } from "@graveyard-kit/skeleton/proof";
+import type { CallShape, Outcome, Projection } from "@last-rites/skeleton/proof/runner";
+import type { CallSite } from "@last-rites/skeleton/proof";
 import { loadOracle } from "../oracles.js";
 import type { AppRecipe } from "./types.js";
 

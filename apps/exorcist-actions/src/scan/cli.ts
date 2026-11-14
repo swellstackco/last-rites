@@ -6,9 +6,9 @@ import {
   createNodeReportFs,
   createNodeSourceFs,
   serializeReport,
-} from "@graveyard-kit/exorcist-npm/programmatic";
-import type { ReportFs, SourceFs } from "@graveyard-kit/exorcist-npm/programmatic";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/programmatic";
+} from "@last-rites/exorcist-npm/programmatic";
+import type { ReportFs, SourceFs } from "@last-rites/exorcist-npm/programmatic";
+import type { ScanReport } from "@last-rites/exorcist-npm/programmatic";
 import { createActionEvidenceStage } from "../evidence/stage.js";
 import { parseScanArgs, SCAN_USAGE } from "./cli-args.js";
 import { runScan } from "./scan.js";

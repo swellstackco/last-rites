@@ -1,5 +1,5 @@
-import { parseReport, serializeReport } from "@graveyard-kit/exorcist-npm/report";
-import type { ScanReport } from "@graveyard-kit/exorcist-npm/report";
+import { parseReport, serializeReport } from "@last-rites/exorcist-npm/report";
+import type { ScanReport } from "@last-rites/exorcist-npm/report";
 
 /**
  * Pure. Keeps the named dependencies (in their original order), recomputes `summary`

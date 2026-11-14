@@ -8,7 +8,7 @@
       "matcher": "demo/proofs/candidates/[^/]+/[^/]+\\.js$",
       "action": {
         "type": "command",
-        "command": "npm run hook:candidate-proof -w @graveyard-kit/exorcist-mcp --silent"
+        "command": "npm run hook:candidate-proof -w @last-rites/exorcist-mcp --silent"
       },
       "timeout": 180
     }

@@ -3,7 +3,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { BUNDLE_REL, POWER_SERVER_REL, buildServer, copyDemos } from "./build.js";
 
-// Script entry of `npm run build -w @graveyard-kit/exorcist-mcp`: the bundle, then a copy into /power/server (ignored by git).
+// Script entry of `npm run build -w @last-rites/exorcist-mcp`: the bundle, then a copy into /power/server (ignored by git).
 const root = fileURLToPath(new URL("../../../", import.meta.url));
 const outFile = join(root, BUNDLE_REL);
 const demoOut = join(dirname(outFile), "demo");

@@ -1,5 +1,5 @@
-import type { PackageSignals, SignalName } from "@graveyard-kit/skeleton";
-import { SIGNAL_NAMES } from "@graveyard-kit/skeleton";
+import type { PackageSignals, SignalName } from "@last-rites/skeleton";
+import { SIGNAL_NAMES } from "@last-rites/skeleton";
 import { EvidenceInputError } from "../../evidence/index.js";
 import type { EvidenceResult, EvidenceStage, ReplacementInfo, UnknownReason } from "../../evidence/index.js";
 

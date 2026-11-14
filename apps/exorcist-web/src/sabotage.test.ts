@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { FIXED_SEED, assertAllSabotagesCaught, checkProperty } from "@graveyard-kit/skeleton/graveyard/testing";
-import type { Sabotage } from "@graveyard-kit/skeleton/graveyard/testing";
+import { FIXED_SEED, assertAllSabotagesCaught, checkProperty } from "@last-rites/skeleton/graveyard/testing";
+import type { Sabotage } from "@last-rites/skeleton/graveyard/testing";
 import { build as p4 } from "./test-support/properties/p4.js";
 import { build as p6 } from "./test-support/properties/p6.js";
 import { build as p7 } from "./test-support/properties/p7.js";

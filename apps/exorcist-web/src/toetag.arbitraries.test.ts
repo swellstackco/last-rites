@@ -1,8 +1,8 @@
 // toe-tag-redesign 2.3: the generated Proof_Reports are valid for the real parser. Node, no network.
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
-import { parseProofReport, serializeProofReport } from "@graveyard-kit/skeleton/proof";
-import { NUM_RUNS, resolveSeed } from "@graveyard-kit/skeleton/graveyard/testing";
+import { parseProofReport, serializeProofReport } from "@last-rites/skeleton/proof";
+import { NUM_RUNS, resolveSeed } from "@last-rites/skeleton/graveyard/testing";
 import { proofKindArb, proofReportArb } from "./test-support/arbitraries.js";
 
 describe("proofReportArb", () => {

@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import { afterEach, describe, expect, it } from "vitest";
-import { serializeReport } from "@graveyard-kit/exorcist-npm/report";
+import { serializeReport } from "@last-rites/exorcist-npm/report";
 import { formatRoute } from "./app/router.js";
 import { DEMO_REPOS } from "./model/demo-repos.js";
 import { buildReport } from "./test-support/build-report.js";

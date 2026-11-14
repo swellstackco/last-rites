@@ -1,6 +1,6 @@
 // Requirements 1.4-1.6, 2.1-2.9: the npm usage surface. Reads only, through an injected SourceFs; never throws.
-import type { CallSite, ImportSite, UsageSurface, UsageSurfaceResult } from "@graveyard-kit/skeleton/proof";
-import { sortSites } from "@graveyard-kit/skeleton/proof";
+import type { CallSite, ImportSite, UsageSurface, UsageSurfaceResult } from "@last-rites/skeleton/proof";
+import { sortSites } from "@last-rites/skeleton/proof";
 import ts from "typescript";
 import { collectBindings } from "./bindings.js";
 import { collectCallSites } from "./calls.js";

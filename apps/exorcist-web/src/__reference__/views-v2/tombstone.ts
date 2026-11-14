@@ -2,10 +2,10 @@
 // Byte copy of src/views/tombstone.ts as it was before toe-tag-redesign (2026-11-13, post graveyard-ui-polish); imports adjusted to ../../.
 // Used only by the Toe Tag preservation properties (tt1 to tt3) as the Reference_Views.
 // One Tombstone: a native <button> per Grave. All report strings are written as text.
-import type { GradeBand } from "@graveyard-kit/skeleton";
-import { GRADE_INFO, summaryLine } from "@graveyard-kit/skeleton/graveyard";
-import type { Grave } from "@graveyard-kit/skeleton/graveyard";
-import type { ScannedDependency } from "@graveyard-kit/exorcist-npm/report";
+import type { GradeBand } from "@last-rites/skeleton";
+import { GRADE_INFO, summaryLine } from "@last-rites/skeleton/graveyard";
+import type { Grave } from "@last-rites/skeleton/graveyard";
+import type { ScannedDependency } from "@last-rites/exorcist-npm/report";
 import { MAX_TOMBSTONE_TEXT } from "../../constants.js";
 import { h } from "../../dom/h.js";
 import type { ClassName } from "../../dom/h.js";

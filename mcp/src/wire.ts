@@ -20,7 +20,7 @@ import {
   type Clock,
   type ScanPipeline,
   type Sleep,
-} from "@graveyard-kit/exorcist-npm/programmatic";
+} from "@last-rites/exorcist-npm/programmatic";
 import { loadCandidateBusted } from "./candidate-loader.js";
 import type { ExorcistDeps, FsProbe } from "./deps.js";
 import { createLocalRepoFiles } from "./local-files.js";

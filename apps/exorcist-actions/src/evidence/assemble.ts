@@ -2,10 +2,10 @@
 // outcomes to an EvidenceResult, with the structure of the npm `assembleResult`. No I/O, no clock: months
 // come from the injected `now`. Entries are built by iterating SIGNAL_NAMES, so the result never depends on
 // the order in which the sources completed.
-import { SIGNAL_NAMES } from "@graveyard-kit/skeleton";
-import type { PackageSignals, SignalName, SignalValue } from "@graveyard-kit/skeleton";
-import { fetchGithub, monthsSince, osvListUrl, reasonMessage, repoPageUrl } from "@graveyard-kit/exorcist-npm/programmatic";
-import type { EvidenceStage, Outcome, ReplacementInfo } from "@graveyard-kit/exorcist-npm/programmatic";
+import { SIGNAL_NAMES } from "@last-rites/skeleton";
+import type { PackageSignals, SignalName, SignalValue } from "@last-rites/skeleton";
+import { fetchGithub, monthsSince, osvListUrl, reasonMessage, repoPageUrl } from "@last-rites/exorcist-npm/programmatic";
+import type { EvidenceStage, Outcome, ReplacementInfo } from "@last-rites/exorcist-npm/programmatic";
 import { findReplacement } from "../replacements.js";
 import { manifestPageUrl, releasesPageUrl, tagsPageUrl } from "./urls.js";
 import { runtimeSignal } from "./manifest.js";

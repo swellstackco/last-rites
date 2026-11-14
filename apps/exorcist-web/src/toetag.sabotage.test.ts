@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import fcLib from "fast-check";
 import { describe, expect, it } from "vitest";
-import { FIXED_SEED } from "@graveyard-kit/skeleton/graveyard/testing";
+import { FIXED_SEED } from "@last-rites/skeleton/graveyard/testing";
 import type fc from "fast-check";
 import { checkAsyncProperty, formatAsyncReport } from "./test-support/async-property.js";
 import { build as tt1 } from "./test-support/properties/tt1.js";
